@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>围栏报警</title>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=YhvjIiI9S1IQk8YQIram92rSwp6eZGIf"></script>
+    <!--加载鼠标绘制工具-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/GeoUtils/1.2/src/GeoUtils_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <script src="../../js/jquery-1.10.2.js"></script>
+    <!--加载检索信息窗口-->
+    <script type="text/javascript" src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+    <link href="../../css/bootstrap.css" rel="stylesheet" />
+    <link href="../../css/font-awesome.css" rel="stylesheet" />
+    <link href="../../js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="../../css/custom-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../js/Lightweight-Chart/cssCharts.css">
+    <style>
+        .black_overlay{ display: none; position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background-color: black; z-index:1001; -moz-opacity: 0.6; opacity:.60; filter: alpha(opacity=60); }
+        .white_content { display: none; position: absolute; top: 0%; left: 5%; width: 90%; height:60%; padding: 16px; border: 5px solid orange; background-color: white; z-index:1002; overflow: auto; }
+        .closeform{position:absolute;width:50px;height:50px;right:0px;top:0px;}
+        .title{font-size: 35px;text-align:center;vertical-align: text-top;}
+    </style>
+</head>
+
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="index.html" th:href="@{/index}"><strong>物流监控平台</strong></a>
+
+            <div id="sideNav" href=""><!--<i class="fa fa-caret-right"></i>--></div>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="adduser.html" th:href="@{/admin/user/add}"><i class="fa fa-edit fa-fw"></i>添加</a>
+                    </li>
+                    <li><a href="#" th:href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i>登出</a>
+                    </li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+        </ul>
+    </nav>
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+                <li>
+                    <a  href="index.html" th:href="@{/index}"><i class="fa fa-dashboard"></i> 监控中心</a>
+                    <a class="" href="history.html" th:href="@{/car/trajectory}"><i class="fa fa-dashboard"></i> 历史轨迹</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-sitemap"></i> 系统设置<span class="fa arrow"></span></a>
+                    <ul  class="nav nav-second-level">
+                        <li>
+                            <a href="car.html" th:href="@{/admin/car}">车辆管理</a>
+                        </li>
+                        <li>
+                            <a href="unit.html" th:href="@{/admin/unit}">单位管理</a>
+                        </li>
+                        <li>
+                            <a  href="user.html" th:href="@{/admin/user}">用户管理</a>
+                        </li>
+                        <li>
+                            <a  href="psw.html" th:href="@{/admin/user/update}">密码管理</a>
+                        </li>
+                        <li>
+                            <a  href="syslog.html" th:href="@{/admin/log}">系统日志</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="active-menu"><i class="fa fa-sitemap"></i> 报警设置<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="active-menu" href="enclosure.html" th:href="@{/warn/enclosure}">围栏报警</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+	<div id="page-wrapper">
+		<br />
+		<b th:text="#{enclosure.title}">enclosure warn</b>
+		<br />
+		<br />
+		<br />
+			<input type="text" /><button th:text="#{search}">search</button>
+			<button onclick="showform()" th:text="#{add}">add</button>
+            <form action="#" th:action="@{/warn/enclosure/delete}" th:object="${ids}" method="post">
+                <button th:text="#{delete}">delete</button>
+			<div style="width:100%;height: 500px;" >
+					<table id="massage" class="table table-hover">
+						<thead>
+                            <th th:text="#{check}">Check Box</th>
+							<th th:text="#{enclosure.name}">Name</th>
+							<th th:text="#{enclosure.warntype}">Warn Type</th>
+							<th th:text="#{enclosure.user}">User Name</th>
+							<th th:text="#{enclosure.adddate}">Add Date</th>
+						</thead>
+						<tbody>
+							<tr th:each="enc : ${allEnclosures}">
+								<td><input type="checkbox" th:field="*{list}" th:value="${enc.id}"></td>
+								<td th:text="${enc.name}">name</td>
+								<td th:text="#{|enclosure.warntype.${enc.enclosurewarntype}|}">warn type</td>
+								<td th:text="${enc.user.name}">user name</td>
+								<td th:if="${enc.adddate}" th:text="${#dates.format(enc.adddate,'yyyy-MM-dd')}">add date</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+                </form>
+        <div id="light" class="white_content">
+            <p class="title">围栏管理</p>
+            <img  style="cursor:pointer" href="" src="../../images/close.jpg" class="closeform" onclick="closeform()" />
+            <br />
+            <br />
+            <div class="cars" style="height:80%;width: 30%;border: 1px solid;float: left;background-color: #b2dba1;">
+                <b th:each="car,state : ${allCars}">
+                    <input type="checkbox" th:value="${car.card}" th:id="${state.index}"><b th:text="${car.name}">终端名称</b>
+                    <br />
+                </b>
+            </div>
+            <div style="width:100%;height:20%;background-color: #b2dba1;float: top;">
+                    <br />
+                        <b>围栏名称:</b><input type="text" id="name" value="围栏"/>
+                        <b>生效日期:</b><input type="date" id="valid" value="2018-06-14" />
+                        <b>到期日期:</b><input type="date" id="invalid" value="2018-06-14"  />
+                    <br />
+                        <b>最高速度:</b><input type="text" id="speed" value="120">
+                        <b>开始时间:</b><input type="time" id="start" step="01" value="00:00:00">
+                        <b>结束时间:</b><input type="time" id="stop" step="01" value="23:59:59">
+                    <br />
+                        <b>围栏类型:</b><select id="warntype">
+                                        <option th:each="type : ${allWarnTypes}"
+                                        th:value="${type}"
+                                        th:text="#{${'enclosure.warntype.' + type}}">type</option>
+                                        </select>
+                        <b id="tip" style="color: #d91518;"></b>
+            </div>
+            <div  style="width:70%;height:60%;border:solid 1px;font-size:12px;float: right;" id="allmap">
+                <div id="map" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+            </div>
+            <div id="result" style="margin-left: 80%">
+                <input type="button" value="清除" onclick="clearAll()"/>
+                <button type="submit" id="addenclosure" onclick="addenclosure()">保存围栏</button>
+            </div>
+        </div>
+        <div id="fade" class="black_overlay">
+        </div>
+    </div>
+
+
+</div>
+<script src="../../js/enclosure.js"></script>
+<script src="../../js/jquery-1.10.2.js"></script>
+<script src="../../js/bootstrap.min.js"></script>
+<script src="../../js/jquery.metisMenu.js"></script>
+<script src="../../js/morris/raphael-2.1.0.min.js"></script>
+<script src="../../js/morris/morris.js"></script>
+<script src="../../js/easypiechart.js"></script>
+<script src="../../js/easypiechart-data.js"></script>
+<script src="../../js/Lightweight-Chart/jquery.chart.js"></script>
+<script src="../../js/custom-scripts.js"></script>
+</body>
+
+</html>

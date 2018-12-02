@@ -1,0 +1,62 @@
+2018-11-05 10:49:34.924 [main] ERROR o.s.b.diagnostics.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8001 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8001 or configure this application to listen on another port.
+
+2018-11-05 10:50:04.309 [DiscoveryClient-CacheRefreshExecutor-0] ERROR com.netflix.discovery.DiscoveryClient - Cannot fetch registry from server
+java.lang.IllegalStateException: org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext@5dcb4f5f has been closed already
+	at org.springframework.context.support.AbstractApplicationContext.assertBeanFactoryActive(AbstractApplicationContext.java:1071)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1086)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.getTargetBean(ApplicationListenerMethodAdapter.java:288)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:258)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:180)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:142)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:400)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:354)
+	at org.springframework.cloud.netflix.eureka.CloudEurekaClient.onCacheRefreshed(CloudEurekaClient.java:112)
+	at com.netflix.discovery.DiscoveryClient.fetchRegistry(DiscoveryClient.java:981)
+	at com.netflix.discovery.DiscoveryClient.refreshRegistry(DiscoveryClient.java:1473)
+	at com.netflix.discovery.DiscoveryClient$CacheRefreshThread.run(DiscoveryClient.java:1440)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-11-05 10:50:34.334 [DiscoveryClient-CacheRefreshExecutor-0] ERROR com.netflix.discovery.DiscoveryClient - Cannot fetch registry from server
+java.lang.IllegalStateException: org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext@5dcb4f5f has been closed already
+	at org.springframework.context.support.AbstractApplicationContext.assertBeanFactoryActive(AbstractApplicationContext.java:1071)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1086)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.getTargetBean(ApplicationListenerMethodAdapter.java:288)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:258)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:180)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:142)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:400)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:354)
+	at org.springframework.cloud.netflix.eureka.CloudEurekaClient.onCacheRefreshed(CloudEurekaClient.java:112)
+	at com.netflix.discovery.DiscoveryClient.fetchRegistry(DiscoveryClient.java:981)
+	at com.netflix.discovery.DiscoveryClient.refreshRegistry(DiscoveryClient.java:1473)
+	at com.netflix.discovery.DiscoveryClient$CacheRefreshThread.run(DiscoveryClient.java:1440)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at java.lang.Thread.run(Thread.java:748)
+2018-11-05 10:51:35.784 [reactor-http-nio-3] ERROR o.s.web.server.adapter.HttpWebHandlerAdapter - Unhandled failure: 你的主机中的软件中止了一个已建立的连接。, response already set (status=null)
+2018-11-05 10:51:46.335 [reactor-http-nio-2] ERROR o.s.web.server.adapter.HttpWebHandlerAdapter - Unhandled failure: 你的主机中的软件中止了一个已建立的连接。, response already set (status=null)
+2018-11-05 10:51:46.401 [reactor-http-nio-2] ERROR o.s.web.server.adapter.HttpWebHandlerAdapter - Unhandled failure: 你的主机中的软件中止了一个已建立的连接。, response already set (status=null)
+2018-11-05 10:52:05.346 [reactor-http-nio-4] ERROR o.s.web.server.adapter.HttpWebHandlerAdapter - Unhandled failure: 你的主机中的软件中止了一个已建立的连接。, response already set (status=null)

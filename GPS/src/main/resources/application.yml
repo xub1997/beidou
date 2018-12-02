@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: gps-beidou
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:mysql://localhost:3306/gps?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+  messages:
+    encoding: UTF-8
+    basename: i18n/message
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    #向eureka注册服务
+    register-with-eureka: true
+    #服务检索
+    fetch-registry: true
+    service-url:
+      #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址（单机）。
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    #每隔10秒发送心跳
+    leaseRenewalIntervalInSeconds: 10
+    #检测链接
+    health-check-url-path: /actuator/health
+    #状态链接
+    statusPageUrlPath: /swagger-ui.html
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+
+info:
+  app:
+    name: "@project.name@"  #从pom.xml中获取,pom.xml中需build中加入插件spring-boot-maven-plugin
+    description: "@project.description@"
+    version: "@project.version@"
+    author: "许b"

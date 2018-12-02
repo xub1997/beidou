@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>基于北斗的物流监控平台</title>
+		<link href="../../css/bootstrap.css" rel="stylesheet" />
+		<link href="../../css/font-awesome.css" rel="stylesheet" />
+		<link href="../../js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+		<link href="../../css/custom-styles.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../js/Lightweight-Chart/cssCharts.css">
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ijFmea7PT5GlBEsq7CbHNSTQALgPV7cZ"></script>
+		<script src="../../js/jquery-1.10.2.js"></script>
+        <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+		<script src="../../js/trajectory.js"></script>
+	</head>
+    <style type="text/css">
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+
+        #controller {
+            width: 100%;
+            border-bottom: 3px outset;
+            height: 80px;
+            filter: alpha(Opacity=100);
+            -moz-opacity: 1;
+            opacity: 1;
+            z-index: 10000;
+        }
+
+        #container {
+            height: 100%
+        }
+    </style>
+
+
+    <body onload="init();">
+		<div id="wrapper">
+			<nav class="navbar navbar-default top-navbar" role="navigation">
+				<div class="navbar-header">
+
+					<a class="navbar-brand" href="index.html" th:href="@{/index}"><strong>物流监控平台</strong></a>
+
+					<div id="sideNav" href="">
+						<!--<i class="fa fa-caret-right"></i>--></div>
+				</div>
+
+				<ul class="nav navbar-top-links navbar-right">
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+							<i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-user">
+							<li>
+								<a href="adduser.html" th:href="@{/admin/user/add}"><i class="fa fa-edit fa-fw"></i>添加</a>
+							</li>
+							<li>
+								<a href="#" th:href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i>登出</a>
+							</li>
+						</ul>
+						<!-- /.dropdown-user -->
+					</li>
+				</ul>
+			</nav>
+			<!--/. NAV TOP  -->
+			<nav class="navbar-default navbar-side" role="navigation">
+				<div class="sidebar-collapse">
+					<ul class="nav" id="main-menu">
+						<li>
+							<a class="" href="index.html" th:href="@{/index}"><i class="fa fa-dashboard"></i> 监控中心</a>
+							<a class="active-menu" href="history.html" th:href="@{/car/trajectory}"><i class="fa fa-dashboard"></i> 历史轨迹</a>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-sitemap"></i> 系统设置<span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li>
+									<a href="car.html" th:href="@{/admin/car}">车辆管理</a>
+								</li>
+								<li>
+									<a href="unit.html" th:href="@{/admin/unit}">单位管理</a>
+								</li>
+								<li>
+									<a href="user.html" th:href="@{/admin/user}">用户管理</a>
+								</li>
+								<li>
+									<a href="psw.html" th:href="@{/admin/user/update}">密码管理</a>
+								</li>
+								<li>
+									<a href="syslog.html" th:href="@{/admin/log}">系统日志</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#"><i class="fa fa-sitemap"></i> 报警设置<span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li>
+									<a href="enclosure.html" th:href="@{/warn/enclosure}">围栏报警</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+
+			</nav>
+
+			<div id="page-wrapper">
+				<div style="width: 100%;height: 800px;float: right;">
+					<div id="controller" align="center" class="menu-map">
+						<span>车辆卡号:</span>
+						<input id="card" type="text" value="323">
+						<span>起始时间:</span>
+						<input id="from" type="datetime-local" step="01" value="2018-05-25T00:00:00">
+						<span>结束时间:</span>
+						<input  id="to" type="datetime-local" step="01" value="2018-05-26T00:00:00">
+						<input id="get" type="button" value="绘制轨迹" onclick="get()" />
+						<input id="follow" type="checkbox"><span style="font-size:12px;">画面跟随</span></input>
+						<input id="play" type="button" value="播放" onclick="play()" disabled />
+						<input id="pause" type="button" value="暂停" onclick="pause()" disabled />
+						<input id="reset" type="button" value="重置" onclick="reset()" disabled />
+						<span id="message"></span>
+					</div>
+					<div id="container"></div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../../js/bootstrap.min.js"></script>
+		<script src="../../js/jquery.metisMenu.js"></script>
+		<script src="../../js/morris/raphael-2.1.0.min.js"></script>
+		<script src="../../js/morris/morris.js"></script>
+		<script src="../../js/easypiechart.js"></script>
+		<script src="../../js/easypiechart-data.js"></script>
+		<script src="../../js/Lightweight-Chart/jquery.chart.js"></script>
+		<script src="../../js/custom-scripts.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>添加用户</title>
+    <link href="../../css/bootstrap.css" rel="stylesheet" />
+    <link href="../../css/font-awesome.css" rel="stylesheet" />
+    <link href="../../js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="../../css/custom-styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../js/Lightweight-Chart/cssCharts.css"> 
+
+
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+
+                <a class="navbar-brand" href="index.html" th:href="@{/index}"><strong>物流监控平台</strong></a>
+				
+		<div id="sideNav" href=""><!--<i class="fa fa-caret-right"></i>--></div>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                    	<li><a href="adduser.html" th:href="@{/admin/user/add}"><i class="fa fa-edit fa-fw"></i>添加</a>
+                            <a href="history.html" th:href="@{/car/trajectory}"><i class="fa fa-dashboard"></i> 历史轨迹</a>
+                        </li>
+                        <li><a href="#" th:href="@{/logout}"><i class="fa fa-sign-out fa-fw"></i>登出</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <a  href="index.html" th:href="@{/index}"><i class="fa fa-dashboard"></i> 监控中心</a>
+                    </li>
+                   <li>
+                        <a  href="#"><i class="fa fa-sitemap"></i> 系统设置<span class="fa arrow"></span></a>
+                        <ul  class="nav nav-second-level">
+                            <li>
+                                <a href="car.html" th:href="@{/admin/car}">车辆管理</a>
+                            </li>
+                            <li>
+                                <a href="unit.html" th:href="@{/admin/unit}">单位管理</a>
+                            </li>
+                            <li>
+                                <a href="user.html" th:href="@{/admin/user}">用户管理</a>
+                            </li>
+                            <li>
+                                <a href="psw.html" th:href="@{/admin/user/update}">密码管理</a>
+                            </li>
+                            <li>
+                                <a href="syslog.html" th:href="@{/admin/log}">系统日志</a>
+                            </li>
+                        </ul>
+                   </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap"></i> 报警设置<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="enclosure.html" th:href="@{/warn/enclosure}">围栏报警</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+		<div id="page-wrapper">
+			<br>
+			<form action="#" th:action="@{/admin/user/add}" th:object="${user}" method="post">
+			<br>
+			<p><span style="display:inline-block;width:70px;text-align:right;" th:text="#{user.name}">用户名</span><input type="text" name="" id="" value="" th:field="*{name}"> <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td></p>
+			<p><span style="display:inline-block;width:70px;text-align:right;" th:text="#{user.psw}">密码</span><input type="password" name="" id="" value="" th:field="*{psw}"> <td th:if="${#fields.hasErrors('psw')}" th:errors="*{psw}">Password Error</td></p>
+			<p><span style="display:inline-block;width:70px;text-align:right;">确认密码</span><input type="password" name="" id="" value="" ></p>
+			<p><span style="display:inline-block;width:140px;text-align:right;"></span><button name="" value="" onclick="" class="btn btn-success">保存</button>				
+			</p>
+			</form>
+
+
+       </div>
+    </div>
+
+    <script src="../../js/jquery-1.10.2.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/jquery.metisMenu.js"></script>
+    <script src="../../js/morris/raphael-2.1.0.min.js"></script>
+    <script src="../../js/morris/morris.js"></script>
+	<script src="../../js/easypiechart.js"></script>
+	<script src="../../js/easypiechart-data.js"></script>	
+	<script src="../../js/Lightweight-Chart/jquery.chart.js"></script>
+    <script src="../../js/custom-scripts.js"></script>
+
+</body>
+
+</html>

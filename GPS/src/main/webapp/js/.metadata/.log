@@ -1,0 +1,207 @@
+!SESSION 2018-05-05 20:41:50.570 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_51
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -login -application com.aptana.commandline.launcher.LauncherApplication F:\software\Spring\GPS\src\main\webapp\js\map.js
+Command-line arguments:  -os win32 -ws win32 -arch x86 -login -data   -application com.aptana.commandline.launcher.LauncherApplication F:\software\Spring\GPS\src\main\webapp\js\map.js
+
+!ENTRY com.aptana.commandline.launcher 4 0 2018-05-05 20:41:52.397
+!MESSAGE Stream closed
+!STACK 0
+java.io.IOException: Stream closed
+	at java.io.BufferedReader.ensureOpen(Unknown Source)
+	at java.io.BufferedReader.readLine(Unknown Source)
+	at java.io.BufferedReader.readLine(Unknown Source)
+	at com.aptana.commandline.launcher.server.LauncherServer$CommandLineArgsServer.run(LauncherServer.java:135)
+
+!ENTRY org.eclipse.ui 2 0 2018-05-05 20:41:52.499
+!MESSAGE Warnings while parsing the key bindings from the 'org.eclipse.ui.commands' extension point
+!SUBENTRY 1 org.eclipse.ui 2 0 2018-05-05 20:41:52.499
+!MESSAGE Could not parse key sequence: plug-in='com.pandora.ui', id='org.eclipse.ui.edit.text.contentAssist.proposals', keySequence='Ctrl+Sapce'
+
+!ENTRY com.aptana.commandline.launcher 4 0 2018-05-05 20:41:52.607
+!MESSAGE Stream closed
+!STACK 0
+java.io.IOException: Stream closed
+	at java.io.BufferedReader.ensureOpen(Unknown Source)
+	at java.io.BufferedReader.readLine(Unknown Source)
+	at java.io.BufferedReader.readLine(Unknown Source)
+	at com.aptana.commandline.launcher.server.LauncherServer$CommandLineArgsServer.run(LauncherServer.java:135)
+
+!ENTRY com.aptana.rcp 4 0 2018-05-05 20:41:52.676
+!MESSAGE ********HBuilder正常启动：preStartup********
+
+!ENTRY com.aptana.scripting 4 0 2018-05-05 20:41:54.145
+!MESSAGE (Build null) [ERROR]  An error occurred while parsing scope 'Build–in constant' : Cannot recover from the syntax error
+
+!ENTRY com.aptana.scripting 4 0 2018-05-05 20:41:54.147
+!MESSAGE (Build null) [ERROR]  An error occurred while parsing scope 'library class/type' : Cannot recover from the syntax error
+
+!ENTRY com.aptana.rcp 4 0 2018-05-05 20:41:55.870
+!MESSAGE ---------------------start check----------------------
+
+!ENTRY com.aptana.rcp 4 0 2018-05-05 20:41:55.871
+!MESSAGE check mode
+
+!ENTRY com.aptana.rcp 4 0 2018-05-05 20:41:55.977
+!MESSAGE workspace : file:\F:\software\Spring\GPS\src\main\webapp\js
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:56.353
+!MESSAGE (Build null) [ERROR]  ADB PID:::12632
+
+!ENTRY com.aptana.rcp 4 0 2018-05-05 20:41:56.721
+!MESSAGE ********HBuilder正常启动：postStartup********
+
+!ENTRY com.pandora.rcp.upgrade 4 0 2018-05-05 20:41:56.875
+!MESSAGE (Build null) [ERROR]  HBuilder当前版本: 9.0.2.201803061935
+
+!ENTRY com.aptana.rcp 4 0 2018-05-05 20:41:56.911
+!MESSAGE {hbcallrcptimes=1, allTime=start:null  end:1525524115945, loginPageShowTime=start:null  end:null, 0_beforeRCPTime=start:null  end:1525524110568, 1_beforeLauncherApplicationTime=1584, postEmptyWorkbenchWindowOpened=start:1525524112179  end:null, postWorkbenchWindowLayoutOpened=start:null  end:null, 2_getRunningPortTime=25, 3_startServerTime=2, 4_beforeIdeApplicationTime=0, 4.1_IDEApplication.start=start:null  end:1525524112179, 5_createDisplayTime=62, 6_getRawLocationURITime=start:1525524112241  end:null, 7_beforeCheckInstanceLocationTime=start:null  end:1525524112325, 8_checkInstanceLocationTime=2, 9_initCEF=0, 10_beforeInitialize=253, 11_initialize=86, 12_beforePreStartup=10, 13_preStartup=25, 14_beforePreWindowOpenTime=56, 15_preWindowOpenTime=12, 16_beforePostWindowCreateTime=1346, 17_postWindowCreateTime=101, 18_beforeLockTime=1655, importProjectsFromCodeDirTime=324, 19_LockTime=0, 20_beforePostWindowOpenTime=74, userLoginConnectionTime=start:null  end:null, defaultLoginConnectionTime=start:null  end:null, tokenTime=start:null  end:null, ideReadyTime=-273, activeEditor=com.pandora.ui.startpage.BrowserEditor, outline=false, eclipsestarttime=, hbkillrcptimes=1, hbuilderversion=9.0.2.201803061935, logintype=1, projectNumber=3}
+
+!ENTRY com.pandora.index.store 4 0 2018-05-05 20:41:57.157
+!MESSAGE (Build null) [ERROR]  IndexStoreService started!!!
+
+!ENTRY com.pandora.stats.core 1 0 2018-05-05 20:41:57.182
+!MESSAGE 
+
+!ENTRY com.aptana.editor.css 4 0 2018-05-05 20:41:57.266
+!MESSAGE (Build null) [ERROR]  开始清理css错误marker...
+
+!ENTRY com.aptana.editor.css 4 0 2018-05-05 20:41:57.270
+!MESSAGE (Build null) [ERROR]  清理css错误marker结束
+
+!ENTRY com.pandora.launcher.core 4 0 2018-05-05 20:41:57.378
+!MESSAGE (Build null) [ERROR]  系统找不到指定的文件。
+!STACK 0
+com.sun.jna.platform.win32.Win32Exception: 系统找不到指定的文件。
+	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringValue(Advapi32Util.java:552)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.loadPath(LibraryFinder.java:58)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.<clinit>(LibraryFinder.java:50)
+	at com.pandora.launcher.core.iphone.jna.md.LibraryInstance.getMDLibrary(LibraryInstance.java:15)
+	at com.pandora.launcher.core.iphone.jna.idevice.win.WinDeviceLibrary.<clinit>(WinDeviceLibrary.java:72)
+	at com.pandora.launcher.core.iphone.jna.idevice.DeviceLibraryRegistry.getDeviceLibrary(DeviceLibraryRegistry.java:15)
+	at com.pandora.launcher.core.iphone.IPhoneLauncher.<init>(IPhoneLauncher.java:109)
+	at com.pandora.launcher.core.listener.DeviceStartupListener.earlyStartup(DeviceStartupListener.java:29)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:87)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:66)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$69.run(Workbench.java:2726)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.pandora.launcher.core 4 0 2018-05-05 20:41:57.383
+!MESSAGE (Build null) [ERROR]  系统找不到指定的文件。
+!STACK 0
+com.sun.jna.platform.win32.Win32Exception: 系统找不到指定的文件。
+	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringValue(Advapi32Util.java:552)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.loadPath(LibraryFinder.java:58)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.getMDLibrary(LibraryFinder.java:122)
+	at com.pandora.launcher.core.iphone.jna.md.LibraryInstance.getMDLibrary(LibraryInstance.java:15)
+	at com.pandora.launcher.core.iphone.jna.idevice.win.WinDeviceLibrary.<clinit>(WinDeviceLibrary.java:72)
+	at com.pandora.launcher.core.iphone.jna.idevice.DeviceLibraryRegistry.getDeviceLibrary(DeviceLibraryRegistry.java:15)
+	at com.pandora.launcher.core.iphone.IPhoneLauncher.<init>(IPhoneLauncher.java:109)
+	at com.pandora.launcher.core.listener.DeviceStartupListener.earlyStartup(DeviceStartupListener.java:29)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.runEarlyStartup(EarlyStartupRunnable.java:87)
+	at org.eclipse.ui.internal.EarlyStartupRunnable.run(EarlyStartupRunnable.java:66)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.Workbench$69.run(Workbench.java:2726)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.pandora.launcher.core 4 0 2018-05-05 20:41:57.407
+!MESSAGE (Build null) [ERROR]  添加Android设备监听......
+
+!ENTRY com.pandora.launcher.core 4 0 2018-05-05 20:41:57.601
+!MESSAGE (Build null) [ERROR]  系统找不到指定的文件。
+!STACK 0
+com.sun.jna.platform.win32.Win32Exception: 系统找不到指定的文件。
+	at com.sun.jna.platform.win32.Advapi32Util.registryGetStringValue(Advapi32Util.java:552)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.loadPath(LibraryFinder.java:58)
+	at com.pandora.launcher.core.iphone.jna.LibraryFinder.getMDLibrary(LibraryFinder.java:122)
+	at com.pandora.launcher.core.iphone.jna.md.LibraryInstance.getMDLibrary(LibraryInstance.java:15)
+	at com.pandora.launcher.core.iphone.jna.idevice.win.WinDeviceLibrary.addNotificationHandler(WinDeviceLibrary.java:77)
+	at com.pandora.launcher.core.iphone.IPhoneLauncher$5.run(IPhoneLauncher.java:799)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY com.pandora.launcher.core 4 0 2018-05-05 20:41:57.624
+!MESSAGE (Build null) [ERROR]  library is null!!!!!
+
+!ENTRY com.aptana.core 4 0 2018-05-05 20:41:57.715
+!MESSAGE (Build null) [ERROR]  *********索引不存在触发 FULL BUILD **********C:/Users/fff/Documents/HBuilderProjects/1
+
+!ENTRY com.aptana.core 4 0 2018-05-05 20:41:57.746
+!MESSAGE (Build null) [ERROR]  *********索引不存在触发 FULL BUILD **********C:/Users/fff/Documents/HBuilderProjects/1232
+
+!ENTRY com.aptana.core 4 0 2018-05-05 20:41:57.747
+!MESSAGE (Build null) [ERROR]  *********索引不存在触发 FULL BUILD **********C:/Users/fff/Documents/HBuilderProjects/HelloHBuilder
+
+!ENTRY com.aptana.parsing 4 0 2018-05-05 20:41:58.109
+!MESSAGE (Build null) [ERROR]  无效的属性类型“.webkit.SearchBoxImpl@4135441”属性“searchBoxJavaBridge_”
+
+!ENTRY com.aptana.rcp 4 0 2018-05-05 20:41:58.529
+!MESSAGE (Build null) [ERROR]  For input string: "start:null  end:1525524115945"
+!STACK 0
+java.lang.NumberFormatException: For input string: "start:null  end:1525524115945"
+	at java.lang.NumberFormatException.forInputString(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at java.lang.Integer.parseInt(Unknown Source)
+	at com.aptana.rcp.ReadyFileUtils.postStartInfoStats(ReadyFileUtils.java:650)
+	at com.aptana.rcp.ReadyFileUtils$CheckFileTask.run(ReadyFileUtils.java:268)
+	at java.util.TimerThread.mainLoop(Unknown Source)
+	at java.util.TimerThread.run(Unknown Source)
+
+!ENTRY com.aptana.rcp 4 0 2018-05-05 20:41:58.531
+!MESSAGE cancel lock
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.547
+!MESSAGE (Build null) [ERROR]  ADB PID:::12632
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.597
+!MESSAGE (Build null) [ERROR]  ADB PID:::12632
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.702
+!MESSAGE (Build null) [ERROR]  ===Caption  ExecutablePath
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.702
+!MESSAGE (Build null) [ERROR]  ===adb.exe  E:\安装包\HBuilder_8.8.0_windows\HBuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.703
+!MESSAGE (Build null) [ERROR]  exe===adb.exe   path===e:\安装包\hbuilder_8.8.0_windows\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.735
+!MESSAGE (Build null) [ERROR]  ADB Path===e:\安装包\hbuilder_8.8.0_windows\hbuilder\tools\adbs\adb.exe
+
+!ENTRY org.eclipse.equinox.p2.repository 4 0 2018-05-05 20:41:58.748
+!MESSAGE E:\安装包\HBuilder_8.8.0_windows\HBuilder\p2\org.eclipse.equinox.p2.repository\cache\content-561804826.jar 是合法的jar
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.896
+!MESSAGE (Build null) [ERROR]  ===Caption  ExecutablePath
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.896
+!MESSAGE (Build null) [ERROR]  ===adb.exe  E:\安装包\HBuilder_8.8.0_windows\HBuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.897
+!MESSAGE (Build null) [ERROR]  exe===adb.exe   path===e:\安装包\hbuilder_8.8.0_windows\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.906
+!MESSAGE (Build null) [ERROR]  ADB Path===e:\安装包\hbuilder_8.8.0_windows\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.983
+!MESSAGE (Build null) [ERROR]  ===Caption  ExecutablePath
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.983
+!MESSAGE (Build null) [ERROR]  ===adb.exe  E:\安装包\HBuilder_8.8.0_windows\HBuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.984
+!MESSAGE (Build null) [ERROR]  exe===adb.exe   path===e:\安装包\hbuilder_8.8.0_windows\hbuilder\tools\adbs\adb.exe
+
+!ENTRY com.pandora.tools.android 4 0 2018-05-05 20:41:58.988
+!MESSAGE (Build null) [ERROR]  ADB Path===e:\安装包\hbuilder_8.8.0_windows\hbuilder\tools\adbs\adb.exe
+
+!ENTRY org.eclipse.equinox.p2.repository 4 0 2018-05-05 20:41:59.106
+!MESSAGE E:\安装包\HBuilder_8.8.0_windows\HBuilder\p2\org.eclipse.equinox.p2.repository\cache\content1190459293.jar 是合法的jar
+
+!ENTRY com.aptana.scripting 4 0 2018-05-05 20:42:02.254
+!MESSAGE (Build null) [ERROR]  loadBundles异常
+!STACK 0
+org.jruby.exceptions.RaiseException: (Errno::EINVAL) =::
+	at org.jruby.RubyHash.replace(org/jruby/RubyHash.java:1623)

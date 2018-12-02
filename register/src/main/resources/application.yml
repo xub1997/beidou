@@ -1,0 +1,35 @@
+spring:
+  #应用名
+  application:
+    name: register
+
+#端口
+server:
+  port: 8761
+
+eureka:
+  #eureka服务端的实例名称
+  instance:
+    hostname: localhost
+  client:
+    #false表示不向注册中心注册自己
+    registerWithEureka: false
+    #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    fetchRegistry: false
+    #单机 defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    #关闭自我保护机制
+    enable-self-preservation: false
+    # 每隔10s扫描服务列表，移除失效服务
+    eviction-interval-timer-in-ms: 10000
+
+
+info:
+  app:
+    name: "@project.name@"  #从pom.xml中获取,pom.xml中需build中加入插件spring-boot-maven-plugin
+    description: "@project.description@"
+    version: "@project.version@"
+    author: "许b"
