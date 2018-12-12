@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Service
 public class UserService {
-    private static final String salt="asbd231432u4bcuiQOIW343JQNDU213!#……*&（+++";
+
 
     @Autowired
     private UserMapper userMapper;
@@ -26,6 +26,7 @@ public class UserService {
         if(userMapper.judgeUsername(user.getUsername())==null){
             user.setCreatedate(StringUtil.dateToString(new Date()));
             user.setModifydate(StringUtil.dateToString(new Date()));
+            String salt=UUID.randomUUID().toString();
             user.setSalt(salt);
             user.setPwd(StringUtil.encryptByMD5(user.getPwd()+salt));
             if(userMapper.insert(user)>0&&true){

@@ -1,4 +1,4 @@
-﻿package com.beidou.gateway.config;
+package com.beidou.gateway.config;
 
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -17,7 +17,7 @@ import org.crazycake.shiro.RedisSessionDAO;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.servlet.Filter;
+
 
 @Configuration
 public class ShiroConfig {

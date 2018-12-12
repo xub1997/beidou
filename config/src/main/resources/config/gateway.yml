@@ -2,7 +2,16 @@ spring:
   #应用名
   application:
     name: gateway
-
+  redis:
+      host: localhost
+      port: 6379
+      jedis:
+        pool:
+          max-idle: 8
+          min-idle: 0
+          max-active: 8
+          max-wait: -1
+      timeout: 0
 server:
   #端口
   port: 7000
@@ -85,3 +94,4 @@ info:
 mybatis:
   typeAliasesPackage: com.beidou.gateway.entity
   mapperLocations: classpath:mapper/*.xml
+

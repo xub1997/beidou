@@ -36,6 +36,12 @@ public class MyShiroRealm extends AuthorizingRealm {
         String username = token.getUsername();
         String password = String.valueOf(token.getPassword());
 
+        try{
+            // 密码 BASE64解密
+            password=new String(StringUtil.decryptByBASE64(password));
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         // 从数据库获取对应用户名密码的用户
         User user = userService.login(username);
         if(user==null){

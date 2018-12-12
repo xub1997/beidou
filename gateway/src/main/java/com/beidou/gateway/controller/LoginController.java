@@ -25,9 +25,6 @@ public class LoginController {
 
     private Logger logger= LoggerFactory.getLogger(this.getClass());
 
-
-    private static final String salt="asbd231432u4bcuiQOIW343JQNDU213!#……*&（+++";
-
     private static final String CODE_KEY = "gifCode";
     private static final int width=150;
     private static final int height=40;
@@ -39,7 +36,7 @@ public class LoginController {
     @SysLogger("用户登录")
     @PostMapping("/login")
     public ResponseMsg login(@RequestParam("username")String username,@RequestParam("pwd")String pwd ,@RequestParam("code")String code,@RequestParam(value = "rememberMe",defaultValue = "false")boolean rememberMe){
-        if (!StringUtil.isEmpty(code)) {
+        if (StringUtil.isEmpty(code)) {
             return ResponseMsg.Error("验证码不能为空！");
         }
         Session session = SecurityUtils.getSubject().getSession();
@@ -47,21 +44,31 @@ public class LoginController {
         if (!code.equalsIgnoreCase(sessionCode)) {
             return ResponseMsg.Error("验证码错误！");
         }
-        // 密码 MD5 加密
-        pwd=StringUtil.encryptByMD5(pwd+salt);
-        UsernamePasswordToken token = new UsernamePasswordToken(username, pwd, rememberMe);
-        try {
-            Subject subject = SecurityUtils.getSubject();
-            if (subject != null)
-                subject.logout();
-            SecurityUtils.getSubject().login(token);
+        if(!StringUtil.isEmpty(pwd)&&!StringUtil.isEmpty(username)){
+            try{
+                // 密码 BASE64加密(两次加密)
+                pwd=StringUtil.encryptByBASE64(pwd.getBytes());
+                pwd=StringUtil.encryptByBASE64(pwd.getBytes());
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            UsernamePasswordToken token = new UsernamePasswordToken(username, pwd, rememberMe);
+            try {
+                Subject subject = SecurityUtils.getSubject();
+                if (subject != null)
+                    subject.logout();
+                SecurityUtils.getSubject().login(token);
 
-            return ResponseMsg.Success("登录成功！");
-        } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
-            return ResponseMsg.Error(e.getMessage());
-        } catch (AuthenticationException e) {
-            return ResponseMsg.Error("登录失败！");
+                return ResponseMsg.Success("登录成功！",token);
+            } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
+                return ResponseMsg.Error(e.getMessage());
+            } catch (AuthenticationException e) {
+                return ResponseMsg.Error("登录失败！");
+            }
+        }else{
+            return ResponseMsg.Error("请输入用户名跟密码");
         }
+
     }
 
     @SysLogger("获取验证码")
