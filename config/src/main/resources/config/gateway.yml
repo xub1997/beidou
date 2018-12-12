@@ -82,3 +82,6 @@ info:
     version: "@project.version@"
     author: "许b"
 
+mybatis:
+  typeAliasesPackage: com.beidou.gateway.entity
+  mapperLocations: classpath:mapper/*.xml

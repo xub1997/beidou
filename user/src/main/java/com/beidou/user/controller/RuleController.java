@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class RuleController {
     @Autowired
     private RuleService ruleService;
 
+    @RequiresPermissions("rule:create")
     @SysLogger("添加权限信息")
     @ApiOperation(value="添加权限信息", notes="添加权限信息")
     @PostMapping(value = "/rule")
@@ -30,6 +32,8 @@ public class RuleController {
     }
 
 
+
+    @RequiresPermissions("rule:read")
     @SysLogger("获取id对应的权限信息")
     @ApiOperation(value="获取id对应的权限信息", notes="获取id对应的权限信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -41,6 +45,7 @@ public class RuleController {
     }
 
 
+    @RequiresPermissions("rule:update")
     @SysLogger("更新id对应的权限信息")
     @ApiOperation(value="更新id对应的权限信息", notes="更新id对应的权限信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -52,6 +57,7 @@ public class RuleController {
     }
 
 
+    @RequiresPermissions("rule:delete")
     @SysLogger("删除id对应的权限信息")
     @ApiOperation(value="删除id对应的权限信息", notes="删除id对应的权限信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -81,6 +87,7 @@ public class RuleController {
     }
 
 
+    @RequiresPermissions("rules:read")
     @SysLogger("获取权限信息列表")
     @ApiOperation(value="获取权限信息列表", notes="获取权限信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -91,6 +98,7 @@ public class RuleController {
         return ruleService.getList(pageNum);
     }
 
+    @RequiresPermissions("roleRule:read")
     @SysLogger("获取角色对应权限")
     @ApiOperation(value="获取角色对应权限", notes="获取角色对应权限")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -102,6 +110,7 @@ public class RuleController {
     }
 
 
+    @RequiresPermissions("rule:search")
     @SysLogger("查找权限")
     @ApiOperation(value="查找权限", notes="查找权限")// 使用该注解描述接口方法信息
     @ApiImplicitParams({

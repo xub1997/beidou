@@ -15,8 +15,17 @@ public class Rule {
     @ApiModelProperty(value="权限描述", hidden=false, required=true, dataType="String")
     private String description;
 
+    @ApiModelProperty(value="类型 0菜单 1按钮", hidden=false, required=true, dataType="String")
+    private String type;
+
+    @ApiModelProperty(value="权限", hidden=false, required=true, dataType="String")
+    private String permissions;
+
     @ApiModelProperty(value="权限url", hidden=false, required=true, dataType="String")
     private String url;
+
+    @ApiModelProperty(value="排序", hidden=false, required=true, dataType="Integer")
+    private Integer ordernum;
 
     @ApiModelProperty(value="父级id", hidden=false, required=true, dataType="String")
     private Integer pid;
@@ -81,5 +90,29 @@ public class Rule {
 
     public void setModifydate(String modifydate) {
         this.modifydate = modifydate == null ? null : modifydate.trim();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
+    }
+
+    public Integer getOrdernum() {
+        return ordernum;
+    }
+
+    public void setOrdernum(Integer ordernum) {
+        this.ordernum = ordernum;
     }
 }

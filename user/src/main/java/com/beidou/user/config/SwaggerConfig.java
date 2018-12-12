@@ -41,7 +41,7 @@ public class SwaggerConfig {
     @Bean
     UiConfiguration uiConfig() {
         return new UiConfiguration(null, "list", "alpha", "schema",
-                UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS, false, true, 60000L);
+                UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS, true, true, 60000L);
     }
 
 }

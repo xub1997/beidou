@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,14 +23,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+
+    @RequiresPermissions("user:create")
     @SysLogger("添加用户信息")
-    @ApiOperation(value="添加用户信息", notes="添加用户信息")
+    @ApiOperation(value="添加用户信息", notes="添加用户信息",produces ="multipart/form-data")
     @PostMapping(value = "/user")
     public ResponseMsg insert(User user){
         return userService.insert(user);
     }
 
 
+    @RequiresPermissions("user:read")
     @SysLogger("获取id对应的用户信息")
     @ApiOperation(value="获取id对应的用户信息", notes="获取id对应的用户信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -41,10 +45,11 @@ public class UserController {
     }
 
 
+    @RequiresPermissions("user:update")
     @SysLogger("更新id对应的用户信息")
     @ApiOperation(value="更新id对应的用户信息", notes="更新id对应的用户信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int", paramType="path")
+            @ApiImplicitParam(name = "user", value = "User", required = true, dataType = "User", paramType="path")
     })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
     @PutMapping(value="/user/{id}")
     public ResponseMsg updateById(User user){
@@ -52,6 +57,7 @@ public class UserController {
     }
 
 
+    @RequiresPermissions("user:delete")
     @SysLogger("删除id对应的用户信息")
     @ApiOperation(value="删除id对应的用户信息", notes="删除id对应的用户信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -80,7 +86,7 @@ public class UserController {
         }
     }
 
-
+    @RequiresPermissions("users:read")
     @SysLogger("获取用户信息列表")
     @ApiOperation(value="获取用户信息列表", notes="获取用户信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -91,7 +97,7 @@ public class UserController {
         return userService.getList(pageNum);
     }
 
-
+    @RequiresPermissions("userCom:read")
     @SysLogger("获取用户信息列表(对应公司)")
     @ApiOperation(value="获取用户信息列表(对应公司)", notes="获取用户信息列表（对应公司）")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -104,6 +110,7 @@ public class UserController {
         return userService.getComUserList(pageNum,comId);
     }
 
+    @RequiresPermissions("user:searchUser")
     @SysLogger("查找用户")
     @ApiOperation(value="查找用户", notes="查找用户")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -115,6 +122,7 @@ public class UserController {
         return userService.searchByUserName(pageNum,username);
     }
 
+    @RequiresPermissions("user:searchComUser")
     @SysLogger("查找公司用户")
     @ApiOperation(value="查找公司用户", notes="查找公司用户")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -127,6 +135,7 @@ public class UserController {
         return userService.searchByUserNameAndComId(pageNum,username,comId);
     }
 
+
     @SysLogger("判断用户名重复")
     @ApiOperation(value="判断用户名重复", notes="判断用户名重复")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -134,7 +143,11 @@ public class UserController {
     })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
     @GetMapping(value="/user/judgeUserName")
     public ResponseMsg judgeUserName(@RequestParam(value = "username")String username ){
-        return userService.judgeUsername(username);
+        if(userService.judgeUsername(username)==null&&true){
+            return ResponseMsg.Success("用户名可用");
+        }else{
+            return ResponseMsg.Error("用户名已存在");
+        }
     }
 
     @SysLogger("修改密码")
@@ -148,5 +161,6 @@ public class UserController {
     public ResponseMsg modifyPwd(@RequestParam(value = "userId")Integer userId ,@RequestParam(value = "oldPwd")String oldPwd,@RequestParam(value = "newPwd")String newPwd){
         return userService.modifyPwd(userId,oldPwd,newPwd);
     }
+
 
 }

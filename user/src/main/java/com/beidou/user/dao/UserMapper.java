@@ -48,4 +48,7 @@ public interface UserMapper {
     //用户名查重
     User judgeUsername(String username);
 
+    //查询用户角色、权限（登录用）
+    User login(@Param("username")String username);
+
 }

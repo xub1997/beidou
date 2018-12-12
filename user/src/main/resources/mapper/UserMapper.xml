@@ -4,11 +4,12 @@
   <resultMap id="BaseResultMap" type="com.beidou.user.entity.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="createDate" jdbcType="VARCHAR" property="createdate" />
     <result column="modifyDate" jdbcType="VARCHAR" property="modifydate" />
     <result column="avatarUrl" jdbcType="VARCHAR" property="avatarurl" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="age" jdbcType="INTEGER" property="age" />
@@ -18,15 +19,16 @@
     <result column="job" jdbcType="VARCHAR" property="job" />
     <result column="deptId" jdbcType="INTEGER" property="deptid" />
     <result column="comId" jdbcType="INTEGER" property="comid" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <!--<resultMap id="userMap" type="com.beidou.user.entity.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
+  <resultMap id="userMap" type="com.beidou.user.entity.User">
     <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
     <result column="createDate" jdbcType="VARCHAR" property="createdate" />
     <result column="modifyDate" jdbcType="VARCHAR" property="modifydate" />
     <result column="avatarUrl" jdbcType="VARCHAR" property="avatarurl" />
-    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="age" jdbcType="INTEGER" property="age" />
@@ -36,19 +38,27 @@
     <result column="job" jdbcType="VARCHAR" property="job" />
     <result column="deptId" jdbcType="INTEGER" property="deptid" />
     <result column="comId" jdbcType="INTEGER" property="comid" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
     <collection property="roles" ofType="com.beidou.user.entity.Role">
-      <id column="id" jdbcType="INTEGER" property="id" />
-      <result column="roleName" jdbcType="VARCHAR" property="rolename" />
-      <result column="description" jdbcType="VARCHAR" property="description" />
+      <id column="oid" jdbcType="INTEGER" property="id" />
+      <result property="rolename" column="rolename"/>
+      <result property="description" column="odescription"/>
+      <result property="createdate" column="ocreatedate"/>
+      <result property="modifydate" column="omodifydate"/>
       <collection property="rules" ofType="com.beidou.user.entity.Rule">
-        <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="ruleName" jdbcType="VARCHAR" property="rulename" />
-        <result column="description" jdbcType="VARCHAR" property="description" />
-        <result column="url" jdbcType="VARCHAR" property="url" />
-        <result column="pid" jdbcType="INTEGER" property="pid" />
+        <id column="rid" jdbcType="INTEGER" property="id" />
+        <result property="rulename" column="rulename"/>
+        <result property="description" column="rdescription"/>
+        <result column="rtype" jdbcType="VARCHAR" property="type" />
+        <result column="rpermissions" jdbcType="VARCHAR" property="permissions" />
+        <result column="rurl" jdbcType="VARCHAR" property="url" />
+        <result column="rorderNum" jdbcType="INTEGER" property="ordernum" />
+        <result column="rpid" jdbcType="INTEGER" property="pid" />
+        <result property="createdate" column="rcreatedate"/>
+        <result property="modifydate" column="rmodifydate"/>
       </collection>
     </collection>
-  </resultMap>-->
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -108,8 +118,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, pwd, createDate, modifyDate, avatarUrl, status, name, phone, age, sex, 
-    address, email, job, deptId, comId
+    id, username, salt, pwd, createDate, modifyDate, avatarUrl, status, name, phone, 
+    age, sex, address, email, job, deptId, comId, remark
+  </sql>
+  <sql id="Base_Column_List_findByUsername">
+    u.id, u.username, u.salt,u.pwd, u.createDate, u.modifyDate, u.avatarUrl, u.status, u.name, u.phone, u.age, u.sex,
+    u.address, u.email, u.job, u.deptId, u.comId,u.remark,o.id as oid,o.rolename,o.description as odescription,o.createdate as ocreatedate,o.modifydate as omodifydate,r.id as rid,r.rulename,r.description as rdescription,r.type as rtype,r.permissions as rpermissions,r.url as rurl,r.orderNum as rorderNum,r.pid as rpid,r.createdate as rcreatedate,r.modifydate as rmodifydate
   </sql>
   <select id="selectByExample" parameterType="com.beidou.user.entity.UserExample" resultMap="BaseResultMap">
     select
@@ -149,6 +163,15 @@
     from tb_user
     where username = #{username,jdbcType=VARCHAR}
   </select>
+  <select id="login" parameterType="java.lang.String" resultMap="userMap">
+    SELECT
+    <include refid="Base_Column_List_findByUsername" />
+    FROM tb_user u LEFT JOIN tb_user_role ur on u.id=ur.userid
+    LEFT  JOIN tb_role o on ur.roleid=o.id
+    LEFT  JOIN tb_role_rule ou on o.id=ou.roleid
+    LEFT  JOIN tb_rule r on r.id=ou.ruleid
+    WHERE u.username = #{username,jdbcType=VARCHAR}
+  </select>
   <select id="selectByComId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -166,18 +189,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.beidou.user.entity.User">
-    insert into tb_user (id, username, pwd, 
-      createDate, modifyDate, avatarUrl, 
-      status, name, phone, 
-      age, sex, address, 
+    insert into tb_user (id, username, salt, 
+      pwd, createDate, modifyDate, 
+      avatarUrl, status, name, 
+      phone, age, sex, address, 
       email, job, deptId, 
-      comId)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, 
-      #{createdate,jdbcType=VARCHAR}, #{modifydate,jdbcType=VARCHAR}, #{avatarurl,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      comId, remark)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{pwd,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, #{modifydate,jdbcType=VARCHAR}, 
+      #{avatarurl,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{deptid,jdbcType=INTEGER}, 
-      #{comid,jdbcType=INTEGER})
+      #{comid,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beidou.user.entity.User">
     insert into tb_user
@@ -187,6 +210,9 @@
       </if>
       <if test="username != null">
         username,
+      </if>
+      <if test="salt != null">
+        salt,
       </if>
       <if test="pwd != null">
         pwd,
@@ -230,6 +256,9 @@
       <if test="comid != null">
         comId,
       </if>
+      <if test="remark != null">
+        remark,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -237,6 +266,9 @@
       </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
       </if>
       <if test="pwd != null">
         #{pwd,jdbcType=VARCHAR},
@@ -251,7 +283,7 @@
         #{avatarurl,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        #{status,jdbcType=VARCHAR},
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -280,6 +312,9 @@
       <if test="comid != null">
         #{comid,jdbcType=INTEGER},
       </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.beidou.user.entity.UserExample" resultType="java.lang.Long">
@@ -297,6 +332,9 @@
       <if test="record.username != null">
         username = #{record.username,jdbcType=VARCHAR},
       </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
       <if test="record.pwd != null">
         pwd = #{record.pwd,jdbcType=VARCHAR},
       </if>
@@ -310,7 +348,7 @@
         avatarUrl = #{record.avatarurl,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=INTEGER},
       </if>
       <if test="record.name != null">
         name = #{record.name,jdbcType=VARCHAR},
@@ -339,6 +377,9 @@
       <if test="record.comid != null">
         comId = #{record.comid,jdbcType=INTEGER},
       </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -348,11 +389,12 @@
     update tb_user
     set id = #{record.id,jdbcType=INTEGER},
       username = #{record.username,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
       pwd = #{record.pwd,jdbcType=VARCHAR},
       createDate = #{record.createdate,jdbcType=VARCHAR},
       modifyDate = #{record.modifydate,jdbcType=VARCHAR},
       avatarUrl = #{record.avatarurl,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
@@ -361,7 +403,8 @@
       email = #{record.email,jdbcType=VARCHAR},
       job = #{record.job,jdbcType=VARCHAR},
       deptId = #{record.deptid,jdbcType=INTEGER},
-      comId = #{record.comid,jdbcType=INTEGER}
+      comId = #{record.comid,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -371,6 +414,9 @@
     <set>
       <if test="username != null">
         username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
       </if>
       <if test="pwd != null">
         pwd = #{pwd,jdbcType=VARCHAR},
@@ -385,7 +431,7 @@
         avatarUrl = #{avatarurl,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=VARCHAR},
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -414,17 +460,21 @@
       <if test="comid != null">
         comId = #{comid,jdbcType=INTEGER},
       </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.beidou.user.entity.User">
     update tb_user
     set username = #{username,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
       pwd = #{pwd,jdbcType=VARCHAR},
       createDate = #{createdate,jdbcType=VARCHAR},
       modifyDate = #{modifydate,jdbcType=VARCHAR},
       avatarUrl = #{avatarurl,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
       name = #{name,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
@@ -433,14 +483,8 @@
       email = #{email,jdbcType=VARCHAR},
       job = #{job,jdbcType=VARCHAR},
       deptId = #{deptid,jdbcType=INTEGER},
-      comId = #{comid,jdbcType=INTEGER}
+      comId = #{comid,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <!--<select id="findByUsername" parameterType="string" resultMap="userMap">
-           SELECT *
-           FROM tb_user u,tb_role r,tb_rule p
-           WHERE u.rid=r.rid
-           AND p.rid=r.rid
-           AND u.user_name=#{username}
-  </select>-->
 </mapper>

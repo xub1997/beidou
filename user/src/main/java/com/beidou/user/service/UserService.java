@@ -13,20 +13,29 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
+    private static final String salt="asbd231432u4bcuiQOIW343JQNDU213!#……*&（+++";
 
     @Autowired
     private UserMapper userMapper;
 
     public ResponseMsg insert(User user){
-        user.setCreatedate(StringUtil.dateToString(new Date()));
-        user.setModifydate(StringUtil.dateToString(new Date()));
-        if(userMapper.insert(user)>0&&true){
-            return ResponseMsg.Success("保存用户信息成功");
+        if(userMapper.judgeUsername(user.getUsername())==null){
+            user.setCreatedate(StringUtil.dateToString(new Date()));
+            user.setModifydate(StringUtil.dateToString(new Date()));
+            user.setSalt(salt);
+            user.setPwd(StringUtil.encryptByMD5(user.getPwd()+salt));
+            if(userMapper.insert(user)>0&&true){
+                return ResponseMsg.Success("保存用户信息成功");
+            }
+            return ResponseMsg.Error("保存用户信息失败");
+        }else{
+            return ResponseMsg.Error("用户名已存在");
         }
-        return ResponseMsg.Error("保存用户信息失败");
+
     }
 
     public ResponseMsg getById(Integer id){
@@ -124,28 +133,31 @@ public class UserService {
         return ResponseMsg.Error("获取用户信息列表失败");
     }
 
-    public ResponseMsg judgeUsername(String username){
-        if(userMapper.judgeUsername(username)==null&&true){
-            return ResponseMsg.Success("用户名可用");
-        }else{
-            return ResponseMsg.Error("用户名已存在");
-        }
+    public User judgeUsername(String username){
+        return userMapper.judgeUsername(username);
     }
 
     public ResponseMsg modifyPwd(Integer userId,String oldPwd,String newPwd){
         User user=userMapper.selectByPrimaryKey(userId);
-        if(user.getPwd().equals(oldPwd)&&true){
-            user.setPwd(newPwd);
-            user.setModifydate(StringUtil.dateToString(new Date()));
-            if(userMapper.updateByPrimaryKeySelective(user)>0&&true){
-                return ResponseMsg.Success("密码修改成功");
-            }else{
-                return ResponseMsg.Error("密码修改失败");
-            }
+        if(user!=null){
+            oldPwd=StringUtil.encryptByMD5(oldPwd+user.getSalt());
+            if(user.getPwd().equals(oldPwd)&&true){
+                newPwd=StringUtil.encryptByMD5(newPwd+user.getSalt());
+                user.setPwd(newPwd);
+                user.setModifydate(StringUtil.dateToString(new Date()));
+                if(userMapper.updateByPrimaryKeySelective(user)>0&&true){
+                    return ResponseMsg.Success("密码修改成功");
+                }else{
+                    return ResponseMsg.Error("密码修改失败");
+                }
 
-        }else{
-            return ResponseMsg.Error("原密码输入错误");
+            }else{
+                return ResponseMsg.Error("原密码输入错误");
+            }
+        }else {
+            return ResponseMsg.Error("不存在该用户");
         }
+
     }
 
 }

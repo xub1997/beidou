@@ -11,7 +11,7 @@
 		<!-- 配置数据库连接 -->
 		<jdbcConnection
 			driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3306/syslog"
+			connectionURL="jdbc:mysql://localhost:3307/sso"
 			userId="root"
 			password="root">
 		</jdbcConnection>
@@ -21,30 +21,31 @@
 		</javaTypeResolver>
 
 		<!-- 指定javaBean生成的位置 -->
-		<javaModelGenerator targetPackage="com.beidou.common.entity"
+		<javaModelGenerator targetPackage="com.beidou.user.entity"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 
 		<!--指定sql映射文件生成的位置 -->
-		<sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\java">
+		<sqlMapGenerator targetPackage="mapper" targetProject=".\src\main\resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 
 		<!-- 指定dao接口生成的位置，mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.beidou.logger.dao" targetProject=".\src\main\java">
+                             targetPackage="com.beidou.user.dao" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
 
 		<!-- table指定每个表的生成策略 -->
-		<!-- <table tableName="tb_user" domainObjectName="User"></table>
-		<table tableName="tb_timeLine" domainObjectName="TimeLine"></table>
+		<table tableName="tb_user" domainObjectName="User"></table>
+		<table tableName="tb_rule" domainObjectName="Rule"></table>
+		<!-- <table tableName="tb_timeLine" domainObjectName="TimeLine"></table>
 		<table tableName="tb_category" domainObjectName="Category"></table> 
 		<table tableName="tb_message" domainObjectName="Message"></table>
 		<table tableName="tb_article" domainObjectName="Article"></table> -->
-		<table tableName="tb_syslog" domainObjectName="SysLog"></table>
+		<!--<table tableName="tb_syslog" domainObjectName="SysLog"></table>-->
 	</context>
 </generatorConfiguration>

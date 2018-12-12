@@ -2,6 +2,11 @@ package com.beidou.user.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 @ApiModel(value = "用户信息类")
 public class User {
@@ -12,6 +17,9 @@ public class User {
     @ApiModelProperty(value="用户名", hidden=false, required=true, dataType="String")
     private String username;
 
+    @ApiModelProperty(value="盐值", hidden=false, required=false, dataType="String")
+    private String salt;
+
     @ApiModelProperty(value="密码", hidden=false, required=true, dataType="String")
     private String pwd;
 
@@ -21,11 +29,11 @@ public class User {
     @ApiModelProperty(value="修改时间", hidden=false, required=false, dataType="String")
     private String modifydate;
 
-    @ApiModelProperty(value="头像url", hidden=false, required=true, dataType="String")
+    @ApiModelProperty(value="头像url", hidden=false, required=false, dataType="String")
     private String avatarurl;
 
-    @ApiModelProperty(value="状态 (0不可用 1可用)", hidden=false, required=true, dataType="String")
-    private String status;
+    @ApiModelProperty(value="状态 (0不可用 1可用)", hidden=false, required=true, dataType="Integer")
+    private Integer status;
 
     @ApiModelProperty(value="员工名字", hidden=false, required=true, dataType="String")
     private String name;
@@ -54,8 +62,12 @@ public class User {
     @ApiModelProperty(value="公司id", hidden=false, required=true, dataType="Integer")
     private Integer comid;
 
+    @ApiModelProperty(value="备注", hidden=false, required=false, dataType="String")
+    private String remark;
+
     //用户角色
-    //private Set<Role> roles = new HashSet<>();
+    @ApiModelProperty(value="用户角色", hidden=true)
+    private List<Role> roles=new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -71,6 +83,14 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt == null ? null : salt.trim();
     }
 
     public String getPwd() {
@@ -105,12 +125,12 @@ public class User {
         this.avatarurl = avatarurl == null ? null : avatarurl.trim();
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getName() {
@@ -183,5 +203,47 @@ public class User {
 
     public void setComid(Integer comid) {
         this.comid = comid;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", salt='" + salt + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", createdate='" + createdate + '\'' +
+                ", modifydate='" + modifydate + '\'' +
+                ", avatarurl='" + avatarurl + '\'' +
+                ", status=" + status +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", age=" + age +
+                ", sex=" + sex +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", job='" + job + '\'' +
+                ", deptid=" + deptid +
+                ", comid=" + comid +
+                ", remark='" + remark + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

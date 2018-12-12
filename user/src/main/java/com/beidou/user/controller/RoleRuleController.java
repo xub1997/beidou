@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +26,7 @@ public class RoleRuleController {
     @Autowired
     private RoleRuleService roleRuleService;
 
+    @RequiresPermissions("roleRule:create")
     @SysLogger("添加角色-权限管理信息")
     @ApiOperation(value="添加角色-权限管理信息", notes="添加角色-权限管理信息")
     @ApiImplicitParams({
@@ -55,6 +57,7 @@ public class RoleRuleController {
         }
     }
 
+    @RequiresPermissions("roleRule:update")
     @SysLogger("更新id对应的角色-权限管理信息")
     @ApiOperation(value="更新id对应的角色-权限管理信息", notes="更新id对应的角色-权限管理信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({

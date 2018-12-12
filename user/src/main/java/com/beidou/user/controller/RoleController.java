@@ -23,7 +23,7 @@ public class RoleController {
     private RoleService roleService;
 
     @SysLogger("添加角色信息")
-    @ApiOperation(value="添加角色信息", notes="添加角色信息")
+    @ApiOperation(value="添加角色信息", notes="添加角色信息",produces ="application/json")
     @PostMapping(value = "/role")
     public ResponseMsg insert(Role role){
         return roleService.insert(role);

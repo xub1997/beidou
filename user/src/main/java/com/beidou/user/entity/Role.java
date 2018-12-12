@@ -3,6 +3,11 @@ package com.beidou.user.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @ApiModel(value = "角色信息类")
 public class Role {
 
@@ -22,7 +27,8 @@ public class Role {
     private String modifydate;
 
     //角色权限
-    //private Set<Rule> permissions = new HashSet<>();
+    @ApiModelProperty(value="角色权限", hidden=true, required=false)
+    private List<Rule> permissions=new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -62,5 +68,25 @@ public class Role {
 
     public void setModifydate(String modifydate) {
         this.modifydate = modifydate == null ? null : modifydate.trim();
+    }
+
+    public List<Rule> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(List<Rule> permissions) {
+        this.permissions = permissions;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", rolename='" + rolename + '\'' +
+                ", description='" + description + '\'' +
+                ", createdate='" + createdate + '\'' +
+                ", modifydate='" + modifydate + '\'' +
+                ", permissions=" + permissions +
+                '}';
     }
 }

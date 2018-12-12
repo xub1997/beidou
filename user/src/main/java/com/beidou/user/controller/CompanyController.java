@@ -10,6 +10,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,7 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
+    @RequiresPermissions("company:create")
     @SysLogger("添加公司信息")
     @ApiOperation(value="添加公司信息", notes="添加公司信息")
     @PostMapping(value = "/company")
@@ -31,6 +34,7 @@ public class CompanyController {
     }
 
 
+    @RequiresPermissions("company:read")
     @SysLogger("获取id对应的公司信息")
     @ApiOperation(value="获取id对应的公司信息", notes="获取id对应的公司信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -41,7 +45,7 @@ public class CompanyController {
         return companyService.getById(id);
     }
 
-
+    @RequiresPermissions("company:update")
     @SysLogger("更新id对应的公司信息")
     @ApiOperation(value="更新id对应的公司信息", notes="更新id对应的公司信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -53,6 +57,7 @@ public class CompanyController {
     }
 
 
+    @RequiresPermissions("company:delete")
     @SysLogger("删除id对应的公司信息")
     @ApiOperation(value="删除id对应的公司信息", notes="删除id对应的公司信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -82,6 +87,7 @@ public class CompanyController {
 
     }
 
+    @RequiresPermissions("company:readAll")
     @SysLogger("获取公司信息")
     @ApiOperation(value="获取公司信息", notes="获取公司信息")// 使用该注解描述接口方法信息
     @GetMapping(value="/company")
@@ -90,6 +96,7 @@ public class CompanyController {
     }
 
 
+    @RequiresPermissions("companys:read")
     @SysLogger("获取公司信息列表")
     @ApiOperation(value="获取公司信息列表", notes="获取公司信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -100,6 +107,7 @@ public class CompanyController {
         return companyService.getList(pageNum);
     }
 
+    @RequiresPermissions("companys:searchByName:read")
     @SysLogger("查找公司")
     @ApiOperation(value="查找公司", notes="查找公司")// 使用该注解描述接口方法信息
     @ApiImplicitParams({

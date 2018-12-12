@@ -5,7 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="ruleName" jdbcType="VARCHAR" property="rulename" />
     <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="permissions" jdbcType="VARCHAR" property="permissions" />
     <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="orderNum" jdbcType="INTEGER" property="ordernum" />
     <result column="pid" jdbcType="INTEGER" property="pid" />
     <result column="createDate" jdbcType="VARCHAR" property="createdate" />
     <result column="modifyDate" jdbcType="VARCHAR" property="modifydate" />
@@ -69,10 +72,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, ruleName, description, url, pid, createDate, modifyDate
+    id, ruleName, description, type, permissions, url, orderNum, pid, createDate, modifyDate
   </sql>
   <sql id="Base_Column_List_ByRoleIds">
-    r.id, r.ruleName, r.description, r.url, r.pid, r.createDate, r.modifyDate
+    r.id, r.ruleName, r.description,r.type,r.permissions, r.url, r.orderNum,r.pid, r.createDate, r.modifyDate
   </sql>
   <select id="selectByExample" parameterType="com.beidou.user.entity.RuleExample" resultMap="BaseResultMap">
     select
@@ -119,10 +122,12 @@
   </delete>
   <insert id="insert" parameterType="com.beidou.user.entity.Rule">
     insert into tb_rule (id, ruleName, description, 
-      url, pid, createDate, 
+      type, permissions, url, 
+      orderNum, pid, createDate, 
       modifyDate)
     values (#{id,jdbcType=INTEGER}, #{rulename,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{url,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}, #{createdate,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{permissions,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
+      #{ordernum,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{createdate,jdbcType=VARCHAR}, 
       #{modifydate,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.beidou.user.entity.Rule">
@@ -137,8 +142,17 @@
       <if test="description != null">
         description,
       </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="permissions != null">
+        permissions,
+      </if>
       <if test="url != null">
         url,
+      </if>
+      <if test="ordernum != null">
+        orderNum,
       </if>
       <if test="pid != null">
         pid,
@@ -160,8 +174,17 @@
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="permissions != null">
+        #{permissions,jdbcType=VARCHAR},
+      </if>
       <if test="url != null">
         #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null">
+        #{ordernum,jdbcType=INTEGER},
       </if>
       <if test="pid != null">
         #{pid,jdbcType=INTEGER},
@@ -192,8 +215,17 @@
       <if test="record.description != null">
         description = #{record.description,jdbcType=VARCHAR},
       </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissions != null">
+        permissions = #{record.permissions,jdbcType=VARCHAR},
+      </if>
       <if test="record.url != null">
         url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordernum != null">
+        orderNum = #{record.ordernum,jdbcType=INTEGER},
       </if>
       <if test="record.pid != null">
         pid = #{record.pid,jdbcType=INTEGER},
@@ -214,7 +246,10 @@
     set id = #{record.id,jdbcType=INTEGER},
       ruleName = #{record.rulename,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      permissions = #{record.permissions,jdbcType=VARCHAR},
       url = #{record.url,jdbcType=VARCHAR},
+      orderNum = #{record.ordernum,jdbcType=INTEGER},
       pid = #{record.pid,jdbcType=INTEGER},
       createDate = #{record.createdate,jdbcType=VARCHAR},
       modifyDate = #{record.modifydate,jdbcType=VARCHAR}
@@ -231,8 +266,17 @@
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="permissions != null">
+        permissions = #{permissions,jdbcType=VARCHAR},
+      </if>
       <if test="url != null">
         url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernum != null">
+        orderNum = #{ordernum,jdbcType=INTEGER},
       </if>
       <if test="pid != null">
         pid = #{pid,jdbcType=INTEGER},
@@ -250,7 +294,10 @@
     update tb_rule
     set ruleName = #{rulename,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      permissions = #{permissions,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
+      orderNum = #{ordernum,jdbcType=INTEGER},
       pid = #{pid,jdbcType=INTEGER},
       createDate = #{createdate,jdbcType=VARCHAR},
       modifyDate = #{modifydate,jdbcType=VARCHAR}
