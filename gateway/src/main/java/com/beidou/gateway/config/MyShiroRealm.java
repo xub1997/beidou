@@ -36,12 +36,12 @@ public class MyShiroRealm extends AuthorizingRealm {
         String username = token.getUsername();
         String password = String.valueOf(token.getPassword());
 
-        try{
+        /*try{
             // 密码 BASE64解密
             password=StringUtil.decryptByBASE64(password);
         }catch(Exception e){
             e.printStackTrace();
-        }
+        }*/
         // 从数据库获取对应用户名密码的用户
         User user = loginService.login(username);
         if(user==null){
@@ -51,19 +51,16 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (user.getStatus()==0) {
             throw new LockedAccountException("账号已被锁定,请联系管理员！");
         }
-        if(!user.getPwd().equals(StringUtil.encryptByMD5(password+user.getSalt()))){
+        if(!user.getPwd().equals(password)){
             throw new IncorrectCredentialsException("密码错误！");
         }
         logger.info("---------------- Shiro 凭证认证成功 ----------------------");
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-                username, //用户
-                String.valueOf(token.getPassword()), //密码
+                username, //用户名
+                password,//密码
                 getName()  //realm name
         );
         return authenticationInfo;
-
-
-        
     }
 
     /**
