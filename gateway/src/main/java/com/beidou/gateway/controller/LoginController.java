@@ -91,8 +91,7 @@ public class LoginController {
 
     }
 
-    //@RequiresAuthentication
-    @RequiresGuest
+
     @GetMapping(value = "/gifCode")
     public void getGifCode(HttpServletResponse response, HttpServletRequest request) {
         try {

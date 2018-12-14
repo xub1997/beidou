@@ -3,6 +3,7 @@
 <mapper namespace="com.beidou.gateway.dao.LoginMapper">
 
   <resultMap id="userMap" type="com.beidou.gateway.entity.User">
+    <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />

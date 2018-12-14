@@ -17,7 +17,7 @@ public class DemoApplicationTests {
 
     @Test
     public void testPwd(){
-        System.out.println(StringUtil.encryptByMD5("345"+"63856b59-dd15-4d64-a2eb-ba7601c4c87b"));
+        System.out.println(StringUtil.encryptByMD5("345"+"63856b59dd154d64a2ebba7601c4c87b"));
     }
 
 }
