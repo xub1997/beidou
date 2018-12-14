@@ -23,8 +23,6 @@
         <module>common</module>
         <!--配置中心-->
         <module>config</module>
-        <!--集群监控中心-->
-        <module>dashboard</module>
         <!--网关（认证中心）-->
         <module>gateway</module>
         <!--操作日志中心-->

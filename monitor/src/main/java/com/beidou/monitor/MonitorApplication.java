@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
 @EnableAdminServer
-@SpringBootApplication(exclude= {org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class})
+@SpringBootApplication
 public class MonitorApplication {
 
     public static void main(String[] args) {

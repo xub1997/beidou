@@ -1,13 +1,17 @@
 package com.beidou.gateway.entity;
 
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @ApiModel(value = "用户信息类")
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 5231134212346077681L;
 
     @ApiModelProperty(value="用户id", hidden=false, required=false, dataType="Integer")
     private Integer id;

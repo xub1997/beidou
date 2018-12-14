@@ -360,7 +360,7 @@
 2018-11-05 15:53:27.644 [RMI TCP Connection(2)-127.0.0.1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 38 ms
 2018-11-05 15:53:27.982 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Located environment: name=gateway, profiles=[default], label=null, version=null, state=null
 2018-11-05 15:53:32.586 [http-nio-7001-exec-1] INFO  o.s.cloud.netflix.zuul.web.ZuulHandlerMapping - Mapped URL path [/api/v1/user/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
-2018-11-05 15:54:23.117 [http-nio-7001-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:54:23.117 [http-nio-7001-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-11-05 15:54:23.152 [http-nio-7001-exec-2] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing SpringClientFactory-user: startup date [Mon Nov 05 15:54:23 CST 2018]; parent: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6e35bc3d
 2018-11-05 15:54:23.403 [http-nio-7001-exec-2] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 2018-11-05 15:54:24.278 [http-nio-7001-exec-2] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: user.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
@@ -371,9 +371,9 @@
 2018-11-05 15:54:24.401 [http-nio-7001-exec-2] INFO  c.n.loadbalancer.DynamicServerListLoadBalancer - DynamicServerListLoadBalancer for client user initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=user,current list of Servers=[DESKTOP-E4673UL:4000],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
 },Server stats: [[Server:DESKTOP-E4673UL:4000;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
 ]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@78797b6a
-2018-11-05 15:54:24.602 [http-nio-7001-exec-1] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:54:24.602 [http-nio-7001-exec-1] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-11-05 15:54:25.361 [PollingServerListUpdater-0] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: user.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
-2018-11-05 15:54:26.242 [http-nio-7001-exec-7] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:54:26.242 [http-nio-7001-exec-7] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-11-05 15:54:27.063 [http-nio-7001-exec-2] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -965,8 +965,8 @@ Caused by: java.net.SocketTimeoutException: connect timed out
 	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:75)
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 171 common frames omitted
-2018-11-05 15:54:29.130 [http-nio-7001-exec-8] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
-2018-11-05 15:54:29.930 [http-nio-7001-exec-3] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:54:29.130 [http-nio-7001-exec-8] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:54:29.930 [http-nio-7001-exec-3] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-11-05 15:54:31.138 [http-nio-7001-exec-8] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -1361,8 +1361,8 @@ Caused by: java.net.SocketTimeoutException: connect timed out
 	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:75)
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 171 common frames omitted
-2018-11-05 15:55:00.919 [http-nio-7001-exec-8] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
-2018-11-05 15:55:02.765 [http-nio-7001-exec-3] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:55:00.919 [http-nio-7001-exec-8] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:55:02.765 [http-nio-7001-exec-3] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-11-05 15:55:02.930 [http-nio-7001-exec-8] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -1757,9 +1757,9 @@ Caused by: java.net.SocketTimeoutException: connect timed out
 	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:75)
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 171 common frames omitted
-2018-11-05 15:55:07.523 [http-nio-7001-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
-2018-11-05 15:55:08.363 [http-nio-7001-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
-2018-11-05 15:55:09.193 [http-nio-7001-exec-10] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:55:07.523 [http-nio-7001-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:55:08.363 [http-nio-7001-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:55:09.193 [http-nio-7001-exec-10] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-11-05 15:55:09.535 [http-nio-7001-exec-4] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -2351,9 +2351,9 @@ Caused by: java.net.SocketTimeoutException: connect timed out
 	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:75)
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 171 common frames omitted
-2018-11-05 15:55:46.802 [http-nio-7001-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
-2018-11-05 15:55:50.794 [http-nio-7001-exec-9] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
-2018-11-05 15:55:52.613 [http-nio-7001-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:55:46.802 [http-nio-7001-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:55:50.794 [http-nio-7001-exec-9] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:55:52.613 [http-nio-7001-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-11-05 15:55:52.801 [http-nio-7001-exec-9] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -2551,4 +2551,4 @@ Caused by: java.net.SocketTimeoutException: connect timed out
 	at org.apache.http.conn.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:75)
 	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:142)
 	... 171 common frames omitted
-2018-11-05 15:55:57.853 [http-nio-7001-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-11-05 15:55:57.853 [http-nio-7001-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs

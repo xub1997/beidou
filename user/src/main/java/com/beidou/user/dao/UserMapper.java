@@ -35,9 +35,6 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    //查找用户信息（用户详细信息、角色、权限）
-    //User findByUsername(String username);
-
     //读取公司下面用户
     List<User> selectByComId(Integer comId);
 
@@ -50,7 +47,5 @@ public interface UserMapper {
     //用户名查重
     User judgeUsername(String username);
 
-    //查询用户角色、权限（登录用）
-    User login(@Param("username")String username);
 
 }

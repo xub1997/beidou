@@ -1,15 +1,14 @@
 package com.beidou.user.controller;
 
 import com.beidou.common.annotation.SysLogger;
+import com.beidou.common.entity.ResponseMsg;
+import com.beidou.common.util.StringUtil;
 import com.beidou.user.entity.User;
 import com.beidou.user.service.UserService;
-import com.beidou.user.utils.ResponseMsg;
-import com.beidou.user.utils.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +23,7 @@ public class UserController {
     private UserService userService;
 
 
-    @RequiresPermissions("user:create")
+
     @SysLogger("添加用户信息")
     @ApiOperation(value="添加用户信息", notes="添加用户信息",produces ="multipart/form-data")
     @PostMapping(value = "/user")
@@ -33,7 +32,7 @@ public class UserController {
     }
 
 
-    @RequiresPermissions("user:read")
+
     @SysLogger("获取id对应的用户信息")
     @ApiOperation(value="获取id对应的用户信息", notes="获取id对应的用户信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -45,7 +44,7 @@ public class UserController {
     }
 
 
-    @RequiresPermissions("user:update")
+
     @SysLogger("更新id对应的用户信息")
     @ApiOperation(value="更新id对应的用户信息", notes="更新id对应的用户信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -57,7 +56,7 @@ public class UserController {
     }
 
 
-    @RequiresPermissions("user:delete")
+
     @SysLogger("删除id对应的用户信息")
     @ApiOperation(value="删除id对应的用户信息", notes="删除id对应的用户信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -86,7 +85,7 @@ public class UserController {
         }
     }
 
-    @RequiresPermissions("users:read")
+
     @SysLogger("获取用户信息列表")
     @ApiOperation(value="获取用户信息列表", notes="获取用户信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -97,7 +96,7 @@ public class UserController {
         return userService.getList(pageNum);
     }
 
-    @RequiresPermissions("userCom:read")
+
     @SysLogger("获取用户信息列表(对应公司)")
     @ApiOperation(value="获取用户信息列表(对应公司)", notes="获取用户信息列表（对应公司）")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -110,7 +109,7 @@ public class UserController {
         return userService.getComUserList(pageNum,comId);
     }
 
-    @RequiresPermissions("user:searchUser")
+
     @SysLogger("查找用户")
     @ApiOperation(value="查找用户", notes="查找用户")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -122,7 +121,7 @@ public class UserController {
         return userService.searchByUserName(pageNum,username);
     }
 
-    @RequiresPermissions("user:searchComUser")
+
     @SysLogger("查找公司用户")
     @ApiOperation(value="查找公司用户", notes="查找公司用户")// 使用该注解描述接口方法信息
     @ApiImplicitParams({

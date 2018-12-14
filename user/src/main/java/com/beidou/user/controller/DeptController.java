@@ -1,15 +1,14 @@
 package com.beidou.user.controller;
 
 import com.beidou.common.annotation.SysLogger;
+import com.beidou.common.entity.ResponseMsg;
+import com.beidou.common.util.StringUtil;
 import com.beidou.user.entity.Dept;
 import com.beidou.user.service.DeptService;
-import com.beidou.user.utils.ResponseMsg;
-import com.beidou.user.utils.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +22,7 @@ public class DeptController {
     @Autowired
     private DeptService deptService;
 
-    @RequiresPermissions("dept:create")
+
     @SysLogger("添加部门信息")
     @ApiOperation(value="添加部门信息", notes="添加部门信息")
     @PostMapping(value = "/dept")
@@ -32,7 +31,7 @@ public class DeptController {
     }
 
 
-    @RequiresPermissions("dept:read")
+
     @SysLogger("获取id对应的部门信息")
     @ApiOperation(value="获取id对应的部门信息", notes="获取id对应的部门信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -43,7 +42,7 @@ public class DeptController {
         return deptService.getById(id);
     }
 
-    @RequiresPermissions("dept:update")
+
     @SysLogger("更新id对应的部门信息")
     @ApiOperation(value="更新id对应的部门信息", notes="更新id对应的部门信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -54,7 +53,7 @@ public class DeptController {
         return deptService.updateById(dept);
     }
 
-    @RequiresPermissions("dept:delete")
+
     @SysLogger("删除id对应的部门信息")
     @ApiOperation(value="删除id对应的部门信息", notes="删除id对应的部门信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -84,7 +83,7 @@ public class DeptController {
 
     }
 
-    @RequiresPermissions("comDept:read")
+
     @SysLogger("获取公司部门")
     @ApiOperation(value="获取公司部门", notes="获取公司部门")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -95,7 +94,7 @@ public class DeptController {
         return deptService.getComDept(comId);
     }
 
-    @RequiresPermissions("dept:readAll")
+
     @SysLogger("获取部门信息")
     @ApiOperation(value="获取部门信息", notes="获取部门信息")// 使用该注解描述接口方法信息
     @GetMapping(value="/dept")
@@ -103,7 +102,7 @@ public class DeptController {
         return deptService.getAll();
     }
 
-    @RequiresPermissions("depts:read")
+
     @SysLogger("获取部门信息列表")
     @ApiOperation(value="获取部门信息列表", notes="获取部门信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -114,7 +113,7 @@ public class DeptController {
         return deptService.getList(pageNum);
     }
 
-    @RequiresPermissions("comDepts:read")
+
     @SysLogger("获取部门列表（对应公司）")
     @ApiOperation(value="获取部门列表（对应公司）", notes="获取部门列表（对应公司）")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -127,7 +126,7 @@ public class DeptController {
         return deptService.getComDeptList(pageNum,comId);
     }
 
-    @RequiresPermissions("dept:searchByName:read")
+
     @SysLogger("查找部门")
     @ApiOperation(value="查找部门", notes="查找部门")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
@@ -139,7 +138,7 @@ public class DeptController {
         return deptService.searchByName(pageNum,name);
     }
 
-    @RequiresPermissions("dept:searchByNameAndComId:read")
+
     @SysLogger("查找公司部门")
     @ApiOperation(value="查找公司部门", notes="查找公司部门")// 使用该注解描述接口方法信息
     @ApiImplicitParams({

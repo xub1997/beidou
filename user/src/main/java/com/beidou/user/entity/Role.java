@@ -26,9 +26,6 @@ public class Role {
     @ApiModelProperty(value="修改时间", hidden=false, required=false, dataType="String")
     private String modifydate;
 
-    //角色权限
-    @ApiModelProperty(value="角色权限", hidden=true, required=false)
-    private List<Rule> permissions=new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -70,23 +67,4 @@ public class Role {
         this.modifydate = modifydate == null ? null : modifydate.trim();
     }
 
-    public List<Rule> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(List<Rule> permissions) {
-        this.permissions = permissions;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", rolename='" + rolename + '\'' +
-                ", description='" + description + '\'' +
-                ", createdate='" + createdate + '\'' +
-                ", modifydate='" + modifydate + '\'' +
-                ", permissions=" + permissions +
-                '}';
-    }
 }

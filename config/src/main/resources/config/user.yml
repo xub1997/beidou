@@ -67,3 +67,6 @@ mybatis:
     #port: 6379
     #timeout: 0
     #password:
+feign:
+  hystrix:
+    enabled: true

@@ -1,15 +1,17 @@
 package com.beidou.user.controller;
 
 import com.beidou.common.annotation.SysLogger;
+import com.beidou.common.entity.ResponseMsg;
+import com.beidou.common.util.StringUtil;
 import com.beidou.user.entity.RoleRule;
 import com.beidou.user.service.RoleRuleService;
-import com.beidou.user.utils.ResponseMsg;
-import com.beidou.user.utils.StringUtil;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,7 +28,7 @@ public class RoleRuleController {
     @Autowired
     private RoleRuleService roleRuleService;
 
-    @RequiresPermissions("roleRule:create")
+
     @SysLogger("添加角色-权限管理信息")
     @ApiOperation(value="添加角色-权限管理信息", notes="添加角色-权限管理信息")
     @ApiImplicitParams({
@@ -34,7 +36,7 @@ public class RoleRuleController {
             @ApiImplicitParam(name = "ruleIds", value = "权限id（用逗号隔开）", required = true, dataType = "String", paramType="query")
     })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
     @PostMapping(value = "/roleRule")
-    public ResponseMsg insert(@RequestParam(value = "roleId")Integer roleId,@RequestParam("ruleIds")String ruleIds){
+    public ResponseMsg insert(@RequestParam(value = "roleId")Integer roleId, @RequestParam("ruleIds")String ruleIds){
         ResponseMsg responseMsg;
         if(!StringUtil.isEmpty(ruleIds)){
             //批量删除
@@ -57,7 +59,7 @@ public class RoleRuleController {
         }
     }
 
-    @RequiresPermissions("roleRule:update")
+
     @SysLogger("更新id对应的角色-权限管理信息")
     @ApiOperation(value="更新id对应的角色-权限管理信息", notes="更新id对应的角色-权限管理信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({

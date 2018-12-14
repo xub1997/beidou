@@ -1,10 +1,10 @@
 package com.beidou.user.service;
 
+import com.beidou.common.entity.ResponseMsg;
+import com.beidou.common.util.StringUtil;
 import com.beidou.user.entity.User;
 import com.beidou.user.entity.UserExample;
 import com.beidou.user.dao.UserMapper;
-import com.beidou.user.utils.ResponseMsg;
-import com.beidou.user.utils.StringUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class UserService {
         if(userMapper.judgeUsername(user.getUsername())==null){
             user.setCreatedate(StringUtil.dateToString(new Date()));
             user.setModifydate(StringUtil.dateToString(new Date()));
-            String salt=UUID.randomUUID().toString();
+            String salt=UUID.randomUUID().toString().replaceAll("-","");
             user.setSalt(salt);
             user.setPwd(StringUtil.encryptByMD5(user.getPwd()+salt));
             if(userMapper.insert(user)>0&&true){

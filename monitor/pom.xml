@@ -60,11 +60,6 @@
             <artifactId>spring-cloud-config-client</artifactId>
         </dependency>
 
-        <!-- 安全 -->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
 
 
     </dependencies>

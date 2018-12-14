@@ -21,44 +21,6 @@
     <result column="comId" jdbcType="INTEGER" property="comid" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <resultMap id="userMap" type="com.beidou.user.entity.User">
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
-    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
-    <result column="createDate" jdbcType="VARCHAR" property="createdate" />
-    <result column="modifyDate" jdbcType="VARCHAR" property="modifydate" />
-    <result column="avatarUrl" jdbcType="VARCHAR" property="avatarurl" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="age" jdbcType="INTEGER" property="age" />
-    <result column="sex" jdbcType="INTEGER" property="sex" />
-    <result column="address" jdbcType="VARCHAR" property="address" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="job" jdbcType="VARCHAR" property="job" />
-    <result column="deptId" jdbcType="INTEGER" property="deptid" />
-    <result column="comId" jdbcType="INTEGER" property="comid" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <collection property="roles" ofType="com.beidou.user.entity.Role">
-      <id column="oid" jdbcType="INTEGER" property="id" />
-      <result property="rolename" column="rolename"/>
-      <result property="description" column="odescription"/>
-      <result property="createdate" column="ocreatedate"/>
-      <result property="modifydate" column="omodifydate"/>
-      <collection property="rules" ofType="com.beidou.user.entity.Rule">
-        <id column="rid" jdbcType="INTEGER" property="id" />
-        <result property="rulename" column="rulename"/>
-        <result property="description" column="rdescription"/>
-        <result column="rtype" jdbcType="VARCHAR" property="type" />
-        <result column="rpermissions" jdbcType="VARCHAR" property="permissions" />
-        <result column="rurl" jdbcType="VARCHAR" property="url" />
-        <result column="rorderNum" jdbcType="INTEGER" property="ordernum" />
-        <result column="rpid" jdbcType="INTEGER" property="pid" />
-        <result property="createdate" column="rcreatedate"/>
-        <result property="modifydate" column="rmodifydate"/>
-      </collection>
-    </collection>
-  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -121,10 +83,6 @@
     id, username, salt, pwd, createDate, modifyDate, avatarUrl, status, name, phone, 
     age, sex, address, email, job, deptId, comId, remark
   </sql>
-  <sql id="Base_Column_List_findByUsername">
-    u.id, u.username, u.salt,u.pwd, u.createDate, u.modifyDate, u.avatarUrl, u.status, u.name, u.phone, u.age, u.sex,
-    u.address, u.email, u.job, u.deptId, u.comId,u.remark,o.id as oid,o.rolename,o.description as odescription,o.createdate as ocreatedate,o.modifydate as omodifydate,r.id as rid,r.rulename,r.description as rdescription,r.type as rtype,r.permissions as rpermissions,r.url as rurl,r.orderNum as rorderNum,r.pid as rpid,r.createdate as rcreatedate,r.modifydate as rmodifydate
-  </sql>
   <select id="selectByExample" parameterType="com.beidou.user.entity.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -162,15 +120,6 @@
     <include refid="Base_Column_List" />
     from tb_user
     where username = #{username,jdbcType=VARCHAR}
-  </select>
-  <select id="login" parameterType="java.lang.String" resultMap="userMap">
-    SELECT
-    <include refid="Base_Column_List_findByUsername" />
-    FROM tb_user u LEFT JOIN tb_user_role ur on u.id=ur.userid
-    LEFT  JOIN tb_role o on ur.roleid=o.id
-    LEFT  JOIN tb_role_rule ou on o.id=ou.roleid
-    LEFT  JOIN tb_rule r on r.id=ou.ruleid
-    WHERE u.username = #{username,jdbcType=VARCHAR}
   </select>
   <select id="selectByComId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select

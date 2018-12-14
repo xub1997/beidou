@@ -65,9 +65,6 @@ public class User {
     @ApiModelProperty(value="备注", hidden=false, required=false, dataType="String")
     private String remark;
 
-    //用户角色
-    @ApiModelProperty(value="用户角色", hidden=true)
-    private List<Role> roles=new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -213,37 +210,4 @@ public class User {
         this.remark = remark;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", salt='" + salt + '\'' +
-                ", pwd='" + pwd + '\'' +
-                ", createdate='" + createdate + '\'' +
-                ", modifydate='" + modifydate + '\'' +
-                ", avatarurl='" + avatarurl + '\'' +
-                ", status=" + status +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", age=" + age +
-                ", sex=" + sex +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", job='" + job + '\'' +
-                ", deptid=" + deptid +
-                ", comid=" + comid +
-                ", remark='" + remark + '\'' +
-                ", roles=" + roles +
-                '}';
-    }
 }

@@ -115,7 +115,7 @@
 2018-12-12 15:55:13.324 [RMI TCP Connection(38)-127.0.0.1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 56 ms
 2018-12-12 15:55:13.851 [http-nio-7000-exec-1] INFO  o.s.cloud.netflix.zuul.web.ZuulHandlerMapping - Mapped URL path [/api/v1/user/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
 2018-12-12 15:55:13.914 [http-nio-7000-exec-1] INFO  o.s.cloud.netflix.zuul.web.ZuulHandlerMapping - Mapped URL path [/api/v1/beidou/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
-2018-12-12 15:55:13.997 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/roles
+2018-12-12 15:55:13.997 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/roles
 2018-12-12 15:55:14.121 [http-nio-7000-exec-1] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing SpringClientFactory-user: startup date [Wed Dec 12 15:55:14 CST 2018]; parent: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@db57326
 2018-12-12 15:55:14.416 [http-nio-7000-exec-1] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 2018-12-12 15:55:14.723 [RMI TCP Connection(40)-127.0.0.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Located environment: name=gateway, profiles=[default], label=null, version=null, state=null
@@ -128,43 +128,43 @@
 },Server stats: [[Server:DESKTOP-E4673UL:8081;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
 ]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@6dfcaab7
 2018-12-12 15:55:16.718 [PollingServerListUpdater-0] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: user.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
-2018-12-12 15:55:20.082 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/rules
-2018-12-12 15:55:22.196 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/companys
-2018-12-12 15:55:23.417 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/depts
-2018-12-12 15:56:37.502 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/user/searchByUserName
-2018-12-12 15:56:46.370 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/user/searchByUserName
-2018-12-12 15:56:50.364 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 15:56:53.357 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 15:56:54.728 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/roles
-2018-12-12 15:56:56.169 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/companys
-2018-12-12 15:56:56.790 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/rules
-2018-12-12 15:56:58.280 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/depts
-2018-12-12 15:57:04.608 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/companys
-2018-12-12 15:57:09.292 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/user/judgeUserName
-2018-12-12 15:57:21.275 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/user/judgeUserName
-2018-12-12 15:57:25.529 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/user/judgeUserName
-2018-12-12 15:57:34.984 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/comDept
-2018-12-12 15:57:58.981 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/company
-2018-12-12 15:58:01.297 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/companys
-2018-12-12 15:58:06.350 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/comDept
-2018-12-12 15:58:10.664 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/comDept
-2018-12-12 15:58:13.095 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 15:58:14.410 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/companys
-2018-12-12 15:59:03.912 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 15:59:05.583 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 15:59:08.153 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/companys
-2018-12-12 15:59:10.894 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/comDept
-2018-12-12 16:00:01.037 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/roles
-2018-12-12 16:00:02.705 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/rules
-2018-12-12 16:00:09.873 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/role
+2018-12-12 15:55:20.082 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/rules
+2018-12-12 15:55:22.196 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/companys
+2018-12-12 15:55:23.417 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/depts
+2018-12-12 15:56:37.502 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/user/searchByUserName
+2018-12-12 15:56:46.370 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/user/searchByUserName
+2018-12-12 15:56:50.364 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 15:56:53.357 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 15:56:54.728 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/roles
+2018-12-12 15:56:56.169 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/companys
+2018-12-12 15:56:56.790 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/rules
+2018-12-12 15:56:58.280 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/depts
+2018-12-12 15:57:04.608 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/companys
+2018-12-12 15:57:09.292 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/user/judgeUserName
+2018-12-12 15:57:21.275 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/user/judgeUserName
+2018-12-12 15:57:25.529 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/user/judgeUserName
+2018-12-12 15:57:34.984 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/comDept
+2018-12-12 15:57:58.981 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/company
+2018-12-12 15:58:01.297 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/companys
+2018-12-12 15:58:06.350 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/comDept
+2018-12-12 15:58:10.664 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/comDept
+2018-12-12 15:58:13.095 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 15:58:14.410 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/companys
+2018-12-12 15:59:03.912 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 15:59:05.583 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 15:59:08.153 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/companys
+2018-12-12 15:59:10.894 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/comDept
+2018-12-12 16:00:01.037 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/roles
+2018-12-12 16:00:02.705 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/rules
+2018-12-12 16:00:09.873 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/role
 2018-12-12 16:00:12.093 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2018-12-12 16:00:13.014 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/roles
-2018-12-12 16:00:20.267 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/companys
-2018-12-12 16:00:21.264 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/depts
-2018-12-12 16:00:26.275 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 16:00:28.237 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/roles
-2018-12-12 16:00:40.130 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 16:00:49.072 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
+2018-12-12 16:00:13.014 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/roles
+2018-12-12 16:00:20.267 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/companys
+2018-12-12 16:00:21.264 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/depts
+2018-12-12 16:00:26.275 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 16:00:28.237 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/roles
+2018-12-12 16:00:40.130 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 16:00:49.072 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
 2018-12-12 16:09:29.968 [main] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@342c38f8: startup date [Wed Dec 12 16:09:29 CST 2018]; root of context hierarchy
 2018-12-12 16:09:30.352 [main] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 2018-12-12 16:09:30.436 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$e041436a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -330,7 +330,7 @@ Caused by: java.net.ConnectException: Connection refused: connect
 2018-12-12 16:10:30.026 [RMI TCP Connection(12)-127.0.0.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Located environment: name=gateway, profiles=[default], label=null, version=null, state=null
 2018-12-12 16:10:43.482 [http-nio-7000-exec-1] INFO  o.s.cloud.netflix.zuul.web.ZuulHandlerMapping - Mapped URL path [/api/v1/user/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
 2018-12-12 16:10:43.485 [http-nio-7000-exec-1] INFO  o.s.cloud.netflix.zuul.web.ZuulHandlerMapping - Mapped URL path [/api/v1/beidou/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
-2018-12-12 16:10:43.717 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
+2018-12-12 16:10:43.717 [http-nio-7000-exec-1] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
 2018-12-12 16:10:43.821 [http-nio-7000-exec-1] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing SpringClientFactory-user: startup date [Wed Dec 12 16:10:43 CST 2018]; parent: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@2c1156a7
 2018-12-12 16:10:44.293 [http-nio-7000-exec-1] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 2018-12-12 16:10:45.431 [http-nio-7000-exec-1] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: user.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
@@ -498,7 +498,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-12 16:10:47.071 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
+2018-12-12 16:10:47.071 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
 2018-12-12 16:10:47.097 [http-nio-7000-exec-2] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -667,7 +667,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 2018-12-12 16:10:58.418 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - Application version is -1: false
 2018-12-12 16:10:58.418 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
 2018-12-12 16:10:58.510 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - The response status is 200
-2018-12-12 16:11:22.063 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
+2018-12-12 16:11:22.063 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
 2018-12-12 16:11:22.068 [http-nio-7000-exec-3] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -828,7 +828,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-12 16:11:24.877 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
+2018-12-12 16:11:24.877 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
 2018-12-12 16:11:24.885 [http-nio-7000-exec-4] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -989,7 +989,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-12 16:11:29.856 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/roles
+2018-12-12 16:11:29.856 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/roles
 2018-12-12 16:11:29.918 [http-nio-7000-exec-5] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -1150,7 +1150,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-12 16:11:32.209 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/rules
+2018-12-12 16:11:32.209 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/rules
 2018-12-12 16:11:32.260 [http-nio-7000-exec-6] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -1429,7 +1429,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 2018-12-12 16:12:59.265 [RMI TCP Connection(42)-127.0.0.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Located environment: name=gateway, profiles=[default], label=null, version=null, state=null
 2018-12-12 16:13:10.121 [http-nio-7000-exec-2] INFO  o.s.cloud.netflix.zuul.web.ZuulHandlerMapping - Mapped URL path [/api/v1/user/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
 2018-12-12 16:13:10.186 [http-nio-7000-exec-2] INFO  o.s.cloud.netflix.zuul.web.ZuulHandlerMapping - Mapped URL path [/api/v1/beidou/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
-2018-12-12 16:13:10.323 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
+2018-12-12 16:13:10.323 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
 2018-12-12 16:13:10.355 [http-nio-7000-exec-2] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing SpringClientFactory-user: startup date [Wed Dec 12 16:13:10 CST 2018]; parent: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@421bba99
 2018-12-12 16:13:10.627 [http-nio-7000-exec-2] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 2018-12-12 16:13:11.522 [http-nio-7000-exec-2] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: user.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
@@ -1509,20 +1509,20 @@ com.netflix.zuul.exception.ZuulException:
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Thread.java:748)
-2018-12-12 16:13:22.015 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 16:13:23.943 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/roles
-2018-12-12 16:13:26.064 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/companys
-2018-12-12 16:13:27.073 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/rules
-2018-12-12 16:13:28.358 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/depts
-2018-12-12 16:14:28.742 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 16:16:53.681 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/companys
-2018-12-12 16:16:57.962 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/user/judgeUserName
-2018-12-12 16:17:01.287 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/user/judgeUserName
-2018-12-12 16:17:03.543 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/user/judgeUserName
-2018-12-12 16:17:08.977 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
+2018-12-12 16:13:22.015 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 16:13:23.943 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/roles
+2018-12-12 16:13:26.064 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/companys
+2018-12-12 16:13:27.073 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/rules
+2018-12-12 16:13:28.358 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/depts
+2018-12-12 16:14:28.742 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 16:16:53.681 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/companys
+2018-12-12 16:16:57.962 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/user/judgeUserName
+2018-12-12 16:17:01.287 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/user/judgeUserName
+2018-12-12 16:17:03.543 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/user/judgeUserName
+2018-12-12 16:17:08.977 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
 2018-12-12 16:17:56.938 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2018-12-12 16:18:02.271 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/users
-2018-12-12 16:18:21.047 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/user/searchByUserName
+2018-12-12 16:18:02.271 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/users
+2018-12-12 16:18:21.047 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/user/searchByUserName
 2018-12-12 22:20:49.975 [main] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@62727399: startup date [Wed Dec 12 22:20:49 CST 2018]; root of context hierarchy
 2018-12-12 22:20:50.303 [main] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 2018-12-12 22:20:50.428 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.retry.annotation.RetryConfiguration' of type [org.springframework.retry.annotation.RetryConfiguration$$EnhancerBySpringCGLIB$$abc68f6c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)

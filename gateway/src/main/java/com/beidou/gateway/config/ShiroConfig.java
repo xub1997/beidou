@@ -1,5 +1,6 @@
 package com.beidou.gateway.config;
 
+
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -14,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
+import org.springframework.context.annotation.DependsOn;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -32,7 +34,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSuccessUrl("/index");
         // 未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/403");
-       
+
         // 权限控制map.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         // 定义filterChain，静态资源不拦截
@@ -43,6 +45,7 @@ public class ShiroConfig {
         //错误页面以及登录页面不拦截
         filterChainDefinitionMap.put("/error/**", "anon");
         filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/gifCode", "anon");
         // 配置退出过滤器，其中具体的退出代码Shiro实现
         filterChainDefinitionMap.put("/logout", "logout");
         //filterChainDefinitionMap.put("/kickout", "anon");
@@ -143,10 +146,11 @@ public class ShiroConfig {
      * @return
      */
     @Bean
+    @DependsOn({"lifecycleBeanPostProcessor"})
     public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
-        DefaultAdvisorAutoProxyCreator defaultAdvisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
-        defaultAdvisorAutoProxyCreator.setProxyTargetClass(true);
-        return defaultAdvisorAutoProxyCreator;
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
     }
 
     /***

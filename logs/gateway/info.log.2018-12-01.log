@@ -116,7 +116,7 @@
 2018-12-01 20:15:30.684 [RMI TCP Connection(4)-127.0.0.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Located environment: name=gateway, profiles=[default], label=null, version=null, state=null
 2018-12-01 20:16:05.530 [http-nio-7000-exec-1] INFO  o.s.cloud.netflix.zuul.web.ZuulHandlerMapping - Mapped URL path [/api/v1/user/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
 2018-12-01 20:16:05.531 [http-nio-7000-exec-1] INFO  o.s.cloud.netflix.zuul.web.ZuulHandlerMapping - Mapped URL path [/api/v1/beidou/**] onto handler of type [class org.springframework.cloud.netflix.zuul.web.ZuulController]
-2018-12-01 20:16:23.109 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:16:23.109 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:16:23.118 [http-nio-7000-exec-8] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing SpringClientFactory-user: startup date [Sat Dec 01 20:16:23 CST 2018]; parent: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@28ec166e
 2018-12-01 20:16:23.169 [http-nio-7000-exec-8] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 2018-12-01 20:16:23.355 [http-nio-7000-exec-8] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: user.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
@@ -284,7 +284,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:17:31.901 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:17:31.901 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:17:31.905 [http-nio-7000-exec-7] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -445,7 +445,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:17:33.149 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:17:33.149 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:17:33.151 [http-nio-7000-exec-5] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -606,7 +606,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:17:34.330 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:17:34.330 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:17:34.332 [http-nio-7000-exec-6] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -767,7 +767,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:17:48.495 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:17:48.495 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:17:48.497 [http-nio-7000-exec-7] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -2017,7 +2017,7 @@ Verify the connector's configuration, identify and stop any process that's liste
 2018-12-01 20:30:46.514 [RMI TCP Connection(6)-127.0.0.1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 22 ms
 2018-12-01 20:30:46.762 [RMI TCP Connection(9)-127.0.0.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:5000
 2018-12-01 20:30:47.039 [RMI TCP Connection(9)-127.0.0.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Located environment: name=user, profiles=[default], label=null, version=null, state=null
-2018-12-01 20:31:03.955 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:03.955 [http-nio-7000-exec-8] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:03.962 [http-nio-7000-exec-8] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing SpringClientFactory-user: startup date [Sat Dec 01 20:31:03 CST 2018]; parent: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@253d9f73
 2018-12-01 20:31:04.016 [http-nio-7000-exec-8] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 2018-12-01 20:31:04.192 [http-nio-7000-exec-8] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: user.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
@@ -2185,7 +2185,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:31:05.704 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:05.704 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:05.707 [http-nio-7000-exec-7] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -2346,7 +2346,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:31:06.662 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:06.662 [http-nio-7000-exec-5] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:06.665 [http-nio-7000-exec-5] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -2507,7 +2507,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:31:08.170 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:08.170 [http-nio-7000-exec-3] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:08.173 [http-nio-7000-exec-3] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -2668,7 +2668,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:31:13.011 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:13.011 [http-nio-7000-exec-9] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:13.015 [http-nio-7000-exec-9] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -2829,7 +2829,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:31:13.770 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:13.770 [http-nio-7000-exec-2] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:13.773 [http-nio-7000-exec-2] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -2990,7 +2990,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:31:14.563 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:14.563 [http-nio-7000-exec-4] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:14.566 [http-nio-7000-exec-4] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -3151,7 +3151,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:31:15.148 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:15.148 [http-nio-7000-exec-6] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:15.151 [http-nio-7000-exec-6] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -3312,7 +3312,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:31:15.637 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:15.637 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:15.639 [http-nio-7000-exec-10] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -3473,7 +3473,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at com.netflix.hystrix.HystrixCommand.execute(HystrixCommand.java:344)
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
-2018-12-01 20:31:24.836 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:31:24.836 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:31:24.838 [http-nio-7000-exec-7] WARN  o.s.c.netflix.zuul.filters.post.SendErrorFilter - Error during filtering
 com.netflix.zuul.exception.ZuulException: Forwarding error
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.handleException(RibbonRoutingFilter.java:191)
@@ -3635,7 +3635,7 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 	at org.springframework.cloud.netflix.zuul.filters.route.RibbonRoutingFilter.forward(RibbonRoutingFilter.java:161)
 	... 65 common frames omitted
 2018-12-01 20:31:35.439 [PollingServerListUpdater-0] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: user.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
-2018-12-01 20:33:08.622 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:33:08.622 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:35:01.559 [restartedMain] INFO  o.s.c.a.AnnotationConfigApplicationContext - Refreshing org.springframework.context.annotation.AnnotationConfigApplicationContext@69303079: startup date [Sat Dec 01 20:35:01 CST 2018]; root of context hierarchy
 2018-12-01 20:35:01.742 [restartedMain] INFO  o.s.b.f.a.AutowiredAnnotationBeanPostProcessor - JSR-330 'javax.inject.Inject' annotation found and supported for autowiring
 2018-12-01 20:35:01.775 [restartedMain] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'configurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$929a906f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
@@ -3826,12 +3826,12 @@ Caused by: com.netflix.client.ClientException: Load balancer does not have avail
 2018-12-01 20:35:11.788 [RMI TCP Connection(12)-127.0.0.1] INFO  org.springframework.web.servlet.DispatcherServlet - FrameworkServlet 'dispatcherServlet': initialization completed in 20 ms
 2018-12-01 20:35:11.854 [RMI TCP Connection(6)-127.0.0.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:5000
 2018-12-01 20:35:11.986 [RMI TCP Connection(6)-127.0.0.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Located environment: name=user, profiles=[default], label=null, version=null, state=null
-2018-12-01 20:35:15.121 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:35:15.121 [http-nio-7000-exec-10] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:35:29.907 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
 2018-12-01 20:35:40.963 [http-nio-7000-exec-6] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:5000
 2018-12-01 20:35:41.105 [http-nio-7000-exec-6] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Located environment: name=gateway, profiles=[default], label=null, version=null, state=null
 2018-12-01 20:40:10.556 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2018-12-01 20:40:23.333 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.RequestFilter - url =/api/v1/user/v2/api-docs
+2018-12-01 20:40:23.333 [http-nio-7000-exec-7] INFO  com.beidou.gateway.filter.AuthFilter - url =/api/v1/user/v2/api-docs
 2018-12-01 20:40:29.909 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
 2018-12-01 20:40:30.954 [http-nio-7001-exec-1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:5000
 2018-12-01 20:40:31.087 [http-nio-7001-exec-1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Located environment: name=user, profiles=[default], label=null, version=null, state=null

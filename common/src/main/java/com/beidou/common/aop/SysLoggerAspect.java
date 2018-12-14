@@ -8,6 +8,8 @@ import com.beidou.common.service.LoggerService;
 import com.beidou.common.util.HttpUtils;
 import com.beidou.common.util.StringUtil;
 
+import com.beidou.common.util.UserUtils;
+import org.apache.shiro.SecurityUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -40,6 +42,7 @@ public class SysLoggerAspect {
     private LoggerService loggerService;
 
 
+
     //@Pointcut("execution(* com.beidou..*.*(..)) && @annotation(com.beidou.logger.annotation.SysLogger)")
     @Pointcut("@annotation(com.beidou.common.annotation.SysLogger)")
     public void loggerPointCut() {
@@ -48,12 +51,6 @@ public class SysLoggerAspect {
 
     @Before("loggerPointCut()")
     public void saveSysLog(JoinPoint joinPoint) throws  Throwable{
-        //操作人（用户名）
-        //String username = UserUtils.getCurrentPrinciple();
-        String username ="root";
-        if(!StringUtil.isEmpty(username)) {
-            sysLog.setUsername(username);
-        }
         //设置IP地址
         sysLog.setIp(HttpUtils.getIpAddress());
         //请求方法
@@ -73,21 +70,18 @@ public class SysLoggerAspect {
         String methodName = signature.getName();
         sysLog.setMethod(className + "." + methodName + "()");
         //请求的参数
-        Object[] args = joinPoint.getArgs();
+        Object[]  args= joinPoint.getArgs();
         String params="";
-        for(Object o:args){
-            params+= JSON.toJSONString(o);
+        for(Object object:args){
+            params+= JSON.toJSONString(object);
         }
         if(!StringUtils.isEmpty(params)) {
             sysLog.setParams(params);
         }
-        //异常
-        sysLog.setException("无异常");
         //记录方法开始执行的时间
         startTimeMillis = System.currentTimeMillis();
         //创建时间
         sysLog.setCreatedate(StringUtil.dateToString(new Date()));
-
     }
 
     @AfterThrowing(pointcut = "loggerPointCut()",throwing = "e")
@@ -96,13 +90,28 @@ public class SysLoggerAspect {
         if(e!=null){
             sysLog.setException(e.toString());
         }
-        /*logger.info("操作信息={}",sysLog.toString());*/
+        //操作人（用户名）
+        String username="";
+        sysLog.setUsername(username);
+        if(UserUtils.getUsername()!=null&&!StringUtil.isEmpty(UserUtils.getUsername())){
+            username = UserUtils.getUsername();
+            sysLog.setUsername(username);
+        }
+        endTimeMillis = System.currentTimeMillis();
+        sysLog.setTime(endTimeMillis-startTimeMillis);
         //保存系统日志
         loggerService.savelog(sysLog);
     }
 
     @AfterReturning(pointcut = "loggerPointCut()",returning = "object")
     public void doAfterReturing(Object object){
+        //操作人（用户名）
+        String username="";
+        sysLog.setUsername(username);
+        if(UserUtils.getUsername()!=null&&!StringUtil.isEmpty(UserUtils.getUsername())){
+            username = UserUtils.getUsername();
+            sysLog.setUsername(username);
+        }
         endTimeMillis = System.currentTimeMillis();
         Map<String, Object> map = new HashMap<String, Object>();
         // 得到类对象
@@ -125,7 +134,9 @@ public class SysLoggerAspect {
         }
         sysLog.setTime(endTimeMillis-startTimeMillis);
         //操作结果
-        sysLog.setResult(map.get("msg").toString());
+        sysLog.setResult(map.toString());
+        //异常
+        sysLog.setException("无异常");
         logger.info("操作信息={}",sysLog.toString());
         //保存系统日志
         loggerService.savelog(sysLog);

@@ -3,6 +3,7 @@ package com.beidou.logger.config;
 
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.beidou.common.interceptor.SqlStatementInterceptor;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -46,6 +47,17 @@ public class MybatisConfig {
         properties.setProperty("dialect","mysql");    //配置mysql数据库的方言
         pageHelper.setProperties(properties);
         return pageHelper;
+    }
+
+    /**
+     * 配置 sql打印拦截器
+     * application.yml中 febs.showsql: true 时生效
+     *
+     * @return SqlStatementInterceptor
+     */
+    @Bean
+    SqlStatementInterceptor sqlStatementInterceptor() {
+        return new SqlStatementInterceptor();
     }
 
 }

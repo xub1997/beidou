@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beidou.gateway.dao.UserMapper">
+<mapper namespace="com.beidou.gateway.dao.LoginMapper">
 
   <resultMap id="userMap" type="com.beidou.gateway.entity.User">
     <result column="username" jdbcType="VARCHAR" property="username" />
@@ -26,7 +26,7 @@
       <result property="description" column="odescription"/>
       <result property="createdate" column="ocreatedate"/>
       <result property="modifydate" column="omodifydate"/>
-      <collection property="rules" ofType="com.beidou.gateway.entity.Rule">
+      <collection property="permissions" ofType="com.beidou.gateway.entity.Rule">
         <id column="rid" jdbcType="INTEGER" property="id" />
         <result property="rulename" column="rulename"/>
         <result property="description" column="rdescription"/>
@@ -53,7 +53,7 @@
     LEFT  JOIN tb_role o on ur.roleid=o.id
     LEFT  JOIN tb_role_rule ou on o.id=ou.roleid
     LEFT  JOIN tb_rule r on r.id=ou.ruleid
-    WHERE u.username = #{username,jdbcType=VARCHAR}
+    WHERE u.username = #{username}
   </select>
 
 </mapper>

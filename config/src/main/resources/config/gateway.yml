@@ -53,9 +53,8 @@ zuul:
       path: /api/v1/user/**
       serviceId: user
     api-2:
-      path: /api/v1/beidou/**
-      serviceId: beidou
-
+      path: /api/v1/logger/**
+      serviceId: logger
 #打开feign-hystrix
 feign:
   hystrix:

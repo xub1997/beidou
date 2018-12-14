@@ -1,10 +1,10 @@
 package com.beidou.user.service;
 
+import com.beidou.common.entity.ResponseMsg;
+import com.beidou.common.util.StringUtil;
 import com.beidou.user.entity.Dept;
 import com.beidou.user.entity.DeptExample;
 import com.beidou.user.dao.DeptMapper;
-import com.beidou.user.utils.ResponseMsg;
-import com.beidou.user.utils.StringUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

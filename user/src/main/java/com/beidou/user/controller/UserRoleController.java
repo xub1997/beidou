@@ -1,15 +1,14 @@
 package com.beidou.user.controller;
 
 import com.beidou.common.annotation.SysLogger;
+import com.beidou.common.entity.ResponseMsg;
+import com.beidou.common.util.StringUtil;
 import com.beidou.user.entity.UserRole;
 import com.beidou.user.service.UserRoleService;
-import com.beidou.user.utils.ResponseMsg;
-import com.beidou.user.utils.StringUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,7 +25,7 @@ public class UserRoleController {
     @Autowired
     private UserRoleService userRoleService;
 
-    @RequiresPermissions("userRole:create")
+
     @SysLogger("添加用户-角色管理信息")
     @ApiOperation(value="添加用户-角色管理信息", notes="添加用户-角色管理信息")
     @ApiImplicitParams({
@@ -59,7 +58,7 @@ public class UserRoleController {
         }
     }
 
-    @RequiresPermissions("userRole:update")
+
     @SysLogger("更新id对应的用户-角色管理信息")
     @ApiOperation(value="更新id对应的用户-角色管理信息", notes="更新id对应的用户-角色管理信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({

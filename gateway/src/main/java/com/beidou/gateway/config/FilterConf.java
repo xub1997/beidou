@@ -2,7 +2,7 @@ package com.beidou.gateway.config;
 
 
 
-import com.beidou.gateway.filter.RequestFilter;
+import com.beidou.gateway.filter.AuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FilterConf {
     @Bean
-    public RequestFilter filter(){
-        return  new RequestFilter() ;
+    public AuthFilter filter(){
+        return  new AuthFilter() ;
     }
 }

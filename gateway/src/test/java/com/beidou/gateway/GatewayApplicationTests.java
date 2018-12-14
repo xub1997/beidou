@@ -18,15 +18,13 @@ public class GatewayApplicationTests {
     public void testEncryptDecryptByBASE64(){
         String pwd="123";
         try {
-            pwd= StringUtil.encryptByBASE64(pwd.getBytes());
-            pwd= StringUtil.encryptByBASE64(pwd.getBytes());
+            pwd= StringUtil.encryptByBASE64(pwd);
             System.out.println("加密为："+pwd);
         }catch (Exception e){
             e.printStackTrace();
         }
         try {
-            pwd= new String(StringUtil.decryptByBASE64(pwd));
-            pwd= new String(StringUtil.decryptByBASE64(pwd));
+            pwd= StringUtil.decryptByBASE64(pwd);
             System.out.println("解密为："+pwd);
         }catch (Exception e){
             e.printStackTrace();

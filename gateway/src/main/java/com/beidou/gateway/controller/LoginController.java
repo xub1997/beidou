@@ -5,14 +5,13 @@ import com.beidou.common.entity.ResponseMsg;
 import com.beidou.common.util.StringUtil;
 import com.beidou.common.util.vcode.Captcha;
 import com.beidou.common.util.vcode.GifCaptcha;
-import com.beidou.gateway.dao.UserMapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
+import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -30,8 +29,11 @@ public class LoginController {
     private static final int height=40;
     private static final int length=4;
 
-    @Autowired
-    private UserMapper userMapper;
+
+    @GetMapping("/login")
+    public String loginhtml(){
+        return "login";
+    }
 
     @SysLogger("用户登录")
     @PostMapping("/login")
@@ -41,14 +43,13 @@ public class LoginController {
         }
         Session session = SecurityUtils.getSubject().getSession();
         String sessionCode = (String) session.getAttribute(CODE_KEY);
-        if (!code.equalsIgnoreCase(sessionCode)) {
+        /*if (!code.equalsIgnoreCase(sessionCode)) {
             return ResponseMsg.Error("验证码错误！");
-        }
+        }*/
         if(!StringUtil.isEmpty(pwd)&&!StringUtil.isEmpty(username)){
             try{
-                // 密码 BASE64加密(两次加密)
-                pwd=StringUtil.encryptByBASE64(pwd.getBytes());
-                pwd=StringUtil.encryptByBASE64(pwd.getBytes());
+                // 密码 BASE64加密(三次加密)
+                pwd=StringUtil.encryptByBASE64(pwd);
             }catch(Exception e){
                 e.printStackTrace();
             }
@@ -57,7 +58,7 @@ public class LoginController {
                 Subject subject = SecurityUtils.getSubject();
                 if (subject != null)
                     subject.logout();
-                SecurityUtils.getSubject().login(token);
+                subject.login(token);
 
                 return ResponseMsg.Success("登录成功！",token);
             } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
@@ -71,8 +72,9 @@ public class LoginController {
 
     }
 
-    @SysLogger("获取验证码")
-    @GetMapping(value = "gifCode")
+    //@RequiresAuthentication
+    @RequiresGuest
+    @GetMapping(value = "/gifCode")
     public void getGifCode(HttpServletResponse response, HttpServletRequest request) {
         try {
             response.setHeader("Pragma", "No-cache");

@@ -126,14 +126,14 @@ public class StringUtil {
 
 
     /**
-     * BASE64解密
+     * BASE64解密(三次)
      *
      * @param key
      * @return
      * @throws Exception
      */
-    public static byte[] decryptByBASE64(String key) throws Exception {
-        return (new BASE64Decoder()).decodeBuffer(key);
+    public static String decryptByBASE64(String key) throws Exception {
+        return new String(new BASE64Decoder().decodeBuffer(new String(new BASE64Decoder().decodeBuffer(new String((new BASE64Decoder()).decodeBuffer(key))))));
     }
 
     /**
@@ -143,8 +143,8 @@ public class StringUtil {
      * @return
      * @throws Exception
      */
-    public static String encryptByBASE64(byte[] key) throws Exception {
-        return (new BASE64Encoder()).encodeBuffer(key);
+    public static String encryptByBASE64(String key) throws Exception {
+        return new BASE64Encoder().encode(new BASE64Encoder().encode((new BASE64Encoder()).encodeBuffer(key.getBytes()).getBytes()).getBytes());
     }
 
 
