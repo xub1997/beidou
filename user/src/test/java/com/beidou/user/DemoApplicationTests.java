@@ -1,6 +1,7 @@
 package com.beidou.user;
 
-import com.beidou.user.utils.StringUtil;
+
+import com.beidou.common.util.StringUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

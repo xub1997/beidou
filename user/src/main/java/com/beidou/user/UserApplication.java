@@ -7,6 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
 @EnableDiscoveryClient
 @ComponentScan({"com.beidou.user.*", "com.beidou.common.*"})
 @EnableSwagger2
