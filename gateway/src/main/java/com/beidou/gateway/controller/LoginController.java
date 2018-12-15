@@ -2,14 +2,17 @@ package com.beidou.gateway.controller;
 
 import com.beidou.common.annotation.SysLogger;
 import com.beidou.common.entity.ResponseMsg;
+import com.beidou.common.entity.Tree;
 import com.beidou.common.util.StringUtil;
+import com.beidou.common.util.TreeUtils;
 import com.beidou.common.util.vcode.Captcha;
 import com.beidou.common.util.vcode.GifCaptcha;
+import com.beidou.gateway.entity.Role;
+import com.beidou.gateway.entity.Rule;
 import com.beidou.gateway.entity.User;
 import com.beidou.gateway.service.LoginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
-import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class LoginController {
@@ -76,10 +81,19 @@ public class LoginController {
                 Subject subject = SecurityUtils.getSubject();
                 if (subject != null)subject.logout();//退出之前账号
                 subject.login(token);//登录
-                
-                user.setPwd("");
-                user.setSalt("");
-                return ResponseMsg.Success("登录成功！",user);
+                List<Tree<Rule>> trees = new ArrayList<>();
+                for(Role role:user.getRoles()){
+                    for(Rule rule:role.getPermissions()){
+                        Tree<Rule> tree = new Tree<>();
+                        tree.setId(rule.getId().toString());
+                        tree.setParentId(rule.getPid().toString());
+                        tree.setText(rule.getRulename());
+                        tree.setIcon("");
+                        tree.setUrl(rule.getUrl());
+                        trees.add(tree);
+                    }
+                }
+                return ResponseMsg.Success("登录成功！",user,TreeUtils.build(trees));
             } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
                 return ResponseMsg.Error(e.getMessage());
             } catch (AuthenticationException e) {

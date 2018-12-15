@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.List;
 
 @ApiModel(value = "通用返回信息")
 public class ResponseMsg<T> implements Serializable {
@@ -19,12 +20,22 @@ public class ResponseMsg<T> implements Serializable {
     @ApiModelProperty(value="具体数据", hidden=false, required=false)
     private T data;
 
+    @ApiModelProperty(value="菜单", hidden=false, required=false)
+    private T menu;
+
     private ResponseMsg(int status){
         this.status = status;
     }
     private ResponseMsg(int status, T data){
         this.status = status;
         this.data = data;
+    }
+
+    private ResponseMsg(int status, String msg, T data,T menu){
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
+        this.menu=menu;
     }
 
     private ResponseMsg(int status, String msg, T data){
@@ -71,6 +82,10 @@ public class ResponseMsg<T> implements Serializable {
         return new ResponseMsg<T>(ResponseCode.SUCCESS.getCode(),msg,data);
     }
 
+    public static <T> ResponseMsg<T> Success(String msg, T data,T menu){
+        return new ResponseMsg<T>(ResponseCode.SUCCESS.getCode(),msg,data,menu);
+    }
+
 
     public static <T> ResponseMsg<T> Error(){
         return new ResponseMsg<T>(ResponseCode.ERROR.getCode(), ResponseCode.ERROR.getDescrition());
@@ -90,7 +105,7 @@ public class ResponseMsg<T> implements Serializable {
         return "ResponseMsg{" +
                 "status=" + status +
                 ", msg='" + msg + '\'' +
-                ", data=" + data +
+                ", data=" + data+
                 '}';
     }
 }
