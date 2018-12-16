@@ -175,7 +175,8 @@ public class ShiroConfig {
     @Bean(name = "rememberMeCookie")
     public SimpleCookie getRememberMeCookie() {
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
-        simpleCookie.setHttpOnly(true); simpleCookie.setMaxAge(2592000);//30天
+        simpleCookie.setHttpOnly(true);
+        simpleCookie.setMaxAge(2592000);//30天
         return simpleCookie;
     }
 

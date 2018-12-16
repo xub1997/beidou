@@ -148,8 +148,18 @@ public class Tree<T> {
 
 	@Override
 	public String toString() {
-
-		return JSON.toJSONString(this);
+		return "Tree{" +
+				"id='" + id + '\'' +
+				", icon='" + icon + '\'' +
+				", url='" + url + '\'' +
+				", text='" + text + '\'' +
+				", state=" + state +
+				", checked=" + checked +
+				", attributes=" + attributes +
+				", children=" + children +
+				", parentId='" + parentId + '\'' +
+				", hasParent=" + hasParent +
+				", hasChildren=" + hasChildren +
+				'}';
 	}
-
 }

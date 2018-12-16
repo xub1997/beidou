@@ -16,7 +16,10 @@ public class UserUtils {
      * @return
      */
     public static String getUsername(){
-        return getSubject().getPrincipal().toString();
+        if(getSubject().getPrincipal()!=null){
+            return getSubject().getPrincipal().toString();
+        }
+        return "登录";
     }
 
 
@@ -24,7 +27,11 @@ public class UserUtils {
     * 获取shiro的当前Subject对象
     * */
     public static Subject getSubject() {
-        return SecurityUtils.getSubject();
+        Subject subject=SecurityUtils.getSubject();
+        if(subject!=null){
+            return subject;
+        }
+        return null;
     }
 
 

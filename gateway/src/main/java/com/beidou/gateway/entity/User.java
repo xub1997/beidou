@@ -1,6 +1,7 @@
 package com.beidou.gateway.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -16,12 +17,15 @@ public class User implements Serializable {
     @ApiModelProperty(value="用户id", hidden=false, required=false, dataType="Integer")
     private Integer id;
 
+
     @ApiModelProperty(value="用户名", hidden=false, required=true, dataType="String")
     private String username;
 
+    @JsonIgnore
     @ApiModelProperty(value="盐值", hidden=false, required=false, dataType="String")
     private String salt;
 
+    @JsonIgnore
     @ApiModelProperty(value="密码", hidden=false, required=true, dataType="String")
     private String pwd;
 

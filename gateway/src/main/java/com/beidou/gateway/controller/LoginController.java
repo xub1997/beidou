@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,23 +40,26 @@ public class LoginController {
     private LoginService loginService;
 
 
-    @GetMapping("/login")
+    /*@GetMapping("/login")
     public String loginhtml(){
         return "login";
-    }
+    }*/
 
     @SysLogger("用户登录")
     @PostMapping("/login")
-    public ResponseMsg login(@RequestParam("username")String username,@RequestParam("pwd")String pwd ,@RequestParam("code")String code,@RequestParam(value = "rememberMe",defaultValue = "false")boolean rememberMe){
+    public ResponseMsg login(@RequestParam("username")String username,@RequestParam("pwd")String pwd ,
+                             @RequestParam("code")String code,@RequestParam(value = "rememberMe",defaultValue = "false")boolean rememberMe){
         if (StringUtil.isEmpty(code)) {
             return ResponseMsg.Error("验证码不能为空！");
         }
+
         Session session = SecurityUtils.getSubject().getSession();
         String sessionCode = (String) session.getAttribute(CODE_KEY);
-        if (!code.equalsIgnoreCase(sessionCode)) {
+        System.out.println(session.getAttribute(CODE_KEY));
+        if (!code.equalsIgnoreCase(sessionCode)) {//验证码检验
             return ResponseMsg.Error("验证码错误！");
         }
-        if(!StringUtil.isEmpty(pwd)&&!StringUtil.isEmpty(username)){
+        if(!StringUtil.isEmpty(pwd)&&!StringUtil.isEmpty(username)){//用户名、密码判空
 
             try {
                 // 从数据库获取对应用户名密码的用户
@@ -118,7 +120,8 @@ public class LoginController {
                    width ,//验证码宽度
                    height,//验证码高度
                    length);//验证码字符个数
-            HttpSession session = request.getSession(true);
+
+            Session session = SecurityUtils.getSubject().getSession(true);
             captcha.out(response.getOutputStream());
             session.removeAttribute(CODE_KEY);
             session.setAttribute(CODE_KEY, captcha.text().toLowerCase());

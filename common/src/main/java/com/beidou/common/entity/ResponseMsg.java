@@ -19,7 +19,6 @@ public class ResponseMsg<T> implements Serializable {
     private String msg;
     @ApiModelProperty(value="具体数据", hidden=false, required=false)
     private T data;
-
     @ApiModelProperty(value="菜单", hidden=false, required=false)
     private T menu;
 
@@ -65,6 +64,9 @@ public class ResponseMsg<T> implements Serializable {
         return msg;
     }
 
+    public T getMenu() {
+        return menu;
+    }
 
     public static <T> ResponseMsg<T> Success(){
         return new ResponseMsg<T>(ResponseCode.SUCCESS.getCode());
@@ -100,12 +102,4 @@ public class ResponseMsg<T> implements Serializable {
         return new ResponseMsg<T>(errorCode,errorMessage);
     }
 
-    @Override
-    public String toString() {
-        return "ResponseMsg{" +
-                "status=" + status +
-                ", msg='" + msg + '\'' +
-                ", data=" + data+
-                '}';
-    }
 }
