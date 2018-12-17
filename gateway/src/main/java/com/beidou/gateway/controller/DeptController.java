@@ -7,6 +7,9 @@ import com.beidou.common.util.StringUtil;
 import com.beidou.gateway.entity.Dept;
 import com.beidou.gateway.service.DeptService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,7 @@ public class DeptController {
 
     @SysLogger("添加部门信息")
     @RequiresPermissions("dept:create")
+    @ApiOperation(value="添加部门信息", notes="添加部门信息")
     @PostMapping(value = "/dept")
     public ResponseMsg insert(Dept dept){
         return deptService.insert(dept);
@@ -32,6 +36,10 @@ public class DeptController {
 
     @SysLogger("获取id对应的部门信息")
     @RequiresPermissions("dept:read")
+    @ApiOperation(value="获取id对应的部门信息", notes="获取id对应的部门信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "部门ID", required = true, dataType = "int", paramType="path")
+    })
     @GetMapping(value="/dept/{id}")
     public ResponseMsg getById(@PathVariable("id")Integer id){
         return deptService.getById(id);
@@ -39,6 +47,10 @@ public class DeptController {
 
     @SysLogger("更新id对应的部门信息")
     @RequiresPermissions("dept:update")
+    @ApiOperation(value="更新id对应的部门信息", notes="更新id对应的部门信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "部门ID", required = true, dataType = "int", paramType="path")
+    })
     @PutMapping(value="/dept/{id}")
     public ResponseMsg updateById(Dept dept){
         return deptService.updateById(dept);
@@ -46,6 +58,10 @@ public class DeptController {
 
     @SysLogger("删除id对应的部门信息")
     @RequiresPermissions("dept:delete")
+    @ApiOperation(value="删除id对应的部门信息", notes="删除id对应的部门信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", value = "部门ID", required = true, dataType = "String", paramType="path")
+    })
     @DeleteMapping(value="/dept/{ids}")
     public ResponseMsg deleteById(@PathVariable("ids")String ids){
         ResponseMsg responseMsg;
@@ -71,6 +87,10 @@ public class DeptController {
     }
     @SysLogger("获取公司部门")
     @RequiresPermissions("comDept:read")
+    @ApiOperation(value="获取公司部门", notes="获取公司部门")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query")
+    })
     @GetMapping(value="/comDept")
     public ResponseMsg getComDept(@RequestParam(value = "comId", defaultValue = "1")Integer comId ){
         return deptService.getComDept(comId);
@@ -78,6 +98,7 @@ public class DeptController {
 
     @SysLogger("获取部门信息")
     @RequiresPermissions("dept:readAll")
+    @ApiOperation(value="获取部门信息", notes="获取部门信息")
     @GetMapping(value="/dept")
     public ResponseMsg getAll(){
         return deptService.getAll();
@@ -85,6 +106,7 @@ public class DeptController {
 
     @SysLogger("获取部门信息列表")
     @RequiresPermissions("depts:read")
+    @ApiOperation(value="获取部门信息列表", notes="获取部门信息列表")
     @GetMapping(value="/depts")
     public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return deptService.getList(pageNum);
@@ -92,6 +114,11 @@ public class DeptController {
 
     @SysLogger("获取部门列表（对应公司）")
     @RequiresPermissions("comDepts:read")
+    @ApiOperation(value="获取部门列表（对应公司）", notes="获取部门列表（对应公司）")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query")
+    })
     @GetMapping(value="/comDepts")
     public ResponseMsg getComDeptList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
                                       @RequestParam(value = "comId", defaultValue = "1")Integer comId ){
@@ -100,6 +127,11 @@ public class DeptController {
 
     @SysLogger("查找部门")
     @RequiresPermissions("dept:searchByName:read")
+    @ApiOperation(value="查找部门", notes="查找部门")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "name", value = "部门名", required = true, dataType = "String", paramType="query")
+    })
     @GetMapping(value="/dept/searchByName")
     public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
                                     @RequestParam(value = "name")String name ){
@@ -108,6 +140,12 @@ public class DeptController {
 
     @SysLogger("查找公司部门")
     @RequiresPermissions("dept:searchByNameAndComId:read")
+    @ApiOperation(value="查找公司部门", notes="查找公司部门")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "name", value = "部门名", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "comId", value = "公司id", required = false, dataType = "int", paramType="query")
+    })
     @GetMapping(value="/dept/searchByNameAndComId")
     public ResponseMsg searchByNameAndComId(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
                                             @RequestParam(value = "name")String name,

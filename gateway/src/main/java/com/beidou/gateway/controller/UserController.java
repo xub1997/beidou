@@ -28,6 +28,7 @@ public class UserController {
 
     @SysLogger("添加用户信息")
     @RequiresPermissions("user:create")
+    @ApiOperation(value="添加用户信息", notes="添加用户信息",produces ="application/json")
     @PostMapping(value = "/user")
     public ResponseMsg insert(User user){
         return userService.insert(user);
@@ -36,6 +37,10 @@ public class UserController {
 
     @SysLogger("获取id对应的用户信息")
     @RequiresPermissions("user:read")
+    @ApiOperation(value="获取id对应的用户信息", notes="获取id对应的用户信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int", paramType="path")
+    })
     @GetMapping(value="/user/{id}")
     public ResponseMsg getById(@PathVariable("id")Integer id){
         return userService.getById(id);
@@ -44,6 +49,10 @@ public class UserController {
 
     @SysLogger("更新id对应的用户信息")
     @RequiresPermissions("user:update")
+    @ApiOperation(value="更新id对应的用户信息", notes="更新id对应的用户信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user", value = "User", required = true, dataType = "User", paramType="path")
+    })
     @PutMapping(value="/user/{id}")
     public ResponseMsg updateById(User user){
         return userService.updateById(user);
@@ -52,6 +61,10 @@ public class UserController {
 
     @SysLogger("删除id对应的用户信息")
     @RequiresPermissions("user:delete")
+    @ApiOperation(value="删除id对应的用户信息", notes="删除id对应的用户信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", value = "用户ID", required = true, dataType = "String", paramType="path")
+    })
     @DeleteMapping(value="/user/{ids}")
     public ResponseMsg deleteById(@PathVariable("ids")String ids){
         ResponseMsg responseMsg;
@@ -74,8 +87,13 @@ public class UserController {
             return ResponseMsg.Error("请选择要删除的用户");
         }
     }
+
     @SysLogger("获取用户信息列表")
     @RequiresPermissions("users:read")
+    @ApiOperation(value="获取用户信息列表", notes="获取用户信息列表")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query")
+    })
     @GetMapping(value="/users")
     public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return userService.getList(pageNum);
@@ -83,6 +101,11 @@ public class UserController {
 
     @SysLogger("获取用户信息列表(对应公司)")
     @RequiresPermissions("userCom:read")
+    @ApiOperation(value="获取用户信息列表(对应公司)", notes="获取用户信息列表（对应公司）")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query"),
+            @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query")
+    })
     @GetMapping(value="/user")
     public ResponseMsg getComUserList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
                                       @RequestParam(value = "comId", defaultValue = "1")Integer comId){
@@ -91,6 +114,11 @@ public class UserController {
 
     @SysLogger("查找用户")
     @RequiresPermissions("user:searchUser")
+    @ApiOperation(value="查找用户", notes="查找用户")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query")
+    })
     @GetMapping(value="/user/searchByUserName")
     public ResponseMsg searchByUserName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
                                         @RequestParam(value = "username")String username ){
@@ -99,6 +127,12 @@ public class UserController {
 
     @SysLogger("查找公司用户")
     @RequiresPermissions("user:searchComUser")
+    @ApiOperation(value="查找公司用户", notes="查找公司用户")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "comId", value = "公司id", required = false, dataType = "int", paramType="query")
+    })
     @GetMapping(value="/user/searchByUserNameAndComId")
     public ResponseMsg searchByUserNameAndComId(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
                                                 @RequestParam(value = "username")String username,
@@ -109,6 +143,10 @@ public class UserController {
 
     @SysLogger("判断用户名重复")
     @RequiresAuthentication
+    @ApiOperation(value="判断用户名重复", notes="判断用户名重复")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query")
+    })
     @GetMapping(value="/user/judgeUserName")
     public ResponseMsg judgeUserName(@RequestParam(value = "username")String username ){
         if(userService.judgeUsername(username)==null&&true){
@@ -120,6 +158,12 @@ public class UserController {
 
     @SysLogger("修改密码")
     @RequiresAuthentication
+    @ApiOperation(value="修改密码", notes="修改密码")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "oldPwd", value = "旧密码", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "newPwd", value = "新密码", required = true, dataType = "String", paramType="query")
+    })
     @GetMapping(value="/user/modifyPwd")
     public ResponseMsg modifyPwd(@RequestParam(value = "userId")Integer userId ,
                                  @RequestParam(value = "oldPwd")String oldPwd,

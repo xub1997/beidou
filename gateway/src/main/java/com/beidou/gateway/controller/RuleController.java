@@ -26,6 +26,7 @@ public class RuleController {
 
     @SysLogger("添加权限信息")
     @RequiresPermissions("rule:create")
+    @ApiOperation(value="添加权限信息", notes="添加权限信息")
     @PostMapping(value = "/rule")
     public ResponseMsg insert(Rule rule){
         return ruleService.insert(rule);
@@ -35,6 +36,10 @@ public class RuleController {
 
     @SysLogger("获取id对应的权限信息")
     @RequiresPermissions("rule:read")
+    @ApiOperation(value="获取id对应的权限信息", notes="获取id对应的权限信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "权限ID", required = true, dataType = "int", paramType="path")
+    })
     @GetMapping(value="/rule/{id}")
     public ResponseMsg getById(@PathVariable("id")Integer id){
         return ruleService.getById(id);
@@ -43,6 +48,10 @@ public class RuleController {
 
     @SysLogger("更新id对应的权限信息")
     @RequiresPermissions("rule:update")
+    @ApiOperation(value="更新id对应的权限信息", notes="更新id对应的权限信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "权限ID", required = true, dataType = "int", paramType="path")
+    })
     @PutMapping(value="/rule/{id}")
     public ResponseMsg updateById(Rule rule){
         return ruleService.updateById(rule);
@@ -51,6 +60,10 @@ public class RuleController {
 
     @SysLogger("删除id对应的权限信息")
     @RequiresPermissions("rule:delete")
+    @ApiOperation(value="删除id对应的权限信息", notes="删除id对应的权限信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", value = "权限ID", required = true, dataType = "String", paramType="path")
+    })
     @DeleteMapping(value="/rule/{ids}")
     public ResponseMsg deleteById(@PathVariable("ids")String ids){
         ResponseMsg responseMsg;
@@ -78,6 +91,10 @@ public class RuleController {
 
     @SysLogger("获取权限信息列表")
     @RequiresPermissions("rules:read")
+    @ApiOperation(value="获取权限信息列表", notes="获取权限信息列表")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
+    })
     @GetMapping(value="/rules")
     public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return ruleService.getList(pageNum);
@@ -85,6 +102,10 @@ public class RuleController {
 
     @SysLogger("获取角色对应权限")
     @RequiresPermissions("roleRule:read")
+    @ApiOperation(value="获取角色对应权限", notes="获取角色对应权限")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "int", paramType="query")
+    })
     @GetMapping(value="/roleRule")
     public ResponseMsg getRoleRule(@RequestParam("roleId")Integer roleId ){
         return ruleService.getRoleRule(roleId);
@@ -93,6 +114,11 @@ public class RuleController {
 
     @SysLogger("查找权限")
     @RequiresPermissions("rule:search")
+    @ApiOperation(value="查找权限", notes="查找权限")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "name", value = "权限名", required = true, dataType = "String", paramType="query")
+    })
     @GetMapping(value="/rule/searchByName")
     public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "name")String name ){
         return ruleService.searchByName(pageNum,name);

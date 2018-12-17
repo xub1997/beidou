@@ -13,7 +13,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 /*@EnableFeignClients*/
 @EnableDiscoveryClient
-@ComponentScan({"com.beidou.gateway.*", "com.beidou.common.*"})
+@ComponentScan({"com.beidou.gateway.*", "com.beidou.common.*","com.beidou.gateway.config.*"})
 @MapperScan("com.beidou.gateway.dao.*")
 @EnableZuulProxy
 @SpringBootApplication

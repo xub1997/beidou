@@ -49,6 +49,9 @@ public class ShiroConfig {
         // 配置退出过滤器，其中具体的退出代码Shiro实现
         filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/v2/api-docs", "anon");
+        filterChainDefinitionMap.put("/api/v1/logger/swagger-ui.html", "anon");
+        filterChainDefinitionMap.put("/api/v1/logger/v2/api-docs", "anon");
         filterChainDefinitionMap.put("/druid/**", "anon");
         //filterChainDefinitionMap.put("/kickout", "anon");
         // 除上以外所有url都必须认证通过才可以访问，未通过认证自动访问LoginUrl

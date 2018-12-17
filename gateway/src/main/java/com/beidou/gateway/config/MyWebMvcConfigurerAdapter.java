@@ -26,7 +26,7 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
                 .addResourceLocations("classpath:/templates/");
         registry.addResourceHandler("/error/")
                 .addResourceLocations("classpath:/templates/error/");
-        registry.addResourceHandler("swagger-ui.html")
+        registry.addResourceHandler("/swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
 
         super.addResourceHandlers(registry);

@@ -7,6 +7,9 @@ import com.beidou.common.util.StringUtil;
 import com.beidou.gateway.entity.RoleRule;
 import com.beidou.gateway.service.RoleRuleService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,11 @@ public class RoleRuleController {
 
     @SysLogger("添加角色-权限管理信息")
     @RequiresPermissions("roleRule:create")
+    @ApiOperation(value="添加角色-权限管理信息", notes="添加角色-权限管理信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色ID", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "ruleIds", value = "权限id（用逗号隔开）", required = true, dataType = "String", paramType="query")
+    })
     @PostMapping(value = "/roleRule")
     public ResponseMsg insert(@RequestParam(value = "roleId")Integer roleId, @RequestParam("ruleIds")String ruleIds){
         ResponseMsg responseMsg;
@@ -50,6 +58,11 @@ public class RoleRuleController {
 
     @SysLogger("更新id对应的角色-权限管理信息")
     @RequiresPermissions("roleRule:update")
+    @ApiOperation(value="更新id对应的角色-权限管理信息", notes="更新id对应的角色-权限管理信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "roleId", value = "角色ID", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "ruleIds", value = "权限id（用逗号隔开）", required = true, dataType = "String", paramType="query")
+    })
     @PutMapping(value="/roleRule")
     public ResponseMsg updateByRoleId(@RequestParam("roleId")Integer roleId,@RequestParam("ruleIds")String ruleIds){
         ResponseMsg responseMsg;

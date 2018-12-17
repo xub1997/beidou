@@ -6,6 +6,9 @@ import com.beidou.common.util.StringUtil;
 import com.beidou.gateway.entity.UserRole;
 import com.beidou.gateway.service.UserRoleService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,11 @@ public class UserRoleController {
 
     @SysLogger("添加用户-角色管理信息")
     @RequiresPermissions("userRole:create")
+    @ApiOperation(value="添加用户-角色管理信息", notes="添加用户-角色管理信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "roleIds", value = "角色ID（用逗号隔开）", required = true, dataType = "String", paramType="query")
+    })
     @PostMapping(value = "/userRole")
     public ResponseMsg insert(@RequestParam(value = "userId")Integer userId,
                               @RequestParam("roleIds")String roleIds){
@@ -51,6 +59,11 @@ public class UserRoleController {
 
     @SysLogger("更新id对应的用户-角色管理信息")
     @RequiresPermissions("userRole:update")
+    @ApiOperation(value="更新id对应的用户-角色管理信息", notes="更新id对应的用户-角色管理信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "roleIds", value = "角色ID（用逗号隔开）", required = true, dataType = "String", paramType="query")
+    })
     @PutMapping(value="/userRole")
     public ResponseMsg updateByUserId(@RequestParam(value = "userId")Integer userId,
                                       @RequestParam("roleIds")String roleIds){

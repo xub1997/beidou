@@ -27,6 +27,7 @@ public class CompanyController {
 
     @SysLogger("添加公司信息")
     @RequiresPermissions("company:create")
+    @ApiOperation(value="添加公司信息", notes="添加公司信息")
     @PostMapping(value = "/company")
     public ResponseMsg insert(Company company){
         return companyService.insert(company);
@@ -35,6 +36,10 @@ public class CompanyController {
 
     @SysLogger("获取id对应的公司信息")
     @RequiresPermissions("company:read")
+    @ApiOperation(value="获取id对应的公司信息", notes="获取id对应的公司信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "公司ID", required = true, dataType = "int", paramType="path")
+    })
     @GetMapping(value="/company/{id}")
     public ResponseMsg getById(@PathVariable("id")Integer id){
         return companyService.getById(id);
@@ -42,6 +47,10 @@ public class CompanyController {
 
     @SysLogger("更新id对应的公司信息")
     @RequiresPermissions("company:update")
+    @ApiOperation(value="更新id对应的公司信息", notes="更新id对应的公司信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "公司ID", required = true, dataType = "int", paramType="path")
+    })
     @PutMapping(value="/company/{id}")
     public ResponseMsg updateById(Company company){
         return companyService.updateById(company);
@@ -50,6 +59,10 @@ public class CompanyController {
 
     @SysLogger("删除id对应的公司信息")
     @RequiresPermissions("company:delete")
+    @ApiOperation(value="删除id对应的公司信息", notes="删除id对应的公司信息")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ids", value = "公司ID（允许批量，用逗号隔开）", required = true, dataType = "String", paramType="path")
+    })
     @DeleteMapping(value="/company/{ids}")
     public ResponseMsg deleteByIds(@PathVariable("ids")String ids){
         ResponseMsg responseMsg;
@@ -76,6 +89,7 @@ public class CompanyController {
 
     @SysLogger("获取公司信息")
     @RequiresPermissions("company:readAll")
+    @ApiOperation(value="获取公司信息", notes="获取公司信息")
     @GetMapping(value="/company")
     public ResponseMsg getAll(){
         return companyService.getAll();
@@ -84,6 +98,10 @@ public class CompanyController {
 
     @SysLogger("获取公司信息列表")
     @RequiresPermissions("companys:read")
+    @ApiOperation(value="获取公司信息列表", notes="获取公司信息列表")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
+    })
     @GetMapping(value="/companys")
     public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return companyService.getList(pageNum);
@@ -91,6 +109,11 @@ public class CompanyController {
 
     @SysLogger("查找公司")
     @RequiresPermissions("companys:searchByName:read")
+    @ApiOperation(value="查找公司", notes="查找公司")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "name", value = "公司名", required = true, dataType = "String", paramType="query")
+    })
     @GetMapping(value="/company/searchByName")
     public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "name")String name ){
         return companyService.searchByName(pageNum,name);

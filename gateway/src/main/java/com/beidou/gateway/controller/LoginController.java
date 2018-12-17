@@ -12,6 +12,9 @@ import com.beidou.gateway.entity.Rule;
 import com.beidou.gateway.entity.User;
 import com.beidou.gateway.service.LoginService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
@@ -44,6 +47,13 @@ public class LoginController {
 
 
     @SysLogger("用户登录")
+    @ApiOperation(value="用户登录", notes="用户登录")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "pwd", value = "密码", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "code", value = "验证码", required = false, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "rememberMe", value = "记住我", required = false, dataType = "boolean", paramType="query")
+    })
     @PostMapping("/login")
     public ResponseMsg login(@RequestParam("username")String username,@RequestParam("pwd")String pwd ,
                              @RequestParam("code")String code,@RequestParam(value = "rememberMe",defaultValue = "false")boolean rememberMe){
