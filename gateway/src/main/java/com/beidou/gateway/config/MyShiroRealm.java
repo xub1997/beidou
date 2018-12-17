@@ -44,9 +44,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         }*/
         // 从数据库获取对应用户名密码的用户
         /*User user = loginService.login(username);
-        if(user==null){
-            throw new UnknownAccountException("用户名错误！");
-        }
+
         // 用户为禁用状态
         if (user.getStatus()==0) {
             throw new LockedAccountException("账号已被锁定,请联系管理员！");
@@ -54,6 +52,9 @@ public class MyShiroRealm extends AuthorizingRealm {
         if(!user.getPwd().equals(password)){
             throw new IncorrectCredentialsException("密码错误！");
         }*/
+        if(username==null){
+            throw new UnknownAccountException("用户名错误！");
+        }
         logger.info("---------------- Shiro 凭证认证成功 ----------------------");
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 username, //用户名

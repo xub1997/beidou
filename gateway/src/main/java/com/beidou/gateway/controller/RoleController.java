@@ -16,7 +16,7 @@ import java.util.List;
 
 @Api(value = "RoleController|角色管理操作")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 public class RoleController {
 
     @Autowired

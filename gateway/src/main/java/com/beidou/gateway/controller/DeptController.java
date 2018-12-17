@@ -16,7 +16,7 @@ import java.util.List;
 
 @Api(value = "DeptController|部门管理操作")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 public class DeptController {
 
     @Autowired

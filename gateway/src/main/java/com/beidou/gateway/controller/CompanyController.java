@@ -19,7 +19,7 @@ import java.util.List;
 
 @Api(value = "CompanyController|公司管理操作")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/user")
 public class CompanyController {
 
     @Autowired

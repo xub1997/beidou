@@ -42,13 +42,9 @@ public class LoginController {
     private LoginService loginService;
 
 
-    /*@GetMapping("/login")
-    public String loginhtml(){
-        return "login";
-    }*/
 
     @SysLogger("用户登录")
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseMsg login(@RequestParam("username")String username,@RequestParam("pwd")String pwd ,
                              @RequestParam("code")String code,@RequestParam(value = "rememberMe",defaultValue = "false")boolean rememberMe){
         if (StringUtil.isEmpty(code)) {
@@ -56,9 +52,9 @@ public class LoginController {
         }
 
         Session session = SecurityUtils.getSubject().getSession();
-        String sessionCode = (String) session.getAttribute(CODE_KEY);
+        /*String sessionCode = (String) session.getAttribute(CODE_KEY);
         System.out.println(session.getAttribute(CODE_KEY));
-        /*if (!code.equalsIgnoreCase(sessionCode)) {//验证码检验
+        if (!code.equalsIgnoreCase(sessionCode)) {//验证码检验
             return ResponseMsg.Error("验证码错误！");
         }*/
         if(!StringUtil.isEmpty(pwd)&&!StringUtil.isEmpty(username)){//用户名、密码判空
@@ -68,15 +64,12 @@ public class LoginController {
                 User user = loginService.login(username);
                 if(user==null){//用户不存在
                     return ResponseMsg.Error("用户名错误！");
-                    /*throw new UnknownAccountException("用户名错误！");*/
                 }
                 else if (user.getStatus()==0) {// 用户为禁用状态
                     return ResponseMsg.Error("账号已被锁定,请联系管理员！");
-                    /*throw new LockedAccountException("账号已被锁定,请联系管理员！");*/
                 }
                 else if(!user.getPwd().equals(StringUtil.encryptByMD5(pwd+user.getSalt()))){//密码不对应
                     return ResponseMsg.Error("密码错误！");
-                    /*throw new IncorrectCredentialsException("密码错误！");*/
                 }
                 /*try{
                     // 密码 BASE64加密(三次加密)
@@ -92,18 +85,19 @@ public class LoginController {
                     List<Tree<Rule>> trees = new ArrayList<>();
                     for(Role role:user.getRoles()){
                         for(Rule rule:role.getPermissions()){
-                            Tree<Rule> tree = new Tree<>();
-                            tree.setId(rule.getId().toString());
-                            tree.setParentId(rule.getPid().toString());
-                            tree.setText(rule.getRulename());
-                            tree.setIcon("");
-                            tree.setUrl(rule.getUrl());
-                            trees.add(tree);
+                            if(rule.getType().equals("menu")){
+                                Tree<Rule> tree = new Tree<>();
+                                tree.setId(rule.getId().toString());
+                                tree.setParentId(rule.getPid().toString());
+                                tree.setText(rule.getRulename());
+                                tree.setIcon("");
+                                tree.setUrl(rule.getUrl());
+                                trees.add(tree);
+                            }
                         }
                     }
                     return ResponseMsg.Success("登录成功！",user,TreeUtils.build(trees));
                 }
-
             } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
                 return ResponseMsg.Error(e.getMessage());
             } catch (AuthenticationException e) {
