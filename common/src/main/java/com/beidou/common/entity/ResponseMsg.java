@@ -11,7 +11,7 @@ import java.util.List;
 @ApiModel(value = "通用返回信息")
 public class ResponseMsg<T> implements Serializable {
 
-    private static final long serialVersionUID = -5809782578272943999L;
+    private static final long serialVersionUID = 12321443L;
 
     @ApiModelProperty(value="响应状态", hidden=false, required=false, dataType="int")
     private int status;
@@ -21,6 +21,22 @@ public class ResponseMsg<T> implements Serializable {
     private T data;
     @ApiModelProperty(value="菜单", hidden=false, required=false)
     private T menu;
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public void setMenu(T menu) {
+        this.menu = menu;
+    }
 
     private ResponseMsg(int status){
         this.status = status;

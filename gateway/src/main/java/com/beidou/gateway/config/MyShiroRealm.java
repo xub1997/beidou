@@ -1,6 +1,6 @@
 package com.beidou.gateway.config;
 
-import com.beidou.common.util.StringUtil;
+
 import com.beidou.gateway.entity.Role;
 import com.beidou.gateway.entity.Rule;
 import com.beidou.gateway.entity.User;
@@ -43,7 +43,7 @@ public class MyShiroRealm extends AuthorizingRealm {
             e.printStackTrace();
         }*/
         // 从数据库获取对应用户名密码的用户
-        User user = loginService.login(username);
+        /*User user = loginService.login(username);
         if(user==null){
             throw new UnknownAccountException("用户名错误！");
         }
@@ -53,7 +53,7 @@ public class MyShiroRealm extends AuthorizingRealm {
         }
         if(!user.getPwd().equals(password)){
             throw new IncorrectCredentialsException("密码错误！");
-        }
+        }*/
         logger.info("---------------- Shiro 凭证认证成功 ----------------------");
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 username, //用户名
@@ -71,9 +71,10 @@ public class MyShiroRealm extends AuthorizingRealm {
         logger.info("---------------- 执行 Shiro 权限获取 ---------------------");
         Object principal = principals.getPrimaryPrincipal();
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        if (principal instanceof User) {
-            User user = (User) principal;
-
+        System.out.println("---------------- 用户名： ---------------------"+principal);
+        if (principal instanceof String) {
+            String username = (String) principal;
+            User user = loginService.login(username);
 
             // 获取用户角色集
             List<Role> roleList = user.getRoles();
@@ -84,9 +85,11 @@ public class MyShiroRealm extends AuthorizingRealm {
             for(Role role:roleList){
                 for(Rule rule:role.getPermissions()){
                     permissionList.add(rule);
+                    System.out.println(rule.toString());
                 }
             }
             Set<String> permissionSet = permissionList.stream().map(Rule::getPermissions).collect(Collectors.toSet());
+            System.out.println(permissionSet.toString());
             authorizationInfo.setStringPermissions(permissionSet);
 
         }

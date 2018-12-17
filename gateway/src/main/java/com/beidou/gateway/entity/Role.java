@@ -10,7 +10,7 @@ import java.util.List;
 @ApiModel(value = "角色信息类")
 public class Role implements Serializable {
 
-    private static final long serialVersionUID = 5231134212346077683L;
+    private static final long serialVersionUID = 134L;
 
     @ApiModelProperty(value="角色id", hidden=false, required=false, dataType="Integer")
     private Integer id;

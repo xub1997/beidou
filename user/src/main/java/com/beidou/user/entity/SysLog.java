@@ -1,6 +1,9 @@
 package com.beidou.user.entity;
 
-public class SysLog {
+import java.io.Serializable;
+
+public class SysLog implements Serializable {
+    private static final long serialVersionUID = 129L;
     private Integer id;
 
     private String username;

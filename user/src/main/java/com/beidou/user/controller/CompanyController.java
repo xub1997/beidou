@@ -24,7 +24,7 @@ public class CompanyController {
     private CompanyService companyService;
 
 
-    @SysLogger("添加公司信息")
+    
     @ApiOperation(value="添加公司信息", notes="添加公司信息")
     @PostMapping(value = "/company")
     public ResponseMsg insert(Company company){
@@ -33,7 +33,7 @@ public class CompanyController {
 
 
 
-    @SysLogger("获取id对应的公司信息")
+    
     @ApiOperation(value="获取id对应的公司信息", notes="获取id对应的公司信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "公司ID", required = true, dataType = "int", paramType="path")
@@ -44,7 +44,7 @@ public class CompanyController {
     }
 
 
-    @SysLogger("更新id对应的公司信息")
+    
     @ApiOperation(value="更新id对应的公司信息", notes="更新id对应的公司信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "公司ID", required = true, dataType = "int", paramType="path")
@@ -56,7 +56,7 @@ public class CompanyController {
 
 
 
-    @SysLogger("删除id对应的公司信息")
+    
     @ApiOperation(value="删除id对应的公司信息", notes="删除id对应的公司信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "公司ID（允许批量，用逗号隔开）", required = true, dataType = "String", paramType="path")
@@ -86,7 +86,7 @@ public class CompanyController {
     }
 
 
-    @SysLogger("获取公司信息")
+    
     @ApiOperation(value="获取公司信息", notes="获取公司信息")// 使用该注解描述接口方法信息
     @GetMapping(value="/company")
     public ResponseMsg getAll(){
@@ -95,7 +95,7 @@ public class CompanyController {
 
 
 
-    @SysLogger("获取公司信息列表")
+    
     @ApiOperation(value="获取公司信息列表", notes="获取公司信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
@@ -106,7 +106,7 @@ public class CompanyController {
     }
 
 
-    @SysLogger("查找公司")
+    
     @ApiOperation(value="查找公司", notes="查找公司")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),

@@ -3,8 +3,11 @@ package com.beidou.user.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serializable;
+
 @ApiModel(value = "用户角色信息类")
-public class UserRole {
+public class UserRole implements Serializable {
+    private static final long serialVersionUID = 131L;
 
     @ApiModelProperty(value="用户角色id", hidden=false, required=false, dataType="Integer")
     private Integer id;

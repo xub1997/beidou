@@ -14,8 +14,10 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
-
+@Api(value = "UserController|用户管理管理操作")
 @RestController
 @RequestMapping("/api/v1")
 public class UserController {
@@ -24,6 +26,7 @@ public class UserController {
     private UserService userService;
 
 
+    @SysLogger("添加用户信息")
     @RequiresPermissions("user:create")
     @PostMapping(value = "/user")
     public ResponseMsg insert(User user){
@@ -31,6 +34,7 @@ public class UserController {
     }
 
 
+    @SysLogger("获取id对应的用户信息")
     @RequiresPermissions("user:read")
     @GetMapping(value="/user/{id}")
     public ResponseMsg getById(@PathVariable("id")Integer id){
@@ -38,6 +42,7 @@ public class UserController {
     }
 
 
+    @SysLogger("更新id对应的用户信息")
     @RequiresPermissions("user:update")
     @PutMapping(value="/user/{id}")
     public ResponseMsg updateById(User user){
@@ -45,18 +50,38 @@ public class UserController {
     }
 
 
+    @SysLogger("删除id对应的用户信息")
     @RequiresPermissions("user:delete")
     @DeleteMapping(value="/user/{ids}")
     public ResponseMsg deleteById(@PathVariable("ids")String ids){
-        return userService.deleteById(ids);
+        ResponseMsg responseMsg;
+        if(!StringUtil.isEmpty(ids)){
+            //批量删除
+            if(ids.contains(",")){
+                List<Integer> del_ids = new ArrayList();
+                String[] str_ids = ids.split(",");
+                //组装id的集合
+                for (String string : str_ids) {
+                    del_ids.add(Integer.parseInt(string));
+                }
+                responseMsg=userService.deleteBatch(del_ids);
+            }else{
+                Integer id = Integer.parseInt(ids);
+                responseMsg=userService.deleteById(id);
+            }
+            return responseMsg;
+        }else{
+            return ResponseMsg.Error("请选择要删除的用户");
+        }
     }
-
+    @SysLogger("获取用户信息列表")
     @RequiresPermissions("users:read")
     @GetMapping(value="/users")
     public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return userService.getList(pageNum);
     }
 
+    @SysLogger("获取用户信息列表(对应公司)")
     @RequiresPermissions("userCom:read")
     @GetMapping(value="/user")
     public ResponseMsg getComUserList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
@@ -64,6 +89,7 @@ public class UserController {
         return userService.getComUserList(pageNum,comId);
     }
 
+    @SysLogger("查找用户")
     @RequiresPermissions("user:searchUser")
     @GetMapping(value="/user/searchByUserName")
     public ResponseMsg searchByUserName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
@@ -71,6 +97,7 @@ public class UserController {
         return userService.searchByUserName(pageNum,username);
     }
 
+    @SysLogger("查找公司用户")
     @RequiresPermissions("user:searchComUser")
     @GetMapping(value="/user/searchByUserNameAndComId")
     public ResponseMsg searchByUserNameAndComId(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
@@ -80,12 +107,18 @@ public class UserController {
     }
 
 
+    @SysLogger("判断用户名重复")
     @RequiresAuthentication
     @GetMapping(value="/user/judgeUserName")
     public ResponseMsg judgeUserName(@RequestParam(value = "username")String username ){
-        return userService.judgeUserName(username);
+        if(userService.judgeUsername(username)==null&&true){
+            return ResponseMsg.Success("用户名可用");
+        }else{
+            return ResponseMsg.Error("用户名已存在");
+        }
     }
 
+    @SysLogger("修改密码")
     @RequiresAuthentication
     @GetMapping(value="/user/modifyPwd")
     public ResponseMsg modifyPwd(@RequestParam(value = "userId")Integer userId ,

@@ -23,7 +23,7 @@ public class RuleController {
     private RuleService ruleService;
 
 
-    @SysLogger("添加权限信息")
+    
     @ApiOperation(value="添加权限信息", notes="添加权限信息")
     @PostMapping(value = "/rule")
     public ResponseMsg insert(Rule rule){
@@ -33,7 +33,7 @@ public class RuleController {
 
 
 
-    @SysLogger("获取id对应的权限信息")
+   
     @ApiOperation(value="获取id对应的权限信息", notes="获取id对应的权限信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "权限ID", required = true, dataType = "int", paramType="path")
@@ -45,7 +45,7 @@ public class RuleController {
 
 
 
-    @SysLogger("更新id对应的权限信息")
+  
     @ApiOperation(value="更新id对应的权限信息", notes="更新id对应的权限信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "权限ID", required = true, dataType = "int", paramType="path")
@@ -57,7 +57,7 @@ public class RuleController {
 
 
 
-    @SysLogger("删除id对应的权限信息")
+    
     @ApiOperation(value="删除id对应的权限信息", notes="删除id对应的权限信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "权限ID", required = true, dataType = "String", paramType="path")
@@ -87,7 +87,7 @@ public class RuleController {
 
 
 
-    @SysLogger("获取权限信息列表")
+    
     @ApiOperation(value="获取权限信息列表", notes="获取权限信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
@@ -98,7 +98,6 @@ public class RuleController {
     }
 
 
-    @SysLogger("获取角色对应权限")
     @ApiOperation(value="获取角色对应权限", notes="获取角色对应权限")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "int", paramType="query")
@@ -110,7 +109,7 @@ public class RuleController {
 
 
 
-    @SysLogger("查找权限")
+  
     @ApiOperation(value="查找权限", notes="查找权限")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),

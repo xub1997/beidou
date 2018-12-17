@@ -4,11 +4,12 @@ package com.beidou.gateway.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.beidou.common.interceptor.SqlStatementInterceptor;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
+import java.util.Properties;
 
 
 @Configuration
@@ -34,9 +35,22 @@ public class MybatisConfig {
         return dataSourceStrom();
     }
 
+
+    //配置mybatis的分页插件pageHelper
+    @Bean
+    public PageHelper pageHelper(){
+        PageHelper pageHelper = new PageHelper();
+        Properties properties = new Properties();
+        properties.setProperty("offsetAsPageNum","true");
+        properties.setProperty("rowBoundsWithCount","true");
+        properties.setProperty("reasonable","true");
+        properties.setProperty("dialect","mysql");    //配置mysql数据库的方言
+        pageHelper.setProperties(properties);
+        return pageHelper;
+    }
+
     /**
      * 配置 sql打印拦截器
-     * application.yml中 febs.showsql: true 时生效
      *
      * @return SqlStatementInterceptor
      */

@@ -23,7 +23,7 @@ public class DeptController {
     private DeptService deptService;
 
 
-    @SysLogger("添加部门信息")
+    
     @ApiOperation(value="添加部门信息", notes="添加部门信息")
     @PostMapping(value = "/dept")
     public ResponseMsg insert(Dept dept){
@@ -32,7 +32,7 @@ public class DeptController {
 
 
 
-    @SysLogger("获取id对应的部门信息")
+    
     @ApiOperation(value="获取id对应的部门信息", notes="获取id对应的部门信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "部门ID", required = true, dataType = "int", paramType="path")
@@ -43,7 +43,7 @@ public class DeptController {
     }
 
 
-    @SysLogger("更新id对应的部门信息")
+    
     @ApiOperation(value="更新id对应的部门信息", notes="更新id对应的部门信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "部门ID", required = true, dataType = "int", paramType="path")
@@ -54,7 +54,7 @@ public class DeptController {
     }
 
 
-    @SysLogger("删除id对应的部门信息")
+    
     @ApiOperation(value="删除id对应的部门信息", notes="删除id对应的部门信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "部门ID", required = true, dataType = "String", paramType="path")
@@ -84,7 +84,7 @@ public class DeptController {
     }
 
 
-    @SysLogger("获取公司部门")
+    
     @ApiOperation(value="获取公司部门", notes="获取公司部门")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query")
@@ -95,7 +95,7 @@ public class DeptController {
     }
 
 
-    @SysLogger("获取部门信息")
+    
     @ApiOperation(value="获取部门信息", notes="获取部门信息")// 使用该注解描述接口方法信息
     @GetMapping(value="/dept")
     public ResponseMsg getAll(){
@@ -103,7 +103,7 @@ public class DeptController {
     }
 
 
-    @SysLogger("获取部门信息列表")
+    
     @ApiOperation(value="获取部门信息列表", notes="获取部门信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
@@ -114,7 +114,7 @@ public class DeptController {
     }
 
 
-    @SysLogger("获取部门列表（对应公司）")
+    
     @ApiOperation(value="获取部门列表（对应公司）", notes="获取部门列表（对应公司）")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query"),
@@ -127,7 +127,7 @@ public class DeptController {
     }
 
 
-    @SysLogger("查找部门")
+    
     @ApiOperation(value="查找部门", notes="查找部门")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
@@ -139,7 +139,7 @@ public class DeptController {
     }
 
 
-    @SysLogger("查找公司部门")
+    
     @ApiOperation(value="查找公司部门", notes="查找公司部门")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),

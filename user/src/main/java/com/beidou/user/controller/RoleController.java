@@ -22,7 +22,7 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @SysLogger("添加角色信息")
+    
     @ApiOperation(value="添加角色信息", notes="添加角色信息",produces ="application/json")
     @PostMapping(value = "/role")
     public ResponseMsg insert(Role role){
@@ -30,7 +30,7 @@ public class RoleController {
     }
 
 
-    @SysLogger("获取id对应的角色信息")
+    
     @ApiOperation(value="获取id对应的角色信息", notes="获取id对应的角色信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "角色ID", required = true, dataType = "int", paramType="path")
@@ -41,7 +41,7 @@ public class RoleController {
     }
 
 
-    @SysLogger("更新id对应的角色信息")
+    
     @ApiOperation(value="更新id对应的角色信息", notes="更新id对应的角色信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "角色ID", required = true, dataType = "int", paramType="path")
@@ -52,7 +52,7 @@ public class RoleController {
     }
 
 
-    @SysLogger("删除id对应的角色信息")
+    
     @ApiOperation(value="删除id对应的角色信息", notes="删除id对应的角色信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "角色ID", required = true, dataType = "String", paramType="path")
@@ -81,7 +81,7 @@ public class RoleController {
     }
 
 
-    @SysLogger("获取角色信息列表")
+    
     @ApiOperation(value="获取角色信息列表", notes="获取角色信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
@@ -91,7 +91,7 @@ public class RoleController {
         return roleService.getList(pageNum);
     }
 
-    @SysLogger("查找角色")
+    
     @ApiOperation(value="查找角色", notes="查找角色")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),

@@ -24,7 +24,7 @@ public class UserController {
 
 
 
-    @SysLogger("添加用户信息")
+    
     @ApiOperation(value="添加用户信息", notes="添加用户信息",produces ="multipart/form-data")
     @PostMapping(value = "/user")
     public ResponseMsg insert(User user){
@@ -33,7 +33,7 @@ public class UserController {
 
 
 
-    @SysLogger("获取id对应的用户信息")
+    
     @ApiOperation(value="获取id对应的用户信息", notes="获取id对应的用户信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int", paramType="path")
@@ -45,7 +45,7 @@ public class UserController {
 
 
 
-    @SysLogger("更新id对应的用户信息")
+    
     @ApiOperation(value="更新id对应的用户信息", notes="更新id对应的用户信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "user", value = "User", required = true, dataType = "User", paramType="path")
@@ -57,7 +57,7 @@ public class UserController {
 
 
 
-    @SysLogger("删除id对应的用户信息")
+    
     @ApiOperation(value="删除id对应的用户信息", notes="删除id对应的用户信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "用户ID", required = true, dataType = "String", paramType="path")
@@ -86,7 +86,7 @@ public class UserController {
     }
 
 
-    @SysLogger("获取用户信息列表")
+    
     @ApiOperation(value="获取用户信息列表", notes="获取用户信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query")
@@ -97,7 +97,7 @@ public class UserController {
     }
 
 
-    @SysLogger("获取用户信息列表(对应公司)")
+    
     @ApiOperation(value="获取用户信息列表(对应公司)", notes="获取用户信息列表（对应公司）")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query"),
@@ -110,7 +110,7 @@ public class UserController {
     }
 
 
-    @SysLogger("查找用户")
+    
     @ApiOperation(value="查找用户", notes="查找用户")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
@@ -122,7 +122,7 @@ public class UserController {
     }
 
 
-    @SysLogger("查找公司用户")
+    
     @ApiOperation(value="查找公司用户", notes="查找公司用户")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
@@ -135,7 +135,7 @@ public class UserController {
     }
 
 
-    @SysLogger("判断用户名重复")
+    
     @ApiOperation(value="判断用户名重复", notes="判断用户名重复")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query")
@@ -149,7 +149,7 @@ public class UserController {
         }
     }
 
-    @SysLogger("修改密码")
+    
     @ApiOperation(value="修改密码", notes="修改密码")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query"),

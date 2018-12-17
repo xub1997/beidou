@@ -49,8 +49,7 @@ public class MybatisConfig {
     }
 
     /**
-     * 配置 sql打印拦截器
-     * application.yml中 febs.showsql: true 时生效
+     * 配置 sql打印拦截
      *
      * @return SqlStatementInterceptor
      */

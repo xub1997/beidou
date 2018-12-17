@@ -26,7 +26,7 @@ public class UserRoleController {
     private UserRoleService userRoleService;
 
 
-    @SysLogger("添加用户-角色管理信息")
+    
     @ApiOperation(value="添加用户-角色管理信息", notes="添加用户-角色管理信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query"),
@@ -34,7 +34,6 @@ public class UserRoleController {
     })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
     @PostMapping(value = "/userRole")
     public ResponseMsg insert(@RequestParam(value = "userId")Integer userId, @RequestParam("roleIds")String roleIds){
-        System.out.println(roleIds);
         ResponseMsg responseMsg;
         if(!StringUtil.isEmpty(roleIds)){
             //批量删除
@@ -59,7 +58,7 @@ public class UserRoleController {
     }
 
 
-    @SysLogger("更新id对应的用户-角色管理信息")
+    
     @ApiOperation(value="更新id对应的用户-角色管理信息", notes="更新id对应的用户-角色管理信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query"),

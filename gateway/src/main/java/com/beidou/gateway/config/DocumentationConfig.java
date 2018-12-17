@@ -14,7 +14,7 @@ public class DocumentationConfig implements SwaggerResourcesProvider {
     @Override
     public List<SwaggerResource> get() {
         List resources = new ArrayList<>();
-        resources.add(swaggerResource("用户管理", "/api/v1/user/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("用户管理", "http://localhost:7000/v2/api-docs", "2.0"));
         return resources;
     }
 

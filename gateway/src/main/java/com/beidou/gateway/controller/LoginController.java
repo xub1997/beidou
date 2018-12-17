@@ -11,6 +11,7 @@ import com.beidou.gateway.entity.Role;
 import com.beidou.gateway.entity.Rule;
 import com.beidou.gateway.entity.User;
 import com.beidou.gateway.service.LoginService;
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.session.Session;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+@Api(value = "LoginController|登录操作")
 @RestController
 public class LoginController {
 
@@ -46,7 +48,7 @@ public class LoginController {
     }*/
 
     @SysLogger("用户登录")
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseMsg login(@RequestParam("username")String username,@RequestParam("pwd")String pwd ,
                              @RequestParam("code")String code,@RequestParam(value = "rememberMe",defaultValue = "false")boolean rememberMe){
         if (StringUtil.isEmpty(code)) {
@@ -56,22 +58,25 @@ public class LoginController {
         Session session = SecurityUtils.getSubject().getSession();
         String sessionCode = (String) session.getAttribute(CODE_KEY);
         System.out.println(session.getAttribute(CODE_KEY));
-        if (!code.equalsIgnoreCase(sessionCode)) {//验证码检验
+        /*if (!code.equalsIgnoreCase(sessionCode)) {//验证码检验
             return ResponseMsg.Error("验证码错误！");
-        }
+        }*/
         if(!StringUtil.isEmpty(pwd)&&!StringUtil.isEmpty(username)){//用户名、密码判空
 
             try {
                 // 从数据库获取对应用户名密码的用户
                 User user = loginService.login(username);
                 if(user==null){//用户不存在
-                    throw new UnknownAccountException("用户名错误！");
+                    return ResponseMsg.Error("用户名错误！");
+                    /*throw new UnknownAccountException("用户名错误！");*/
                 }
-                if (user.getStatus()==0) {// 用户为禁用状态
-                    throw new LockedAccountException("账号已被锁定,请联系管理员！");
+                else if (user.getStatus()==0) {// 用户为禁用状态
+                    return ResponseMsg.Error("账号已被锁定,请联系管理员！");
+                    /*throw new LockedAccountException("账号已被锁定,请联系管理员！");*/
                 }
-                if(!user.getPwd().equals(StringUtil.encryptByMD5(pwd+user.getSalt()))){//密码不对应
-                    throw new IncorrectCredentialsException("密码错误！");
+                else if(!user.getPwd().equals(StringUtil.encryptByMD5(pwd+user.getSalt()))){//密码不对应
+                    return ResponseMsg.Error("密码错误！");
+                    /*throw new IncorrectCredentialsException("密码错误！");*/
                 }
                 /*try{
                     // 密码 BASE64加密(三次加密)
@@ -79,23 +84,26 @@ public class LoginController {
                 }catch(Exception e){
                     e.printStackTrace();
                 }*/
-                UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPwd(), rememberMe);
-                Subject subject = SecurityUtils.getSubject();
-                if (subject != null)subject.logout();//退出之前账号
-                subject.login(token);//登录
-                List<Tree<Rule>> trees = new ArrayList<>();
-                for(Role role:user.getRoles()){
-                    for(Rule rule:role.getPermissions()){
-                        Tree<Rule> tree = new Tree<>();
-                        tree.setId(rule.getId().toString());
-                        tree.setParentId(rule.getPid().toString());
-                        tree.setText(rule.getRulename());
-                        tree.setIcon("");
-                        tree.setUrl(rule.getUrl());
-                        trees.add(tree);
+                else{
+                    UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPwd(), rememberMe);
+                    Subject subject = SecurityUtils.getSubject();
+                    if (subject != null)subject.logout();//退出之前账号
+                    subject.login(token);//登录
+                    List<Tree<Rule>> trees = new ArrayList<>();
+                    for(Role role:user.getRoles()){
+                        for(Rule rule:role.getPermissions()){
+                            Tree<Rule> tree = new Tree<>();
+                            tree.setId(rule.getId().toString());
+                            tree.setParentId(rule.getPid().toString());
+                            tree.setText(rule.getRulename());
+                            tree.setIcon("");
+                            tree.setUrl(rule.getUrl());
+                            trees.add(tree);
+                        }
                     }
+                    return ResponseMsg.Success("登录成功！",user,TreeUtils.build(trees));
                 }
-                return ResponseMsg.Success("登录成功！",user,TreeUtils.build(trees));
+
             } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
                 return ResponseMsg.Error(e.getMessage());
             } catch (AuthenticationException e) {

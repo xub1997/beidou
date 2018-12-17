@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beidou.gateway.dao.LoginMapper">
-
-  <resultMap id="userMap" type="com.beidou.gateway.entity.User">
+<mapper namespace="com.beidou.gateway.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.gateway.entity.User">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
@@ -21,40 +20,420 @@
     <result column="deptId" jdbcType="INTEGER" property="deptid" />
     <result column="comId" jdbcType="INTEGER" property="comid" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <collection property="roles" ofType="com.beidou.gateway.entity.Role">
-      <id column="oid" jdbcType="INTEGER" property="id" />
-      <result property="rolename" column="rolename"/>
-      <result property="description" column="odescription"/>
-      <result property="createdate" column="ocreatedate"/>
-      <result property="modifydate" column="omodifydate"/>
-      <collection property="permissions" ofType="com.beidou.gateway.entity.Rule">
-        <id column="rid" jdbcType="INTEGER" property="id" />
-        <result property="rulename" column="rulename"/>
-        <result property="description" column="rdescription"/>
-        <result column="rtype" jdbcType="VARCHAR" property="type" />
-        <result column="rpermissions" jdbcType="VARCHAR" property="permissions" />
-        <result column="rurl" jdbcType="VARCHAR" property="url" />
-        <result column="rorderNum" jdbcType="INTEGER" property="ordernum" />
-        <result column="rpid" jdbcType="INTEGER" property="pid" />
-        <result property="createdate" column="rcreatedate"/>
-        <result property="modifydate" column="rmodifydate"/>
-      </collection>
-    </collection>
   </resultMap>
-
-  <sql id="Base_Column_List_findByUsername">
-    u.id, u.username, u.salt,u.pwd, u.createDate, u.modifyDate, u.avatarUrl, u.status, u.name, u.phone, u.age, u.sex,
-    u.address, u.email, u.job, u.deptId, u.comId,u.remark,o.id as oid,o.rolename,o.description as odescription,o.createdate as ocreatedate,o.modifydate as omodifydate,r.id as rid,r.rulename,r.description as rdescription,r.type as rtype,r.permissions as rpermissions,r.url as rurl,r.orderNum as rorderNum,r.pid as rpid,r.createdate as rcreatedate,r.modifydate as rmodifydate
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
   </sql>
-
-  <select id="login" parameterType="java.lang.String" resultMap="userMap">
-    SELECT
-    <include refid="Base_Column_List_findByUsername" />
-    FROM tb_user u LEFT JOIN tb_user_role ur on u.id=ur.userid
-    LEFT  JOIN tb_role o on ur.roleid=o.id
-    LEFT  JOIN tb_role_rule ou on o.id=ou.roleid
-    LEFT  JOIN tb_rule r on r.id=ou.ruleid
-    WHERE u.username = #{username}
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, username, salt, pwd, createDate, modifyDate, avatarUrl, status, name, phone, 
+    age, sex, address, email, job, deptId, comId, remark
+  </sql>
+  <select id="selectByExample" parameterType="com.beidou.gateway.entity.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
   </select>
-
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="searchByUserName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user
+    where locate(#{username,jdbcType=VARCHAR},username)
+  </select>
+  <select id="searchByUserNameAndComId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user
+    where locate(#{username},username) and comId=#{comId}
+  </select>
+  <select id="judgeUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByComId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from tb_user
+    where comId= #{comId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.beidou.gateway.entity.UserExample">
+    delete from tb_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.beidou.gateway.entity.User">
+    insert into tb_user (id, username, salt, 
+      pwd, createDate, modifyDate, 
+      avatarUrl, status, name, 
+      phone, age, sex, address, 
+      email, job, deptId, 
+      comId, remark)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, 
+      #{pwd,jdbcType=VARCHAR}, #{createdate,jdbcType=VARCHAR}, #{modifydate,jdbcType=VARCHAR}, 
+      #{avatarurl,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{deptid,jdbcType=INTEGER}, 
+      #{comid,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.beidou.gateway.entity.User">
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="pwd != null">
+        pwd,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="modifydate != null">
+        modifyDate,
+      </if>
+      <if test="avatarurl != null">
+        avatarUrl,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="job != null">
+        job,
+      </if>
+      <if test="deptid != null">
+        deptId,
+      </if>
+      <if test="comid != null">
+        comId,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydate != null">
+        #{modifydate,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarurl != null">
+        #{avatarurl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null">
+        #{deptid,jdbcType=INTEGER},
+      </if>
+      <if test="comid != null">
+        #{comid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.beidou.gateway.entity.UserExample" resultType="java.lang.Long">
+    select count(*) from tb_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pwd != null">
+        pwd = #{record.pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null">
+        createDate = #{record.createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifydate != null">
+        modifyDate = #{record.modifydate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatarurl != null">
+        avatarUrl = #{record.avatarurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.job != null">
+        job = #{record.job,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deptid != null">
+        deptId = #{record.deptid,jdbcType=INTEGER},
+      </if>
+      <if test="record.comid != null">
+        comId = #{record.comid,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_user
+    set id = #{record.id,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      pwd = #{record.pwd,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=VARCHAR},
+      modifyDate = #{record.modifydate,jdbcType=VARCHAR},
+      avatarUrl = #{record.avatarurl,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      sex = #{record.sex,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      job = #{record.job,jdbcType=VARCHAR},
+      deptId = #{record.deptid,jdbcType=INTEGER},
+      comId = #{record.comid,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.beidou.gateway.entity.User">
+    update tb_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydate != null">
+        modifyDate = #{modifydate,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarurl != null">
+        avatarUrl = #{avatarurl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null">
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="deptid != null">
+        deptId = #{deptid,jdbcType=INTEGER},
+      </if>
+      <if test="comid != null">
+        comId = #{comid,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.beidou.gateway.entity.User">
+    update tb_user
+    set username = #{username,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=VARCHAR},
+      modifyDate = #{modifydate,jdbcType=VARCHAR},
+      avatarUrl = #{avatarurl,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      sex = #{sex,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      deptId = #{deptid,jdbcType=INTEGER},
+      comId = #{comid,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

@@ -4,12 +4,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 @ApiModel(value = "用户信息类")
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 130L;
 
     @ApiModelProperty(value="用户id", hidden=false, required=false, dataType="Integer")
     private Integer id;

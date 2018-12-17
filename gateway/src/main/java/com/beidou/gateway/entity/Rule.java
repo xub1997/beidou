@@ -8,7 +8,7 @@ import java.io.Serializable;
 @ApiModel(value = "权限信息类")
 public class Rule implements Serializable {
 
-    private static final long serialVersionUID = 5231134212346077682L;
+    private static final long serialVersionUID = 135L;
 
     @ApiModelProperty(value="权限id", hidden=false, required=false, dataType="Integer")
     private Integer id;

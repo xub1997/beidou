@@ -49,27 +49,12 @@ zuul:
 
   routes:
 
+
     api-1:
-      path: /api/v1/user/**
-      serviceId: user
-    api-2:
       path: /api/v1/logger/**
       serviceId: logger
-#打开feign-hystrix
-feign:
-  hystrix:
-    enabled: true
 
-hystrix:
-  command:
-    default:
-      execution:
-        timeout:
-          #如果enabled设置为false，则请求超时交给ribbon控制
-          enabled: true
-        isolation:
-          thread:
-            timeoutInMilliseconds: 60000
+
 
 management:
   endpoints:
