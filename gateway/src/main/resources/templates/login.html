@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="icon" href="img/newlogo.png" type="image/x-icon" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>智能车辆监控管理平台</title>
+		<link rel="stylesheet" href="layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="css/login.css">
+	</head>
+	<body>
+		<div class="title">智能车辆监控管理平台</div>
+		<div class="container">
+
+			<div class="layui-form layui-form-pane" lay-filter="form" style="padding: 0 10px;">
+				<div class="layui-form-item" style="margin-bottom: 20px;">
+					<label class="layui-form-label" ><i class="layui-icon">&#xe66f;</i> 账号</label>
+					<div class="layui-input-block">
+						<input type="text" name="username" id="username"  required lay-verify="required" class="layui-input">
+					</div>
+				</div>
+
+				<div class="layui-form-item" style="margin-bottom: 20px;">
+					<label class="layui-form-label" ><i class="layui-icon">&#xe673;</i> 密码</label>
+					<div class="layui-input-block">
+						<input type="password" name="pwd" id="pwd" required lay-verify="required" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" style="margin-bottom: 20px;">
+					<label class="layui-form-label" ><i class="layui-icon">&#xe673;</i> 验证码</label>
+					<div class="layui-input-block">
+						<input type="text" name="code" id="code" required lay-verify="required" class="layui-input">
+						<span class="code"><img src="http://localhost:7000/gifCode" alt="" style="height:38px"></span>
+					</div>
+				</div>
+				<div class="layui-form-item" >
+					<div class="layui-input-block" style="width: 100%;margin: 0;">
+						<button class="layui-btn" style="width: 100%;font-size: 18px;letter-spacing: 1px;" lay-submit lay-filter="formDemo">登录</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer >
+			<div class="footer">© 2018 智能车辆监控管理平台 - All Rights Reserved</div>
+		</footer>
+
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="layui/layui.js"></script>
+		<script>
+			sessionStorage.clear();
+			layui.use('form', function() {
+				var form = layui.form;
+				form.on('submit(formDemo)', function(data) {
+					//console.log(data.field);
+					var pwd2 = data.field.pwd;
+					$.post("http://localhost:7000/login",{
+						username: data.field.username,
+						pwd: data.field.pwd,
+						code: data.field.code
+					},function (data) {
+						console.log(data);
+						var username = data.data.username;
+						var pwd = pwd2;
+						var Pmenus = data.menu.children;
+						var PmenusName = [];
+						var childes = [];
+						var childesText = [];
+						var childesUrl = [];
+						for (var i = 0; i < Pmenus.length; i++) {
+							PmenusName.push(Pmenus[i].text);
+                            childes.push(Pmenus[i].children);
+						}
+						//console.log(childes);
+                        for (var j = 0; j < childes.length; j++) {
+                            for (var m = 0; m < childes[j].length; m++) {
+                                childesText.push(childes[j][m].text);
+                                childesUrl.push(childes[j][m].url);
+                            }
+                        }
+                        //console.log(childesText);
+                        //console.log(childesUrl);
+                        sessionStorage.setItem("username",username);
+                        sessionStorage.setItem("pwd",pwd);
+                        sessionStorage.setItem('PmenusName',PmenusName);
+                        sessionStorage.setItem('childesText',childesText);
+                        sessionStorage.setItem('childesUrl',childesUrl);
+						window.location.href="index.html";//跳转
+						$.get("http://localhost:7000/api/v1/user/users",function (res) {
+							console.log(res);
+						})
+					});
+
+					return false;
+				});
+			});
+		</script>
+	</body>
+</html>

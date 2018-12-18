@@ -4,27 +4,71 @@
 		<meta charset="utf-8">
 		<title>主页</title>
 		<link rel="stylesheet" href="layui/css/layui.css" media="all">
+		<style>
+			.header{
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				background-color: white;
+			}
+		</style>
 	</head>
-
 	<body>
-		<div style="padding: 40px; background-color: #F2F2F2;">
-			<div class="layui-row layui-col-space15">
-					<div class="layui-card" style="line-height: 50px;text-align: center;font-size: 20px;letter-spacing: 2px;">登录成功</div>
+		<div class="container">
+			<div class="header">
+				<span style="font-size: 20px;"> 登录成功 </span>
 			</div>
-			<div class="layui-row layui-col-space15" style="padding-top: 40px;">
-					<div class="layui-card">
-						<div class="layui-card-header">卡片面板</div>
-						<div class="layui-card-body">
-							卡片式面板面板通常用于非白色背景色的主体内<br>
-							从而映衬出边框投影
-						</div>
-					</div>
+			<div class="body">
+				<table id="mainTable"></table>
 			</div>
 		</div>
+        <script src="js/jquery-3.3.1.min.js"></script>
 		<script src="layui/layui.js"></script>
 		<script>
-			layui.use('element', function() {
+            /*var username = sessionStorage.getItem("username");
+            var pwd = sessionStorage.getItem("pwd");
+            console.log(username,pwd);
+            $.post("http://localhost:7000/login",{
+                username: username,
+                pwd: pwd,
+                code: "123"
+            },function (res) {
+                console.log(res);
+            });*/
+
+			layui.use(['element', 'table'], function() {
 				var element = layui.element;
+				var table = layui.table;
+
+				table.render({
+					elem: '#mainTable',
+					url: 'http://localhost:7000/api/v1/user/users',
+					cols: [[
+						{field: 'username',title: '用户名',width: '20%'},
+						{field: 'name',title: '员工姓名',width: '20%'},
+						{field: 'createdate',title: '创建时间',width: '20%'},
+						{field: 'phone',title: '联系方式',width: '20%'},
+						{field: 'email',title: '电子邮箱',width: '20%'},	
+					]],
+					page: true,
+					limit:20,
+					parseData:function(res){
+						//console.log(res);
+						return {
+							"code": res.status,
+							"msg": res.msg,
+							"count": res.data.total,
+							"data": res.data.list
+						};
+					},
+					response: {
+						statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+					},
+					request:{
+						pageName:'pageNum',
+						limitName:'pageSize'
+					}
+				})
 			});
 		</script>
 	</body>

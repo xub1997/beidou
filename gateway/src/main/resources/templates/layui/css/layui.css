@@ -3793,7 +3793,7 @@ body .layui-table-tips .layui-layer-content {
 	left: 0;
 	top: 0;
 	width: 0;
-	height: 5px;
+	height: 3px;
 	background-color: #5FB878;
 	transition: all .2s;
 	-webkit-transition: all .2s
@@ -3851,7 +3851,7 @@ body .layui-table-tips .layui-layer-content {
 	display: none;
 	position: absolute;
 	left: 0;
-	top: 65px;
+	top: 45px;
 	min-width: 100%;
 	line-height: 36px;
 	padding: 5px 0;
@@ -4033,7 +4033,7 @@ body .layui-table-tips .layui-layer-content {
 
 .layui-tab-title {
 	position: relative;
-	background-color: #23262E;
+	background-color: #f2f2f2;
 	left: 0;
 	height: 40px;
 	white-space: nowrap;
@@ -4058,7 +4058,7 @@ body .layui-table-tips .layui-layer-content {
 	padding: 0 15px;
 	text-align: center;
 	cursor: pointer;
-	background-color: #e4e4e4;
+	background-color: #f2f2f2;
 	color: black;
 }
 
@@ -4111,7 +4111,8 @@ body .layui-table-tips .layui-layer-content {
 }
 
 .layui-tab-item {
-	display: none
+	display: none;
+	height: 100%;
 }
 
 .layui-tab-more {

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../layui/css/layui.css" media="all">
+		<style>
+			.formContainer{
+				padding: 10px 60px 0 60px;
+			}
+			.layui-form{
+				margin:0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="formContainer">
+			<form class="layui-form layui-form-pane">
+				<div class="layui-form-item">
+					<label class="layui-form-label"><i class="layui-icon">&#xe66f;</i> 角色名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="rolename" id="rolename" required lay-verify="required" placeholder="请输入用户名称"
+						 autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label"><i class="layui-icon">&#xe66f;</i> 角色id</label>
+					<div class="layui-input-block">
+						<input type="text" name="roleId" id="roleId" required lay-verify="required" placeholder="请输入用户名称" autocomplete="off"
+						 class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">选择权限</label>
+					<div class="layui-input-block" id="checkboxs">
+
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe605;</i> 立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<script src="../../js/jquery-3.3.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<script>
+			var rid = sessionStorage.getItem('rid')
+			$.get('http://localhost:8080/rules', function(res) {
+				//console.log(res.data.list);
+				for (var i = 0; i < res.data.list.length; i++) {
+					//console.log(data[i].id,data[i].name);
+					$("#checkboxs").append('<input type="checkbox" name="ruleIds' + res.data.list[i].id + '" title="' + res.data.list[
+						i].rulename + '" value="' + res.data.list[i].id + '">');
+
+				}
+			})
+
+			setTimeout(function() {
+				$.get("http://localhost:8080/role/" + rid, function(res) {
+					$('#roleId').val(res.data[0].id);
+					$('#rolename').val(res.data[0].rolename);
+				})
+			})
+
+			layui.use('form', function() {
+				var form = layui.form;
+				form.on('submit(formDemo)', function(data) {
+					//console.log(JSON.stringify(data.field));
+					var ruleIdsArr = [];
+					var ruleIdsS;
+					var inputs = ($("#checkboxs input"));
+					//console.log(inputs);
+					for (var i = 0; i < inputs.length; i++) {
+						if (inputs[i].checked == true) {
+							ruleIdsArr.push(inputs[i].value);
+						}
+					}
+					//console.log(ruleIdsArr);
+					ruleIdsS = ruleIdsArr.join(",");
+					//console.log(ruleIdsS);
+					$.post("http://localhost:8080/roleRule", {
+						roleId: data.field.roleId,
+						ruleIds: ruleIdsS
+					}, function(data) {
+						//console.log(data);
+						if (data.status == "200") {
+							layer.msg(data.msg, {
+								icon: 6,
+								time: 1500
+							}, function() {
+								window.history.back(-1);
+							});
+						} else {
+							layer.msg(data.msg, {
+								icon: 5,
+								time: 1500
+							});
+						}
+					})
+					//console.log(data.field);
+					var ruleIdsArr = [];
+					return false;
+				});
+			});
+		</script>
+	</body>
+</html>

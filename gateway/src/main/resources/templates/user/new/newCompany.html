@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../layui/css/layui.css" media="all">
+		<style>
+			.formContainer{
+				padding: 10px 60px 0 60px;
+			}
+			.layui-form{
+				margin:0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="formContainer">
+		<form class="layui-form layui-form-pane">
+			<div class="layui-form-item">
+				<label class="layui-form-label" style="width: 100%;font-size: 20px;"><i class="layui-icon" style="font-size: 20px;">&#xe68e;</i> 新增公司</label>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label"><i class="layui-icon">&#xe68e;</i> 公司名称</label>
+				<div class="layui-input-block">
+					<input type="text" name="name" required lay-verify="required" placeholder="请输入用户名称" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label"><i class="layui-icon">&#xe678;</i> 公司电话</label>
+				<div class="layui-input-inline">
+					<input type="number" name="phone" required lay-verify="required" placeholder="请输入联系方式" autocomplete="off" class="layui-input">
+				</div>
+				<div class="layui-form-mid layui-word-aux">请输入有效的电话号码</div>
+			</div>		
+
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label"><i class="layui-icon">&#xe60a;</i> 公司描述</label>
+				<div class="layui-input-block">
+					<textarea name="description" placeholder="请输入内容" class="layui-textarea"></textarea>
+				</div>
+			</div>
+			<div class="layui-form-item layui-form-text">
+				<label class="layui-form-label"><i class="layui-icon">&#xe60a;</i> 公司地址</label>
+				<div class="layui-input-block">
+					<textarea name="address" placeholder="请输入内容" class="layui-textarea"></textarea>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe605;</i> 立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
+					<button class="layui-btn layui-btn-primary" onclick="javascript:window.history.back(-1);"><i class="layui-icon">&#xe65c;</i> 返回上一页面</button>
+				</div>
+			</div>
+		</form>
+		</div>
+		<script src="../../js/jquery-3.3.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<script>
+			layui.use('form', function() {
+				var form = layui.form;
+				form.on('submit(formDemo)', function(data) {
+					//console.log(JSON.stringify(data.field));
+					$.post('http://localhost:7000/api/v1/user/company',{
+						name:data.field.name,
+						description:data.field.description,
+						phone:data.field.phone,
+						address:data.field.address
+					},function(res){
+						if (res.status == "200") {
+							layer.msg(res.msg, {
+								icon: 6,
+								time: 1500
+							}, function() {
+								window.history.back(-1);
+								window.location.replace(document.referrer);
+							});
+						} else {
+							layer.msg(res.msg, {
+								icon: 5,
+								time: 1500
+							});
+						}
+					})
+					return false;
+				});
+			});
+		</script>
+	</body>
+</html>

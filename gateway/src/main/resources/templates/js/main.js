@@ -22,7 +22,7 @@ layui.use(['element','layer'], function() {
 		var layhref = elem[0].attributes[1].nodeValue;
 
 		if (hrefArr.indexOf(layhref) !== -1) {
-			if (  elem[0].innerText == "用户设置" ||elem[0].innerText == "系统管理") {
+			if (elem[0].innerText == "系统设置" || elem[0].innerText == "用户设置") {
 				return;
 			}
 			layer.msg('此页面已打开', {icon:7,time: 1000} ); 
@@ -31,13 +31,13 @@ layui.use(['element','layer'], function() {
 
 		hrefArr.push(layhref);
 
-		if (elem[0].innerText == "用户设置" || elem[0].innerText == "系统管理" ) {
+		if (elem[0].innerText == "系统设置" || elem[0].innerText == "用户设置") {
 			return;
 		}
 
 		element.tabAdd('demo', {
 			title: elem[0].innerHTML,
-			content: '<iframe src="' + layhref +'" frameborder="0"  scrolling="0" style="width:100%;height:750px"></iframe>',
+			content: '<iframe src="' + layhref +'" frameborder="0"  scrolling="0" style="width:100%;height:100%"></iframe>',
 			id: layhref
 		});
 
@@ -53,14 +53,24 @@ layui.use(['element','layer'], function() {
 
 	});
 
-
 	element.on('tabDelete(demo)', function(data) {
-		console.log(data.elem);
+		//console.log(data.elem);
 		var thisHref = this.parentNode.getAttribute("lay-id");
 		hrefArr.remove(thisHref);
 	});
 
 });
 
-
+	function changePwd(){
+		layui.use('layer', function() {	
+			var layer = layui.layer;
+			layer.open({
+				type: 2,
+				shade: 0.2,
+				title: ['修改信息'],
+				area: ['800px','650px'],
+				content: 'editUser.html' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+			});
+		})
+	}
 
