@@ -3,16 +3,17 @@ package com.beidou.gateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-
+import org.springframework.context.annotation.Primary;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+@Primary
 @Configuration
 public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
 
@@ -41,18 +42,10 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
                 .allowedOrigins("*")//允许任意域名
                 .allowedMethods("POST", "GET", "PUT", "OPTIONS", "DELETE")//表明服务器支持的请求类型
                 .maxAge(3600)//预检请求的有效期，单位为秒。
+                .allowedHeaders("*")  // 允许头部设置
                 .allowCredentials(true);//它的值只有一个就是 true。跨站点带验证信息时，服务器必须要争取设置这个值，服务器才能获取到部门-公司管理的cookie。
     }
 
-    @Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
-        resolver.setPrefix("classpath:/templates/");
-        resolver.setSuffix(".jsp");
-        resolver.setViewNames("/*");
-        resolver.setOrder(2);
-        return resolver;
-    }
 
     @Bean
     public ITemplateResolver templateResolver() {
@@ -82,22 +75,7 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
         return viewResolver;
     }
 
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-        configurer.enable();
-    }
 
-    /*@Bean
-    public EmbeddedServletContainerCustomizer containerCustomizer() {
-        return new EmbeddedServletContainerCustomizer() {
-            @Override
-            public void customize(ConfigurableEmbeddedServletContainer container) {
-                ErrorPage error401Page = new ErrorPage(HttpStatus.UNAUTHORIZED, "/401.html");
-                ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");
-                ErrorPage error500Page = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/500.html");
-                container.addErrorPages(error400Page, error401Page, error404Page, error500Page);
-            }
-        };
-    }*/
+
 
 }
