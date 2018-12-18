@@ -113,7 +113,7 @@ public class RuleController {
 
 
     @SysLogger("查找权限")
-    @RequiresPermissions("rule:search")
+    @RequiresPermissions("rule:searchByName")
     @ApiOperation(value="查找权限", notes="查找权限")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),

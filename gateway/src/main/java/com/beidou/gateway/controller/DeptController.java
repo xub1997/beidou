@@ -126,7 +126,7 @@ public class DeptController {
     }
 
     @SysLogger("查找部门")
-    @RequiresPermissions("dept:searchByName:read")
+    @RequiresPermissions("dept:searchByName")
     @ApiOperation(value="查找部门", notes="查找部门")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
@@ -139,7 +139,7 @@ public class DeptController {
     }
 
     @SysLogger("查找公司部门")
-    @RequiresPermissions("dept:searchByNameAndComId:read")
+    @RequiresPermissions("dept:searchByNameAndComId")
     @ApiOperation(value="查找公司部门", notes="查找公司部门")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
