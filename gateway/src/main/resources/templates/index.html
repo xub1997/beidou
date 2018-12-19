@@ -21,9 +21,9 @@
 				<!-- 头部区域（可配合layui已有的水平导航） -->
 				<ul class="layui-nav layui-layout-right">
 					<li class="layui-nav-item">
-						<a href="javascript:;" id="username">
+						<a href="javascript:;" id="name">
 							<i class="layui-icon" style="font-size: 16px;">&#xe66f;</i>
-							系统管理员
+
 						</a>
 						<dl class="layui-nav-child">
 							<dd><a href="javascript:;">基本资料</a></dd>
@@ -64,75 +64,42 @@
 		<script src="layui/layui.js"></script>
 		<script src="js/main.js"></script>
 		<script>
+            var menus =JSON.parse(sessionStorage.getItem("menus")) ;
+            var name = sessionStorage.getItem("name");
+            //console.log(menus);
+            //console.log(name);
 
-			var PmenusName = sessionStorage.getItem("PmenusName");
-			var PmenusNames = PmenusName.split(",");
+            document.getElementById('name').innerText=name;
 
-			var childesText= sessionStorage.getItem("childesText");
-			var childesTexts=childesText.split(",");
-			var lastchildesText=childesTexts.pop();
-			//console.log(childesTexts);
-			//console.log(lastchildesText);
+            var Pul=document.getElementById('Pul');
 
-			var childesUrl = sessionStorage.getItem("childesUrl");
-			var childesUrls=childesUrl.split(",");
-			var lastchildesUrls=childesUrls.pop();
-			//console.log(childesUrls);
-
-			/*var username = sessionStorage.getItem("username");
-			var pwd = sessionStorage.getItem("pwd");
-			document.getElementById("username").innerText=username;
-			console.log(username,pwd);
-			$.post("http://localhost:7000/login",{
-				username: username,
-				pwd: pwd,
-				code: "123"
-			},function (res) {
-				console.log(res);
-			});*/
-
-			var Pul=document.getElementById('Pul');
-
-			for (var i = 0; i < PmenusNames.length; i++) {
-				var li =document.createElement("li");
-				var a1= document.createElement("a");
-				li.classList.add("layui-nav-item");
-				li.setAttribute("id",[i]);
-				a1.setAttribute("href","javascript:;");
-				a1.innerText = PmenusNames[i];
-				li.appendChild(a1);
-				Pul.appendChild(li);
-				//console.log(PmenusNames[i]);
-			}
-
-			Pul.getElementsByTagName('li')[0].classList.add("layui-nav-itemed");
-
-			var li0 = document.getElementById('0');
-			var li1 = document.getElementById('1');
-
-			for (var j = 0; j < childesTexts.length; j++) {
-				var dl= document.createElement("dl");
-				var dd= document.createElement("dd");
-				var a2= document.createElement("a");
-				a2.innerText=childesTexts[j];
-				a2.setAttribute("href","javascript:;");
-				a2.setAttribute("lay-href",childesUrls[j]);
-				dl.classList.add("layui-nav-child");
-				dd.appendChild(a2);
-				dl.appendChild(dd);
-				li0.appendChild(dl);
-			}
-
-			var dl= document.createElement("dl");
-			var dd= document.createElement("dd");
-			var a2= document.createElement("a");
-			a2.innerText=lastchildesText;
-			a2.setAttribute("href","javascript:;");
-			a2.setAttribute("lay-href",lastchildesUrls);
-			dl.classList.add("layui-nav-child");
-			dd.appendChild(a2);
-			dl.appendChild(dd);
-			li1.appendChild(dl);
+            for (var i = 0; i < menus.length; i++) {
+                var li =document.createElement("li");
+                var a1= document.createElement("a");
+                li.classList.add("layui-nav-item");
+                a1.setAttribute("href","javascript:;");
+                a1.setAttribute("id",[i]);
+                a1.innerText = menus[i].text;
+                li.appendChild(a1);
+                Pul.appendChild(li);
+            }
+            //Pul.getElementsByTagName('li')[0].classList.add("layui-nav-itemed");
+            var Pli =Pul.getElementsByTagName('li');
+            //console.log(Pli);
+            for (var m = 0; m < Pli.length; m++) {
+                for (var j = 0; j < menus[m].children.length; j++) {
+                    var dl= document.createElement("dl");
+                    var dd= document.createElement("dd");
+                    var a2= document.createElement("a");
+                    a2.innerText=menus[m].children[j].text;
+                    a2.setAttribute("href","javascript:;");
+                    a2.setAttribute("lay-href",menus[m].children[j].url);
+                    dl.classList.add("layui-nav-child");
+                    dd.appendChild(a2);
+                    dl.appendChild(dd);
+                    Pli[m].appendChild(dl);
+                }
+            }
 			//sessionStorage.clear();
 		</script>
 

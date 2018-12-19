@@ -18,20 +18,20 @@
 				<div class="layui-form-item" style="margin-bottom: 20px;">
 					<label class="layui-form-label" ><i class="layui-icon">&#xe66f;</i> 账号</label>
 					<div class="layui-input-block">
-						<input type="text" name="username" id="username"  required lay-verify="required" class="layui-input">
+						<input type="text" name="username" id="username"  value="admin" required lay-verify="required" class="layui-input">
 					</div>
 				</div>
 
 				<div class="layui-form-item" style="margin-bottom: 20px;">
 					<label class="layui-form-label" ><i class="layui-icon">&#xe673;</i> 密码</label>
 					<div class="layui-input-block">
-						<input type="password" name="pwd" id="pwd" required lay-verify="required" class="layui-input">
+						<input type="password" name="pwd" id="pwd" value="345" required lay-verify="required" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item" style="margin-bottom: 20px;">
 					<label class="layui-form-label" ><i class="layui-icon">&#xe673;</i> 验证码</label>
 					<div class="layui-input-block">
-						<input type="text" name="code" id="code" required lay-verify="required" class="layui-input">
+						<input type="text" name="code" id="code"  required lay-verify="required" class="layui-input">
 						<span class="code"><img src="http://localhost:7000/gifCode" alt="" style="height:38px"></span>
 					</div>
 				</div>
@@ -49,49 +49,41 @@
 		<script src="js/jquery-3.3.1.min.js"></script>
 		<script src="layui/layui.js"></script>
 		<script>
-			sessionStorage.clear();
+			//sessionStorage.clear();
 			layui.use('form', function() {
 				var form = layui.form;
 				form.on('submit(formDemo)', function(data) {
 					//console.log(data.field);
-					var pwd2 = data.field.pwd;
-					$.post("http://localhost:7000/login",{
-						username: data.field.username,
-						pwd: data.field.pwd,
-						code: data.field.code
-					},function (data) {
-						console.log(data);
-						var username = data.data.username;
-						var pwd = pwd2;
-						var Pmenus = data.menu.children;
-						var PmenusName = [];
-						var childes = [];
-						var childesText = [];
-						var childesUrl = [];
-						for (var i = 0; i < Pmenus.length; i++) {
-							PmenusName.push(Pmenus[i].text);
-                            childes.push(Pmenus[i].children);
-						}
-						//console.log(childes);
-                        for (var j = 0; j < childes.length; j++) {
-                            for (var m = 0; m < childes[j].length; m++) {
-                                childesText.push(childes[j][m].text);
-                                childesUrl.push(childes[j][m].url);
+					$.ajax({
+						type: 'POST',
+						url: "http://localhost:7000/login",
+						data:{
+                            username: data.field.username,
+                            pwd: data.field.pwd,
+                            code: data.field.code
+						},
+						success:function (res) {
+                            console.log(res);
+                            if (res.msg != "登录成功！"){
+                                layer.msg(res.msg, {
+                                    icon: 5,
+                                    time: 1500
+                                });
+                                return false
                             }
+                            layer.msg(res.msg, {
+                                icon: 6,
+                                time: 1500
+                            }, function() {
+                                var menus = res.menu.children;
+                                var name=res.data.name;
+                                //console.log(menus);
+                                sessionStorage.setItem("menus",JSON.stringify(menus));
+                                sessionStorage.setItem('name',name);
+                                window.location.href="index.html";//跳转
+                            });
                         }
-                        //console.log(childesText);
-                        //console.log(childesUrl);
-                        sessionStorage.setItem("username",username);
-                        sessionStorage.setItem("pwd",pwd);
-                        sessionStorage.setItem('PmenusName',PmenusName);
-                        sessionStorage.setItem('childesText',childesText);
-                        sessionStorage.setItem('childesUrl',childesUrl);
-						window.location.href="index.html";//跳转
-						$.get("http://localhost:7000/api/v1/user/users",function (res) {
-							console.log(res);
-						})
 					});
-
 					return false;
 				});
 			});
