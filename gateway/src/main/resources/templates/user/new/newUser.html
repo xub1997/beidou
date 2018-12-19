@@ -125,7 +125,7 @@
 					//console.log(data[i].id,data[i].name);
 					$("#coms").append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
 				}
-			})
+			});
 
 			layui.use(['form', 'layer'], function() {
 				var form = layui.form;
@@ -180,7 +180,7 @@
 								time: 1500
 							});
 						}
-					})
+					});
 					return false;
 				});
 

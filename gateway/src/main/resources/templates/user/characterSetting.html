@@ -98,7 +98,7 @@
 						pageName: 'pageNum',
 						limitName: 'pageSize'
 					}
-				})
+				});
 				table.on('tool(demo)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
 					var data = obj.data; //获得当前行数据
 					var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
@@ -127,13 +127,17 @@
 						});
 					} else if (layEvent === 'edit') {
 						//console.log(data);
-						sessionStorage.setItem("roleId", data.id)
+						sessionStorage.setItem("roleId", data.id);
 						layer.open({
 							type: 2,
 							shade: 0.2,
 							title: ['当前用户：' + data.rolename],
 							area: ['50%', '90%'],
-							content: './edit/editChar.html'
+							content: './edit/editChar.html',
+							cancel:function (index,layero) {
+
+                                window.location.replace("characterSetting.html");
+                            }
 						});
 					} else if (layEvent === 'detail') {
 						//console.log(data);

@@ -134,7 +134,11 @@
 							shade: 0.2,
 							title: ['当前公司：' + data.name],
 							area: ['50%', '95%'],
-							content: './edit/editCom.html'
+							content: './edit/editCom.html',
+                            cancel:function (index,layero) {
+
+                                window.location.replace("companySetting.html");
+                            }
 						});
 					}
 				});

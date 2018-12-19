@@ -25,7 +25,7 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label"><i class="layui-icon">&#xe770;</i> 部门名称</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" required lay-verify="required" placeholder="请输入用户名称" autocomplete="off" class="layui-input">
+					<input type="text" name="name" required lay-verify="required" placeholder="请输入部门名称" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 	
@@ -59,11 +59,17 @@
 			$.get('http://localhost:7000/api/v1/user/companys',function(res){
 				//console.log(res.data.list);
 				var data = res.data.list;
+				var option="";
 				for (var i = 0; i < data.length; i++) {
 					//console.log(data[i].id,data[i].name);
-					$("#coms").append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+					if(i==0){
+                        option+="<option value='" + data[i].id + "' selected='selected'>" + data[i].name + "</option>";
+					}
+					option+="<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+
 				}
-			})
+                $("#coms").append(option);
+			});
 			layui.use('form', function() {
 				var form = layui.form;
 				form.on('submit(formDemo)', function(data) {

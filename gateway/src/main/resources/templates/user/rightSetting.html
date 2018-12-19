@@ -29,9 +29,14 @@
 			<div class="header">
 				<input type="text" class="layui-input" id="rulename" placeholder="输入权限名查找" />
 				<button class="layui-btn" id="btn" style="margin-left: 20px;"><i class="layui-icon">&#xe615;</i>搜索</button>
+				<button class="layui-btn" style="margin-left: 20px;" onclick="window.location.href='./new/newRight.html'"><i class="layui-icon">&#xe654;</i>新增权限</button>
 			</div>
 			<div class="body">
-				<table id="rightTable"></table>
+				<table id="rightTable" lay-filter="demo"></table>
+				<script type="text/html" id="barDemo">
+					<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+				</script>
 			</div>
 		</div>
 		<script src="../js/jquery-3.3.1.min.js"></script>
@@ -45,10 +50,15 @@
 					elem: '#rightTable',
 					url: 'http://localhost:7000/api/v1/user/rules',
 					cols: [
-						[{field: 'rulename',title: '权限名',width: '25%'},
-						{field: 'description',title: '权限描述',width: '25%'},
-						{field: 'createdate',title: '创建时间',width: '25%'},
-						{field: 'modifydate',title: '修改时间',width: '25%'}
+						[	{field: 'id',title: '#',width: '5%'},
+						    {field: 'rulename',title: '权限名',width: '12.5%'},
+							{field: 'description',title: '权限描述',width: '12.5%'},
+							{field: 'type',title: '类型',width: '12.5%'},
+							{field: 'permissions',title: '权限标志',width: '12.5%'},
+							{field: 'url',title: '访问路径',width: '17.5%'},
+                            {field: 'ordernum',title: '排序',width: '7.5%'},
+                            {field: 'pid',title: '父级id',width: '7.5%'},
+							{title: '操作',align: 'center',toolbar: '#barDemo',width: '12.5%'}
 						]
 					],
 					page: true,
@@ -69,7 +79,43 @@
 						pageName:'pageNum',
 						limitName:'pageSize'
 					}
-				})
+				});
+                table.on('tool(demo)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                    var data = obj.data; //获得当前行数据
+                    var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                    var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                    if (layEvent === 'del') { //删除
+                        layer.confirm('确认删除用户：'+data.username+'?', {title:'提示'},function(index) {
+                            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+                            layer.close(index);
+                            //console.log(data);
+                            $.ajax({
+                                url: 'http://localhost:7000/api/v1/user/user/'+data.id,
+                                type: 'POST',
+                                data:{_method:"DELETE",ids:data.id},
+                                success:function(res){
+                                    //console.log(res);
+                                },
+                                error:function(res){
+                                    console.log(res);
+                                }
+                            })
+                            //向服务端发送删除指令
+                        });
+                    } else if (layEvent === 'edit') { //编辑
+                        //do something
+                        //console.log(data.id);
+                        sessionStorage.setItem('id', data.id);
+                        layer.open({
+                            type: 2,
+                            shade: 0.2,
+                            title: ['当前用户：' + data.username],
+                            area: ['50%', '90%'],
+                            content: './edit/editRight.html'
+                        });
+                    }
+                });
 			});
 			$("#btn")[0].addEventListener('click',function(){
 				var rulename=$("#rulename").val();

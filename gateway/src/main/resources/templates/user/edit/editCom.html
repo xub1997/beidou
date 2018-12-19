@@ -50,7 +50,7 @@
 				<div class="layui-input-block">
 					<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe605;</i> 立即提交</button>
 					<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
-					<button class="layui-btn layui-btn-primary" onclick="javascript:window.history.back(-1);"><i class="layui-icon">&#xe65c;</i> 返回上一页面</button>
+
 				</div>
 			</div>
 			<div class="layui-form-item" style="visibility: hidden;">
@@ -72,7 +72,7 @@
 				$('#phone').val(res.data[0].phone);
 				$('#description').val(res.data[0].description);
 				$('#address').val(res.data[0].address);
-			})
+			});
 			sessionStorage.removeItem('comId');
 			
 			layui.use('form', function() {
@@ -108,7 +108,7 @@
 							console.log(err);
 						}
 						
-					})
+					});
 					return false;
 				});
 			});

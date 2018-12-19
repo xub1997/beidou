@@ -58,7 +58,7 @@
 						type:"POST",
 						data:{
 							_method:'put',
-							rulename:data.field.rulename,
+							rolename:data.field.rolename,
 							description:data.field.description,
 							id:data.field.id
 						},
@@ -80,7 +80,7 @@
 							console.log(err);
 						}
 						
-					})
+					});
 					return false;
 				});
 			});
@@ -92,7 +92,7 @@
 					$('#id').val(res.data[0].id);
 					$('#rolename').val(res.data[0].rolename);
 					$('#description').val(res.data[0].description);
-				})
+				});
 				sessionStorage.removeItem('roleId');
 			},0)
 		</script>
