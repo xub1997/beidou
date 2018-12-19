@@ -120,7 +120,7 @@
 		<script src="../../js/jquery-3.3.1.min.js"></script>
 		<script src="../../layui/layui.js"></script>
 		<script>
-			$.get("http://localhost:7000/api/v1/user/companys", function(res) {
+			$.get("http://120.79.100.1:7000/api/v1/user/companys", function(res) {
 				var data = res.data.list;
 				//console.log(data);
 				for (var i = 0; i < data.length; i++) {
@@ -131,7 +131,7 @@
 			setTimeout(function(){
 				var curId = sessionStorage.getItem('id');
 				//console.log(sessionStorage)
-				$.get('http://localhost:7000/api/v1/user/user/'+curId,function(res){
+				$.get('http://120.79.100.1:7000/api/v1/user/user/'+curId,function(res){
 					//console.log(res);
 					$('#id').val(res.data[0].id);
 					$('#username').val(res.data[0].username);
@@ -171,7 +171,7 @@
 						$("#deps option").remove();
 					}, 100)
 
-					$.get('http://localhost:7000/api/v1/user/comDept?comId=' + res.value, function(res) {
+					$.get('http://120.79.100.1:7000/api/v1/user/comDept?comId=' + res.value, function(res) {
 						//console.log(res)
 						for (var i = 0; i < res.data.length; i++) {
 							//console.log(data[i].id,data[i].name);
@@ -184,7 +184,7 @@
 				form.on('submit(formDemo)', function(data) {
 					console.log(JSON.stringify(data.field));
 					$.ajax({
-						url:"http://localhost:7000/api/v1/user/user/"+data.field.id,
+						url:"http://120.79.100.1:7000/api/v1/user/user/"+data.field.id,
 						type: "POST",
 						data: {
 							_method:'put',
@@ -229,7 +229,7 @@
 			/* function checkUser() {
 				var username = document.getElementById('username');
 				var userTip = document.getElementById('userTip');
-				$.get("http://localhost:7000/api/v1/user/users",{
+				$.get("http://120.79.100.1:7000/api/v1/user/users",{
 					pageNum: 1
 				},function(data){
 					console.log(data);

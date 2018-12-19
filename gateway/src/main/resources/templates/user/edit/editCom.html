@@ -65,7 +65,7 @@
 		<script src="../../layui/layui.js"></script>
 		<script>
 			var curId = sessionStorage.getItem('comId');
-			$.get('http://localhost:7000/api/v1/user/company/'+curId,function(res){
+			$.get('http://120.79.100.1:7000/api/v1/user/company/'+curId,function(res){
 				//console.log(res);
 				$('#id').val(res.data[0].id);
 				$('#name').val(res.data[0].name);
@@ -81,7 +81,7 @@
 					//console.log(JSON.stringify(data.field));
 					
 					$.ajax({
-						url:"http://localhost:7000/api/v1/user/company/"+data.field.id,
+						url:"http://120.79.100.1:7000/api/v1/user/company/"+data.field.id,
 						type:"POST",
 						data:{
 							_method:'put',

@@ -48,7 +48,7 @@
 
 				table.render({
 					elem: '#rightTable',
-					url: 'http://localhost:7000/api/v1/user/rules',
+					url: 'http://120.79.100.1:7000/api/v1/user/rules',
 					cols: [
 						[	{field: 'id',title: '#',width: '5%'},
 						    {field: 'rulename',title: '权限名',width: '12.5%'},
@@ -91,7 +91,7 @@
                             layer.close(index);
                             //console.log(data);
                             $.ajax({
-                                url: 'http://localhost:7000/api/v1/user/user/'+data.id,
+                                url: 'http://120.79.100.1:7000/api/v1/user/user/'+data.id,
                                 type: 'POST',
                                 data:{_method:"DELETE",ids:data.id},
                                 success:function(res){
@@ -119,7 +119,7 @@
 			});
 			$("#btn")[0].addEventListener('click',function(){
 				var rulename=$("#rulename").val();
-				var _url='http://localhost:7000/api/v1/user/rule/searchByName?name='+rulename;
+				var _url='http://120.79.100.1:7000/api/v1/user/rule/searchByName?name='+rulename;
 				//console.log(_url);
 				layui.use('table',function(){
 					var table = layui.table;
