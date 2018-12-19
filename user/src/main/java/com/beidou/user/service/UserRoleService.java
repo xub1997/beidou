@@ -2,8 +2,8 @@ package com.beidou.user.service;
 
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.user.dao.UserRoleMapper;
-import com.beidou.user.entity.UserRole;
-import com.beidou.user.entity.UserRoleExample;
+import com.beidou.gateway.entity.UserRole;
+import com.beidou.gateway.entity.UserRoleExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

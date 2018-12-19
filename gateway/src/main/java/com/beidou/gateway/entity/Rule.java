@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @ApiModel(value = "权限信息类")
 public class Rule implements Serializable {
@@ -118,5 +119,27 @@ public class Rule implements Serializable {
 
     public void setOrdernum(Integer ordernum) {
         this.ordernum = ordernum;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rule rule = (Rule) o;
+        return Objects.equals(id, rule.id) &&
+                Objects.equals(rulename, rule.rulename) &&
+                Objects.equals(description, rule.description) &&
+                Objects.equals(type, rule.type) &&
+                Objects.equals(permissions, rule.permissions) &&
+                Objects.equals(url, rule.url) &&
+                Objects.equals(ordernum, rule.ordernum) &&
+                Objects.equals(pid, rule.pid) &&
+                Objects.equals(createdate, rule.createdate) &&
+                Objects.equals(modifydate, rule.modifydate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, rulename, description, type, permissions, url, ordernum, pid, createdate, modifydate);
     }
 }

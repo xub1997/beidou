@@ -2,8 +2,8 @@ package com.beidou.user.service;
 
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.common.util.StringUtil;
-import com.beidou.user.entity.Role;
-import com.beidou.user.entity.RoleExample;
+import com.beidou.gateway.entity.Role;
+import com.beidou.gateway.entity.RoleExample;
 import com.beidou.user.dao.RoleMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

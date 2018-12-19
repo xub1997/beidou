@@ -511,8 +511,8 @@ Caused by: com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown da
 	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2199)
 	at com.mysql.jdbc.ConnectionImpl.connectWithRetries(ConnectionImpl.java:2046)
 	... 127 common frames omitted
-2018-12-12 13:29:12.093 [http-nio-8081-exec-2] ERROR o.a.c.c.C.[.[localhost].[/].[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalStateException: No primary or default constructor found for class com.beidou.user.entity.User] with root cause
-java.lang.NoSuchMethodException: com.beidou.user.entity.User.<init>()
+2018-12-12 13:29:12.093 [http-nio-8081-exec-2] ERROR o.a.c.c.C.[.[localhost].[/].[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalStateException: No primary or default constructor found for class com.beidou.gateway.entity.User] with root cause
+java.lang.NoSuchMethodException: com.beidou.gateway.entity.User.<init>()
 	at java.lang.Class.getConstructor0(Class.java:3082)
 	at java.lang.Class.getDeclaredConstructor(Class.java:2178)
 	at org.springframework.web.method.annotation.ModelAttributeMethodProcessor.createAttribute(ModelAttributeMethodProcessor.java:208)

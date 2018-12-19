@@ -4,7 +4,7 @@ package com.beidou.user.controller;
 import com.beidou.common.annotation.SysLogger;
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.common.util.StringUtil;
-import com.beidou.user.entity.Company;
+import com.beidou.gateway.entity.Company;
 import com.beidou.user.service.CompanyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

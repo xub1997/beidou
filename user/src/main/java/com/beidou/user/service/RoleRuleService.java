@@ -2,8 +2,8 @@ package com.beidou.user.service;
 
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.user.dao.RoleRuleMapper;
-import com.beidou.user.entity.RoleRule;
-import com.beidou.user.entity.RoleRuleExample;
+import com.beidou.gateway.entity.RoleRule;
+import com.beidou.gateway.entity.RoleRuleExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

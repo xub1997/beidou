@@ -2,8 +2,8 @@ package com.beidou.user.service;
 
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.common.util.StringUtil;
-import com.beidou.user.entity.Rule;
-import com.beidou.user.entity.RuleExample;
+import com.beidou.gateway.entity.Rule;
+import com.beidou.gateway.entity.RuleExample;
 import com.beidou.user.dao.RuleMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

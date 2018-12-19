@@ -1,7 +1,7 @@
 package com.beidou.user.dao;
 
-import com.beidou.user.entity.Role;
-import com.beidou.user.entity.RoleExample;
+import com.beidou.gateway.entity.Role;
+import com.beidou.gateway.entity.RoleExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

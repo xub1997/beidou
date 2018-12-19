@@ -1,4 +1,4 @@
-package com.beidou.user.entity;
+package com.beidou.gateway.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

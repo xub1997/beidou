@@ -86,11 +86,9 @@ public class MyShiroRealm extends AuthorizingRealm {
             for(Role role:roleList){
                 for(Rule rule:role.getPermissions()){
                     permissionList.add(rule);
-                    System.out.println(rule.toString());
                 }
             }
             Set<String> permissionSet = permissionList.stream().map(Rule::getPermissions).collect(Collectors.toSet());
-            System.out.println(permissionSet.toString());
             authorizationInfo.setStringPermissions(permissionSet);
 
         }

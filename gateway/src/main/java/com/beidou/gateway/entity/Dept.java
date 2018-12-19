@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @ApiModel(value = "部门信息类")
 public class Dept implements Serializable {
-    private static final long serialVersionUID = 125L;
+    private static final long serialVersionUID = 125232L;
 
     @ApiModelProperty(value="部门id", hidden=false, required=false, dataType="Integer")
     private Integer id;

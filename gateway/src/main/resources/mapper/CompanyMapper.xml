@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beidou.user.dao.CompanyMapper">
+<mapper namespace="com.beidou.gateway.dao.CompanyMapper">
   <resultMap id="BaseResultMap" type="com.beidou.gateway.entity.Company">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />

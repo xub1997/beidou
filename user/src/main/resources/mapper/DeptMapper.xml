@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beidou.user.dao.DeptMapper">
-  <resultMap id="BaseResultMap" type="com.beidou.user.entity.Dept">
+  <resultMap id="BaseResultMap" type="com.beidou.gateway.entity.Dept">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="createDate" jdbcType="VARCHAR" property="createdate" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List_ByComId">
     d.id, d.name, d.createDate, d.description, d.modifyDate, d.comId
   </sql>
-  <select id="selectByExample" parameterType="com.beidou.user.entity.DeptExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.beidou.gateway.entity.DeptExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -115,13 +115,13 @@
     delete from tb_dept
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.beidou.user.entity.DeptExample">
+  <delete id="deleteByExample" parameterType="com.beidou.gateway.entity.DeptExample">
     delete from tb_dept
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.beidou.user.entity.Dept">
+  <insert id="insert" parameterType="com.beidou.gateway.entity.Dept">
     insert into tb_dept (id, name, createDate, 
       description, modifyDate, comId
       )
@@ -129,7 +129,7 @@
       #{description,jdbcType=VARCHAR}, #{modifydate,jdbcType=VARCHAR}, #{comid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.beidou.user.entity.Dept">
+  <insert id="insertSelective" parameterType="com.beidou.gateway.entity.Dept">
     insert into tb_dept
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -172,7 +172,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.beidou.user.entity.DeptExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.beidou.gateway.entity.DeptExample" resultType="java.lang.Long">
     select count(*) from tb_dept
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -216,7 +216,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.beidou.user.entity.Dept">
+  <update id="updateByPrimaryKeySelective" parameterType="com.beidou.gateway.entity.Dept">
     update tb_dept
     <set>
       <if test="name != null">
@@ -237,7 +237,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.beidou.user.entity.Dept">
+  <update id="updateByPrimaryKey" parameterType="com.beidou.gateway.entity.Dept">
     update tb_dept
     set name = #{name,jdbcType=VARCHAR},
       createDate = #{createdate,jdbcType=VARCHAR},

@@ -21,7 +21,7 @@
 		</javaTypeResolver>
 
 		<!-- 指定javaBean生成的位置 -->
-		<javaModelGenerator targetPackage="com.beidou.user.entity"
+		<javaModelGenerator targetPackage="com.beidou.gateway.entity"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />

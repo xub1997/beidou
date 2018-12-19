@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.beidou.user.dao.RoleRuleMapper">
-  <resultMap id="BaseResultMap" type="com.beidou.user.entity.RoleRule">
+  <resultMap id="BaseResultMap" type="com.beidou.gateway.entity.RoleRule">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="roleId" jdbcType="VARCHAR" property="roleid" />
     <result column="ruleId" jdbcType="VARCHAR" property="ruleid" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List">
     id, roleId, ruleId
   </sql>
-  <select id="selectByExample" parameterType="com.beidou.user.entity.RoleRuleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.beidou.gateway.entity.RoleRuleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -91,13 +91,13 @@
     delete from tb_role_rule
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.beidou.user.entity.RoleRuleExample">
+  <delete id="deleteByExample" parameterType="com.beidou.gateway.entity.RoleRuleExample">
     delete from tb_role_rule
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.beidou.user.entity.RoleRule">
+  <insert id="insert" parameterType="com.beidou.gateway.entity.RoleRule">
     insert into tb_role_rule (id, roleId, ruleId
       )
     values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=VARCHAR}, #{ruleid,jdbcType=VARCHAR}
@@ -110,7 +110,7 @@
       (#{item.roleid,jdbcType=INTEGER}, #{item.ruleid,jdbcType=INTEGER})
     </foreach>
   </insert>
-  <insert id="insertSelective" parameterType="com.beidou.user.entity.RoleRule">
+  <insert id="insertSelective" parameterType="com.beidou.gateway.entity.RoleRule">
     insert into tb_role_rule
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -135,7 +135,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.beidou.user.entity.RoleRuleExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.beidou.gateway.entity.RoleRuleExample" resultType="java.lang.Long">
     select count(*) from tb_role_rule
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -167,7 +167,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.beidou.user.entity.RoleRule">
+  <update id="updateByPrimaryKeySelective" parameterType="com.beidou.gateway.entity.RoleRule">
     update tb_role_rule
     <set>
       <if test="roleid != null">
@@ -179,7 +179,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.beidou.user.entity.RoleRule">
+  <update id="updateByPrimaryKey" parameterType="com.beidou.gateway.entity.RoleRule">
     update tb_role_rule
     set roleId = #{roleid,jdbcType=VARCHAR},
       ruleId = #{ruleid,jdbcType=VARCHAR}

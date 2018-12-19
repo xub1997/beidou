@@ -1,4 +1,4 @@
-package com.beidou.user.entity;
+package com.beidou.gateway.entity;
 
 import java.io.Serializable;
 

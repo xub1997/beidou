@@ -1,7 +1,7 @@
 package com.beidou.user.dao;
 
-import com.beidou.user.entity.Company;
-import com.beidou.user.entity.CompanyExample;
+import com.beidou.gateway.entity.Company;
+import com.beidou.gateway.entity.CompanyExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

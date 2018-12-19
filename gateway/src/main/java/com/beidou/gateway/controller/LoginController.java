@@ -27,8 +27,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Api(value = "LoginController|登录操作")
 @RestController
@@ -54,6 +54,7 @@ public class LoginController {
             @ApiImplicitParam(name = "code", value = "验证码", required = false, dataType = "String", paramType="query"),
             @ApiImplicitParam(name = "rememberMe", value = "记住我", required = false, dataType = "boolean", paramType="query")
     })
+
     @PostMapping("/login")
     public ResponseMsg login(@RequestParam("username")String username,@RequestParam("pwd")String pwd ,
                              @RequestParam("code")String code,@RequestParam(value = "rememberMe",defaultValue = "false")boolean rememberMe){
@@ -92,19 +93,25 @@ public class LoginController {
                     Subject subject = SecurityUtils.getSubject();
                     if (subject != null)subject.logout();//退出之前账号
                     subject.login(token);//登录
+
+                    // 获取用户权限集
+                    Set<Rule> permissions=new HashSet<>();
                     List<Tree<Rule>> trees = new ArrayList<>();
                     for(Role role:user.getRoles()){
                         for(Rule rule:role.getPermissions()){
                             if(rule.getType().equals("menu")){
-                                Tree<Rule> tree = new Tree<>();
-                                tree.setId(rule.getId().toString());
-                                tree.setParentId(rule.getPid().toString());
-                                tree.setText(rule.getRulename());
-                                tree.setIcon("");
-                                tree.setUrl(rule.getUrl());
-                                trees.add(tree);
+                                permissions.add(rule);
                             }
                         }
+                    }
+                    for(Rule rule:permissions){
+                            Tree<Rule> tree = new Tree<>();
+                            tree.setId(rule.getId().toString());
+                            tree.setParentId(rule.getPid().toString());
+                            tree.setText(rule.getRulename());
+                            tree.setIcon("");
+                            tree.setUrl(rule.getUrl());
+                            trees.add(tree);
                     }
                     return ResponseMsg.Success("登录成功！",user,TreeUtils.build(trees));
                 }

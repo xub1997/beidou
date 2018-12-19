@@ -3,7 +3,7 @@ package com.beidou.user.controller;
 import com.beidou.common.annotation.SysLogger;
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.common.util.StringUtil;
-import com.beidou.user.entity.RoleRule;
+import com.beidou.gateway.entity.RoleRule;
 import com.beidou.user.service.RoleRuleService;
 
 import io.swagger.annotations.Api;

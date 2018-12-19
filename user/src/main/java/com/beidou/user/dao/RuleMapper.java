@@ -1,7 +1,7 @@
 package com.beidou.user.dao;
 
-import com.beidou.user.entity.Rule;
-import com.beidou.user.entity.RuleExample;
+import com.beidou.gateway.entity.Rule;
+import com.beidou.gateway.entity.RuleExample;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

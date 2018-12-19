@@ -50,7 +50,7 @@ info:
 
 
 mybatis:
-  typeAliasesPackage: com.beidou.user.entity
+  typeAliasesPackage: com.beidou.gateway.entity
   mapperLocations: classpath:mapper/*.xml
 
 #pagehelper分页插件

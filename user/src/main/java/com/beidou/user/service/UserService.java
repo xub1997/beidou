@@ -2,8 +2,8 @@ package com.beidou.user.service;
 
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.common.util.StringUtil;
-import com.beidou.user.entity.User;
-import com.beidou.user.entity.UserExample;
+import com.beidou.gateway.entity.User;
+import com.beidou.gateway.entity.UserExample;
 import com.beidou.user.dao.UserMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
