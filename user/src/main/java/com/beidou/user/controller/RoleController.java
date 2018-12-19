@@ -102,4 +102,13 @@ public class RoleController {
         return roleService.searchByName(pageNum,name);
     }
 
+    @ApiOperation(value="获取用户对应角色", notes="获取用户对应角色")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query")
+    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    @GetMapping(value="/userRole")
+    public ResponseMsg getUserRole(@RequestParam("userId")Integer userId ){
+        return roleService.getUserRole(userId);
+    }
+
 }

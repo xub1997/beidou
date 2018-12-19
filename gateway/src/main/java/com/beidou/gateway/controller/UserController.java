@@ -106,7 +106,7 @@ public class UserController {
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query"),
             @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query")
     })
-    @GetMapping(value="/user")
+    @GetMapping(value="/userCom")
     public ResponseMsg getComUserList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
                                       @RequestParam(value = "comId", defaultValue = "1")Integer comId){
         return userService.getComUserList(pageNum,comId);
@@ -170,6 +170,8 @@ public class UserController {
                                  @RequestParam(value = "newPwd")String newPwd){
         return userService.modifyPwd(userId,oldPwd,newPwd);
     }
+
+
 
 
 }

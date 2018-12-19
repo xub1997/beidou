@@ -5,6 +5,7 @@ import com.beidou.common.util.StringUtil;
 import com.beidou.gateway.dao.RoleMapper;
 import com.beidou.gateway.entity.Role;
 import com.beidou.gateway.entity.RoleExample;
+import com.beidou.gateway.entity.Rule;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,16 @@ public class RoleService {
             return ResponseMsg.Success("获取角色信息列表成功",pageInfo);
         }
         return ResponseMsg.Error("获取角色信息列表失败");
+    }
+
+
+    public ResponseMsg getUserRole(Integer userId){
+        List<Role> rules=roleMapper.getUserRole(userId);
+        if(rules!=null&&true){
+            return ResponseMsg.Success("获取用户角色成功",rules);
+        }else{
+            return ResponseMsg.Error("获取用户角色失败");
+        }
     }
 
 }

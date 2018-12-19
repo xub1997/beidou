@@ -99,7 +99,7 @@ public class RoleController {
     }
 
     @SysLogger("查找角色")
-    @RequiresPermissions("role:searchByName:read")
+    @RequiresPermissions("role:searchByName")
     @ApiOperation(value="查找角色", notes="查找角色")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
@@ -108,6 +108,17 @@ public class RoleController {
     @GetMapping(value="/role/searchByName")
     public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "name")String name ){
         return roleService.searchByName(pageNum,name);
+    }
+
+    @SysLogger("获取用户对应角色")
+    @RequiresPermissions("role:userRole")
+    @ApiOperation(value="获取用户对应角色", notes="获取用户对应角色")// 使用该注解描述接口方法信息
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query")
+    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    @GetMapping(value="/userRole")
+    public ResponseMsg getUserRole(@RequestParam("userId")Integer userId ){
+        return roleService.getUserRole(userId);
     }
 
 }

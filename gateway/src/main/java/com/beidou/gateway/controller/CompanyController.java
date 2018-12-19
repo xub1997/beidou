@@ -108,7 +108,7 @@ public class CompanyController {
     }
 
     @SysLogger("查找公司")
-    @RequiresPermissions("companys:searchByName")
+    @RequiresPermissions("company:searchByName")
     @ApiOperation(value="查找公司", notes="查找公司")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),

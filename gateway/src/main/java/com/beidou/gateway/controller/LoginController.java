@@ -63,11 +63,11 @@ public class LoginController {
         }
 
         Session session = SecurityUtils.getSubject().getSession();
-        /*String sessionCode = (String) session.getAttribute(CODE_KEY);
+        String sessionCode = (String) session.getAttribute(CODE_KEY);
         System.out.println(session.getAttribute(CODE_KEY));
         if (!code.equalsIgnoreCase(sessionCode)) {//验证码检验
             return ResponseMsg.Error("验证码错误！");
-        }*/
+        }
         if(!StringUtil.isEmpty(pwd)&&!StringUtil.isEmpty(username)){//用户名、密码判空
 
             try {

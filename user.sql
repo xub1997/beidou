@@ -262,13 +262,14 @@ INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, 
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('更新用户信息', '更新用户信息', 'button', 'user:update', 'api/v1/user/user', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('删除用户', '删除用户信息', 'button', 'user:delete ', 'api/v1/user/user', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('获取用户列表', '获取用户列表', 'button', 'users:read', 'api/v1/user/users', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
-INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('获取用户信息列表(对应公司)', '获取用户信息列表(对应公司)', 'button', 'userCom:read', 'api/v1/user/user/userCom', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
+INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('获取用户信息列表(对应公司)', '获取用户信息列表(对应公司)', 'button', 'userCom:read', 'api/v1/user/userCom', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('查找用户', '查找用户', 'button', 'user:searchUser', 'api/v1/user/user/searchByUsername', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('查找公司用户', '查找公司用户', 'button', 'user:searchComUser', 'api/v1/user/user/searchByUserNameAndComId', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('判断用户名重复', '判断用户名重复', 'button', 'user:judgeUsername', 'api/v1/user/user/judgeUsername', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('修改密码', '修改密码', 'button', 'user:modifyPwd', 'api/v1/user/user/modifyPwd', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
+
 -- ----------------------------
--- 角色管理  7   26
+-- 角色管理  7   27
 -- ----------------------------
 
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('角色添加', '角色添加', 'button', 'role:create', 'api/v1/user/role', 0, 7, '2018-12-12 13:39:24', '2018-12-12 13:39:24');
@@ -277,9 +278,10 @@ INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, 
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('删除角色', '删除角色信息', 'button', 'role:delete ', 'api/v1/user/role', 0, 7, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('获取角色列表', '获取角色列表', 'button', 'roles:read', 'api/v1/user/roles', 0, 7, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('查找角色', '查找角色', 'button', 'role:searchByName', 'api/v1/user/user/searchByName', 0, 7, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
+INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('获取用户对应角色', '获取用户对应角色', 'button', 'role:userRole', 'api/v1/user/userRole', 0, 6, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 
 -- ----------------------------
--- 权限管理  8   33
+-- 权限管理  8   34
 -- ----------------------------
 
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('权限添加', '权限添加', 'button', 'rule:create', 'api/v1/user/rule', 0, 8, '2018-12-12 13:39:24', '2018-12-12 13:39:24');
@@ -292,7 +294,7 @@ INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, 
 
 
 -- ----------------------------
--- 公司管理  9   40
+-- 公司管理  9   41
 -- ----------------------------
 
 
@@ -305,7 +307,7 @@ INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, 
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('获取公司信息', '获取公司信息', 'button', 'company:readAll', 'api/v1/user/company', 0, 9, '2018-12-12 13:39:24', '2018-12-12 13:39:24');
 
 -- ----------------------------
--- 部门管理  10   50
+-- 部门管理  10   51
 -- ----------------------------
 
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('部门添加', '部门添加', 'button', 'dept:create', 'api/v1/user/dept', 0, 10, '2018-12-12 13:39:24', '2018-12-12 13:39:24');
@@ -320,14 +322,14 @@ INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, 
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('查找公司部门', '查找公司部门', 'button', 'dept:searchByNameAndComId', 'api/v1/user/dept/searchByNameAndComId', 0, 10, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 
 -- ----------------------------
--- 用户-角色管理  6   52
+-- 用户-角色管理  6   53
 -- ----------------------------
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('添加用户-角色管理信息', '添加用户-角色管理信息', 'button', 'userRole:create', 'api/v1/user/userRole', 0, 10, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('更新id对应的用户-角色管理信息', '更新id对应的用户-角色管理信息', 'button', 'userRole:update', 'api/v1/user/userRole', 0, 10, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 
 
 -- ----------------------------
--- 角色-权限管理  7   54
+-- 角色-权限管理  7   55
 -- ----------------------------
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('添加角色-权限管理信息', '添加角色-权限管理信息', 'button', 'roleRule:create', 'api/v1/user/roleRule', 0, 10, '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` (`ruleName`, `description`, `type`, `permissions`, `url`, `orderNum`, `pid`, `createDate`, `modifyDate`) VALUES ('更新id对应的角色-权限管理信息', '更新id对应的角色-权限管理信息', 'button', 'roleRule:create', 'api/v1/user/roleRule', 0, 10, '2018-12-12 16:17:48', '2018-12-12 16:17:48');

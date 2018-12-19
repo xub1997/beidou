@@ -22,8 +22,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
-
     
     @ApiOperation(value="添加用户信息", notes="添加用户信息",produces ="multipart/form-data")
     @PostMapping(value = "/user")
@@ -103,7 +101,7 @@ public class UserController {
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query"),
             @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query")
     })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
-    @GetMapping(value="/user")
+    @GetMapping(value="/userCom")
     public ResponseMsg getComUserList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
                                       @RequestParam(value = "comId", defaultValue = "1")Integer comId){
         return userService.getComUserList(pageNum,comId);
