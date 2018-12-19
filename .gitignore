@@ -1,5 +1,5 @@
 /target/
-*.[log]
+
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
@@ -17,7 +17,7 @@
 *.iml
 *.ipr
 *.class
-
+*.log
 ### NetBeans ###
 /nbproject/private/
 /build/

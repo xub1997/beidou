@@ -33,7 +33,7 @@
 
             <!--日志文件输出的文件名 -->
 
-            <FileNamePattern>logs/config/info.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>logs/config/info.%d{yyyy-MM-dd}.log</FileNamePattern>
 
             <!--日志文件保留天数 -->
 
@@ -77,7 +77,7 @@
 
             <!--日志文件输出的文件名 -->
 
-            <FileNamePattern>logs/config/error.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>logs/config/error.%d{yyyy-MM-dd}.log</FileNamePattern>
 
             <!--日志文件保留天数 -->
 

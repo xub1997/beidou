@@ -1,2 +1,0 @@
-2018-11-06 11:47:20.479 [reactor-http-nio-1] ERROR o.s.web.server.adapter.HttpWebHandlerAdapter - Unhandled failure: 你的主机中的软件中止了一个已建立的连接。, response already set (status=null)
-2018-11-06 11:47:50.220 [reactor-http-nio-4] ERROR o.s.web.server.adapter.HttpWebHandlerAdapter - Unhandled failure: 你的主机中的软件中止了一个已建立的连接。, response already set (status=null)
