@@ -20,7 +20,7 @@ public class SysLogController {
     private SysLogService sysLogService;
 
     //@RequiresPermissions("syslog:read")
-    @SysLogger("获取id对应的操作日志信息")
+    /*@SysLogger("获取id对应的操作日志信息")*/
     @ApiOperation(value="获取id对应的操作日志信息", notes="获取id对应的操作日志信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "操作日志ID", required = true, dataType = "int", paramType="path")
@@ -31,7 +31,7 @@ public class SysLogController {
     }
 
     //@RequiresPermissions("syslogs:read")
-    @SysLogger("获取操作日志信息列表")
+    /*@SysLogger("获取操作日志信息列表")*/
     @ApiOperation(value="获取操作日志信息列表", notes="获取操作日志信息列表")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query")
@@ -42,7 +42,7 @@ public class SysLogController {
     }
 
     //@RequiresPermissions("userSysLogs:read")
-    @SysLogger("获取操作日志信息列表(对应用户)")
+   /* @SysLogger("获取操作日志信息列表(对应用户)")*/
     @ApiOperation(value="获取操作日志信息列表(对应用户)", notes="获取操作日志信息列表（对应用户）")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query"),
@@ -55,7 +55,7 @@ public class SysLogController {
     }
 
     //@RequiresPermissions("syslog:searchByUserName")
-    @SysLogger("查找操作日志")
+    /*@SysLogger("查找操作日志")*/
     @ApiOperation(value="查找操作日志", notes="查找操作日志")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
