@@ -78,6 +78,7 @@
                 var a1= document.createElement("a");
                 li.classList.add("layui-nav-item");
                 a1.setAttribute("href","javascript:;");
+                a1.setAttribute("lay-href",menus[i].url);
                 a1.setAttribute("id",[i]);
                 a1.innerText = menus[i].text;
                 li.appendChild(a1);
