@@ -98,6 +98,13 @@ public class RuleController {
     }
 
 
+    @ApiOperation(value="获取所有权限", notes="获取所有权限")// 使用该注解描述接口方法信息
+    @GetMapping(value="/rule/getAll")
+    public ResponseMsg getAll(){
+        return ruleService.getAll();
+    }
+
+
     @ApiOperation(value="获取角色对应权限", notes="获取角色对应权限")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "int", paramType="query")

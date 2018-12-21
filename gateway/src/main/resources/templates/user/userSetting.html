@@ -43,17 +43,6 @@
 		<script src="../js/jquery-3.3.1.min.js"></script>
 		<script src="../layui/layui.js"></script>
 		<script>
-			var username = sessionStorage.getItem("username");
-			var pwd = sessionStorage.getItem("pwd");
-			console.log(username,pwd);
-			$.post("http://120.79.100.1:7000/login",{
-				username: username,
-				pwd: pwd,
-				code: "123"
-			},function (res) {
-				console.log(res);
-				
-			});
 			
 			layui.use(['element', 'table', 'layer','form'], function() {
 				var element = layui.element;
@@ -74,7 +63,6 @@
 							{field: 'job',title: '职位',width: '10%'},
                             {field: 'email',title: '电子邮件',width: '15%'},
                             {field: 'status',title: '状态',width: '5%'},
-
 							{title: '操作',align: 'center',toolbar: '#barDemo',width: '20%'}
 						]
 					],
@@ -110,7 +98,7 @@
 							type: 2,
 							shade: 0.2,
 							title: ['当前用户：' + data.username],
-							area: ['500px', '300px'],
+							area: ['500px', '500px'],
 							content: './give/charGiving.html' 
 						});
 					} else if (layEvent === 'del') { //删除
@@ -140,7 +128,11 @@
 							shade: 0.2,
 							title: ['当前用户：' + data.username],
 							area: ['50%', '90%'],
-							content: './edit/editUser.html' 
+							content: './edit/editUser.html',
+                            cancel:function (index,layero) {
+
+                                window.location.replace("userSetting.html");
+                            }
 						});
 					}
 				});

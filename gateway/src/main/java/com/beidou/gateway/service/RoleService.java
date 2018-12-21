@@ -69,10 +69,8 @@ public class RoleService {
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
         PageHelper.startPage(pageNum, 20);
-        if(roleMapper.selectByExample(null)!=null&&true){
-
-            // startPage后面紧跟的这个查询就是一个分页查询
-            List<Role> roles = roleMapper.selectByExample(null);
+        List<Role> roles = roleMapper.selectByExample(null);
+        if(roles!=null&&true){
             // 使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就行了。
             // 封装了详细的分页信息,包括有我们查询出来的数据，传入连续显示的页数
             PageInfo pageInfo = new PageInfo(roles, 5);
@@ -86,10 +84,10 @@ public class RoleService {
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
         PageHelper.startPage(pageNum, 20);
-        if(roleMapper.selectByExample(null)!=null&&true){
-
+        List<Role> roles = roleMapper.searchByName(name);
+        if(roles!=null&&true){
             // startPage后面紧跟的这个查询就是一个分页查询
-            List<Role> roles = roleMapper.searchByName(name);
+
             // 使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就行了。
             // 封装了详细的分页信息,包括有我们查询出来的数据，传入连续显示的页数
             PageInfo pageInfo = new PageInfo(roles, 5);
@@ -106,6 +104,17 @@ public class RoleService {
         }else{
             return ResponseMsg.Error("获取用户角色失败");
         }
+    }
+
+
+    public ResponseMsg getAll(){
+        List<Role> roles = roleMapper.selectByExample(null);
+        if(roles!=null&&true){
+            // 使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就行了。
+            // 封装了详细的分页信息,包括有我们查询出来的数据，传入连续显示的页数
+            return ResponseMsg.Success("获取角色信息列表成功",roles);
+        }
+        return ResponseMsg.Error("获取角色信息列表失败");
     }
 
 }

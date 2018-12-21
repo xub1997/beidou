@@ -104,4 +104,16 @@ public class RuleService {
         return ResponseMsg.Error("获取权限信息列表失败");
     }
 
+
+    public  ResponseMsg  getAll(){
+        List<Rule> rules = ruleMapper.selectByExample(null);
+        if(rules!=null&&true){
+            // 使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就行了。
+            // 封装了详细的分页信息,包括有我们查询出来的数据，传入连续显示的页数
+            return ResponseMsg.Success("获取权限信息列表成功",rules);
+        }else {
+            return ResponseMsg.Error("获取权限信息列表失败");
+        }
+    }
+
 }

@@ -12,17 +12,15 @@ body{
     left: 50%;
     top: 50%;
     margin-left: -175px;
-    margin-top: -150px;
-
+    margin-top: -160px;
 }
 .title{
     height: 50px;
     line-height: 50px;
     text-align: center;
     color: white;
-    margin-top: 100px;
-    font-size: 60px;
-    font-weight: 800;
+    font-size: 34px;
+    font-weight: 600;
     padding-bottom: 35px;
 }
 .footer{

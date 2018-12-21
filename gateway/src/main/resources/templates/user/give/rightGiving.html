@@ -50,23 +50,39 @@
 		<script src="../../js/jquery-3.3.1.min.js"></script>
 		<script src="../../layui/layui.js"></script>
 		<script>
-			var rid = sessionStorage.getItem('rid')
-			$.get('http://localhost:8080/rules', function(res) {
-				//console.log(res.data.list);
-				for (var i = 0; i < res.data.list.length; i++) {
-					//console.log(data[i].id,data[i].name);
-					$("#checkboxs").append('<input type="checkbox" name="ruleIds' + res.data.list[i].id + '" title="' + res.data.list[
-						i].rulename + '" value="' + res.data.list[i].id + '">');
-
-				}
-			})
-
-			setTimeout(function() {
-				$.get("http://localhost:8080/role/" + rid, function(res) {
-					$('#roleId').val(res.data[0].id);
-					$('#rolename').val(res.data[0].rolename);
-				})
-			})
+			var rid = sessionStorage.getItem('rid');
+			$.ajax({
+				type:'GET',
+				url:'http://120.79.100.1:7000/api/v1/user/rule/getAll',
+				async:false,
+				success:function (res) {
+                    console.log(res);
+                    for (var i = 0; i < res.data.length; i++) {
+                        //console.log(data[i].id,data[i].name);
+                        $("#checkboxs").append('<input type="checkbox" name="ruleIds' + res.data[i].id + '" title="' + res.data[i].rulename + '" value="' + res.data[i].id + '">');
+                    }
+                    $.ajax({
+						type:'GET',
+						url:"http://120.79.100.1:7000/api/v1/user/roleRule?roleId=" + rid,
+						async: false,
+						success:function (res) {
+                            console.log(res);
+                            var data =res.data;
+                            var checkboxs =document.getElementById("checkboxs").getElementsByTagName("input");
+                            $('#roleId').val(res.data[0].id);
+                            $('#rolename').val(res.data[0].rolename);
+                            //console.log(checkboxs);
+                            for (var i = 0; i < data.length; i++) {
+                                for (var j = 0; j < checkboxs.length; j++) {
+									if (data[i].id == checkboxs[j].attributes[3].value ){
+                                        checkboxs[j].checked = true;
+									}
+                                }
+                            }
+                        }
+					})
+                }
+			});
 
 			layui.use('form', function() {
 				var form = layui.form;
@@ -84,7 +100,7 @@
 					//console.log(ruleIdsArr);
 					ruleIdsS = ruleIdsArr.join(",");
 					//console.log(ruleIdsS);
-					$.post("http://localhost:8080/roleRule", {
+					$.post("http://120.79.100.1:7000/api/v1/user/roleRule", {
 						roleId: data.field.roleId,
 						ruleIds: ruleIdsS
 					}, function(data) {
@@ -102,7 +118,7 @@
 								time: 1500
 							});
 						}
-					})
+					});
 					//console.log(data.field);
 					var ruleIdsArr = [];
 					return false;

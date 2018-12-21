@@ -136,7 +136,7 @@
 					setTimeout(function() {
 						//console.log($("#deps option"));
 						$("#deps option").remove();
-					}, 100)
+					}, 100);
 
 					$.get('http://120.79.100.1:7000/api/v1/user/comDept?comId=' + res.value, function(res) {
 						//console.log(res)
@@ -146,7 +146,7 @@
 							form.render('select');
 						}
 					})
-				})
+				});
 
 				form.on('submit(formDemo)', function(data) {
 					console.log(JSON.stringify(data.field));

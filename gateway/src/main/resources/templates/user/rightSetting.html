@@ -86,12 +86,13 @@
                     var tr = obj.tr; //获得当前行 tr 的DOM对象
 
                     if (layEvent === 'del') { //删除
-                        layer.confirm('确认删除用户：'+data.username+'?', {title:'提示'},function(index) {
+                        console.log(data);
+                        layer.confirm('确认删除用户：'+data.rulename+'?', {title:'提示'},function(index) {
                             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                             layer.close(index);
                             //console.log(data);
                             $.ajax({
-                                url: 'http://120.79.100.1:7000/api/v1/user/user/'+data.id,
+                                url: 'http://120.79.100.1:7000/api/v1/user/rule/'+data.id,
                                 type: 'POST',
                                 data:{_method:"DELETE",ids:data.id},
                                 success:function(res){
@@ -106,13 +107,18 @@
                     } else if (layEvent === 'edit') { //编辑
                         //do something
                         //console.log(data.id);
-                        sessionStorage.setItem('id', data.id);
+                        sessionStorage.setItem('rID', data.id);
+                        sessionStorage.setItem('rulename', data.rulename);
                         layer.open({
                             type: 2,
                             shade: 0.2,
-                            title: ['当前用户：' + data.username],
+                            title: ['当前权限：' + data.rulename],
                             area: ['50%', '90%'],
-                            content: './edit/editRight.html'
+                            content: './edit/editRight.html',
+                            cancel:function (index,layero) {
+
+                                window.location.replace("rightSetting.html");
+                            }
                         });
                     }
                 });

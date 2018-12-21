@@ -111,4 +111,11 @@ public class RoleController {
         return roleService.getUserRole(userId);
     }
 
+
+    @ApiOperation(value="获取所有角色", notes="获取所有角色")// 使用该注解描述接口方法信息
+    @GetMapping(value="/role/getAll")
+    public ResponseMsg getAll(){
+        return roleService.getAll();
+    }
+
 }

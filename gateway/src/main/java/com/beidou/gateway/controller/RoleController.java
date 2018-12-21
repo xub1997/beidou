@@ -94,7 +94,7 @@ public class RoleController {
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
     })
     @GetMapping(value="/roles")
-    public ResponseMsg getAll(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
+    public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return roleService.getList(pageNum);
     }
 
@@ -119,6 +119,14 @@ public class RoleController {
     @GetMapping(value="/userRole")
     public ResponseMsg getUserRole(@RequestParam("userId")Integer userId ){
         return roleService.getUserRole(userId);
+    }
+
+    @SysLogger("获取所有角色")
+    @RequiresPermissions("role:getAll")
+    @ApiOperation(value="获取所有角色", notes="获取所有角色")// 使用该注解描述接口方法信息
+    @GetMapping(value="/role/getAll")
+    public ResponseMsg getAll(){
+        return roleService.getAll();
     }
 
 }

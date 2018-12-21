@@ -132,7 +132,10 @@
 							shade: 0.2,
 							title: ['当前部门：' + data.name],
 							area: ['50%', '90%'],
-							content: './edit/editDept.html'
+							content: './edit/editDept.html',
+                            cancel:function (index,layero) {
+                                window.location.replace("departmentSetting.html");
+                            }
 						});
 					}
 				});
