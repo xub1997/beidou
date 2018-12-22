@@ -32,8 +32,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {   // 创建API的基本信息，这些信息会在Swagger UI中进行显示
         return new ApiInfoBuilder()
-                .title("分布式北斗导航平台系统api")  // API 标题
-                .description("分布式北斗导航平台接口文档说明")  // API 描述
+                .title("智能车辆监控管理平台接口文档说明")  // API 标题
+                .description("智能车辆监控管理平台接口文档说明")  // API 描述
                 .contact(new Contact("xub", "", "836192293@qq.com"))//联系人
                 .version("1.0") //版本
                 .build();

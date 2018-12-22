@@ -19,20 +19,7 @@
 	<body>
 		<div class="formContainer">
 			<form class="layui-form layui-form-pane">
-				<div class="layui-form-item">
-					<label class="layui-form-label"><i class="layui-icon">&#xe66f;</i> 角色名称</label>
-					<div class="layui-input-block">
-						<input type="text" name="rolename" id="rolename" required lay-verify="required" placeholder="请输入用户名称"
-						 autocomplete="off" class="layui-input">
-					</div>
-				</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label"><i class="layui-icon">&#xe66f;</i> 角色id</label>
-					<div class="layui-input-block">
-						<input type="text" name="roleId" id="roleId" required lay-verify="required" placeholder="请输入用户名称" autocomplete="off"
-						 class="layui-input">
-					</div>
-				</div>
+
 				<div class="layui-form-item" pane>
 					<label class="layui-form-label">选择权限</label>
 					<div class="layui-input-block" id="checkboxs">
@@ -45,18 +32,26 @@
 						<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
 					</div>
 				</div>
+				<div class="layui-form-item" style="visibility: hidden">
+					<label class="layui-form-label"><i class="layui-icon">&#xe66f;</i> 角色id</label>
+					<div class="layui-input-block">
+						<input type="text" name="roleId" id="roleId" required lay-verify="required" placeholder="请输入用户名称" autocomplete="off"
+							   class="layui-input">
+					</div>
+				</div>
 			</form>
 		</div>
 		<script src="../../js/jquery-3.3.1.min.js"></script>
 		<script src="../../layui/layui.js"></script>
 		<script>
 			var rid = sessionStorage.getItem('rid');
-			$.ajax({
+            //console.log(rid);
+            $.ajax({
 				type:'GET',
 				url:'http://120.79.100.1:7000/api/v1/user/rule/getAll',
 				async:false,
 				success:function (res) {
-                    console.log(res);
+                    //console.log(res);
                     for (var i = 0; i < res.data.length; i++) {
                         //console.log(data[i].id,data[i].name);
                         $("#checkboxs").append('<input type="checkbox" name="ruleIds' + res.data[i].id + '" title="' + res.data[i].rulename + '" value="' + res.data[i].id + '">');
@@ -66,11 +61,11 @@
 						url:"http://120.79.100.1:7000/api/v1/user/roleRule?roleId=" + rid,
 						async: false,
 						success:function (res) {
-                            console.log(res);
+                            //console.log(res);
                             var data =res.data;
                             var checkboxs =document.getElementById("checkboxs").getElementsByTagName("input");
-                            $('#roleId').val(res.data[0].id);
-                            $('#rolename').val(res.data[0].rolename);
+                            $('#roleId').val(rid);
+
                             //console.log(checkboxs);
                             for (var i = 0; i < data.length; i++) {
                                 for (var j = 0; j < checkboxs.length; j++) {
@@ -87,7 +82,7 @@
 			layui.use('form', function() {
 				var form = layui.form;
 				form.on('submit(formDemo)', function(data) {
-					//console.log(JSON.stringify(data.field));
+					console.log(JSON.stringify(data.field));
 					var ruleIdsArr = [];
 					var ruleIdsS;
 					var inputs = ($("#checkboxs input"));
@@ -99,28 +94,31 @@
 					}
 					//console.log(ruleIdsArr);
 					ruleIdsS = ruleIdsArr.join(",");
-					//console.log(ruleIdsS);
-					$.post("http://120.79.100.1:7000/api/v1/user/roleRule", {
-						roleId: data.field.roleId,
-						ruleIds: ruleIdsS
-					}, function(data) {
-						//console.log(data);
-						if (data.status == "200") {
-							layer.msg(data.msg, {
-								icon: 6,
-								time: 1500
-							}, function() {
-								window.history.back(-1);
-							});
-						} else {
-							layer.msg(data.msg, {
-								icon: 5,
-								time: 1500
-							});
-						}
+					console.log(ruleIdsS);
+					$.ajax({
+						type:'POST',
+						url:'http://120.79.100.1:7000/api/v1/user/roleRule',
+						data:{
+						    _method:'put',
+                            roleId: data.field.roleId,
+                            ruleIds: ruleIdsS
+						},
+						success:function (data) {
+                            if (data.status == "200") {
+                                layer.msg(data.msg, {
+                                    icon: 6,
+                                    time: 1500
+                                });
+                            } else {
+                                layer.msg(data.msg, {
+                                    icon: 5,
+                                    time: 1500
+                                });
+                            }
+                        }
 					});
 					//console.log(data.field);
-					var ruleIdsArr = [];
+					ruleIdsArr = [];
 					return false;
 				});
 			});

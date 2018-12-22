@@ -2,23 +2,18 @@ spring:
   application:
     name: config-server
       #（加入密码认证）
-      #security:
-      # user:
-      # name: 'admin'
-    # password: 'admin'
+  security:
+    user:
+      name: 'admin'
+      password: 'admin'
   cloud:
     config:
+      enabled: true
+    discovery:
       server:
-        #远程仓库
-        #git:
-          #git仓库的地址；
-          #uri: https://github.com/xub1997/cloud.git
-          #discovery:
-            #enabled: true
         #本地仓库
         native:
           search-locations: classpath:/config
-
   profiles:
     active: native
 
@@ -32,17 +27,13 @@ eureka:
     fetch-registry: true
     service-url:
       #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址（单机）。
-      defaultZone: http://localhost:8761/eureka/
-
+      #defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@register1:8001/eureka/,http://${spring.security.user.name}:${spring.security.user.password}@register2:8002/eureka/
   instance:
     leaseRenewalIntervalInSeconds: 10
     health-check-url-path: /actuator/health
     statusPageUrlPath: /actuator/info
-      #（加入密码认证）
-      #metadata-map:
-      #user.name: ${spring.security.user.name}
-    # user.password: ${spring.security.user.password}
-    appname: config-server
+
 
 management:
   endpoints:

@@ -87,7 +87,7 @@
 
                     if (layEvent === 'del') { //删除
                         console.log(data);
-                        layer.confirm('确认删除用户：'+data.rulename+'?', {title:'提示'},function(index) {
+                        layer.confirm('确认删除权限：'+data.rulename+'?', {title:'提示'},function(index) {
                             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
                             layer.close(index);
                             //console.log(data);

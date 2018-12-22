@@ -2,24 +2,75 @@ spring:
   #应用名
   application:
     name: register
-
+  profiles:
+    active: register1
+---
+spring:
+  profiles: register1
+  security:
+    user:
+      name: admin
+      password: admin
 #端口
 server:
-  port: 8761
+  port: 8001
 
 eureka:
   #eureka服务端的实例名称
   instance:
-    hostname: localhost
+    hostname: register1
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
   client:
     #false表示不向注册中心注册自己
-    registerWithEureka: false
+    registerWithEureka: true
     #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
-    fetchRegistry: false
+    fetchRegistry: true
     #单机 defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
     #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@register2:8002/eureka/
+  server:
+    #关闭自我保护机制
+    enable-self-preservation: false
+    # 每隔10s扫描服务列表，移除失效服务
+    eviction-interval-timer-in-ms: 10000
+
+
+info:
+  app:
+    name: "@project.name@"  #从pom.xml中获取,pom.xml中需build中加入插件spring-boot-maven-plugin
+    description: "@project.description@"
+    version: "@project.version@"
+    author: "许b"
+---
+spring:
+  profiles: register2
+  security:
+    user:
+      name: admin
+      password: admin
+#端口
+server:
+  port: 8002
+
+eureka:
+  #eureka服务端的实例名称
+  instance:
+    hostname: register2
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+  client:
+    #false表示不向注册中心注册自己
+    registerWithEureka: true
+    #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
+    fetchRegistry: true
+    #单机 defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@register1:8001/eureka/
   server:
     #关闭自我保护机制
     enable-self-preservation: false

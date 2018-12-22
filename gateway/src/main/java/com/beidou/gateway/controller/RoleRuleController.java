@@ -25,7 +25,7 @@ public class RoleRuleController {
     @Autowired
     private RoleRuleService roleRuleService;
 
-    @SysLogger("添加角色-权限管理信息")
+    /*@SysLogger("添加角色-权限管理信息")
     @RequiresPermissions("roleRule:create")
     @ApiOperation(value="添加角色-权限管理信息", notes="添加角色-权限管理信息")
     @ApiImplicitParams({
@@ -54,7 +54,7 @@ public class RoleRuleController {
         }else{
             return ResponseMsg.Error("请选择要添加的权限");
         }
-    }
+    }*/
 
     @SysLogger("更新id对应的角色-权限管理信息")
     @RequiresPermissions("roleRule:update")

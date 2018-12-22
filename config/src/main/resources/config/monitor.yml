@@ -1,18 +1,16 @@
 #端口
 server:
-  port: 8001
+  port: 8003
 
 spring:
   #应用名
   application:
     name: monitor
       #（加入密码认证）
-      #security:
-      # user:
-      # name: 'admin'
-    # password: 'admin'
-
-
+  security:
+    user:
+      name: admin
+      password: admin
 
 eureka:
   client:
@@ -20,16 +18,16 @@ eureka:
     fetch-registry: true
     service-url:
       #单机 defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/       #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址（单机）。
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://admin:admin@register1:8001/eureka/,http://admin:admin@register2:8002/eureka/
 
   instance:
     leaseRenewalIntervalInSeconds: 10
     health-check-url-path: /actuator/health
     statusPageUrlPath: /actuator/info
       #（加入密码认证）
-      #metadata-map:
-      #user.name: ${spring.security.user.name}
-    # user.password: ${spring.security.user.password}
+    metadata-map:
+      user.name: admin
+      user.password: admin
 
 management:
   endpoints:

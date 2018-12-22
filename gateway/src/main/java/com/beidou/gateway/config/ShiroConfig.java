@@ -47,6 +47,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/login", "anon");
         filterChainDefinitionMap.put("/login.html", "anon");
         filterChainDefinitionMap.put("/gifCode", "anon");
+        filterChainDefinitionMap.put("/actuator/**", "anon");
+
         // 配置退出过滤器，其中具体的退出代码Shiro实现
         filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
