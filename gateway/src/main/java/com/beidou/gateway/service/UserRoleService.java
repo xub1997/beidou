@@ -39,10 +39,9 @@ public class UserRoleService {
         UserRoleExample userRoleExample=new UserRoleExample();
         UserRoleExample.Criteria criteria =userRoleExample.createCriteria();
         criteria.andUseridEqualTo(userRole.getUserid());
-        if(userRoleMapper.deleteByExample(userRoleExample)>0){
-            if(userRoleMapper.insert(userRole)>0&&true){
-                return ResponseMsg.Success("修改用户角色成功");
-            }
+        userRoleMapper.deleteByExample(userRoleExample);
+        if(userRoleMapper.insert(userRole)>0&&true){
+            return ResponseMsg.Success("修改用户角色成功");
         }
         return ResponseMsg.Error("修改用户角色失败");
     }
@@ -56,10 +55,9 @@ public class UserRoleService {
             UserRole userRole=new UserRole(userId,add_ids.get(i));
             userRoles.add(userRole);
         }
-        if(userRoleMapper.deleteByExample(UserRoleExample)>0){
-            if(userRoleMapper.batchInsert(userRoles)>0&&true){
-                return ResponseMsg.Success("修改用户角色成功");
-            }
+        userRoleMapper.deleteByExample(UserRoleExample);
+        if(userRoleMapper.batchInsert(userRoles)>0&&true){
+            return ResponseMsg.Success("修改用户角色成功");
         }
         return ResponseMsg.Error("修改用户角色失败");
     }

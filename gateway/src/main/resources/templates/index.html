@@ -21,7 +21,7 @@
 				<!-- 头部区域（可配合layui已有的水平导航） -->
 				<ul class="layui-nav layui-layout-right">
 					<li class="layui-nav-item">
-						<a href="javascript:;" id="name">
+						<a href="javascript:;" id="username">
 							<i class="layui-icon" style="font-size: 16px;">&#xe66f;</i>
 
 						</a>
@@ -65,11 +65,11 @@
 		<script src="js/main.js"></script>
 		<script>
             var menus =JSON.parse(sessionStorage.getItem("menus")) ;
-            var name = sessionStorage.getItem("name");
+            var username = sessionStorage.getItem("username");
             //console.log(menus);
             //console.log(name);
 
-            document.getElementById('name').innerText=name;
+            document.getElementById('username').innerText=username;
 
             var Pul=document.getElementById('Pul');
 

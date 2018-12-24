@@ -76,10 +76,10 @@
                                 time: 1500
                             }, function() {
                                 var menus = res.menu.children;
-                                var name=res.data.name;
+                                var username=res.data.username;
                                 //console.log(menus);
                                 sessionStorage.setItem("menus",JSON.stringify(menus));
-                                sessionStorage.setItem('name',name);
+                                sessionStorage.setItem('username',username);
                                 window.location.href="index.html";//跳转
                             });
                         }

@@ -82,7 +82,7 @@
 			layui.use('form', function() {
 				var form = layui.form;
 				form.on('submit(formDemo)', function(data) {
-					console.log(JSON.stringify(data.field));
+					//console.log(JSON.stringify(data.field));
 					var ruleIdsArr = [];
 					var ruleIdsS;
 					var inputs = ($("#checkboxs input"));
@@ -94,7 +94,8 @@
 					}
 					//console.log(ruleIdsArr);
 					ruleIdsS = ruleIdsArr.join(",");
-					console.log(ruleIdsS);
+                    console.log(data.field.roleId);
+                    console.log(ruleIdsS);
 					$.ajax({
 						type:'POST',
 						url:'http://120.79.100.1:7000/api/v1/user/roleRule',

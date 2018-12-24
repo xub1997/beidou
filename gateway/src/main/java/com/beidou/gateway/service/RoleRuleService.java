@@ -39,12 +39,10 @@ public class RoleRuleService {
         RoleRuleExample roleRuleExample=new RoleRuleExample();
         RoleRuleExample.Criteria criteria =roleRuleExample.createCriteria();
         criteria.andRoleidEqualTo(roleRule.getRoleid());
-        if(roleRuleMapper.deleteByExample(roleRuleExample)>0){
-            if(roleRuleMapper.insert(roleRule)>0&&true){
-                return ResponseMsg.Success("修改角色权限成功");
-            }
+        roleRuleMapper.deleteByExample(roleRuleExample);
+        if(roleRuleMapper.insert(roleRule)>0&&true){
+            return ResponseMsg.Success("修改角色权限成功");
         }
-
         return ResponseMsg.Error("修改角色权限失败");
     }
 
@@ -57,11 +55,11 @@ public class RoleRuleService {
             RoleRule roleRule=new RoleRule(roleId,add_ids.get(i));
             roleRules.add(roleRule);
         }
-        if(roleRuleMapper.deleteByExample(roleRuleExample)>0){
-            if(roleRuleMapper.batchInsert(roleRules)>0&&true){
-                return ResponseMsg.Success("修改角色权限成功");
-            }
+        roleRuleMapper.deleteByExample(roleRuleExample);
+        if(roleRuleMapper.batchInsert(roleRules)>0&&true){
+            return ResponseMsg.Success("修改角色权限成功");
         }
+
 
         return ResponseMsg.Error("修改角色权限失败");
     }
