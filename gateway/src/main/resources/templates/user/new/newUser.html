@@ -120,7 +120,7 @@
 		<script>
 			$.ajax({
 				type:'GET',
-				url:'http://120.79.100.1:7000/api/v1/user/companys',
+				url:'http://localhost:7000/api/v1/user/companys',
 				async:false,
 				success:function (res) {
                     var data = res.data.list;
@@ -143,7 +143,7 @@
 						$("#deps option").remove();
 					}, 100);
 
-					$.get('http://120.79.100.1:7000/api/v1/user/comDept?comId=' + res.value, function(res) {
+					$.get('http://localhost:7000/api/v1/user/comDept?comId=' + res.value, function(res) {
 						//console.log(res)
 						for (var i = 0; i < res.data.length; i++) {
 							//console.log(data[i].id,data[i].name);
@@ -155,7 +155,7 @@
 
 				form.on('submit(formDemo)', function(data) {
 					console.log(JSON.stringify(data.field));
-					$.post("http://120.79.100.1:7000/api/v1/user/user", {
+					$.post("http://localhost:7000/api/v1/user/user", {
 						username: data.field.username,
 						pwd: data.field.pwd,
 						avatarurl: "1",
@@ -195,7 +195,7 @@
 			function checkUser() {
 				var username = document.getElementById('username');
 				var userTip = document.getElementById('userTip');
-				$.get("http://120.79.100.1:7000/api/v1/user/user/judgeUserName?username=" + username.value, function(data) {
+				$.get("http://localhost:7000/api/v1/user/user/judgeUserName?username=" + username.value, function(data) {
 					//console.log(data);
 					userTip.innerText = data.msg;
 					if (data.msg == '用户名可用') {

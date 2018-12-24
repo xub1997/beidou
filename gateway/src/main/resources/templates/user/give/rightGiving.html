@@ -48,7 +48,7 @@
             //console.log(rid);
             $.ajax({
 				type:'GET',
-				url:'http://120.79.100.1:7000/api/v1/user/rule/getAll',
+				url:'http://localhost:7000/api/v1/user/rule/getAll',
 				async:false,
 				success:function (res) {
                     //console.log(res);
@@ -58,7 +58,7 @@
                     }
                     $.ajax({
 						type:'GET',
-						url:"http://120.79.100.1:7000/api/v1/user/roleRule?roleId=" + rid,
+						url:"http://localhost:7000/api/v1/user/roleRule?roleId=" + rid,
 						async: false,
 						success:function (res) {
                             //console.log(res);
@@ -98,7 +98,7 @@
                     console.log(ruleIdsS);
 					$.ajax({
 						type:'POST',
-						url:'http://120.79.100.1:7000/api/v1/user/roleRule',
+						url:'http://localhost:7000/api/v1/user/roleRule',
 						data:{
 						    _method:'put',
                             roleId: data.field.roleId,

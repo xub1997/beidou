@@ -64,7 +64,7 @@
 				var form = layui.form;
 				form.on('submit(formDemo)', function(data) {
 					//console.log(JSON.stringify(data.field));
-					$.post('http://120.79.100.1:7000/api/v1/user/company',{
+					$.post('http://localhost:7000/api/v1/user/company',{
 						name:data.field.name,
 						description:data.field.description,
 						phone:data.field.phone,

@@ -54,7 +54,7 @@
 				form.on('submit(formDemo)', function(data) {
 					console.log(JSON.stringify(data.field));
 					$.ajax({
-						url:"http://120.79.100.1:7000/api/v1/user/role/"+data.field.id,
+						url:"http://localhost:7000/api/v1/user/role/"+data.field.id,
 						type:"POST",
 						data:{
 							_method:'put',
@@ -87,7 +87,7 @@
 			setTimeout(function(){
 				var curId = sessionStorage.getItem('roleId');
 				console.log(curId);
-				$.get('http://120.79.100.1:7000/api/v1/user/role/'+curId,function(res){
+				$.get('http://localhost:7000/api/v1/user/role/'+curId,function(res){
 					console.log(res);
 					$('#id').val(res.data[0].id);
 					$('#rolename').val(res.data[0].rolename);
