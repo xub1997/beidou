@@ -53,35 +53,35 @@
 
 				</div>
 			</div>
-			<div class="layui-form-item" style="visibility: hidden;">
+			<!--<div class="layui-form-item" style="visibility: hidden;">
 				<label class="layui-form-label"><i class="layui-icon">&#xe68e;</i> 公司id</label>
 				<div class="layui-input-block">
 					<input type="text" name="id" id="id" required lay-verify="required"   class="layui-input">
 				</div>
-			</div>
+			</div>-->
 		</form>
 		</div>
 		<script src="../../js/jquery-3.3.1.min.js"></script>
 		<script src="../../layui/layui.js"></script>
 		<script>
 			var curId = sessionStorage.getItem('comId');
-			$.get('http://localhost:7000/api/v1/user/company/'+curId,function(res){
+			$.get('http://120.79.100.1:7000/api/v1/user/company/'+curId,function(res){
 				//console.log(res);
-				$('#id').val(res.data[0].id);
+				//$('#id').val(res.data[0].id);
 				$('#name').val(res.data[0].name);
 				$('#phone').val(res.data[0].phone);
 				$('#description').val(res.data[0].description);
 				$('#address').val(res.data[0].address);
 			});
-			sessionStorage.removeItem('comId');
-			
+			//sessionStorage.removeItem('comId');
+
 			layui.use('form', function() {
 				var form = layui.form;
 				form.on('submit(formDemo)', function(data) {
 					//console.log(JSON.stringify(data.field));
-					
+
 					$.ajax({
-						url:"http://localhost:7000/api/v1/user/company/"+data.field.id,
+						url:"http://120.79.100.1:7000/api/v1/user/company/"+curId,
 						type:"POST",
 						data:{
 							_method:'put',

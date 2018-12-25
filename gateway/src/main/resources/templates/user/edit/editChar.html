@@ -35,32 +35,46 @@
 			<div class="layui-form-item">
 				<div class="layui-input-block">
 					<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe605;</i> 立即提交</button>
-					<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
+					<button type="reset" id="btnReset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
 				</div>
 			</div>
-			<div class="layui-form-item" style="visibility: hidden;">
+			<!--<div class="layui-form-item" style="visibility: hidden;">
 				<label class="layui-form-label"><i class="layui-icon">&#xe66f;</i> 角色id</label>
 				<div class="layui-input-block">
 					<input type="text" name="id" id="id" required lay-verify="required" placeholder="请输入用户id" autocomplete="off" class="layui-input">
 				</div>
-			</div>
+			</div>-->
 		</form>
 		</div>
 		<script src="../../js/jquery-3.3.1.min.js"></script>
 		<script src="../../layui/layui.js"></script>
 		<script>
+            var curId = sessionStorage.getItem('roleId');
+            var roleId;
+			$.ajax({
+				type:'GET',
+				url:'http://120.79.100.1:7000/api/v1/user/role/'+curId,
+				async:false,
+				success:function (res) {
+                    $('#id').val(res.data[0].id);
+                    roleId=res.data[0].id;
+                    $('#rolename').val(res.data[0].rolename);
+                    $('#description').val(res.data[0].description);
+                }
+			});
+
 			layui.use('form', function() {
 				var form = layui.form;
 				form.on('submit(formDemo)', function(data) {
 					console.log(JSON.stringify(data.field));
 					$.ajax({
-						url:"http://localhost:7000/api/v1/user/role/"+data.field.id,
+						url:"http://120.79.100.1:7000/api/v1/user/role/"+data.field.id,
 						type:"POST",
 						data:{
 							_method:'put',
 							rolename:data.field.rolename,
 							description:data.field.description,
-							id:data.field.id
+							id:roleId
 						},
 						success:function(data){
 							console.log(data);
@@ -79,22 +93,11 @@
 						error:function(err){
 							console.log(err);
 						}
-						
+
 					});
 					return false;
 				});
 			});
-			setTimeout(function(){
-				var curId = sessionStorage.getItem('roleId');
-				console.log(curId);
-				$.get('http://localhost:7000/api/v1/user/role/'+curId,function(res){
-					console.log(res);
-					$('#id').val(res.data[0].id);
-					$('#rolename').val(res.data[0].rolename);
-					$('#description').val(res.data[0].description);
-				});
-				sessionStorage.removeItem('roleId');
-			},0)
 		</script>
 	</body>
 </html>
