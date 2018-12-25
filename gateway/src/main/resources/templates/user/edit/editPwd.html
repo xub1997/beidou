@@ -27,16 +27,21 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">用户密码</label>
+            <label class="layui-form-label">旧密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="pwd" id="passwordF" required lay-verify="required" placeholder="请输入用户密码" class="layui-input">
+                <input type="password" name="oldPwd" id="password" required lay-verify="required" placeholder="请输入旧密码" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">新密码</label>
+            <div class="layui-input-inline">
+                <input type="password" name="newPwd" id="passwordF" required lay-verify="required" placeholder="请输入新密码" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">确认密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="passwordS" id="passwordS" onblur="checkPwd()" required lay-verify="required"
-                       placeholder="请再次输入用户密码" class="layui-input">
+                <input type="password" name="passwordS" id="passwordS" onblur="checkPwd()" required lay-verify="required" placeholder="请再次输入新密码" class="layui-input">
             </div>
             <div class="layui-form-mid layui-word-aux" id="pwdTip" style="color: red !important;"></div>
         </div>
@@ -52,8 +57,10 @@
 <script src="../../js/jquery-3.3.1.min.js"></script>
 <script src="../../layui/layui.js"></script>
 <script>
-    var name = sessionStorage.getItem("name");
-    $('#username').val(name);
+    var username = sessionStorage.getItem("username");
+    var userId = sessionStorage.getItem('userId');
+    console.log(userId);
+    $('#username').val(username);
     var passwordF = document.getElementById("passwordF");
     var passwordS = document.getElementById("passwordS");
     var pwdTip = document.getElementById("pwdTip");
@@ -61,12 +68,35 @@
     layui.use('form', function() {
         var form = layui.form;
         form.on('submit(formDemo)', function(data) {
-            //console.log(data.field);
+            console.log(data.field);
             if (passwordF.value != passwordS.value){
                 return false;
             }
-
-
+            $.ajax({
+                type:'POST',
+                url:'http://120.79.100.1:7000/api/v1/user/user/modifyPwd',
+                data:{
+                    _method:'put',
+                    userId:userId,
+                    oldPwd:data.field.oldPwd,
+                    newPwd:data.field.newPwd
+                },
+                success:function (res) {
+                    console.log(res);
+                    if (res.status == "200") {
+                        layer.msg(res.msg, {
+                            icon: 6,
+                            time: 1500
+                        });
+                    } else {
+                        layer.msg(res.msg, {
+                            icon: 5,
+                            time: 1500
+                        });
+                    }
+                }
+            });
+            return false;
         });
     });
 

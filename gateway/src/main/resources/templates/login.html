@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="layui/css/layui.css" media="all" />
 		<link rel="stylesheet" href="css/login.css">
 	</head>
-	<body>
+	<body onkeydown="keyLogin()">
 
 		<div class="container">
 			<div class="title">智能车辆监控管理平台</div>
@@ -77,9 +77,11 @@
                             }, function() {
                                 var menus = res.menu.children;
                                 var username=res.data.username;
+                                var userId=res.data.id;
                                 //console.log(menus);
                                 sessionStorage.setItem("menus",JSON.stringify(menus));
                                 sessionStorage.setItem('username',username);
+                                sessionStorage.setItem('userId',userId);
                                 window.location.href="index.html";//跳转
                             });
                         }
@@ -87,6 +89,11 @@
 					return false;
 				});
 			});
+			function keyLogin() {
+				if (event.keyCode == 13){
+				    document.querySelector('.layui-btn').click();
+				}
+            }
 		</script>
 	</body>
 </html>

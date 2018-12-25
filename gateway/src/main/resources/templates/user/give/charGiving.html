@@ -30,22 +30,23 @@
 				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe605;</i> 立即提交</button>
-						<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
+						<button type="reset" id="btnReset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
 					</div>
 				</div>
-				<div class="layui-form-item" style="visibility: hidden;">
+				<!--<div class="layui-form-item" style="visibility: hidden;">
 					<label class="layui-form-label"><i class="layui-icon">&#xe66f;</i> 用户id</label>
 					<div class="layui-input-block">
 						<input type="text" name="userId" id="userId" required lay-verify="required" placeholder="请输入用户名称" autocomplete="off"
 						class="layui-input">
 					</div>
-				</div>
+				</div>-->
 			</form>
 		</div>
 		<script src="../../js/jquery-3.3.1.min.js"></script>
 		<script src="../../layui/layui.js"></script>
 		<script>
 			var uId = sessionStorage.getItem('uid');
+			var userId;
 			$.ajax({
 				type:'GET',
 				url:'http://120.79.100.1:7000/api/v1/user/user/'+uId,
@@ -53,7 +54,7 @@
 				success:function (res) {
                     $('#username').val(res.data[0].username);
                     $('#userId').val(res.data[0].id);
-
+					userId=res.data[0].id;
                     $.ajax({
 						type: 'GET',
 						url: "http://120.79.100.1:7000/api/v1/user/role/getAll",
@@ -108,7 +109,7 @@
 						url:'http://120.79.100.1:7000/api/v1/user/userRole',
 						data:{
 						    _method:'put',
-                            userId:data.field.userId,
+                            userId:userId,
                             roleIds:roleIdArr.toString()
 						},
 						success:function (data) {
@@ -129,6 +130,17 @@
                     return false;
 				});
 			});
+            document.getElementById('btnReset').addEventListener('click',function (ev) {
+                $.ajax({
+                    type:'GET',
+                    url:'http://120.79.100.1:7000/api/v1/user/user/'+uId,
+                    success:function (res) {
+                        console.log(res);
+                        $('#username').val(res.data[0].username);
+                        $('#userId').val(res.data[0].id);
+                    }
+                });
+            });
 		</script>
 	</body>
 </html>
