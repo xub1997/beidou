@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../../layui/css/layui.css" media="all">
+		<style>
+			.formContainer{
+				padding: 10px 60px 0 60px;
+			}
+			.layui-form{
+				margin:0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="formContainer">
+			<div class="layui-form layui-form-pane" lay-filter="form">
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">用户名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="username" id="username"  required lay-verify="required" placeholder="请输入用户名称"
+						 class="layui-input">
+					</div>
+					<div class="layui-form-mid layui-word-aux" id="userTip"></div>
+				</div>
+
+
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">员工名字</label>
+					<div class="layui-input-inline">
+						<input type="text" name="name" id="name" lay-verify="required" placeholder="请输入员工名字" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">年龄</label>
+					<div class="layui-input-inline">
+						<input type="number" name="age" id="age" lay-verify="required" placeholder="请输入年龄" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">联系方式</label>
+					<div class="layui-input-inline">
+						<input type="number" name="phone" id="phone" lay-verify="required|phone|number" placeholder="请输入联系方式" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">性别</label>
+					<div class="layui-input-inline">
+						<input type="radio" name="sex" id="0" value="0" title="男">
+						<input type="radio" name="sex" id="1" value="1" title="女">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">住址</label>
+					<div class="layui-input-inline">
+						<input type="text" name="address" id="address" required lay-verify="required" placeholder="请输入住址" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">邮箱地址</label>
+					<div class="layui-input-inline">
+						<input type="email" name="email" id="email" lay-verify="required" placeholder="请输入邮箱地址" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">职位</label>
+					<div class="layui-input-inline">
+						<input type="text" name="job" id="job" lay-verify="required" placeholder="请职位" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">选择公司</label>
+					<div class="layui-input-block">
+						<select id="coms" name="comid" lay-verify="required" lay-filter="company">
+							<option value="">选择公司</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">选择部门</label>
+					<div class="layui-input-block">
+						<select id="deps" name="deptid" lay-verify="required" lay-filter="department">
+							<option value="">选择部门</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe605;</i> 立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
+					</div>
+				</div>
+				<div class="layui-form-item" style="visibility: hidden">
+					<label class="layui-form-label">用户id</label>
+					<div class="layui-input-inline">
+						<input type="text" name="id" id="id"  required lay-verify="required" placeholder="请输入用户id"
+							   class="layui-input">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/jquery-3.3.1.min.js"></script>
+		<script src="../../layui/layui.js"></script>
+		<script>
+            var curId = sessionStorage.getItem('id');
+            var comid ;
+            var deptid;
+            $.ajax({
+				type: "get",
+				url:'http://localhost:7000/api/v1/user/user/'+curId,
+				async:false,
+				success:function (res) {
+                    console.log(res);
+                    $('#id').val(res.data[0].id);
+                    $('#username').val(res.data[0].username);
+                    $('#password').val(res.data[0].pwd);
+                    $('#name').val(res.data[0].name);
+                    $('#age').val(res.data[0].age);
+                    $('#phone').val(res.data[0].phone);
+                    $('#address').val(res.data[0].address);
+                    $('#email').val(res.data[0].email);
+                    $('#job').val(res.data[0].job);
+                    $('#coms').val(res.data[0].comid);
+                    $('#deps').val(res.data[0].deptid);
+                    comid=res.data[0].comid;
+                    deptid=res.data[0].deptid;
+                    if(res.data[0].sex == 0){
+                        $('#0').attr("checked",'');
+                        layui.use('form',function(){
+                            var form = layui.form;
+                            form.render('radio');
+                        })
+                    }else{
+                        $('#1').attr("checked",'');
+                        layui.use('form',function(){
+                            var form = layui.form;
+                            form.render('radio');
+                        })
+                    }
+                    $.ajax({
+						type:'GET',
+						url:"http://localhost:7000/api/v1/user/companys",
+						async: false,
+						success:function (res) {
+                            var data = res.data.list;
+                            var comId ;
+                            //console.log(data);
+                            for (var i = 0; i < data.length; i++) {
+                                //console.log(data[i].id,data[i].name);
+								if (comid ==data[i].id ){
+                                    comId=data[i].id;
+                                    $("#coms").append("<option value='" + data[i].id + "' selected='selected'>" + data[i].name + "</option>");
+								}else{
+                                    $("#coms").append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+								}
+
+                            }
+                            $.ajax({
+								type:"GET",
+								url:"http://localhost:7000/api/v1/user/comDept?comId="+comId,
+								async:false,
+								success:function (res) {
+                                    var data = res.data;
+                                    console.log(data);
+                                    for (var i = 0; i < data.length; i++) {
+                                        //console.log(data[i].id,data[i].name);
+                                        if (deptid ==data[i].id ){
+                                            $("#deps").append("<option value='" + data[i].id + "' selected='selected'>" + data[i].name + "</option>");
+                                        }else{
+                                            $("#deps").append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+										}
+
+                                    }
+                                }
+							})
+                        }
+					})
+                }
+			});
+
+
+			layui.use(['form', 'layer'], function() {
+				var form = layui.form;
+				var layer = layui.layer;
+
+				form.on('select(company)', function(res) {
+					//console.log(res);
+					setTimeout(function() {
+						//console.log($("#deps option"));
+						$("#deps option").remove();
+					}, 100);
+
+					$.get('http://localhost:7000/api/v1/user/comDept?comId=' + res.value, function(res) {
+						//console.log(res)
+						for (var i = 0; i < res.data.length; i++) {
+							//console.log(data[i].id,data[i].name);
+							$("#deps").append("<option value='" + res.data[i].id + "'>" + res.data[i].name + "</option>");
+							form.render('select');
+						}
+					})
+				});
+
+				form.on('submit(formDemo)', function(data) {
+					console.log(JSON.stringify(data.field));
+					$.ajax({
+						url:"http://localhost:7000/api/v1/user/user/"+data.field.id,
+						type: "POST",
+						data: {
+							_method:'put',
+							username: data.field.username,
+							//pwd: data.field.pwd,
+							avatarurl: "1",
+							status: "0",
+							name: data.field.name,
+							phone: data.field.phone,
+							age: data.field.age,
+							sex: data.field.sex,
+							address: data.field.address,
+							email: data.field.email,
+							job: data.field.job,
+							deptid: data.field.deptid,
+							comid: data.field.comid
+						},
+						success:function(data){
+							console.log(data);
+							if (data.status == "200") {
+								layer.msg(data.msg, {
+									icon: 6,
+									time: 1500
+								});
+							} else {
+								layer.msg(data.msg, {
+									icon: 5,
+									time: 1500
+								});
+							}
+						},
+						error:function(err){
+							console.log(err);
+						}
+					});
+					return false;
+				});
+
+			});
+		</script>
+	</body>
+</html>

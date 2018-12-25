@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+		<style>
+			.header{
+				position: relative;
+				height: 50px;
+				line-height: 50px;
+				padding: 10px;
+				background-color: white ;
+				border-bottom: none;
+			}
+			.layui-input{
+				display: inline-block;
+				width: 20%;
+				line-height: 38px;
+				margin-left: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<input type="text" class="layui-input" id="name" placeholder="输入部门名查找" />
+				<button class="layui-btn" id="btn" style="margin-left: 20px;"><i class="layui-icon">&#xe615;</i>搜索</button>
+				<button class="layui-btn" style="margin-left: 20px;" onclick="window.location.href='./new/newDepartment.html'"><i class="layui-icon">&#xe654;</i>新增部门</button>
+			</div>
+			<div class="body">
+				<table id="departmentTable" lay-filter="demo"></table>
+				<script type="text/html" id="barDemo">
+
+					<a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+				</script>
+			</div>
+		</div>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../layui/layui.js"></script>
+		<script>
+			layui.use(['element', 'table'], function() {
+				var element = layui.element;
+				var table = layui.table;
+
+				table.render({
+					elem: '#departmentTable',
+					url: 'http://localhost:7000/api/v1/user/depts',
+					cols: [
+						[{
+								field: 'name',
+								title: '部门名称',
+								width: '20%'
+							},
+							{
+								field: 'description',
+								title: '部门描述',
+								width: '20%'
+							},
+							{
+								field: 'comid',
+								title: '部门所属公司',
+								width: '20%'
+							},
+							{
+								field: 'createdate',
+								title: '创建时间',
+								width: '20%'
+							},
+							{
+								title: '操作',
+								align: 'center',
+								toolbar: '#barDemo',
+								width: '20%'
+							}
+						]
+					],
+					page: true,
+					limit: 20,
+					parseData: function(res) {
+						//console.log(res);
+						return {
+							"code": res.status,
+							"msg": res.msg,
+							"count": res.data.total,
+							"data": res.data.list
+						};
+					},
+					response: {
+						statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+					},
+					request: {
+						pageName: 'pageNum',
+						limitName: 'pageSize'
+					}
+				});
+				table.on('tool(demo)', function(obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+					var data = obj.data; //获得当前行数据
+					var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+					var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+					if (layEvent === 'del') { //删除
+						layer.confirm('真的删除行么', function(index) {
+							obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+							layer.close(index);
+							//console.log(data);
+							$.ajax({
+								url: 'http://localhost:7000/api/v1/user/dept/' + data.id,
+								type: 'POST',
+								data: {
+									_method: "DELETE",
+									ids: data.id
+								},
+								success: function(res) {
+									//console.log(res);
+								},
+								error: function(res) {
+									console.log(res);
+								}
+							})
+							//向服务端发送删除指令
+						});
+					} else if (layEvent === 'edit') {
+						//console.log(data);
+						sessionStorage.setItem('deptId', data.id);
+						layer.open({
+							type: 2,
+							shade: 0.2,
+							title: ['当前部门：' + data.name],
+							area: ['50%', '90%'],
+							content: './edit/editDept.html',
+                            cancel:function (index,layero) {
+                                window.location.replace("departmentSetting.html");
+                            }
+						});
+					}
+				});
+			});
+			$("#btn")[0].addEventListener('click',function(){
+				var name=$("#name").val();
+				var _url='http://localhost:7000/api/v1/user/dept/searchByName?name='+name;
+				//console.log(_url);
+				layui.use('table',function(){
+					var table = layui.table;
+					table.render({
+						elem: '#departmentTable',
+						url: _url,
+						cols: [
+						[{
+								field: 'name',
+								title: '部门名称',
+								width: '20%'
+							},
+							{
+								field: 'description',
+								title: '部门描述',
+								width: '20%'
+							},
+							{
+								field: 'comid',
+								title: '部门所属公司',
+								width: '20%'
+							},
+							{
+								field: 'createdate',
+								title: '创建时间',
+								width: '20%'
+							},
+							{
+								title: '操作',
+								align: 'center',
+								toolbar: '#barDemo',
+								width: '20%'
+							}
+						]
+					],
+						page: true,
+						limit: 20,
+						parseData: function(res) {
+							//console.log(res);
+							return {
+								"code": res.status,
+								"msg": res.msg,
+								"count": res.data.total,
+								"data": res.data.list
+							};
+						},
+						response: {
+							statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+						},
+						request: {
+							pageName: 'pageNum',
+							limitName: 'pageSize'
+						}
+					});
+				})
+			})
+		</script>
+	</body>
+</html>
