@@ -17,9 +17,7 @@ public interface SysLogMapper {
 
     SysLog selectByPrimaryKey(Integer id);
 
-    List<SysLog> selectAll();
-
-    List<SysLog> selectByUsername(String username);
+    List<SysLog> selectByExample(SysLogExample example);
 
     List<SysLog> searchByUsername(String username);
 
