@@ -1,6 +1,6 @@
 package com.beidou.logger.controller;
 
-
+import com.beidou.common.entity.ResponseMsg;
 import com.beidou.logger.entity.SysLog;
 import com.beidou.logger.service.SysLogService;
 import com.github.pagehelper.PageInfo;
@@ -12,21 +12,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-@Api(value = "LogController|日志管理管理操作")
+@Api(value = "TestController|日志管理管理操作")
 @RestController
-public class SysLogController {
+@RequestMapping("/api/v1/logger")
+public class TestController {
 
     @Autowired
     private SysLogService sysLogService;
-
 
     @ApiOperation(value="获取id对应的操作日志信息", notes="获取id对应的操作日志信息")// 使用该注解描述接口方法信息
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "操作日志ID", required = true, dataType = "int", paramType="path")
     })
     @GetMapping(value="/syslog/{id}")
-    public SysLog getById(@PathVariable("id")Integer id){
-        return sysLogService.getById(id);
+    public ResponseMsg getById(@PathVariable("id")Integer id){
+        SysLog sysLog=sysLogService.getById(id);
+        if(sysLog==null){
+            ResponseMsg.Error("数据为空");
+        }
+        return ResponseMsg.Success("查询成功",sysLog);
     }
 
 
@@ -35,8 +39,12 @@ public class SysLogController {
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query")
     })
     @GetMapping(value="/syslogs")
-    public PageInfo getAllList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
-        return sysLogService.getAllList(pageNum);
+    public ResponseMsg getAllList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
+        PageInfo pageInfo=sysLogService.getAllList(pageNum);
+        if(pageInfo.getList().size()==0){
+            return ResponseMsg.Error("数据为空");
+        }
+        return ResponseMsg.Success("查询成功",pageInfo);
     }
 
 
@@ -46,9 +54,13 @@ public class SysLogController {
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query")
     })
     @GetMapping(value="/userSysLogs")
-    public PageInfo getMyList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
-                                      @RequestParam(value = "username")String username){
-        return sysLogService.getMyList(pageNum,username);
+    public ResponseMsg getMyList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
+                                 @RequestParam(value = "username")String username){
+        PageInfo pageInfo=sysLogService.getMyList(pageNum,username);
+        if(pageInfo.getList().size()==0){
+            return ResponseMsg.Error("数据为空");
+        }
+        return ResponseMsg.Success("查询成功",pageInfo);
     }
 
 
@@ -58,8 +70,11 @@ public class SysLogController {
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query")
     })
     @GetMapping(value="/syslog/searchByUsername")
-    public PageInfo searchByUserName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "username")String username ){
-        return sysLogService.searchByUsername(pageNum,username);
+    public ResponseMsg searchByUsername(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "username")String username ){
+        PageInfo pageInfo=sysLogService.searchByUsername(pageNum,username);
+        if(pageInfo.getList().size()==0){
+            return ResponseMsg.Error("数据为空");
+        }
+        return ResponseMsg.Success("查询成功",pageInfo);
     }
-
 }
