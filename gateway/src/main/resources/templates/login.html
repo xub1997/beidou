@@ -32,7 +32,7 @@
 					<label class="layui-form-label" ><i class="layui-icon">&#xe673;</i> 验证码</label>
 					<div class="layui-input-block">
 						<input type="text" name="code" id="code"  required lay-verify="required" class="layui-input">
-						<span class="code"><img src="http://localhost:7000/gifCode" alt="" style="height:38px"></span>
+						<span class="code"><img src="http://120.79.100.1:7000/gifCode" alt="" style="height:38px"></span>
 					</div>
 				</div>
 				<div class="layui-form-item" >
@@ -56,7 +56,7 @@
 					//console.log(data.field);
 					$.ajax({
 						type: 'POST',
-						url: "http://localhost:7000/login",
+						url: "http://120.79.100.1:7000/login",
 						data:{
                             username: data.field.username,
                             pwd: data.field.pwd,

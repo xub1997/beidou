@@ -50,7 +50,7 @@
 
 				table.render({
 					elem: '#characterTable',
-					url: 'http://localhost:7000/api/v1/user/roles',
+					url: 'http://120.79.100.1:7000/api/v1/user/roles',
 					cols: [
 						[{
 								field: 'rolename',
@@ -110,7 +110,7 @@
 							layer.close(index);
 							//console.log(data);
 							$.ajax({
-								url: 'http://localhost:7000/api/v1/user/role/' + data.id,
+								url: 'http://120.79.100.1:7000/api/v1/user/role/' + data.id,
 								type: 'POST',
 								data: {
 									_method: "DELETE",
@@ -155,7 +155,7 @@
 
 			$("#btn")[0].addEventListener('click', function() {
 				var name = $("#name").val();
-				var _url = 'http://localhost:7000/api/v1/user/role/searchByName?name=' + name;
+				var _url = 'http://120.79.100.1:7000/api/v1/user/role/searchByName?name=' + name;
 				//console.log(_url);
 				layui.use('table', function() {
 					var table = layui.table;

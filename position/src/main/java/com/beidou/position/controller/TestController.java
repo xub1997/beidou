@@ -18,7 +18,9 @@ public class TestController {
 
     @RequestMapping("/history")
     public List<History> getByCarId(@RequestParam("carId")Integer carId){
-        return historyService.getByCarId(carId);
+        List<History> histories=historyService.getByCarId(carId);
+        System.out.println(histories);
+        return histories;
     }
 
 }

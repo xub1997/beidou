@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="icon" href="/img/newlogo.png" type="image/x-icon"/>
+    <title>北斗车联网实验室</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ijFmea7PT5GlBEsq7CbHNSTQALgPV7cZ"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DistanceTool/1.2/src/DistanceTool_min.js"></script>
+    <script type="text/javascript" src="../My97DatePicker/WdatePicker.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vue-resource-1.5.1.js"></script>
+    <style type="text/css">
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+
+        #container {
+            height: 100%;
+        }
+
+        .layui-footer .input-date {
+            padding: 0px 10px 0 20px;
+        }
+
+        .input-date input {
+            height: 34px;
+        }
+        footer{
+            width: 100%;
+            height: 50px;
+            background-color:white ;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        footer > .input-date{
+            margin-top: 6px;
+            margin-left: 10px;
+        }
+        footer > .input-date >button{
+            margin-top: -2px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<footer>
+    <!-- 底部固定区域 -->
+    <div class="input-date">
+        <i class="layui-icon" style="font-size: 25px;">&#xe637;</i>
+        <input type="text" id="datepicker1" onfocus="WdatePicker({maxDate:'#F{$dp.$D(\'datepicker2\')||\'new Date()\'}',minDate:'#F{$dp.$D(\'datepicker2\',{H:-2})}',onpicked:pickedFunc,oncleared:clearedFunc,dateFmt:'yyyy-MM-dd HH:mm:ss'})" placeholder="开始时间">
+        <i class="layui-icon" style="font-size: 25px;">&#xe637;</i>
+        <input type="text" id="datepicker2" onfocus="picker2rule(this)" placeholder="结束时间">
+        <button onclick="loadTrackByTime()" class="layui-btn" id="btn1" @click="doBtn">
+            <i class="layui-icon">&#xe609;</i>轨迹回放
+        </button>
+        <span id="realTime"></span>
+    </div>
+
+</footer>
+<script src="../js/jquery-3.3.1.min.js"></script>
+<script src="../js/timeselect.js"></script>
+<script src="../js/trackback.js"></script>
+<script src="../layui/layui.js"></script>
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+</script>
+</body>
+</html>
+

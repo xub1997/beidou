@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link rel="icon" href="/img/newlogo.png" type="image/x-icon"/>
+    <title>智能车辆监控管理平台</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ijFmea7PT5GlBEsq7CbHNSTQALgPV7cZ"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DistanceTool/1.2/src/DistanceTool_min.js"></script>
+    <script src="../js/vue.min.js"></script>
+    <script src="../js/vue-resource-1.5.1.js"></script>
+    <style>
+        footer{
+            width: 100%;
+            height: 50px;
+            background-color:white ;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+        footer > button{
+            margin-top: 6px;
+            margin-left: 10px;
+        }
+        #allmap{
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="allmap"></div>
+<footer>
+    <!-- 底部固定区域 -->
+    <button onclick="demon()" class="layui-btn">
+        <i class="layui-icon">&#xe608;</i>选择车辆
+    </button>
+    <button onclick="delpoint()" class="layui-btn">
+        <i class="layui-icon">&#xe640;</i>删除标注点
+    </button>
+    <button id="checkbtn" class="layui-btn layui-btn-normal" @click="docheck">
+        <i class="layui-icon">&#xe715;</i>实时位置定位
+    </button>
+    <button id="WXcheckbtn" class="layui-btn layui-btn-normal" @click="doWXcheck">
+        <i class="layui-icon">&#xe715;</i>微信小程序
+    </button>
+</footer>
+<script src="../layui/layui.js"></script>
+<script>
+    layui.use('element', function () {
+        var element = layui.element;
+    });
+</script>
+<script src="../js/map.js"></script>
+<script src="../js/singlepoint.js"></script>
+</body>
+</html>
+

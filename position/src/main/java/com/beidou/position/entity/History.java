@@ -13,8 +13,8 @@ public class History {
     @Column(name = "carId")
     private Integer carId;
 
-    @Column(name = "lon")
-    private String lon;
+    @Column(name = "lng")
+    private String lng;
 
     @Column(name = "lat")
     private String lat;
@@ -38,12 +38,12 @@ public class History {
         this.carId = carId;
     }
 
-    public String getLon() {
-        return lon;
+    public String getLng() {
+        return lng;
     }
 
-    public void setLon(String lon) {
-        this.lon = lon;
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 
     public String getLat() {
@@ -60,5 +60,16 @@ public class History {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "History{" +
+                "hisId=" + hisId +
+                ", carId=" + carId +
+                ", lng='" + lng + '\'' +
+                ", lat='" + lat + '\'' +
+                ", time='" + time + '\'' +
+                '}';
     }
 }

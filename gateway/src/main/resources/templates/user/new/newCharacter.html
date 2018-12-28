@@ -50,7 +50,7 @@
 				var form = layui.form;
 				form.on('submit(formDemo)', function(data) {
 					console.log(JSON.stringify(data.field));
-					$.post('http://localhost:7000/api/v1/user/role',{
+					$.post('http://120.79.100.1:7000/api/v1/user/role',{
 						rolename:data.field.rolename,
 						description:data.field.description
 					},function(res){

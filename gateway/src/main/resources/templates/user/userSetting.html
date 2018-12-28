@@ -52,14 +52,14 @@
 
 				table.render({
 					elem: '#userTable',
-					url: 'http://localhost:7000/api/v1/user/users',
+					url: 'http://120.79.100.1:7000/api/v1/user/users',
 					cols: [
 						[
                             {field: 'id',title: 'id',width: '5%'},
 							{field: 'username',title: '用户名',width: '10%'},
 							{field: 'phone',title: '联系方式',width: '10%'},
-							{field: 'avatarurl',title: '头像',width: '10%'},
-							{field: 'address',title: '地址',width: '15%'},
+							/*{field: 'avatarurl',title: '头像',width: '10%'},*/
+							{field: 'address',title: '地址',width: '25%'},
 							{field: 'job',title: '职位',width: '10%'},
                             {field: 'email',title: '电子邮件',width: '15%'},
                             {field: 'status',title: '状态',width: '5%'},
@@ -107,7 +107,7 @@
 							layer.close(index);
 							//console.log(data);
 							$.ajax({
-								url: 'http://localhost:7000/api/v1/user/user/'+data.id,
+								url: 'http://120.79.100.1:7000/api/v1/user/user/'+data.id,
 								type: 'POST',
 								data:{_method:"DELETE",ids:data.id},
 								success:function(res){
@@ -139,7 +139,7 @@
 			});
 			$("#btn")[0].addEventListener('click',function(){
 				var username=$("#username").val();
-				var _url='http://localhost:7000/api/v1/user/user/searchByUserName?username='+username;
+				var _url='http://120.79.100.1:7000/api/v1/user/user/searchByUserName?username='+username;
 				//console.log(_url);
 				layui.use('table',function(){
 					var table = layui.table;

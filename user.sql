@@ -333,7 +333,7 @@ INSERT INTO `tb_rule` VALUES ('57', '获取全部权限', '获取全部权限', 
 INSERT INTO `tb_rule` VALUES ('58', '车辆监控', '车辆监控', 'menu', 'car:monitor', 'javascript:;', '0', '0', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` VALUES ('59', '实时定位', '实时定位', 'menu', 'realTime:position', 'bds.html', '0', '58', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` VALUES ('60', '历史轨迹', '历史轨迹', 'menu', 'car:trackBack', 'trackBack.html', '0', '58', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
-INSERT INTO `tb_rule` VALUES ('61', '应用监控', '应用监控', 'menu', 'app:monitor', 'http://localhost:7000/api/v1/monitor/login', '0', '1', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
+INSERT INTO `tb_rule` VALUES ('61', '应用监控', '应用监控', 'menu', 'app:monitor', 'http://120.79.100.1:7000/api/v1/monitor/login', '0', '1', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 
 -- ----------------------------
 -- Table structure for tb_user
