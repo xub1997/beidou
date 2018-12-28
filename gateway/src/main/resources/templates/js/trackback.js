@@ -3,7 +3,7 @@ var vm =new Vue({
     el:'#btn1',
     methods:{
         doBtn:function(){
-            this.$http.get('http://120.79.100.1:9001/history?carId=1').then(function(res){
+            this.$http.get('http://localhost:9001/history?carId=1').then(function(res){
                 console.log(res);
                 var points = res.body;
                 loadTrackByTime(points);
@@ -14,7 +14,7 @@ var vm =new Vue({
 /*$('.btn1').addEventListener('click',function () {
     $.ajax({
         type:'GET',
-        url:"http://120.79.100.1:9001/history?carId=1",
+        url:"http://localhost:9001/history?carId=1",
         success:function (res) {
             console.log(res);
             var points = res.body;

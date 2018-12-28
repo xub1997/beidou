@@ -64,7 +64,7 @@
 
             $.ajax({
                 type: 'GET',
-                url:'http://120.79.100.1:7000/api/v1/user/companys',
+                url:'http://localhost:7000/api/v1/user/companys',
                 async:false,
                 success:function (res) {
                     var data = res.data.list;
@@ -77,7 +77,7 @@
                     }
                     $.ajax({
                         type: 'GET',
-                        url:'http://120.79.100.1:7000/api/v1/user/dept/'+curId,
+                        url:'http://localhost:7000/api/v1/user/dept/'+curId,
                         async:false,
                         success:function (res) {
 
@@ -97,7 +97,7 @@
 				form.on('submit(formDemo)', function(data) {
 					//console.log(JSON.stringify(data.field));
 					$.ajax({
-						url:"http://120.79.100.1:7000/api/v1/user/dept/"+curId,
+						url:"http://localhost:7000/api/v1/user/dept/"+curId,
 						type:"POST",
 						data:{
 							_method:'put',
