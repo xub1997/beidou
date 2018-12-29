@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-@Api(value = "LogController|日志管理管理操作")
+@Api(value = "SysLogController|日志管理管理操作")
 @RestController
 public class SysLogController {
 

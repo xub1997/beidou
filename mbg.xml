@@ -11,7 +11,7 @@
 		<!-- 配置数据库连接 -->
 		<jdbcConnection
 			driverClass="com.mysql.jdbc.Driver"
-			connectionURL="jdbc:mysql://localhost:3307/syslog"
+			connectionURL="jdbc:mysql://localhost:3307/car"
 			userId="root"
 			password="root">
 		</jdbcConnection>
@@ -21,7 +21,7 @@
 		</javaTypeResolver>
 
 		<!-- 指定javaBean生成的位置 -->
-		<javaModelGenerator targetPackage="com.beidou.logger.entity"
+		<javaModelGenerator targetPackage="com.beidou.car.entity"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -34,7 +34,7 @@
 
 		<!-- 指定dao接口生成的位置，mapper接口 -->
 		<javaClientGenerator type="XMLMAPPER"
-                             targetPackage="com.beidou.logger.dao" targetProject=".\src\main\java">
+                             targetPackage="com.beidou.car.dao" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 
@@ -43,9 +43,9 @@
 		<!--<table tableName="tb_user" domainObjectName="User"></table>
 		<table tableName="tb_rule" domainObjectName="Rule"></table>-->
 		<!-- <table tableName="tb_timeLine" domainObjectName="TimeLine"></table>
-		<table tableName="tb_category" domainObjectName="Category"></table> 
-		<table tableName="tb_message" domainObjectName="Message"></table>
-		<table tableName="tb_article" domainObjectName="Article"></table> -->
-		<table tableName="tb_syslog" domainObjectName="SysLog"></table>
+		<table tableName="tb_category" domainObjectName="Category"></table>  -->
+		<table tableName="tb_car" domainObjectName="Car"></table>
+		<table tableName="tb_carDriver" domainObjectName="CarDriver"></table>
+		<table tableName="tb_driver" domainObjectName="Driver"></table>
 	</context>
 </generatorConfiguration>
