@@ -1,6 +1,4 @@
-package com.beidou.gateway.config;
-
-
+package com.beidou.logger.config;
 
 
 import org.springframework.stereotype.Component;
