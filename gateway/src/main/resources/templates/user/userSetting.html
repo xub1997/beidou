@@ -52,7 +52,7 @@
 
 				table.render({
 					elem: '#userTable',
-					url: 'http://localhost:7000/api/v1/user/users',
+					url: 'http://120.100.79.1:7000/api/v1/user/users',
 					cols: [
 						[
                             {field: 'id',title: 'id',width: '5%'},
@@ -107,7 +107,7 @@
 							layer.close(index);
 							//console.log(data);
 							$.ajax({
-								url: 'http://localhost:7000/api/v1/user/user/'+data.id,
+								url: 'http://120.100.79.1:7000/api/v1/user/user/'+data.id,
 								type: 'POST',
 								data:{_method:"DELETE",ids:data.id},
 								success:function(res){
@@ -139,7 +139,7 @@
 			});
 			$("#btn")[0].addEventListener('click',function(){
 				var username=$("#username").val();
-				var _url='http://localhost:7000/api/v1/user/user/searchByUserName?username='+username;
+				var _url='http://120.100.79.1:7000/api/v1/user/user/searchByUserName?username='+username;
 				//console.log(_url);
 				layui.use('table',function(){
 					var table = layui.table;

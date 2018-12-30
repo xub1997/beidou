@@ -47,7 +47,7 @@
             //console.log(rid);
             $.ajax({
 				type:'GET',
-				url:'http://localhost:7000/api/v1/user/rule/getAll',
+				url:'http://120.100.79.1:7000/api/v1/user/rule/getAll',
 				async:false,
 				success:function (res) {
                     //console.log(res);
@@ -57,7 +57,7 @@
                     }
                     $.ajax({
 						type:'GET',
-						url:"http://localhost:7000/api/v1/user/roleRule?roleId=" + rid,
+						url:"http://120.100.79.1:7000/api/v1/user/roleRule?roleId=" + rid,
 						async: false,
 						success:function (res) {
                             //console.log(res);
@@ -97,7 +97,7 @@
                     console.log(ruleIdsS);
 					$.ajax({
 						type:'POST',
-						url:'http://localhost:7000/api/v1/user/roleRule',
+						url:'http://120.100.79.1:7000/api/v1/user/roleRule',
 						data:{
 						    _method:'put',
                             roleId: rid,
@@ -125,7 +125,7 @@
             document.getElementById('btnReset').addEventListener('click',function (ev) {
                 $.ajax({
                     type:'GET',
-                    url:"http://localhost:7000/api/v1/user/roleRule?roleId=" + rid,
+                    url:"http://120.100.79.1:7000/api/v1/user/roleRule?roleId=" + rid,
                     success:function (res) {
                         console.log(res);
                         $('#roleId').val(rid);

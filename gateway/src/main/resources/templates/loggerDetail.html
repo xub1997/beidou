@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <style>
+        .formContainer{
+            padding: 10px 60px 0 60px;
+        }
+        .layui-form{
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body>
+<div class="formContainer">
+    <div class="layui-form layui-form-pane" lay-filter="form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">id</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="id" ></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名称</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="username"></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">ip</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="ip"></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">操作</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="operation"></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">URL</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="url"></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">请求方式</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="requestmethod"></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">方法</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="method"></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">params</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="params"></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">耗时</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="time"></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">异常</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="exception"></i>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">结果</label>
+            <div class="layui-input-block">
+                <!--<i class="layui-btn layui-btn-primary" id="result"></i>-->
+                <textarea class="layui-textarea" style="height: 200px" id="result"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">创建时间</label>
+            <div class="layui-input-inline">
+                <i class="layui-btn layui-btn-primary" id="createdate"></i>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="layui/layui.js"></script>
+<script>
+    var loggerId = sessionStorage.getItem('loggerId');
+    $.ajax({
+        type:'GET',
+        url:'http://localhost:4001/api/v1/logger/syslog/'+loggerId,
+        success:function (res) {
+            console.log(res);
+            var data =res.data;
+            $('#id').text(data.id);
+            $('#username').text(data.username);
+            $('#ip').text(data.ip);
+            $('#operation').text(data.operation);
+            $('#url').text(data.url);
+            $('#requestmethod').text(data.requestmethod);
+            $('#method').text(data.method);
+            $('#time').text(data.time);
+            $('#params').text(data.params);
+            $('#exception').text(data.exception);
+            $('#result').text(data.result);
+            $('#createdate').text(data.createdate);
+        },
+        error:function (err) {
+            console.log(err);
+        }
+    })
+</script>
+</body>
+</html>

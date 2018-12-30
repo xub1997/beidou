@@ -53,7 +53,7 @@
             var roleId;
 			$.ajax({
 				type:'GET',
-				url:'http://localhost:7000/api/v1/user/role/'+curId,
+				url:'http://120.100.79.1:7000/api/v1/user/role/'+curId,
 				async:false,
 				success:function (res) {
                     $('#id').val(res.data[0].id);
@@ -68,7 +68,7 @@
 				form.on('submit(formDemo)', function(data) {
 					console.log(JSON.stringify(data.field));
 					$.ajax({
-						url:"http://localhost:7000/api/v1/user/role/"+data.field.id,
+						url:"http://120.100.79.1:7000/api/v1/user/role/"+data.field.id,
 						type:"POST",
 						data:{
 							_method:'put',

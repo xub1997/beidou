@@ -49,7 +49,7 @@
 
 				table.render({
 					elem: '#departmentTable',
-					url: 'http://localhost:7000/api/v1/user/depts',
+					url: 'http://120.100.79.1:7000/api/v1/user/depts',
 					cols: [
 						[{
 								field: 'name',
@@ -109,7 +109,7 @@
 							layer.close(index);
 							//console.log(data);
 							$.ajax({
-								url: 'http://localhost:7000/api/v1/user/dept/' + data.id,
+								url: 'http://120.100.79.1:7000/api/v1/user/dept/' + data.id,
 								type: 'POST',
 								data: {
 									_method: "DELETE",
@@ -142,7 +142,7 @@
 			});
 			$("#btn")[0].addEventListener('click',function(){
 				var name=$("#name").val();
-				var _url='http://localhost:7000/api/v1/user/dept/searchByName?name='+name;
+				var _url='http://120.100.79.1:7000/api/v1/user/dept/searchByName?name='+name;
 				//console.log(_url);
 				layui.use('table',function(){
 					var table = layui.table;
