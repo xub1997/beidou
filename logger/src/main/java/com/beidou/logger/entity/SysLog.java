@@ -24,7 +24,6 @@ public class SysLog {
     private String exception;
     //结果
     private String result;
-
     //创建时间
     private String createdate;
 

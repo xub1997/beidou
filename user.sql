@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50516
 File Encoding         : 65001
 
-Date: 2018-12-24 11:30:43
+Date: 2018-12-31 16:47:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,13 +28,13 @@ CREATE TABLE `tb_company` (
   `createDate` varchar(255) NOT NULL COMMENT '创建时间',
   `modifyDate` varchar(255) NOT NULL COMMENT '修改日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of tb_company
 -- ----------------------------
 INSERT INTO `tb_company` VALUES ('1', '百度自动驾驶广州黄埔分公司', '百度自动驾驶广州黄埔分公司', '广东广州', '020088888888', '2018-12-12 16:17:48', '2018-12-21 15:53:53');
-INSERT INTO `tb_company` VALUES ('2', '广东滴滴公司1', '广东滴滴公司2', '魔都上海3', '01066666667', '2018-12-12 16:17:48', '2018-12-21 17:11:05');
+INSERT INTO `tb_company` VALUES ('2', '广东滴滴公司', '广东滴滴公司', '魔都上海', '01066666667', '2018-12-12 16:17:48', '2018-12-25 08:42:40');
 
 -- ----------------------------
 -- Table structure for tb_dept
@@ -88,12 +88,11 @@ CREATE TABLE `tb_role_rule` (
   `roleId` int(255) NOT NULL COMMENT '角色id',
   `ruleId` int(255) NOT NULL COMMENT '权限id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=722 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=935 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of tb_role_rule
 -- ----------------------------
-INSERT INTO `tb_role_rule` VALUES ('564', '4', '60');
 INSERT INTO `tb_role_rule` VALUES ('565', '3', '1');
 INSERT INTO `tb_role_rule` VALUES ('566', '3', '2');
 INSERT INTO `tb_role_rule` VALUES ('567', '3', '3');
@@ -129,128 +128,139 @@ INSERT INTO `tb_role_rule` VALUES ('596', '3', '58');
 INSERT INTO `tb_role_rule` VALUES ('597', '3', '59');
 INSERT INTO `tb_role_rule` VALUES ('598', '3', '60');
 INSERT INTO `tb_role_rule` VALUES ('599', '3', '61');
-INSERT INTO `tb_role_rule` VALUES ('600', '1', '1');
-INSERT INTO `tb_role_rule` VALUES ('601', '1', '2');
-INSERT INTO `tb_role_rule` VALUES ('602', '1', '3');
-INSERT INTO `tb_role_rule` VALUES ('603', '1', '4');
-INSERT INTO `tb_role_rule` VALUES ('604', '1', '5');
-INSERT INTO `tb_role_rule` VALUES ('605', '1', '6');
-INSERT INTO `tb_role_rule` VALUES ('606', '1', '7');
-INSERT INTO `tb_role_rule` VALUES ('607', '1', '8');
-INSERT INTO `tb_role_rule` VALUES ('608', '1', '9');
-INSERT INTO `tb_role_rule` VALUES ('609', '1', '10');
-INSERT INTO `tb_role_rule` VALUES ('610', '1', '11');
-INSERT INTO `tb_role_rule` VALUES ('611', '1', '12');
-INSERT INTO `tb_role_rule` VALUES ('612', '1', '13');
-INSERT INTO `tb_role_rule` VALUES ('613', '1', '14');
-INSERT INTO `tb_role_rule` VALUES ('614', '1', '15');
-INSERT INTO `tb_role_rule` VALUES ('615', '1', '16');
-INSERT INTO `tb_role_rule` VALUES ('616', '1', '17');
-INSERT INTO `tb_role_rule` VALUES ('617', '1', '18');
-INSERT INTO `tb_role_rule` VALUES ('618', '1', '19');
-INSERT INTO `tb_role_rule` VALUES ('619', '1', '20');
-INSERT INTO `tb_role_rule` VALUES ('620', '1', '21');
-INSERT INTO `tb_role_rule` VALUES ('621', '1', '22');
-INSERT INTO `tb_role_rule` VALUES ('622', '1', '23');
-INSERT INTO `tb_role_rule` VALUES ('623', '1', '24');
-INSERT INTO `tb_role_rule` VALUES ('624', '1', '25');
-INSERT INTO `tb_role_rule` VALUES ('625', '1', '26');
-INSERT INTO `tb_role_rule` VALUES ('626', '1', '27');
-INSERT INTO `tb_role_rule` VALUES ('627', '1', '28');
-INSERT INTO `tb_role_rule` VALUES ('628', '1', '29');
-INSERT INTO `tb_role_rule` VALUES ('629', '1', '30');
-INSERT INTO `tb_role_rule` VALUES ('630', '1', '31');
-INSERT INTO `tb_role_rule` VALUES ('631', '1', '32');
-INSERT INTO `tb_role_rule` VALUES ('632', '1', '33');
-INSERT INTO `tb_role_rule` VALUES ('633', '1', '34');
-INSERT INTO `tb_role_rule` VALUES ('634', '1', '35');
-INSERT INTO `tb_role_rule` VALUES ('635', '1', '36');
-INSERT INTO `tb_role_rule` VALUES ('636', '1', '37');
-INSERT INTO `tb_role_rule` VALUES ('637', '1', '38');
-INSERT INTO `tb_role_rule` VALUES ('638', '1', '39');
-INSERT INTO `tb_role_rule` VALUES ('639', '1', '40');
-INSERT INTO `tb_role_rule` VALUES ('640', '1', '41');
-INSERT INTO `tb_role_rule` VALUES ('641', '1', '42');
-INSERT INTO `tb_role_rule` VALUES ('642', '1', '43');
-INSERT INTO `tb_role_rule` VALUES ('643', '1', '44');
-INSERT INTO `tb_role_rule` VALUES ('644', '1', '45');
-INSERT INTO `tb_role_rule` VALUES ('645', '1', '46');
-INSERT INTO `tb_role_rule` VALUES ('646', '1', '47');
-INSERT INTO `tb_role_rule` VALUES ('647', '1', '48');
-INSERT INTO `tb_role_rule` VALUES ('648', '1', '49');
-INSERT INTO `tb_role_rule` VALUES ('649', '1', '50');
-INSERT INTO `tb_role_rule` VALUES ('650', '1', '51');
-INSERT INTO `tb_role_rule` VALUES ('651', '1', '52');
-INSERT INTO `tb_role_rule` VALUES ('652', '1', '53');
-INSERT INTO `tb_role_rule` VALUES ('653', '1', '54');
-INSERT INTO `tb_role_rule` VALUES ('654', '1', '55');
-INSERT INTO `tb_role_rule` VALUES ('655', '1', '56');
-INSERT INTO `tb_role_rule` VALUES ('656', '1', '57');
-INSERT INTO `tb_role_rule` VALUES ('657', '1', '58');
-INSERT INTO `tb_role_rule` VALUES ('658', '1', '59');
-INSERT INTO `tb_role_rule` VALUES ('659', '1', '60');
-INSERT INTO `tb_role_rule` VALUES ('660', '1', '61');
-INSERT INTO `tb_role_rule` VALUES ('661', '2', '1');
-INSERT INTO `tb_role_rule` VALUES ('662', '2', '2');
-INSERT INTO `tb_role_rule` VALUES ('663', '2', '3');
-INSERT INTO `tb_role_rule` VALUES ('664', '2', '4');
-INSERT INTO `tb_role_rule` VALUES ('665', '2', '5');
-INSERT INTO `tb_role_rule` VALUES ('666', '2', '6');
-INSERT INTO `tb_role_rule` VALUES ('667', '2', '7');
-INSERT INTO `tb_role_rule` VALUES ('668', '2', '8');
-INSERT INTO `tb_role_rule` VALUES ('669', '2', '9');
-INSERT INTO `tb_role_rule` VALUES ('670', '2', '10');
-INSERT INTO `tb_role_rule` VALUES ('671', '2', '11');
-INSERT INTO `tb_role_rule` VALUES ('672', '2', '12');
-INSERT INTO `tb_role_rule` VALUES ('673', '2', '13');
-INSERT INTO `tb_role_rule` VALUES ('674', '2', '14');
-INSERT INTO `tb_role_rule` VALUES ('675', '2', '15');
-INSERT INTO `tb_role_rule` VALUES ('676', '2', '16');
-INSERT INTO `tb_role_rule` VALUES ('677', '2', '17');
-INSERT INTO `tb_role_rule` VALUES ('678', '2', '18');
-INSERT INTO `tb_role_rule` VALUES ('679', '2', '19');
-INSERT INTO `tb_role_rule` VALUES ('680', '2', '20');
-INSERT INTO `tb_role_rule` VALUES ('681', '2', '21');
-INSERT INTO `tb_role_rule` VALUES ('682', '2', '22');
-INSERT INTO `tb_role_rule` VALUES ('683', '2', '23');
-INSERT INTO `tb_role_rule` VALUES ('684', '2', '24');
-INSERT INTO `tb_role_rule` VALUES ('685', '2', '25');
-INSERT INTO `tb_role_rule` VALUES ('686', '2', '26');
-INSERT INTO `tb_role_rule` VALUES ('687', '2', '27');
-INSERT INTO `tb_role_rule` VALUES ('688', '2', '28');
-INSERT INTO `tb_role_rule` VALUES ('689', '2', '29');
-INSERT INTO `tb_role_rule` VALUES ('690', '2', '30');
-INSERT INTO `tb_role_rule` VALUES ('691', '2', '31');
-INSERT INTO `tb_role_rule` VALUES ('692', '2', '32');
-INSERT INTO `tb_role_rule` VALUES ('693', '2', '33');
-INSERT INTO `tb_role_rule` VALUES ('694', '2', '34');
-INSERT INTO `tb_role_rule` VALUES ('695', '2', '35');
-INSERT INTO `tb_role_rule` VALUES ('696', '2', '36');
-INSERT INTO `tb_role_rule` VALUES ('697', '2', '37');
-INSERT INTO `tb_role_rule` VALUES ('698', '2', '38');
-INSERT INTO `tb_role_rule` VALUES ('699', '2', '39');
-INSERT INTO `tb_role_rule` VALUES ('700', '2', '40');
-INSERT INTO `tb_role_rule` VALUES ('701', '2', '41');
-INSERT INTO `tb_role_rule` VALUES ('702', '2', '42');
-INSERT INTO `tb_role_rule` VALUES ('703', '2', '43');
-INSERT INTO `tb_role_rule` VALUES ('704', '2', '44');
-INSERT INTO `tb_role_rule` VALUES ('705', '2', '45');
-INSERT INTO `tb_role_rule` VALUES ('706', '2', '46');
-INSERT INTO `tb_role_rule` VALUES ('707', '2', '47');
-INSERT INTO `tb_role_rule` VALUES ('708', '2', '48');
-INSERT INTO `tb_role_rule` VALUES ('709', '2', '49');
-INSERT INTO `tb_role_rule` VALUES ('710', '2', '50');
-INSERT INTO `tb_role_rule` VALUES ('711', '2', '51');
-INSERT INTO `tb_role_rule` VALUES ('712', '2', '52');
-INSERT INTO `tb_role_rule` VALUES ('713', '2', '53');
-INSERT INTO `tb_role_rule` VALUES ('714', '2', '54');
-INSERT INTO `tb_role_rule` VALUES ('715', '2', '55');
-INSERT INTO `tb_role_rule` VALUES ('716', '2', '56');
-INSERT INTO `tb_role_rule` VALUES ('717', '2', '57');
-INSERT INTO `tb_role_rule` VALUES ('718', '2', '58');
-INSERT INTO `tb_role_rule` VALUES ('719', '2', '59');
-INSERT INTO `tb_role_rule` VALUES ('720', '2', '60');
-INSERT INTO `tb_role_rule` VALUES ('721', '2', '61');
+INSERT INTO `tb_role_rule` VALUES ('740', '4', '61');
+INSERT INTO `tb_role_rule` VALUES ('803', '1', '1');
+INSERT INTO `tb_role_rule` VALUES ('804', '1', '2');
+INSERT INTO `tb_role_rule` VALUES ('805', '1', '3');
+INSERT INTO `tb_role_rule` VALUES ('806', '1', '4');
+INSERT INTO `tb_role_rule` VALUES ('807', '1', '5');
+INSERT INTO `tb_role_rule` VALUES ('808', '1', '6');
+INSERT INTO `tb_role_rule` VALUES ('809', '1', '7');
+INSERT INTO `tb_role_rule` VALUES ('810', '1', '8');
+INSERT INTO `tb_role_rule` VALUES ('811', '1', '9');
+INSERT INTO `tb_role_rule` VALUES ('812', '1', '10');
+INSERT INTO `tb_role_rule` VALUES ('813', '1', '11');
+INSERT INTO `tb_role_rule` VALUES ('814', '1', '12');
+INSERT INTO `tb_role_rule` VALUES ('815', '1', '13');
+INSERT INTO `tb_role_rule` VALUES ('816', '1', '14');
+INSERT INTO `tb_role_rule` VALUES ('817', '1', '15');
+INSERT INTO `tb_role_rule` VALUES ('818', '1', '16');
+INSERT INTO `tb_role_rule` VALUES ('819', '1', '17');
+INSERT INTO `tb_role_rule` VALUES ('820', '1', '18');
+INSERT INTO `tb_role_rule` VALUES ('821', '1', '19');
+INSERT INTO `tb_role_rule` VALUES ('822', '1', '20');
+INSERT INTO `tb_role_rule` VALUES ('823', '1', '21');
+INSERT INTO `tb_role_rule` VALUES ('824', '1', '22');
+INSERT INTO `tb_role_rule` VALUES ('825', '1', '23');
+INSERT INTO `tb_role_rule` VALUES ('826', '1', '24');
+INSERT INTO `tb_role_rule` VALUES ('827', '1', '25');
+INSERT INTO `tb_role_rule` VALUES ('828', '1', '26');
+INSERT INTO `tb_role_rule` VALUES ('829', '1', '27');
+INSERT INTO `tb_role_rule` VALUES ('830', '1', '28');
+INSERT INTO `tb_role_rule` VALUES ('831', '1', '29');
+INSERT INTO `tb_role_rule` VALUES ('832', '1', '30');
+INSERT INTO `tb_role_rule` VALUES ('833', '1', '31');
+INSERT INTO `tb_role_rule` VALUES ('834', '1', '32');
+INSERT INTO `tb_role_rule` VALUES ('835', '1', '33');
+INSERT INTO `tb_role_rule` VALUES ('836', '1', '34');
+INSERT INTO `tb_role_rule` VALUES ('837', '1', '35');
+INSERT INTO `tb_role_rule` VALUES ('838', '1', '36');
+INSERT INTO `tb_role_rule` VALUES ('839', '1', '37');
+INSERT INTO `tb_role_rule` VALUES ('840', '1', '38');
+INSERT INTO `tb_role_rule` VALUES ('841', '1', '39');
+INSERT INTO `tb_role_rule` VALUES ('842', '1', '40');
+INSERT INTO `tb_role_rule` VALUES ('843', '1', '41');
+INSERT INTO `tb_role_rule` VALUES ('844', '1', '42');
+INSERT INTO `tb_role_rule` VALUES ('845', '1', '43');
+INSERT INTO `tb_role_rule` VALUES ('846', '1', '44');
+INSERT INTO `tb_role_rule` VALUES ('847', '1', '45');
+INSERT INTO `tb_role_rule` VALUES ('848', '1', '46');
+INSERT INTO `tb_role_rule` VALUES ('849', '1', '47');
+INSERT INTO `tb_role_rule` VALUES ('850', '1', '48');
+INSERT INTO `tb_role_rule` VALUES ('851', '1', '49');
+INSERT INTO `tb_role_rule` VALUES ('852', '1', '50');
+INSERT INTO `tb_role_rule` VALUES ('853', '1', '51');
+INSERT INTO `tb_role_rule` VALUES ('854', '1', '52');
+INSERT INTO `tb_role_rule` VALUES ('855', '1', '53');
+INSERT INTO `tb_role_rule` VALUES ('856', '1', '54');
+INSERT INTO `tb_role_rule` VALUES ('857', '1', '55');
+INSERT INTO `tb_role_rule` VALUES ('858', '1', '56');
+INSERT INTO `tb_role_rule` VALUES ('859', '1', '57');
+INSERT INTO `tb_role_rule` VALUES ('860', '1', '58');
+INSERT INTO `tb_role_rule` VALUES ('861', '1', '59');
+INSERT INTO `tb_role_rule` VALUES ('862', '1', '60');
+INSERT INTO `tb_role_rule` VALUES ('863', '1', '61');
+INSERT INTO `tb_role_rule` VALUES ('864', '1', '62');
+INSERT INTO `tb_role_rule` VALUES ('865', '1', '63');
+INSERT INTO `tb_role_rule` VALUES ('866', '1', '64');
+INSERT INTO `tb_role_rule` VALUES ('867', '1', '65');
+INSERT INTO `tb_role_rule` VALUES ('868', '1', '66');
+INSERT INTO `tb_role_rule` VALUES ('869', '2', '1');
+INSERT INTO `tb_role_rule` VALUES ('870', '2', '2');
+INSERT INTO `tb_role_rule` VALUES ('871', '2', '3');
+INSERT INTO `tb_role_rule` VALUES ('872', '2', '4');
+INSERT INTO `tb_role_rule` VALUES ('873', '2', '5');
+INSERT INTO `tb_role_rule` VALUES ('874', '2', '6');
+INSERT INTO `tb_role_rule` VALUES ('875', '2', '7');
+INSERT INTO `tb_role_rule` VALUES ('876', '2', '8');
+INSERT INTO `tb_role_rule` VALUES ('877', '2', '9');
+INSERT INTO `tb_role_rule` VALUES ('878', '2', '10');
+INSERT INTO `tb_role_rule` VALUES ('879', '2', '11');
+INSERT INTO `tb_role_rule` VALUES ('880', '2', '12');
+INSERT INTO `tb_role_rule` VALUES ('881', '2', '13');
+INSERT INTO `tb_role_rule` VALUES ('882', '2', '14');
+INSERT INTO `tb_role_rule` VALUES ('883', '2', '15');
+INSERT INTO `tb_role_rule` VALUES ('884', '2', '16');
+INSERT INTO `tb_role_rule` VALUES ('885', '2', '17');
+INSERT INTO `tb_role_rule` VALUES ('886', '2', '18');
+INSERT INTO `tb_role_rule` VALUES ('887', '2', '19');
+INSERT INTO `tb_role_rule` VALUES ('888', '2', '20');
+INSERT INTO `tb_role_rule` VALUES ('889', '2', '21');
+INSERT INTO `tb_role_rule` VALUES ('890', '2', '22');
+INSERT INTO `tb_role_rule` VALUES ('891', '2', '23');
+INSERT INTO `tb_role_rule` VALUES ('892', '2', '24');
+INSERT INTO `tb_role_rule` VALUES ('893', '2', '25');
+INSERT INTO `tb_role_rule` VALUES ('894', '2', '26');
+INSERT INTO `tb_role_rule` VALUES ('895', '2', '27');
+INSERT INTO `tb_role_rule` VALUES ('896', '2', '28');
+INSERT INTO `tb_role_rule` VALUES ('897', '2', '29');
+INSERT INTO `tb_role_rule` VALUES ('898', '2', '30');
+INSERT INTO `tb_role_rule` VALUES ('899', '2', '31');
+INSERT INTO `tb_role_rule` VALUES ('900', '2', '32');
+INSERT INTO `tb_role_rule` VALUES ('901', '2', '33');
+INSERT INTO `tb_role_rule` VALUES ('902', '2', '34');
+INSERT INTO `tb_role_rule` VALUES ('903', '2', '35');
+INSERT INTO `tb_role_rule` VALUES ('904', '2', '36');
+INSERT INTO `tb_role_rule` VALUES ('905', '2', '37');
+INSERT INTO `tb_role_rule` VALUES ('906', '2', '38');
+INSERT INTO `tb_role_rule` VALUES ('907', '2', '39');
+INSERT INTO `tb_role_rule` VALUES ('908', '2', '40');
+INSERT INTO `tb_role_rule` VALUES ('909', '2', '41');
+INSERT INTO `tb_role_rule` VALUES ('910', '2', '42');
+INSERT INTO `tb_role_rule` VALUES ('911', '2', '43');
+INSERT INTO `tb_role_rule` VALUES ('912', '2', '44');
+INSERT INTO `tb_role_rule` VALUES ('913', '2', '45');
+INSERT INTO `tb_role_rule` VALUES ('914', '2', '46');
+INSERT INTO `tb_role_rule` VALUES ('915', '2', '47');
+INSERT INTO `tb_role_rule` VALUES ('916', '2', '48');
+INSERT INTO `tb_role_rule` VALUES ('917', '2', '49');
+INSERT INTO `tb_role_rule` VALUES ('918', '2', '50');
+INSERT INTO `tb_role_rule` VALUES ('919', '2', '51');
+INSERT INTO `tb_role_rule` VALUES ('920', '2', '52');
+INSERT INTO `tb_role_rule` VALUES ('921', '2', '53');
+INSERT INTO `tb_role_rule` VALUES ('922', '2', '54');
+INSERT INTO `tb_role_rule` VALUES ('923', '2', '55');
+INSERT INTO `tb_role_rule` VALUES ('924', '2', '56');
+INSERT INTO `tb_role_rule` VALUES ('925', '2', '57');
+INSERT INTO `tb_role_rule` VALUES ('926', '2', '58');
+INSERT INTO `tb_role_rule` VALUES ('927', '2', '59');
+INSERT INTO `tb_role_rule` VALUES ('928', '2', '60');
+INSERT INTO `tb_role_rule` VALUES ('929', '2', '61');
+INSERT INTO `tb_role_rule` VALUES ('930', '2', '62');
+INSERT INTO `tb_role_rule` VALUES ('931', '2', '63');
+INSERT INTO `tb_role_rule` VALUES ('932', '2', '64');
+INSERT INTO `tb_role_rule` VALUES ('933', '2', '65');
+INSERT INTO `tb_role_rule` VALUES ('934', '2', '66');
 
 -- ----------------------------
 -- Table structure for tb_rule
@@ -268,7 +278,7 @@ CREATE TABLE `tb_rule` (
   `createDate` varchar(255) NOT NULL COMMENT '创建时间',
   `modifyDate` varchar(255) NOT NULL COMMENT '修改日期',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of tb_rule
@@ -331,9 +341,14 @@ INSERT INTO `tb_rule` VALUES ('55', '更新id对应的角色-权限管理信息'
 INSERT INTO `tb_rule` VALUES ('56', '获取全部角色', '获取全部角色', 'button', 'role:getAll', 'api/v1/user/role/getAll', '0', '7', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` VALUES ('57', '获取全部权限', '获取全部权限', 'button', 'rule:getAll', 'api/v1/user/rule/getAll', '0', '8', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
 INSERT INTO `tb_rule` VALUES ('58', '车辆监控', '车辆监控', 'menu', 'car:monitor', 'javascript:;', '0', '0', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
-INSERT INTO `tb_rule` VALUES ('59', '实时定位', '实时定位', 'menu', 'realTime:position', 'bds.html', '0', '58', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
-INSERT INTO `tb_rule` VALUES ('60', '历史轨迹', '历史轨迹', 'menu', 'car:trackBack', 'trackBack.html', '0', '58', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
-INSERT INTO `tb_rule` VALUES ('61', '应用监控', '应用监控', 'menu', 'app:monitor', 'http://120.100.79.1:7000/api/v1/monitor/login', '0', '1', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
+INSERT INTO `tb_rule` VALUES ('59', '实时定位', '实时定位', 'menu', 'realTime:position', 'map/bds.html', '0', '58', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
+INSERT INTO `tb_rule` VALUES ('60', '历史轨迹', '历史轨迹', 'menu', 'car:trackBack', 'map/trackback.html', '0', '58', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
+INSERT INTO `tb_rule` VALUES ('61', '应用监控', '应用监控', 'menu', 'app:monitor', 'http://120.79.100.1:7000/api/v1/monitor/login', '0', '1', '2018-12-12 16:17:48', '2018-12-12 16:17:48');
+INSERT INTO `tb_rule` VALUES ('62', '操作日志管理', '操作日志', 'menu', 'syslog:manage', 'logger.html', '0', '1', '2018-12-30 10:37:00', '2018-12-30 10:37:00');
+INSERT INTO `tb_rule` VALUES ('63', '读取对应日志', '读取对应日志', 'button', 'syslog:read', '/api/v2/logger/syslog', '0', '62', '2018-12-30 10:37:00', '2018-12-30 10:37:00');
+INSERT INTO `tb_rule` VALUES ('64', '获取所有操作日志', '获取所有操作日志', 'button', 'syslogs:read', '/api/v2/logger/syslogs', '0', '62', '2018-12-30 10:37:00', '2018-12-30 10:37:00');
+INSERT INTO `tb_rule` VALUES ('65', '获取本人操作日志', '获取本人操作日志', 'button', 'userSysLogs:read', '/api/v2/logger/userSysLogs', '0', '62', '2018-12-30 10:37:00', '2018-12-30 10:37:00');
+INSERT INTO `tb_rule` VALUES ('66', '查找用户操作日志', '查找用户操作日志', 'button', 'syslog:searchByUsername:read', '/api/v2/logger/syslog/searchByUsernam', '0', '62', '2018-12-30 10:37:00', '2018-12-30 10:37:00');
 
 -- ----------------------------
 -- Table structure for tb_user
@@ -359,20 +374,21 @@ CREATE TABLE `tb_user` (
   `comId` int(11) DEFAULT NULL COMMENT '公司id',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of tb_user
 -- ----------------------------
 INSERT INTO `tb_user` VALUES ('1', 'root', '63856b59dd154d64a2ebba7601c4c87b', '38BFDE3B8BA4F59C7CBA5DDFEDFB916B', '2018-12-12 13:32:05', '2018-12-22 09:26:12', '1', '1', '超级管理员', '14657861455', '27', '0', '广东广州', '211423432@qq.com', '董事长', '1', '1', '');
-INSERT INTO `tb_user` VALUES ('2', 'admin', '63856b59dd154d64a2ebba7601c4c87b', '38BFDE3B8BA4F59C7CBA5DDFEDFB916B', '2018-12-12 13:32:05', '2018-12-22 09:26:38', '1', '1', '管理员', '13634478678', '22', '1', '魔都上海', '83684633@163.com', '部门经理', '3', '2', '');
+INSERT INTO `tb_user` VALUES ('2', 'admin', '63856b59dd154d64a2ebba7601c4c87b', '38BFDE3B8BA4F59C7CBA5DDFEDFB916B', '2018-12-12 13:32:05', '2018-12-24 20:57:01', '1', '1', '管理员', '13634478678', '22', '1', '魔都上海', '83684633@163.com', '部门经理', '3', '2', '');
 INSERT INTO `tb_user` VALUES ('3', 'root1', '63856b59dd154d64a2ebba7601c4c87b', '38BFDE3B8BA4F59C7CBA5DDFEDFB916B', '2018-12-12 13:32:05', '2018-12-12 13:39:24', '无头像', '0', 'root', '13634676678', '21', '0', '广东广州', '21423432@qq.com', '总经理', '1', '1', '');
 INSERT INTO `tb_user` VALUES ('4', 'admin1', '63856b59dd154d64a2ebba7601c4c87b', '38BFDE3B8BA4F59C7CBA5DDFEDFB916B', '2018-12-12 13:32:05', '2018-12-12 13:32:05', '无头像', '1', 'admin', '13634478678', '22', '1', '魔都上海', '83684633@163.com', '董事长', '4', '2', '');
 INSERT INTO `tb_user` VALUES ('5', 'root2', '63856b59dd154d64a2ebba7601c4c87b', '38BFDE3B8BA4F59C7CBA5DDFEDFB916B', '2018-12-12 13:32:05', '2018-12-12 13:39:24', '无头像', '1', 'root', '13634676678', '21', '0', '广东广州', '21423432@qq.com', '总经理', '2', '1', '');
 INSERT INTO `tb_user` VALUES ('6', 'admin2', '63856b59dd154d64a2ebba7601c4c87b', '38BFDE3B8BA4F59C7CBA5DDFEDFB916B', '2018-12-12 13:32:05', '2018-12-12 13:32:05', '无头像', '1', 'admin', '13634478678', '22', '1', '魔都上海', '83684633@163.com', '董事长', '4', '2', '');
 INSERT INTO `tb_user` VALUES ('7', 'root3', '63856b59dd154d64a2ebba7601c4c87b', '38BFDE3B8BA4F59C7CBA5DDFEDFB916B', '2018-12-12 13:32:05', '2018-12-12 13:39:24', '无头像', '1', 'root', '13634676678', '21', '0', '广东广州', '21423432@qq.com', '总经理', '2', '1', '');
 INSERT INTO `tb_user` VALUES ('8', 'user', '63856b59dd154d64a2ebba7601c4c87b', '38BFDE3B8BA4F59C7CBA5DDFEDFB916B', '2018-12-12 13:32:05', '2018-12-22 09:25:06', '1', '0', '张三', '13634478678', '22', '1', '魔都上海', '83684633@163.com', '董事长', '3', '2', '');
-INSERT INTO `tb_user` VALUES ('9', 'demo1', 'a2ed5ff657424ca0afecca7513bc0394', '9EBEDC7DC621D8BEEDC6302F0D419DC5', '2018-12-24 11:19:16', '2018-12-24 11:19:16', '1', '1', 'demo1', '11111111111', '23', '0', '1', '11111', '1', null, '1', null);
+INSERT INTO `tb_user` VALUES ('9', 'demo1', 'a2ed5ff657424ca0afecca7513bc0394', '2CDA7AEF75BE823D4DCBFA1592F2F063', '2018-12-24 11:19:16', '2018-12-24 20:21:34', '1', '1', 'demo1', '11111111111', '23', '0', '1', '11111', '1', null, '1', null);
+INSERT INTO `tb_user` VALUES ('10', 'test', '76d4c7d991ba428c8b740c37e87df0db', '46EF5EDDB1D7ACA1A62B9321CD94DD39', '2018-12-24 16:51:11', '2018-12-24 16:51:11', '1', '1', '12', '12345678900', '34', '0', '44', '55', '66', null, '1', null);
 
 -- ----------------------------
 -- Table structure for tb_user_role
@@ -383,7 +399,7 @@ CREATE TABLE `tb_user_role` (
   `userId` int(255) NOT NULL COMMENT '用户id',
   `roleId` int(255) NOT NULL COMMENT '角色id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of tb_user_role
@@ -406,7 +422,6 @@ INSERT INTO `tb_user_role` VALUES ('18', '2', '3');
 INSERT INTO `tb_user_role` VALUES ('22', '7', '3');
 INSERT INTO `tb_user_role` VALUES ('23', '4', '2');
 INSERT INTO `tb_user_role` VALUES ('24', '4', '3');
-INSERT INTO `tb_user_role` VALUES ('26', '9', '1');
-INSERT INTO `tb_user_role` VALUES ('27', '9', '2');
-INSERT INTO `tb_user_role` VALUES ('28', '9', '3');
-INSERT INTO `tb_user_role` VALUES ('29', '9', '4');
+INSERT INTO `tb_user_role` VALUES ('34', '10', '1');
+INSERT INTO `tb_user_role` VALUES ('35', '10', '2');
+INSERT INTO `tb_user_role` VALUES ('38', '9', '4');

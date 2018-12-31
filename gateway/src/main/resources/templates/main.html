@@ -33,18 +33,17 @@
 
 				table.render({
 					elem: '#mainTable',
-					url: 'http://localhost:4001/api/v1/logger/userSysLogs?username='+username,
+					url: 'http://120.79.100.1:7000/api/v2/logger/userSysLogs?username='+username,
 					cols: [[
                         {field: 'id',title: 'id',width: '5%'},
-                        {field: 'username',title: '用户名',width: '6%'},
+                        {field: 'username',title: '用户名',width: '10%'},
                         {field: 'ip',title: 'ip',width: '10%'},
-                        {field: 'operation',title: '操作',width: '10%'},
-                        {field: 'url',title: 'url',width: '8%'},
-                        {field: 'requestmethod',title: '请求方式',width: '6%'},
-                        {field: 'method',title: '方法',width: '25%'},
-                        {field: 'params',title: 'params',width: '10%'},
-                        {field: 'time',title: 'time',width: '5%'},
-                        {field: 'createdate',title: '创建时间',width: '15%'},
+                        {field: 'operation',title: '操作',width: '15%'},
+                        {field: 'url',title: 'url',width: '15%'},
+                        {field: 'requestmethod',title: '请求方式',width: '7%'},
+                        {field: 'params',title: '参数',width: '15%'},
+                        {field: 'time',title: '耗时（ms）',width: '8%'},
+                        {field: 'createdate',title: '创建时间',width: '15%'}
 					]],
 					page: true,
 					limit:20,

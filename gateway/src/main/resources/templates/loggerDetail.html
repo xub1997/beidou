@@ -101,7 +101,7 @@
     var loggerId = sessionStorage.getItem('loggerId');
     $.ajax({
         type:'GET',
-        url:'http://localhost:4001/api/v1/logger/syslog/'+loggerId,
+        url:'http://120.79.100.1:7000/api/v2/logger/syslog/'+loggerId,
         success:function (res) {
             console.log(res);
             var data =res.data;

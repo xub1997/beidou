@@ -50,19 +50,18 @@
 
         table.render({
             elem: '#userTable',
-            url: 'http://localhost:4001/api/v1/logger/syslogs',
+            url: 'http://120.79.100.1:7000/api/v2/logger/syslogs',
             cols: [
                 [
                     {field: 'id',title: 'id',width: '5%'},
-                    {field: 'username',title: '用户名',width: '5%'},
+                    {field: 'username',title: '用户名',width: '10%'},
                     {field: 'ip',title: 'ip',width: '10%'},
                     {field: 'operation',title: '操作',width: '10%'},
-                    {field: 'url',title: 'url',width: '10%'},
+                    {field: 'url',title: 'url',width: '15%'},
                     {field: 'requestmethod',title: '请求方式',width: '5%'},
-                    {field: 'method',title: '方法',width: '25%'},
-                    {field: 'params',title: 'params',width: '10%'},
-                    {field: 'time',title: 'time',width: '5%'},
-                    {field: 'createdate',title: '创建时间',width: '10%'},
+                    {field: 'params',title: '参数',width: '15%'},
+                    {field: 'time',title: '耗时',width: '10%'},
+                    {field: 'createdate',title: '创建时间',width: '15%'},
                     {title: '操作',align: 'center',toolbar: '#barDemo',width: '5%'}
                 ]
             ],
@@ -105,7 +104,7 @@
     });
     $("#btn")[0].addEventListener('click',function(){
         var username=$("#username").val();
-        var _url='http://localhost:4001/api/v1/logger/userSysLogs?username='+username;
+        var _url='http://120.79.100.1:7000/api/v2/logger/syslog/searchByUsername?username='+username;
         //console.log(_url);
         layui.use('table',function(){
             var table = layui.table;
@@ -114,15 +113,14 @@
                 url: _url,
                 cols: [
                     [{field: 'id',title: 'id',width: '5%'},
-                        {field: 'username',title: '用户名',width: '5%'},
+                        {field: 'username',title: '用户名',width: '10%'},
                         {field: 'ip',title: 'ip',width: '10%'},
                         {field: 'operation',title: '操作',width: '10%'},
-                        {field: 'url',title: 'url',width: '10%'},
+                        {field: 'url',title: 'url',width: '15%'},
                         {field: 'requestmethod',title: '请求方式',width: '5%'},
-                        {field: 'method',title: '方法',width: '25%'},
-                        {field: 'params',title: 'params',width: '10%'},
-                        {field: 'time',title: 'time',width: '5%'},
-                        {field: 'createdate',title: '创建时间',width: '10%'},
+                        {field: 'params',title: '参数',width: '15%'},
+                        {field: 'time',title: '耗时',width: '10%'},
+                        {field: 'createdate',title: '创建时间',width: '15%'},
                         {title: '操作',align: 'center',toolbar: '#barDemo',width: '5%'}
                     ]
                 ],

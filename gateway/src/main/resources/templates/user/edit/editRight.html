@@ -82,7 +82,7 @@
     $('#rulename').val(rulename);
     $.ajax({
         type: 'GET',
-        url:'http://120.100.79.1:7000/api/v1/user/rule/'+rID,
+        url:'http://120.79.100.1:7000/api/v1/user/rule/'+rID,
         async:false,
         success:function (res) {
             console.log(res);
@@ -100,7 +100,7 @@
         form.on('submit(formDemo)', function(data) {
             //console.log(data.field);
             $.ajax({
-                url:"http://120.100.79.1:7000/api/v1/user/rule/"+rID,
+                url:"http://120.79.100.1:7000/api/v1/user/rule/"+rID,
                 type:"POST",
                 data:{
                     _method:'put',

@@ -1,7 +1,7 @@
-package com.beidou.gateway.test;
+package com.beidou.gateway.service;
 
 
-import com.beidou.gateway.entity.SysLog;
+import com.beidou.common.entity.SysLog;
 import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
