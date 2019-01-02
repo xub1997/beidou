@@ -1,8 +1,8 @@
-package com.beidou.position.controller;
+package com.beidou.position.business.controller;
 
 
-import com.beidou.position.entity.History;
-import com.beidou.position.service.HistoryService;
+import com.beidou.position.business.entity.History;
+import com.beidou.position.business.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

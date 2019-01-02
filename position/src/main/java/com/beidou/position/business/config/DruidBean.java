@@ -1,4 +1,4 @@
-package com.beidou.position.config;
+package com.beidou.position.business.config;
 
 
 import com.alibaba.druid.pool.DruidDataSource;

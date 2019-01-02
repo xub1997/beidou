@@ -1,7 +1,7 @@
-package com.beidou.position.config;
+package com.beidou.position.business.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.beidou.position.interceptor.SqlStatementInterceptor;
+import com.beidou.position.business.interceptor.SqlStatementInterceptor;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

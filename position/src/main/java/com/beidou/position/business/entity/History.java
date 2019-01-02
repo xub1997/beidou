@@ -1,4 +1,4 @@
-package com.beidou.position.entity;
+package com.beidou.position.business.entity;
 
 import javax.persistence.*;
 

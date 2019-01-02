@@ -1,6 +1,6 @@
 package com.beidou.position;
 
-import com.beidou.position.service.HistoryService;
+import com.beidou.position.business.service.HistoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

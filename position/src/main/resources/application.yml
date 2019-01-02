@@ -12,9 +12,9 @@ mybatis:
   #映射文件位置
   mapper-locations: classpath:mapper/*.xml
   #实体类包位置
-  type-aliases-package: com.beidou.position.entity
+  type-aliases-package: com.beidou.position.business.entity
 mapper:
-  mappers: com.beidou.position.common.IBaseMapper
+  mappers: com.beidou.position.business.common.IBaseMapper
   not-empty: false
   identity: MYSQL
 server:

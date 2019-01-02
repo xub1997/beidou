@@ -1,8 +1,6 @@
-package com.beidou.position.common;
+package com.beidou.position.business.common;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.BaseMapper;
 import tk.mybatis.mapper.common.ConditionMapper;
 import tk.mybatis.mapper.common.IdsMapper;

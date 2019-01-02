@@ -1,7 +1,7 @@
-package com.beidou.position.service;
+package com.beidou.position.business.service;
 
-import com.beidou.position.dao.HistoryMapper;
-import com.beidou.position.entity.History;
+import com.beidou.position.business.dao.HistoryMapper;
+import com.beidou.position.business.entity.History;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

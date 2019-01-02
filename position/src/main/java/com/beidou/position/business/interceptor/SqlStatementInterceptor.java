@@ -1,4 +1,4 @@
-package com.beidou.position.interceptor;
+package com.beidou.position.business.interceptor;
 
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
