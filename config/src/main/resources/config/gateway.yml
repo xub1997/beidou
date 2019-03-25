@@ -10,7 +10,8 @@ spring:
   application:
     name: gateway
   redis:
-      host: localhost
+      #host: localhost
+      host: 120.76.196.44
       port: 6379
       jedis:
         pool:

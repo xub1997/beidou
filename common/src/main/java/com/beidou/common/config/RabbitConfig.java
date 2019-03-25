@@ -19,13 +19,14 @@ public class RabbitConfig {
 
     public  final static String queueName = "syslog";
 
-    private final static String hostname="127.0.0.1";
+    //private final static String hostname="127.0.0.1";
+    private final static String hostname="120.76.196.44";
 
     private final static int port=5672;
 
-    private final static String username="guest";
+    private final static String username="admin";
 
-    private final static String pwd="guest";
+    private final static String pwd="admin";
 
 
     @Bean

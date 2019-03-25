@@ -80,12 +80,13 @@
     </div>
 </div>
 <script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/app.js"></script>
 <script src="../../layui/layui.js"></script>
 <script>
 
     $.ajax({
         type: 'GET',
-        url: 'http://120.79.100.1:7000/api/v1/user/rules',
+        url: app.serverUrl+'/api/v1/user/rules',
         async:false,
         success:function (res) {
             console.log(res);
@@ -105,7 +106,7 @@
         form.on('submit(formDemo)', function(data) {
             console.log(data.field);
             $.ajax({
-                url:"http://120.79.100.1:7000/api/v1/user/rule",
+                url:app.serverUrl+"/api/v1/user/rule",
                 type:"POST",
                 data:{
                     rulename:data.field.rulename,

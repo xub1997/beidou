@@ -43,13 +43,14 @@
 			</form>
 		</div>
 		<script src="../../js/jquery-3.3.1.min.js"></script>
+		<script src="../../js/app.js"></script>
 		<script src="../../layui/layui.js"></script>
 		<script>
 			var uId = sessionStorage.getItem('uid');
 			var userId;
 			$.ajax({
 				type:'GET',
-				url:'http://120.79.100.1:7000/api/v1/user/user/'+uId,
+				url:app.serverUrl+'/api/v1/user/user/'+uId,
 				async:false,
 				success:function (res) {
                     $('#username').val(res.data[0].username);
@@ -57,7 +58,7 @@
 					userId=res.data[0].id;
                     $.ajax({
 						type: 'GET',
-						url: "http://120.79.100.1:7000/api/v1/user/role/getAll",
+						url: app.serverUrl+"/api/v1/user/role/getAll",
 						async: false,
 						success:function (res) {
                             var data = res.data;
@@ -69,7 +70,7 @@
 
                                 $.ajax({
                                     type:'GET',
-                                    url:"http://120.79.100.1:7000/api/v1/user/userRole?userId="+uId,
+                                    url:app.serverUrl+"/api/v1/user/userRole?userId="+uId,
                                     async:false,
                                     success:function (res) {
                                         //console.log(res);
@@ -106,7 +107,7 @@
                     console.log(roleIdArr.toString());
                     $.ajax({
 						type:'POST',
-						url:'http://120.79.100.1:7000/api/v1/user/userRole',
+						url:app.serverUrl+'/api/v1/user/userRole',
 						data:{
 						    _method:'put',
                             userId:userId,
@@ -133,7 +134,7 @@
             document.getElementById('btnReset').addEventListener('click',function (ev) {
                 $.ajax({
                     type:'GET',
-                    url:'http://120.79.100.1:7000/api/v1/user/user/'+uId,
+                    url:app.serverUrl+'/api/v1/user/user/'+uId,
                     success:function (res) {
                         console.log(res);
                         $('#username').val(res.data[0].username);

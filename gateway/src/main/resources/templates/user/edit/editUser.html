@@ -107,6 +107,7 @@
 			</div>
 		</div>
 		<script src="../../js/jquery-3.3.1.min.js"></script>
+		<script src="../../js/app.js"></script>
 		<script src="../../layui/layui.js"></script>
 		<script>
             var curId = sessionStorage.getItem('id');
@@ -114,7 +115,7 @@
             var deptid;
             $.ajax({
 				type: "get",
-				url:'http://120.79.100.1:7000/api/v1/user/user/'+curId,
+				url:app.serverUrl+'/api/v1/user/user/'+curId,
 				async:false,
 				success:function (res) {
                     console.log(res);
@@ -146,7 +147,7 @@
                     }
                     $.ajax({
 						type:'GET',
-						url:"http://120.79.100.1:7000/api/v1/user/companys",
+						url:app.serverUrl+"/api/v1/user/companys",
 						async: false,
 						success:function (res) {
                             var data = res.data.list;
@@ -164,7 +165,7 @@
                             }
                             $.ajax({
 								type:"GET",
-								url:"http://120.79.100.1:7000/api/v1/user/comDept?comId="+comId,
+								url:app.serverUrl+"/api/v1/user/comDept?comId="+comId,
 								async:false,
 								success:function (res) {
                                     var data = res.data;
@@ -197,7 +198,7 @@
 						$("#deps option").remove();
 					}, 100);
 
-					$.get('http://120.79.100.1:7000/api/v1/user/comDept?comId=' + res.value, function(res) {
+					$.get(app.serverUrl+'/api/v1/user/comDept?comId=' + res.value, function(res) {
 						//console.log(res)
 						for (var i = 0; i < res.data.length; i++) {
 							//console.log(data[i].id,data[i].name);
@@ -210,7 +211,7 @@
 				form.on('submit(formDemo)', function(data) {
 					console.log(JSON.stringify(data.field));
 					$.ajax({
-						url:"http://120.79.100.1:7000/api/v1/user/user/"+data.field.id,
+						url:app.serverUrl+"/api/v1/user/user/"+data.field.id,
 						type: "POST",
 						data: {
 							_method:'put',

@@ -75,6 +75,7 @@
     </div>
 </div>
 <script src="../../js/jquery-3.3.1.min.js"></script>
+<script src="../../js/app.js"></script>
 <script src="../../layui/layui.js"></script>
 <script>
     var rID = sessionStorage.getItem("rID");
@@ -82,7 +83,7 @@
     $('#rulename').val(rulename);
     $.ajax({
         type: 'GET',
-        url:'http://120.79.100.1:7000/api/v1/user/rule/'+rID,
+        url:app.serverUrl+'/api/v1/user/rule/'+rID,
         async:false,
         success:function (res) {
             console.log(res);
@@ -100,7 +101,7 @@
         form.on('submit(formDemo)', function(data) {
             //console.log(data.field);
             $.ajax({
-                url:"http://120.79.100.1:7000/api/v1/user/rule/"+rID,
+                url:app.serverUrl+"/api/v1/user/rule/"+rID,
                 type:"POST",
                 data:{
                     _method:'put',
