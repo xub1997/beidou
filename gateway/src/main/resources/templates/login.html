@@ -1,100 +1,124 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<link rel="icon" href="img/newlogo.png" type="image/x-icon" />
-		<meta name="renderer" content="webkit">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<title>智能车辆监控管理平台</title>
-		<link rel="stylesheet" href="layui/css/layui.css" media="all" />
-		<link rel="stylesheet" href="css/login.css">
-	</head>
-	<body onkeydown="keyLogin()">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="img/newlogo.png" type="image/x-icon"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>智能车辆监控管理平台</title>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body onkeydown="keyLogin()">
 
-		<div class="container">
-			<div class="title">智能车辆监控管理平台</div>
-			<div class="layui-form layui-form-pane" lay-filter="form" style="padding: 0 10px;">
-				<div class="layui-form-item" style="margin-bottom: 20px;">
-					<label class="layui-form-label" ><i class="layui-icon">&#xe66f;</i> 账号</label>
-					<div class="layui-input-block">
-						<input type="text" name="username" id="username"  value="admin" required lay-verify="required" class="layui-input">
-					</div>
-				</div>
+<div class="container">
+    <div class="title">智能车辆监控管理平台</div>
+    <div class="layui-form layui-form-pane" lay-filter="form" style="padding: 0 10px;">
+        <div class="layui-form-item" style="margin-bottom: 20px;">
+            <label class="layui-form-label"><i class="layui-icon">&#xe66f;</i> 账号</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" id="username" value="admin" required lay-verify="required"
+                       class="layui-input">
+            </div>
+        </div>
 
-				<div class="layui-form-item" style="margin-bottom: 20px;">
-					<label class="layui-form-label" ><i class="layui-icon">&#xe673;</i> 密码</label>
-					<div class="layui-input-block">
-						<input type="password" name="pwd" id="pwd" value="345" required lay-verify="required" class="layui-input">
-					</div>
-				</div>
-				<div class="layui-form-item" style="margin-bottom: 20px;">
-					<label class="layui-form-label" ><i class="layui-icon">&#xe673;</i> 验证码</label>
-					<div class="layui-input-block">
-						<input type="text" name="code" id="code"  required lay-verify="required" class="layui-input">
-						<span class="code"><img src="/gifCode" alt="" style="height:38px"></span>
-					</div>
-				</div>
-				<div class="layui-form-item" >
-					<div class="layui-input-block" style="width: 100%;margin: 0;">
-						<button class="layui-btn" style="width: 100%;font-size: 18px;letter-spacing: 1px;" lay-submit lay-filter="formDemo">登录</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<footer >
-			<div class="footer">© 2018 智能车辆监控管理平台 - All Rights Reserved</div>
-		</footer>
+        <div class="layui-form-item" style="margin-bottom: 20px;">
+            <label class="layui-form-label"><i class="layui-icon">&#xe673;</i> 密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="pwd" id="pwd" value="345" required lay-verify="required"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item" style="margin-bottom: 20px;">
+            <label class="layui-form-label"><i class="layui-icon">&#xe673;</i> 验证码</label>
+            <div class="layui-input-block">
+                <input type="text" name="code" id="code" required lay-verify="required" class="layui-input">
+                <span class="code"><img src="" alt="验证码" style="height:38px" onclick="updateImg()"></span>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="width: 100%;margin: 0;">
+                <button class="layui-btn" style="width: 100%;font-size: 18px;letter-spacing: 1px;" lay-submit
+                        lay-filter="formDemo">登录
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="footer">© 2018 智能车辆监控管理平台 - All Rights Reserved</div>
+</footer>
 
-		<script src="js/jquery-3.3.1.min.js"></script>
-		<script src="js/app.js"></script>
-		<script src="layui/layui.js"></script>
-		<script>
-			//sessionStorage.clear();
-			layui.use('form', function() {
-				var form = layui.form;
-				form.on('submit(formDemo)', function(data) {
-					//console.log(data.field);
-					$.ajax({
-						type: 'POST',
-						url: app.serverUrl+"/login",
-						data:{
-                            username: data.field.username,
-                            pwd: data.field.pwd,
-                            code: data.field.code
-						},
-						success:function (res) {
-                            console.log(res);
-                            if (res.msg != "登录成功！"){
-                                layer.msg(res.msg, {
-                                    icon: 5,
-                                    time: 1500
-                                });
-                                return false;
-                            }
-                            layer.msg(res.msg, {
-                                icon: 6,
-                                time: 1500
-                            }, function() {
-                                var menus = res.menu.children;
-                                var username=res.data.username;
-                                var userId=res.data.id;
-                                //console.log(menus);
-                                sessionStorage.setItem("menus",JSON.stringify(menus));
-                                sessionStorage.setItem('username',username);
-                                sessionStorage.setItem('userId',userId);
-                                window.location.href="index.html";//跳转
-                            });
-                        }
-					});
-					return false;
-				});
-			});
-			function keyLogin() {
-				if (event.keyCode == 13){
-				    document.querySelector('.layui-btn').click();
-				}
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/app.js"></script>
+<script src="layui/layui.js"></script>
+<script>
+    //sessionStorage.clear();
+    var img = document.getElementsByTagName('img');
+    console.log(img);
+    img[0].setAttribute('src', '/gifCode');
+    function updateImg() {
+        img[0].removeAttribute('src');
+        $.ajax({
+            type: 'GET',
+            async:false,
+            url: '/gifCode',
+            success: function (res) {
+                //console.log(res);
+            },
+            error: function (err) {
+                //console.log(err);
             }
-		</script>
-	</body>
+        });
+        img[0].setAttribute('src', '/gifCode');
+    }
+
+    layui.use('form', function () {
+        var form = layui.form;
+        form.on('submit(formDemo)', function (data) {
+            //console.log(data.field);
+            $.ajax({
+                type: 'POST',
+                url: app.serverUrl + "/login",
+                data: {
+                    username: data.field.username,
+                    pwd: data.field.pwd,
+                    code: data.field.code
+                },
+                success: function (res) {
+                    console.log(res);
+                    if (res.msg != "登录成功！") {
+                        layer.msg(res.msg, {
+                            icon: 5,
+                            time: 1500
+                        });
+                        return false;
+                    }
+                    layer.msg(res.msg, {
+                        icon: 6,
+                        time: 1500
+                    }, function () {
+                        var menus = res.menu.children;
+                        var username = res.data.username;
+                        var userId = res.data.id;
+                        //console.log(menus);
+                        sessionStorage.setItem("menus", JSON.stringify(menus));
+                        sessionStorage.setItem('username', username);
+                        sessionStorage.setItem('userId', userId);
+                        window.location.href = "index.html";//跳转
+                    });
+                }
+            });
+            return false;
+        });
+    });
+
+    function keyLogin() {
+        if (event.keyCode == 13) {
+            document.querySelector('.layui-btn').click();
+        }
+    }
+</script>
+</body>
 </html>
