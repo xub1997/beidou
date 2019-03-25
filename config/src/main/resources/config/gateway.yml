@@ -20,7 +20,12 @@ spring:
           max-active: 8
           max-wait: -1
       timeout: 0
-
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java,classpath:/templates
+  thymeleaf:
+    cache: false
 
 
 eureka:
