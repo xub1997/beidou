@@ -57,21 +57,21 @@
     //sessionStorage.clear();
     var img = document.getElementsByTagName('img');
     console.log(img);
-    img[0].setAttribute('src', '/gifCode');
+    img[0].setAttribute('src', app.serverUrl+ '/gifCode');
     function updateImg() {
         img[0].removeAttribute('src');
-        $.ajax({
+       /* $.ajax({
             type: 'GET',
             async:false,
-            url: '/gifCode',
+            url: app.serverUrl+'/gifCode',
             success: function (res) {
                 //console.log(res);
             },
             error: function (err) {
                 //console.log(err);
             }
-        });
-        img[0].setAttribute('src', '/gifCode');
+        });*/
+        img[0].setAttribute('src',  app.serverUrl+'/gifCode?d='+Math.random());
     }
 
     layui.use('form', function () {
