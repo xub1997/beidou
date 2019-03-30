@@ -17,7 +17,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      #单机 defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/       #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址（单机）。
+      #单机 defaultZone: http://${eureka.instance.hostname}:${session.port}/eureka/       #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址（单机）。
       defaultZone: http://admin:admin@register1:8001/eureka/,http://admin:admin@register2:8002/eureka/
 
   instance:

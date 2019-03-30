@@ -1,306 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beidou.car.dao.CarMapper">
-  <resultMap id="BaseResultMap" type="com.beidou.car.entity.Car">
-    <id column="carId" jdbcType="INTEGER" property="carid" />
-    <result column="carNum" jdbcType="VARCHAR" property="carnum" />
-    <result column="carDescription" jdbcType="VARCHAR" property="cardescription" />
-    <result column="carType" jdbcType="INTEGER" property="cartype" />
-    <result column="brand" jdbcType="VARCHAR" property="brand" />
-    <result column="seat" jdbcType="INTEGER" property="seat" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-    <result column="remark" jdbcType="VARCHAR" property="remark" />
-    <result column="createTime" jdbcType="VARCHAR" property="createtime" />
-    <result column="updateTime" jdbcType="VARCHAR" property="updatetime" />
-    <result column="bearWeight" jdbcType="DOUBLE" property="bearweight" />
+<mapper namespace="com.beidou.car.web.dao.CarMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.car.web.entity.Car">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="car_id" jdbcType="VARCHAR" property="carId" />
+    <result column="car_name" jdbcType="VARCHAR" property="carName" />
+    <result column="car_type_id" jdbcType="VARCHAR" property="carTypeId" />
+    <result column="car_num" jdbcType="INTEGER" property="carNum" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="sim_no" jdbcType="VARCHAR" property="simNo" />
+    <result column="car_status" jdbcType="INTEGER" property="carStatus" />
+    <result column="car_last_position" jdbcType="VARCHAR" property="carLastPosition" />
+    <result column="last_stop_time" jdbcType="TIMESTAMP" property="lastStopTime" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
+    <result column="display_icon" jdbcType="VARCHAR" property="displayIcon" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    carId, carNum, carDescription, carType, brand, seat, status, remark, createTime, 
-    updateTime, bearWeight
-  </sql>
-  <select id="selectByExample" parameterType="com.beidou.car.entity.CarExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tb_car
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
+
+  <select id="listCar" resultType="com.beidou.car.web.entity.vo.CarVO">
+    SELECT
+      c.car_id carId,
+      c.car_name carName,
+      c.car_type_id carTypeId,
+      c.car_num carNum,
+      c.user_id userId,
+      c.sim_no simNo,
+      c.car_status carStatus,
+      c.car_last_position carLastPosition,
+      c.last_stop_time LastStopTime,
+      c.display_name displayName,
+      c.display_icon displayIcon,
+      c.create_time createTime,
+      u. NAME driver,
+      ct.type_desc typeDesc
+    FROM
+      tb_car c
+        LEFT JOIN tb_user u ON c.user_id = u.id
+        LEFT JOIN tb_car_type ct ON c.car_type_id = ct.car_type_id
+    <if test="carNum != null and carNum !=''" >
+      and LOCATE(#{carNum}, c.car_num)>0
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_car
-    where carId = #{carid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_car
-    where carId = #{carid,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.beidou.car.entity.CarExample">
-    delete from tb_car
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.beidou.car.entity.Car">
-    insert into tb_car (carId, carNum, carDescription, 
-      carType, brand, seat, 
-      status, remark, createTime, 
-      updateTime, bearWeight)
-    values (#{carid,jdbcType=INTEGER}, #{carnum,jdbcType=VARCHAR}, #{cardescription,jdbcType=VARCHAR}, 
-      #{cartype,jdbcType=INTEGER}, #{brand,jdbcType=VARCHAR}, #{seat,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}, 
-      #{updatetime,jdbcType=VARCHAR}, #{bearweight,jdbcType=DOUBLE})
-  </insert>
-  <insert id="insertSelective" parameterType="com.beidou.car.entity.Car">
-    insert into tb_car
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="carid != null">
-        carId,
-      </if>
-      <if test="carnum != null">
-        carNum,
-      </if>
-      <if test="cardescription != null">
-        carDescription,
-      </if>
-      <if test="cartype != null">
-        carType,
-      </if>
-      <if test="brand != null">
-        brand,
-      </if>
-      <if test="seat != null">
-        seat,
-      </if>
-      <if test="status != null">
-        status,
-      </if>
-      <if test="remark != null">
-        remark,
-      </if>
-      <if test="createtime != null">
-        createTime,
-      </if>
-      <if test="updatetime != null">
-        updateTime,
-      </if>
-      <if test="bearweight != null">
-        bearWeight,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="carid != null">
-        #{carid,jdbcType=INTEGER},
-      </if>
-      <if test="carnum != null">
-        #{carnum,jdbcType=VARCHAR},
-      </if>
-      <if test="cardescription != null">
-        #{cardescription,jdbcType=VARCHAR},
-      </if>
-      <if test="cartype != null">
-        #{cartype,jdbcType=INTEGER},
-      </if>
-      <if test="brand != null">
-        #{brand,jdbcType=VARCHAR},
-      </if>
-      <if test="seat != null">
-        #{seat,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="updatetime != null">
-        #{updatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="bearweight != null">
-        #{bearweight,jdbcType=DOUBLE},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.beidou.car.entity.CarExample" resultType="java.lang.Long">
-    select count(*) from tb_car
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update tb_car
-    <set>
-      <if test="record.carid != null">
-        carId = #{record.carid,jdbcType=INTEGER},
-      </if>
-      <if test="record.carnum != null">
-        carNum = #{record.carnum,jdbcType=VARCHAR},
-      </if>
-      <if test="record.cardescription != null">
-        carDescription = #{record.cardescription,jdbcType=VARCHAR},
-      </if>
-      <if test="record.cartype != null">
-        carType = #{record.cartype,jdbcType=INTEGER},
-      </if>
-      <if test="record.brand != null">
-        brand = #{record.brand,jdbcType=VARCHAR},
-      </if>
-      <if test="record.seat != null">
-        seat = #{record.seat,jdbcType=INTEGER},
-      </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
-      </if>
-      <if test="record.remark != null">
-        remark = #{record.remark,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createtime != null">
-        createTime = #{record.createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.updatetime != null">
-        updateTime = #{record.updatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.bearweight != null">
-        bearWeight = #{record.bearweight,jdbcType=DOUBLE},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update tb_car
-    set carId = #{record.carid,jdbcType=INTEGER},
-      carNum = #{record.carnum,jdbcType=VARCHAR},
-      carDescription = #{record.cardescription,jdbcType=VARCHAR},
-      carType = #{record.cartype,jdbcType=INTEGER},
-      brand = #{record.brand,jdbcType=VARCHAR},
-      seat = #{record.seat,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
-      remark = #{record.remark,jdbcType=VARCHAR},
-      createTime = #{record.createtime,jdbcType=VARCHAR},
-      updateTime = #{record.updatetime,jdbcType=VARCHAR},
-      bearWeight = #{record.bearweight,jdbcType=DOUBLE}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.beidou.car.entity.Car">
-    update tb_car
-    <set>
-      <if test="carnum != null">
-        carNum = #{carnum,jdbcType=VARCHAR},
-      </if>
-      <if test="cardescription != null">
-        carDescription = #{cardescription,jdbcType=VARCHAR},
-      </if>
-      <if test="cartype != null">
-        carType = #{cartype,jdbcType=INTEGER},
-      </if>
-      <if test="brand != null">
-        brand = #{brand,jdbcType=VARCHAR},
-      </if>
-      <if test="seat != null">
-        seat = #{seat,jdbcType=INTEGER},
-      </if>
-      <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="remark != null">
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null">
-        createTime = #{createtime,jdbcType=VARCHAR},
-      </if>
-      <if test="updatetime != null">
-        updateTime = #{updatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="bearweight != null">
-        bearWeight = #{bearweight,jdbcType=DOUBLE},
-      </if>
-    </set>
-    where carId = #{carid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.beidou.car.entity.Car">
-    update tb_car
-    set carNum = #{carnum,jdbcType=VARCHAR},
-      carDescription = #{cardescription,jdbcType=VARCHAR},
-      carType = #{cartype,jdbcType=INTEGER},
-      brand = #{brand,jdbcType=VARCHAR},
-      seat = #{seat,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=VARCHAR},
-      updateTime = #{updatetime,jdbcType=VARCHAR},
-      bearWeight = #{bearweight,jdbcType=DOUBLE}
-    where carId = #{carid,jdbcType=INTEGER}
-  </update>
 </mapper>

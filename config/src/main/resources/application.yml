@@ -1,6 +1,6 @@
 spring:
   application:
-    name: config-server
+    name: config-session
       #（加入密码认证）
   security:
     user:

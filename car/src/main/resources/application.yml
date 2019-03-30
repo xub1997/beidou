@@ -1,0 +1,14 @@
+#mybatis
+mybatis:
+  mapper-locations: classpath:dao/*.xml
+  type-aliases-package: com.beidou.car.entity
+mapper:
+  mappers: com.beidou.car.web.common.IBaseMapper
+  not-empty: false
+  identity: MYSQL
+# ===================================================================
+# netty
+# ===================================================================
+netty:
+  config:
+    port: 8088

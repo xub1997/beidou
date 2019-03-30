@@ -41,9 +41,9 @@ public class TcpServer{
                     });
 
             ChannelFuture f = b.bind(PORT).sync();
-            System.out.println("started server");
+            System.out.println("started session");
             f.channel().closeFuture().sync();
-            System.out.println("stoped server");
+            System.out.println("stoped session");
         }catch (InterruptedException e){
             System.out.println(e);
         }

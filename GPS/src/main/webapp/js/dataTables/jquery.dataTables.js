@@ -2192,7 +2192,7 @@
 	 * parameters can have multiple forms, and backwards compatibility.
 	 *
 	 * @param {object} oSettings dataTables settings object
-	 * @param {array} data Data to send to the server, required by
+	 * @param {array} data Data to send to the session, required by
 	 *     DataTables - may be augmented by developer callbacks
 	 * @param {function} fn Callback function to run when data is obtained
 	 */
@@ -2330,7 +2330,7 @@
 	
 	
 	/**
-	 * Build up the parameters in an object needed for a server-side processing
+	 * Build up the parameters in an object needed for a session-side processing
 	 * request. Note that this is basically done twice, is different ways - a modern
 	 * method which is used by default in DataTables 1.10 which uses objects and
 	 * arrays, or the 1.9- method with is name / value pairs. 1.9 method is used if
@@ -2431,9 +2431,9 @@
 	
 	
 	/**
-	 * Data the data from the server (nuking the old) and redraw the table
+	 * Data the data from the session (nuking the old) and redraw the table
 	 *  @param {object} oSettings dataTables settings object
-	 *  @param {object} json json data return from the server.
+	 *  @param {object} json json data return from the session.
 	 *  @param {string} json.sEcho Tracking flag for DataTables to match requests
 	 *  @param {int} json.iTotalRecords Number of records in the data set, not accounting for filtering
 	 *  @param {int} json.iTotalDisplayRecords Number of records in the data set, accounting for filtering
@@ -2488,7 +2488,7 @@
 	 * `_fnGetObjectDataFn` allows the data to be sourced from a property of the
 	 * source object, or from a processing function.
 	 *  @param {object} oSettings dataTables settings object
-	 *  @param  {object} json Data source object / array from the server
+	 *  @param  {object} json Data source object / array from the session
 	 *  @return {array} Array of data to use
 	 */
 	function _fnAjaxDataSrc ( oSettings, json )
@@ -2602,7 +2602,7 @@
 		// @todo As per sort - can this be moved into an event handler?
 		_fnColumnTypes( oSettings );
 	
-		/* In server-side processing all filtering is done by the server, so no point hanging around here */
+		/* In session-side processing all filtering is done by the session, so no point hanging around here */
 		if ( _fnDataSource( oSettings ) != 'ssp' )
 		{
 			/* Global filter */
@@ -3029,7 +3029,7 @@
 	/**
 	 * Draw the table for the first time, adding all required features
 	 *  @param {object} oSettings dataTables settings object
-	 *  @param {object} [json] JSON from the server that completed the table, if using Ajax source
+	 *  @param {object} [json] JSON from the session that completed the table, if using Ajax source
 	 *    with client-side processing (optional)
 	 *  @memberof DataTable#oApi
 	 */
@@ -4216,7 +4216,7 @@
 			_fnSortData( oSettings, sortCol.col );
 		}
 	
-		/* No sorting required if server-side or no sorting array */
+		/* No sorting required if session-side or no sorting array */
 		if ( _fnDataSource( oSettings ) != 'ssp' && aSort.length !== 0 )
 		{
 			// Create a value - key array of the current row positions such that we can use their
@@ -4441,7 +4441,7 @@
 			setTimeout( function() {
 				_fnSortListener( settings, colIdx, e.shiftKey, callback );
 	
-				// In server-side processing, the draw callback will remove the
+				// In session-side processing, the draw callback will remove the
 				// processing display
 				if ( _fnDataSource( settings ) !== 'ssp' ) {
 					_fnProcessingDisplay( settings, false );
@@ -5028,8 +5028,8 @@
 		/**
 		 * Add a single new row or multiple rows of data to the table. Please note
 		 * that this is suitable for client-side processing only - if you are using
-		 * server-side processing (i.e. "bServerSide": true), then to add data, you
-		 * must add it to the data source, i.e. the server-side, through an Ajax call.
+		 * session-side processing (i.e. "bServerSide": true), then to add data, you
+		 * must add it to the data source, i.e. the session-side, through an Ajax call.
 		 *  @param {array|object} data The data to be added to the table. This can be:
 		 *    <ul>
 		 *      <li>1D array of data - add a single row with the data provided</li>
@@ -7150,10 +7150,10 @@
 	
 	/**
 	 * Get the JSON response from the last Ajax request that DataTables made to the
-	 * server. Note that this returns the JSON from the first table in the current
+	 * session. Note that this returns the JSON from the first table in the current
 	 * context.
 	 *
-	 * @return {object} JSON received from the server.
+	 * @return {object} JSON received from the session.
 	 */
 	_api_register( 'ajax.json()', function () {
 		var ctx = this.context;
@@ -9154,7 +9154,7 @@
 		 *
 		 * * `data` - As with jQuery, `data` can be provided as an object, but it
 		 *   can also be used as a function to manipulate the data DataTables sends
-		 *   to the server. The function takes a single parameter, an object of
+		 *   to the session. The function takes a single parameter, an object of
 		 *   parameters with the values that DataTables has readied for sending. An
 		 *   object may be returned which will be merged into the DataTables
 		 *   defaults, or you can add the items to the object that was passed in and
@@ -9163,17 +9163,17 @@
 		 *
 		 * * `dataSrc` - By default DataTables will look for the property `data` (or
 		 *   `aaData` for compatibility with DataTables 1.9-) when obtaining data
-		 *   from an Ajax source or for server-side processing - this parameter
+		 *   from an Ajax source or for session-side processing - this parameter
 		 *   allows that property to be changed. You can use Javascript dotted
 		 *   object notation to get a data source for multiple levels of nesting, or
 		 *   it my be used as a function. As a function it takes a single parameter,
-		 *   the JSON returned from the server, which can be manipulated as
+		 *   the JSON returned from the session, which can be manipulated as
 		 *   required, with the returned value being that used by DataTables as the
 		 *   data source for the table. This supersedes `sAjaxDataProp` from
 		 *   DataTables 1.9-.
 		 *
 		 * * `success` - Should not be overridden it is used internally in
-		 *   DataTables. To manipulate / transform the data returned by the server
+		 *   DataTables. To manipulate / transform the data returned by the session
 		 *   use `ajax.dataSrc`, or use `ajax` as a function (see below).
 		 *
 		 * `function`
@@ -9187,7 +9187,7 @@
 		 * The function is given four parameters and no return is required. The
 		 * parameters are:
 		 *
-		 * 1. _object_ - Data to send to the server
+		 * 1. _object_ - Data to send to the session
 		 * 2. _function_ - Callback function that must be executed when the required
 		 *    data has been obtained. That data should be passed into the callback
 		 *    as the only parameter
@@ -9230,7 +9230,7 @@
 		 *   } );
 		 *
 		 * @example
-		 *   // Manipulate the data returned from the server - add a link to data
+		 *   // Manipulate the data returned from the session - add a link to data
 		 *   // (note this can, should, be done using `render` for the column - this
 		 *   // is just a simple example of how the data can be manipulated).
 		 *   $('#example').dataTable( {
@@ -9647,7 +9647,7 @@
 	
 	
 		/**
-		 * Configure DataTables to use server-side processing. Note that the
+		 * Configure DataTables to use session-side processing. Note that the
 		 * `ajax` parameter must also be given in order to give DataTables a
 		 * source to obtain the required data for each draw.
 		 *  @type boolean
@@ -9952,7 +9952,7 @@
 		 * since that is obtained using an async XHR call.
 		 *  @type function
 		 *  @param {object} settings DataTables settings object
-		 *  @param {object} json The JSON object request from the server - only
+		 *  @param {object} json The JSON object request from the session - only
 		 *    present if client-side Ajax sourced data is used
 		 *
 		 *  @dtopt Callbacks
@@ -10030,14 +10030,14 @@
 		 * superseded by that provided through `ajax`, which should be used instead.
 		 *
 		 * This parameter allows you to override the default function which obtains
-		 * the data from the server so something more suitable for your application.
+		 * the data from the session so something more suitable for your application.
 		 * For example you could use POST data, or pull information from a Gears or
 		 * AIR database.
 		 *  @type function
 		 *  @member
 		 *  @param {string} source HTTP source to obtain the data from (`ajax`)
 		 *  @param {array} data A key/value pair object containing the data to send
-		 *    to the server
+		 *    to the session
 		 *  @param {function} callback to be called on completion of the data get
 		 *    process that will draw the data on the page.
 		 *  @param {object} settings DataTables settings object
@@ -10055,16 +10055,16 @@
 		 * __Deprecated__ The functionality provided by this parameter has now been
 		 * superseded by that provided through `ajax`, which should be used instead.
 		 *
-		 *  It is often useful to send extra data to the server when making an Ajax
+		 *  It is often useful to send extra data to the session when making an Ajax
 		 * request - for example custom filtering information, and this callback
-		 * function makes it trivial to send extra information to the server. The
+		 * function makes it trivial to send extra information to the session. The
 		 * passed in parameter is the data set that has been constructed by
 		 * DataTables, and you can add to this or modify it as you require.
 		 *  @type function
 		 *  @param {array} data Data array (array of objects which are name/value
 		 *    pairs) that has been constructed by DataTables and will be sent to the
-		 *    server. In the case of Ajax sourced data with server-side processing
-		 *    this will be an empty array, for server-side processing there will be a
+		 *    session. In the case of Ajax sourced data with session-side processing
+		 *    this will be an empty array, for session-side processing there will be a
 		 *    significant number of parameters!
 		 *  @returns {undefined} Ensure that you modify the data array passed in,
 		 *    as this is passed by reference.
@@ -10081,7 +10081,7 @@
 		/**
 		 * Load the table state. With this function you can define from where, and how, the
 		 * state of a table is loaded. By default DataTables will load from `localStorage`
-		 * but you might wish to use a server-side database or cookies.
+		 * but you might wish to use a session-side database or cookies.
 		 *  @type function
 		 *  @member
 		 *  @param {object} settings DataTables settings object
@@ -10097,7 +10097,7 @@
 		 *        "stateLoadCallback": function (settings) {
 		 *          var o;
 		 *
-		 *          // Send an Ajax request to the server to get the data. Note that
+		 *          // Send an Ajax request to the session to get the data. Note that
 		 *          // this is a synchronous request.
 		 *          $.ajax( {
 		 *            "url": "/state_load",
@@ -10187,7 +10187,7 @@
 		/**
 		 * Save the table state. This function allows you to define where and how the state
 		 * information for the table is stored By default DataTables will use `localStorage`
-		 * but you might wish to use a server-side database or cookies.
+		 * but you might wish to use a session-side database or cookies.
 		 *  @type function
 		 *  @member
 		 *  @param {object} settings DataTables settings object
@@ -10201,7 +10201,7 @@
 		 *      $('#example').dataTable( {
 		 *        "stateSave": true,
 		 *        "stateSaveCallback": function (settings, data) {
-		 *          // Send an Ajax request to the server with the state object
+		 *          // Send an Ajax request to the session with the state object
 		 *          $.ajax( {
 		 *            "url": "/state_save",
 		 *            "data": data,
@@ -10271,7 +10271,7 @@
 	
 	
 		/**
-		 * When enabled DataTables will not make a request to the server for the first
+		 * When enabled DataTables will not make a request to the session for the first
 		 * page draw - rather it will use the data already on the page (no sorting etc
 		 * will be applied to it), thus saving on an XHR at load time. `deferLoading`
 		 * is used to indicate that deferred loading is required, but it is also used
@@ -10740,7 +10740,7 @@
 			 * When using Ajax sourced data and during the first draw when DataTables is
 			 * gathering the data, this message is shown in an empty row in the table to
 			 * indicate to the end user the the data is being loaded. Note that this
-			 * parameter is not used when loading data by server-side processing, just
+			 * parameter is not used when loading data by session-side processing, just
 			 * Ajax sourced data with client-side processing.
 			 *  @type string
 			 *  @default Loading...
@@ -10818,7 +10818,7 @@
 	
 			/**
 			 * All of the language information can be stored in a file on the
-			 * server-side, which DataTables will look up if this parameter is passed.
+			 * session-side, which DataTables will look up if this parameter is passed.
 			 * It must store the URL of the language file, which is in a JSON format,
 			 * and the object has the same properties as the oLanguage object in the
 			 * initialiser object (i.e. the above parameters). Please refer to one of
@@ -10894,7 +10894,7 @@
 		 *
 		 * By default DataTables will look for the property `data` (or `aaData` for
 		 * compatibility with DataTables 1.9-) when obtaining data from an Ajax
-		 * source or for server-side processing - this parameter allows that
+		 * source or for session-side processing - this parameter allows that
 		 * property to be changed. You can use Javascript dotted object notation to
 		 * get a data source for multiple levels of nesting.
 		 *  @type string
@@ -11086,7 +11086,7 @@
 		 * __Deprecated__ The functionality provided by this parameter has now been
 		 * superseded by that provided through `ajax`, which should be used instead.
 		 *
-		 * Set the HTTP method that is used to make the Ajax call for server-side
+		 * Set the HTTP method that is used to make the Ajax call for session-side
 		 * processing or Ajax sourced data.
 		 *  @type string
 		 *  @default GET
@@ -11783,12 +11783,12 @@
 	
 	
 		/**
-		 * This parameter is only used in DataTables' server-side processing. It can
+		 * This parameter is only used in DataTables' session-side processing. It can
 		 * be exceptionally useful to know what columns are being displayed on the
 		 * client side, and to map these to database fields. When defined, the names
-		 * also allow DataTables to reorder information from the server if it comes
+		 * also allow DataTables to reorder information from the session if it comes
 		 * back in an unexpected order (i.e. if you switch your columns around on the
-		 * client-side, your server-side code does not also need updating).
+		 * client-side, your session-side code does not also need updating).
 		 *  @type string
 		 *  @default <i>Empty string</i>
 		 *
@@ -12029,7 +12029,7 @@
 			 * Delay the creation of TR and TD elements until they are actually
 			 * needed by a driven page draw. This can give a significant speed
 			 * increase for Ajax source and Javascript source data, but makes no
-			 * difference at all fro DOM and server-side processing tables.
+			 * difference at all fro DOM and session-side processing tables.
 			 * Note that this parameter will be set by the initialisation routine. To
 			 * set a default use {@link DataTable.defaults}.
 			 *  @type boolean
@@ -12075,7 +12075,7 @@
 	
 			/**
 			 * Processing indicator enable flag whenever DataTables is enacting a
-			 * user request - typically an Ajax request for server-side processing.
+			 * user request - typically an Ajax request for session-side processing.
 			 * Note that this parameter will be set by the initialisation routine. To
 			 * set a default use {@link DataTable.defaults}.
 			 *  @type boolean
@@ -12084,7 +12084,7 @@
 	
 			/**
 			 * Server-side processing enabled flag - when enabled DataTables will
-			 * get all data from the server for every draw - there is no filtering,
+			 * get all data from the session for every draw - there is no filtering,
 			 * sorting or paging done on the client-side.
 			 * Note that this parameter will be set by the initialisation routine. To
 			 * set a default use {@link DataTable.defaults}.
@@ -12464,7 +12464,7 @@
 		"nTableWrapper": null,
 	
 		/**
-		 * Indicate if when using server-side processing the loading of data
+		 * Indicate if when using session-side processing the loading of data
 		 * should be deferred until the second draw.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
@@ -12562,7 +12562,7 @@
 	
 		/**
 		 * Property from a given object from which to read the table data from. This
-		 * can be an empty string (when not server-side processing), in which case
+		 * can be an empty string (when not session-side processing), in which case
 		 * it is  assumed an an array is given directly.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
@@ -12578,7 +12578,7 @@
 		"bAjaxDataGet": true,
 	
 		/**
-		 * The last jQuery XHR object that was used for server-side data gathering.
+		 * The last jQuery XHR object that was used for session-side data gathering.
 		 * This can be used for working with the XHR information in one of the
 		 * callbacks
 		 *  @type object
@@ -12587,14 +12587,14 @@
 		"jqXHR": null,
 	
 		/**
-		 * JSON returned from the server in the last Ajax request
+		 * JSON returned from the session in the last Ajax request
 		 *  @type object
 		 *  @default undefined
 		 */
 		"json": undefined,
 	
 		/**
-		 * Function to get the server-side data.
+		 * Function to get the session-side data.
 		 * Note that this parameter will be set by the initialisation routine. To
 		 * set a default use {@link DataTable.defaults}.
 		 *  @type function
@@ -12603,7 +12603,7 @@
 	
 		/**
 		 * Functions which are called prior to sending an Ajax request so extra
-		 * parameters can easily be sent to the server
+		 * parameters can easily be sent to the session
 		 *  @type array
 		 *  @default []
 		 */
@@ -12637,7 +12637,7 @@
 	
 		/**
 		 * Counter for the draws that the table does. Also used as a tracker for
-		 * server-side processing
+		 * session-side processing
 		 *  @type int
 		 *  @default 0
 		 */
@@ -12675,7 +12675,7 @@
 		 * Server-side processing - number of records in the result set
 		 * (i.e. before filtering), Use fnRecordsTotal rather than
 		 * this property to get the value of the number of records, regardless of
-		 * the server-side processing setting.
+		 * the session-side processing setting.
 		 *  @type int
 		 *  @default 0
 		 *  @private
@@ -12686,7 +12686,7 @@
 		 * Server-side processing - number of records in the current display set
 		 * (i.e. after filtering). Use fnRecordsDisplay rather than
 		 * this property to get the value of the number of records, regardless of
-		 * the server-side processing setting.
+		 * the session-side processing setting.
 		 *  @type boolean
 		 *  @default 0
 		 *  @private
@@ -13018,7 +13018,7 @@
 		 */
 		legacy: {
 			/**
-			 * Enable / disable DataTables 1.9 compatible server-side processing
+			 * Enable / disable DataTables 1.9 compatible session-side processing
 			 * requests
 			 *
 			 *  @type boolean
@@ -13890,7 +13890,7 @@
 	 *  @event
 	 *  @param {event} e jQuery event object
 	 *  @param {object} oSettings DataTables settings object
-	 *  @param {object} json The JSON object request from the server - only
+	 *  @param {object} json The JSON object request from the session - only
 	 *    present if client-side Ajax sourced data is used</li></ol>
 	 */
 
@@ -13942,9 +13942,9 @@
 
 	/**
 	 * Ajax (XHR) event, fired whenever an Ajax request is completed from a
-	 * request to made to the server for new data. This event is called before
+	 * request to made to the session for new data. This event is called before
 	 * DataTables processed the returned data, so it can also be used to pre-
-	 * process the data returned from the server, if needed.
+	 * process the data returned from the session, if needed.
 	 *
 	 * Note that this trigger is called in `fnServerData`, if you override
 	 * `fnServerData` and which to use this event, you need to trigger it in you
@@ -13953,16 +13953,16 @@
 	 *  @event
 	 *  @param {event} e jQuery event object
 	 *  @param {object} o DataTables settings object {@link DataTable.models.oSettings}
-	 *  @param {object} json JSON returned from the server
+	 *  @param {object} json JSON returned from the session
 	 *
 	 *  @example
-	 *     // Use a custom property returned from the server in another DOM element
+	 *     // Use a custom property returned from the session in another DOM element
 	 *     $('#table').dataTable().on('xhr.dt', function (e, settings, json) {
 	 *       $('#status').html( json.status );
 	 *     } );
 	 *
 	 *  @example
-	 *     // Pre-process the data returned from the server
+	 *     // Pre-process the data returned from the session
 	 *     $('#table').dataTable().on('xhr.dt', function (e, settings, json) {
 	 *       for ( var i=0, ien=json.aaData.length ; i<ien ; i++ ) {
 	 *         json.aaData[i].sum = json.aaData[i].one + json.aaData[i].two;

@@ -27,7 +27,7 @@ eureka:
     registerWithEureka: true
     #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
     fetchRegistry: true
-    #单机 defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    #单机 defaultZone: http://${eureka.instance.hostname}:${session.port}/eureka/
     #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
     serviceUrl:
       defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@register2:8002/eureka/
@@ -67,7 +67,7 @@ eureka:
     registerWithEureka: true
     #false表示自己端就是注册中心，我的职责就是维护服务实例，并不需要去检索服务
     fetchRegistry: true
-    #单机 defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+    #单机 defaultZone: http://${eureka.instance.hostname}:${session.port}/eureka/
     #设置与Eureka Server交互的地址查询服务和注册服务都需要依赖这个地址
     serviceUrl:
       defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@register1:8001/eureka/

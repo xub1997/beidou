@@ -66,7 +66,7 @@ public class DeptController {
             //批量删除
             if(ids.contains(",")){
                 List<Integer> del_ids = new ArrayList();
-                String[] str_ids = ids.split(",");
+                String[] str_ids = ids.split(",",-1);
                 //组装id的集合
                 for (String string : str_ids) {
                     del_ids.add(Integer.parseInt(string));

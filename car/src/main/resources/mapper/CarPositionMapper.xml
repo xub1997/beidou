@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beidou.car.web.dao.CarPositionMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.car.web.entity.CarPosition">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="car_pos_id" jdbcType="INTEGER" property="carPosId" />
+    <result column="car_id" jdbcType="VARCHAR" property="carId" />
+    <result column="lon" jdbcType="VARCHAR" property="lon" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="receive_time" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="utc_time" jdbcType="TIMESTAMP" property="utcTime" />
+    <result column="sim_no" jdbcType="VARCHAR" property="simNo" />
+  </resultMap>
+  <select id="listCarPosition" resultMap="BaseResultMap">
+    select *
+    from tb_car_position where car_id=#{carId}
+    <if test="beginTime != null and beginTime !=''" >
+      and receive_time &gt;= str_to_date(#{beginTime},'%Y%m%d')
+    </if>
+    <if test="endTime != null and endTime !=''" >
+      and receive_time &lt;= str_to_date(#{endTime},'%Y%m%d')
+    </if>
+  </select>
+</mapper>
