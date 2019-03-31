@@ -1,4 +1,4 @@
-package com.beidou.netty.websocket;
+package com.beidou.nettyserver.websocket;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class WSServer {
+public class Server {
 
 	private Logger logger= LoggerFactory.getLogger(this.getClass());
 
@@ -21,22 +21,22 @@ public class WSServer {
 	private ServerBootstrap server;
 
 
-	private volatile static WSServer uniqueSingleton;
+	private volatile static Server uniqueSingleton;
 
-	private WSServer() {
+	private Server() {
 		bossGroup = new NioEventLoopGroup();
 		workerGroup = new NioEventLoopGroup();
 		server = new ServerBootstrap();
 		server.group(bossGroup, workerGroup)
 				.channel(NioServerSocketChannel.class)
-				.childHandler(new WSServerInitialzer());
+				.childHandler(new ServerInitialzer());
 	}
 
-	public static WSServer getInstance() {
+	public static Server getInstance() {
 		if (null == uniqueSingleton) {
-			synchronized (WSServer.class) {
+			synchronized (Server.class) {
 				if (null == uniqueSingleton) {
-					uniqueSingleton = new WSServer();
+					uniqueSingleton = new Server();
 				}
 			}
 		}

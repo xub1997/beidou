@@ -46,7 +46,7 @@ public class WSServer {
 	public void start(int port) {
 		try {
 			ChannelFuture future = server.bind(port).sync();
-			logger.info("netty websocket session 启动完毕...,开启端口：{}",port);
+			logger.info("netty tcp_client session 启动完毕...,开启端口：{}",port);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -57,7 +57,7 @@ public class WSServer {
 		// 优雅退出，释放线程池资源
 		bossGroup.shutdownGracefully();
 		workerGroup.shutdownGracefully();
-		logger.info("netty websocket session 关闭~~~");
+		logger.info("netty tcp_client session 关闭~~~");
 	}
 	
 }

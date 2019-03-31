@@ -35,7 +35,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {
     private WebSocketServerHandshaker handshaker;
 
     //websocket连接的url
-    private static final String WEB_SOCKET_URL = "ws://localhost:8888/websocket";
+    private static final String WEB_SOCKET_URL = "ws://localhost:8888/tcp_client";
     
     private int loss_connect_time = 0;
 
@@ -171,7 +171,7 @@ public class WebSocketHandler extends SimpleChannelInboundHandler<Object> {
 
         // 如果不是WebSocket握手请求消息，那么就返回 HTTP 400 BAD REQUEST 响应给客户端。
         if (!req.getDecoderResult().isSuccess()
-                || !("websocket".equals(req.headers().get("Upgrade")))) {
+                || !("tcp_client".equals(req.headers().get("Upgrade")))) {
             sendHttpResponse(ctx, req,
                     new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
             return;
