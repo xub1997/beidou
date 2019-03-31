@@ -27,6 +27,7 @@ public class RabbitConfig {
     private final static String username="admin";
 
     private final static String pwd="admin";
+    
 
 
     @Bean
