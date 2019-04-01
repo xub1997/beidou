@@ -1,4 +1,4 @@
-package com.beidou.car.web;
+package com.beidou.common.util;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

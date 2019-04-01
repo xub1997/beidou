@@ -17,7 +17,7 @@ public class ServerInitialzer extends ChannelInitializer<SocketChannel> {
 		pipeline.addLast(new ServerEncoder());
 
 		// 自定义的handler
-		pipeline.addLast(new ChatHandler());
+		pipeline.addLast(new RequestHandler());
 	}
 
 }

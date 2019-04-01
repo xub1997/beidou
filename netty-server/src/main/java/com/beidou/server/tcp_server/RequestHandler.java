@@ -1,10 +1,13 @@
 package com.beidou.server.tcp_server;
 
-import com.beidou.common.netty.model.CarPosition;
+
 import com.beidou.common.netty.model.Request;
 import com.beidou.common.netty.model.Response;
 import com.beidou.common.netty.model.StateCode;
 import com.beidou.common.netty.utils.SerialUtil;
+import com.beidou.common.netty.model.CarPosition;
+import com.beidou.common.util.SpringUtil;
+import com.beidou.server.service.CarPositionService;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -13,12 +16,14 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
+
 /**
  * 
  * @Description: 处理消息的handler
  * TextWebSocketFrame： 在netty中，是用于为websocket专门处理文本的对象，frame是消息的载体
  */
-public class ChatHandler extends SimpleChannelInboundHandler<Object> {
+public class RequestHandler extends SimpleChannelInboundHandler<Object> {
 
 	private Logger logger= LoggerFactory.getLogger(this.getClass());
 
@@ -64,18 +69,27 @@ public class ChatHandler extends SimpleChannelInboundHandler<Object> {
 		if(message.getModule() == 1){
 
 			if(message.getCmd() == 1){
-
+				//获取位置信息
 				CarPosition carPosition= (CarPosition) SerialUtil.decode(message.getData());
 
 				System.out.println(carPosition.toString());
-
+				//保存位置信息
+				CarPositionService carPositionService= (CarPositionService) SpringUtil.getBean("carPositionService");
+				com.beidou.server.entity.CarPosition realCarPosition=new com.beidou.server.entity.CarPosition();
+				realCarPosition.setCarId(carPosition.getCarId());
+				realCarPosition.setLon(carPosition.getLon());
+				realCarPosition.setLat(carPosition.getLat());
+				realCarPosition.setReceiveTime(new Date());
+				realCarPosition.setSimNo(carPosition.getSimNo());
+				realCarPosition.setUtcTime(carPosition.getUtcTime());
+				int flag=carPositionService.insertCarPosition(realCarPosition);
 
 
 				Response response = new Response();
 				response.setModule((short) 1);
 				response.setCmd((short) 1);
-				response.setStateCode(StateCode.SUCCESS);
-				response.setData(SerialUtil.encodes(carPosition));
+				response.setStateCode(StateCode.getCodeByCode(flag));
+				response.setData(StateCode.getMsgByCode(flag).getBytes());
 				ctx.channel().writeAndFlush(response);
 			}else if(message.getCmd() == 2){
 

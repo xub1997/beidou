@@ -65,9 +65,9 @@ public class ChatHandler extends SimpleChannelInboundHandler<Object> {
 
 			if(message.getCmd() == 1){
 
-				CarPosition carPosition= (CarPosition) SerialUtil.decode(message.getData());
+				String msg=new String(message.getData(),"UTF-8");
 
-				System.out.println(carPosition.toString());
+				System.out.println(msg);
 
 
 
