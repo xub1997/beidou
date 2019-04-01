@@ -10,16 +10,19 @@ spring:
   application:
     name: gateway
   redis:
-      #host: localhost
-      host: 120.76.196.44
-      port: 6379
-      jedis:
-        pool:
-          max-idle: 8
-          min-idle: 0
-          max-active: 8
-          max-wait: -1
-      timeout: 0
+    #host: localhost
+    host: "120.76.196.44"
+    port: 6379
+    password:
+    timeout: 0
+    expire: 1800
+    jedis:
+      pool:
+        max-idle: 8
+        min-idle: 0
+        max-active: 8
+        max-wait: -1
+
   devtools:
     restart:
       enabled: true

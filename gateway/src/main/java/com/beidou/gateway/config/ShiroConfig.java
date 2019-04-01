@@ -10,12 +10,16 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,6 +27,11 @@ import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
+
+    @Bean
+    public RedisConfig getRedisConfig(){
+        return new RedisConfig();
+    }
 
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
@@ -103,6 +112,7 @@ public class ShiroConfig {
      *
      * @return
      */
+    @Bean
     public RedisCacheManager cacheManager() {
         RedisCacheManager redisCacheManager = new RedisCacheManager();
         redisCacheManager.setRedisManager(redisManager());
@@ -115,12 +125,14 @@ public class ShiroConfig {
      *
      * @return
      */
+    @Bean
     public RedisManager redisManager() {
+        RedisConfig redisConfig=getRedisConfig();
         RedisManager redisManager = new RedisManager();
-        redisManager.setHost("localhost");//ip
-        redisManager.setPort(6379);//端口
-        redisManager.setExpire(1800);// 配置缓存过期时间
-        redisManager.setTimeout(0);//延时时间
+        redisManager.setHost(redisConfig.getHost());//ip
+        redisManager.setPort(redisConfig.getPort());//端口
+        redisManager.setExpire(redisConfig.getExpire());// 配置缓存过期时间
+        redisManager.setTimeout(redisConfig.getTimeout());//延时时间
         // redisManager.setPassword(password);
         return redisManager;
     }
