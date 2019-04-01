@@ -1,4 +1,4 @@
-package com.beidou.nettyserver;
+package com.beidou.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,9 +1,9 @@
-package com.beidou.nettyserver;
+package com.beidou.server;
 
 
 
-import com.beidou.nettyserver.config.NettyConfig;
-import com.beidou.nettyserver.websocket.Server;
+import com.beidou.server.config.NettyConfig;
+import com.beidou.server.tcp_server.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;

@@ -1,4 +1,4 @@
-package com.beidou.nettyserver;
+package com.beidou.server;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

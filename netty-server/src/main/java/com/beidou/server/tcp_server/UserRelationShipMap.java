@@ -1,4 +1,4 @@
-package com.beidou.nettyserver.websocket;
+package com.beidou.server.tcp_server;
 
 import io.netty.channel.Channel;
 import org.slf4j.Logger;

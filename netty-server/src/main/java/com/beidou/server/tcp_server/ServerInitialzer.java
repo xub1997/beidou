@@ -1,15 +1,10 @@
-package com.beidou.nettyserver.websocket;
+package com.beidou.server.tcp_server;
 
 import com.beidou.common.netty.codc.ServerDecoder;
 import com.beidou.common.netty.codc.ServerEncoder;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
-import io.netty.handler.stream.ChunkedWriteHandler;
-import io.netty.handler.timeout.IdleStateHandler;
 
 public class ServerInitialzer extends ChannelInitializer<SocketChannel> {
 

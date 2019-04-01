@@ -1,21 +1,17 @@
-package com.beidou.nettyserver.websocket;
+package com.beidou.server.tcp_server;
 
 import com.beidou.common.netty.model.CarPosition;
 import com.beidou.common.netty.model.Request;
 import com.beidou.common.netty.model.Response;
 import com.beidou.common.netty.model.StateCode;
 import com.beidou.common.netty.utils.SerialUtil;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.time.LocalDateTime;
 
 /**
  * 
