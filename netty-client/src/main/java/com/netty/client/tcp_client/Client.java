@@ -1,5 +1,7 @@
 package com.netty.client.tcp_client;
 
+import com.beidou.common.netty.enums.CmdCode;
+import com.beidou.common.netty.enums.ModuleCode;
 import com.beidou.common.netty.model.CarPosition;
 import com.beidou.common.netty.model.Request;
 import com.beidou.common.netty.utils.SerialUtil;
@@ -54,8 +56,8 @@ public class Client {
 			carPosition.setLon("23.124366");
 
 			Request request = new Request();
-			request.setModule((short) 1);
-			request.setCmd((short) 1);
+			request.setModule((short) ModuleCode.SENDPOSITION.getCode());
+			request.setCmd((short) CmdCode.SENDPOSITION.getCode());
 			request.setData(SerialUtil.encodes(carPosition));
 			//发送请求
 			future.channel().writeAndFlush(request);

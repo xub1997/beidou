@@ -1,9 +1,11 @@
 package com.beidou.server.tcp_server;
 
 
+import com.beidou.common.netty.enums.CmdCode;
+import com.beidou.common.netty.enums.ModuleCode;
 import com.beidou.common.netty.model.Request;
 import com.beidou.common.netty.model.Response;
-import com.beidou.common.netty.model.StateCode;
+import com.beidou.common.netty.enums.StateCode;
 import com.beidou.common.netty.utils.SerialUtil;
 import com.beidou.common.netty.model.CarPosition;
 import com.beidou.common.util.SpringUtil;
@@ -64,40 +66,72 @@ public class RequestHandler extends SimpleChannelInboundHandler<Object> {
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object o) throws Exception {
+		Response response = new Response();
 		Request message = (Request)o;
+		//获取模块名
+		ModuleCode moduleCode=ModuleCode.getByCode(message.getModule());
 
-		if(message.getModule() == 1){
+		if(moduleCode.equals(ModuleCode.SENDPOSITION)){//上传位置模块
+			//获取命令名
+			CmdCode cmdCode=CmdCode.getByCode(message.getCmd());
+			switch (cmdCode){
+				case LOGIN:
+				{
+					response.setModule((short) ModuleCode.SENDPOSITION.getCode());
+					response.setCmd((short) CmdCode.SENDPOSITION.getCode());
+					response.setStateCode(StateCode.FAIL.getCode());
+					response.setData(CmdCode.LOGIN.getMsg().getBytes());
+					ctx.channel().writeAndFlush(response);
+				};break;
+				case SENDPOSITION:
+				{
+					//获取位置信息
+					CarPosition carPosition= (CarPosition) SerialUtil.decode(message.getData());
 
-			if(message.getCmd() == 1){
-				//获取位置信息
-				CarPosition carPosition= (CarPosition) SerialUtil.decode(message.getData());
+					System.out.println(carPosition.toString());
+					//保存位置信息
+					CarPositionService carPositionService= (CarPositionService) SpringUtil.getBean("carPositionService");
+					com.beidou.server.entity.CarPosition realCarPosition=new com.beidou.server.entity.CarPosition();
+					realCarPosition.setCarId(carPosition.getCarId());
+					realCarPosition.setLon(carPosition.getLon());
+					realCarPosition.setLat(carPosition.getLat());
+					realCarPosition.setReceiveTime(new Date());
+					realCarPosition.setSimNo(carPosition.getSimNo());
+					realCarPosition.setUtcTime(carPosition.getUtcTime());
+					int flag=carPositionService.insertCarPosition(realCarPosition);
 
-				System.out.println(carPosition.toString());
-				//保存位置信息
-				CarPositionService carPositionService= (CarPositionService) SpringUtil.getBean("carPositionService");
-				com.beidou.server.entity.CarPosition realCarPosition=new com.beidou.server.entity.CarPosition();
-				realCarPosition.setCarId(carPosition.getCarId());
-				realCarPosition.setLon(carPosition.getLon());
-				realCarPosition.setLat(carPosition.getLat());
-				realCarPosition.setReceiveTime(new Date());
-				realCarPosition.setSimNo(carPosition.getSimNo());
-				realCarPosition.setUtcTime(carPosition.getUtcTime());
-				int flag=carPositionService.insertCarPosition(realCarPosition);
-
-
-				Response response = new Response();
-				response.setModule((short) 1);
-				response.setCmd((short) 1);
-				response.setStateCode(StateCode.getCodeByCode(flag));
-				response.setData(StateCode.getMsgByCode(flag).getBytes());
-				ctx.channel().writeAndFlush(response);
-			}else if(message.getCmd() == 2){
-
+					//返回信息
+					response.setModule((short) ModuleCode.SENDPOSITION.getCode());
+					response.setCmd((short) CmdCode.SENDPOSITION.getCode());
+					response.setStateCode(StateCode.getCodeByCode(flag));
+					response.setData(StateCode.getMsgByCode(flag).getBytes());
+					ctx.channel().writeAndFlush(response);
+				};break;
+				case KEEPALIVE:
+				{
+					response.setModule((short) ModuleCode.SENDPOSITION.getCode());
+					response.setCmd((short) CmdCode.SENDPOSITION.getCode());
+					response.setStateCode(StateCode.FAIL.getCode());
+					response.setData(CmdCode.KEEPALIVE.getMsg().getBytes());
+					ctx.channel().writeAndFlush(response);
+				};break;
+				case LOGOUT:
+				{
+					response.setModule((short) ModuleCode.SENDPOSITION.getCode());
+					response.setCmd((short) CmdCode.SENDPOSITION.getCode());
+					response.setStateCode(StateCode.FAIL.getCode());
+					response.setData(CmdCode.LOGOUT.getMsg().getBytes());
+					ctx.channel().writeAndFlush(response);
+					clients.remove(ctx.channel());
+				};break;
 			}
-
-		}else if (message.getModule() == 1){
-
-
+		}else{
+			response.setModule((short) ModuleCode.SENDPOSITION.getCode());
+			response.setCmd((short) CmdCode.SENDPOSITION.getCode());
+			response.setStateCode(StateCode.FAIL.getCode());
+			response.setData(new String("模块名错误").getBytes());
+			ctx.channel().writeAndFlush(response);
 		}
+
 	}
 }

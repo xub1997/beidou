@@ -1,4 +1,4 @@
-package com.beidou.common.netty.model;
+package com.beidou.common.netty.enums;
 
 public enum  StateCode {
 	SUCCESS(1,"成功"),

@@ -1,10 +1,6 @@
 package com.netty.client.tcp_client;
 
-import com.beidou.common.netty.model.CarPosition;
-import com.beidou.common.netty.model.Request;
 import com.beidou.common.netty.model.Response;
-import com.beidou.common.netty.model.StateCode;
-import com.beidou.common.netty.utils.SerialUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -60,12 +56,14 @@ public class ChatHandler extends SimpleChannelInboundHandler<Object> {
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object o) throws Exception {
 		Response message = (Response)o;
+		String msg=new String(message.getData(),"UTF-8");
 
+		System.out.println(msg);
 		if(message.getModule() == 1){
 
 			if(message.getCmd() == 1){
 
-				String msg=new String(message.getData(),"UTF-8");
+				msg=new String(message.getData(),"UTF-8");
 
 				System.out.println(msg);
 
