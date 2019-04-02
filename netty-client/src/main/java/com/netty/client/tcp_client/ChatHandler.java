@@ -1,6 +1,10 @@
 package com.netty.client.tcp_client;
 
+import com.beidou.common.netty.enums.CmdCode;
+import com.beidou.common.netty.enums.ModuleCode;
+import com.beidou.common.netty.model.Request;
 import com.beidou.common.netty.model.Response;
+import com.beidou.common.netty.utils.SerialUtil;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -59,6 +63,12 @@ public class ChatHandler extends SimpleChannelInboundHandler<Object> {
 		String msg=new String(message.getData(),"UTF-8");
 
 		System.out.println(msg);
+		Request request = new Request();
+		request.setModule((short) ModuleCode.SENDPOSITION.getCode());
+		request.setCmd((short) CmdCode.LOGOUT.getCode());
+		request.setData(null);
+		//发送请求
+		ctx.writeAndFlush(request);
 		if(message.getModule() == 1){
 
 			if(message.getCmd() == 1){

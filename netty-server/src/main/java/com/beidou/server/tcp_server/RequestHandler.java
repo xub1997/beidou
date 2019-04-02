@@ -7,9 +7,13 @@ import com.beidou.common.netty.model.Request;
 import com.beidou.common.netty.model.Response;
 import com.beidou.common.netty.enums.StateCode;
 import com.beidou.common.netty.utils.SerialUtil;
-import com.beidou.common.netty.model.CarPosition;
 import com.beidou.common.util.SpringUtil;
+import com.beidou.server.CarStatus;
+import com.beidou.server.entity.Car;
+import com.beidou.server.entity.CarPosition;
 import com.beidou.server.service.CarPositionService;
+import com.beidou.server.service.CarService;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -47,25 +51,53 @@ public class RequestHandler extends SimpleChannelInboundHandler<Object> {
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
 		// 当触发handlerRemoved，ChannelGroup会自动移除对应客户端的channel
-		String channelId = ctx.channel().id().asLongText();
-		logger.error("客户端被移除，channelId为：{}",channelId);
-
+		String sessionId = ctx.channel().id().asLongText();
+		logger.error("客户端被移除，sessionId为：{}",sessionId);
+		Session session=SessionManager.getInstance().remove(sessionId);
+		if(session!=null){
+			//标志该车辆下线
+			String carId=session.getCarId();
+			Car car=new Car();
+			car.setCarId(carId);
+			car.setCarStatus(CarStatus.OFFLINE.getCode());
+			//更新车辆最后位置信息
+			CarPositionService carPositionService= (CarPositionService) SpringUtil.getBean("carPositionService");
+			CarPosition carPosition=carPositionService.getLastPosition(carId);
+			car.setCarLastPosition(carPosition.getLon()+","+carPosition.getLat());
+			CarService carService= (CarService) SpringUtil.getBean("carService");
+			int flag=carService.updateCar(car);
+		}
 		clients.remove(ctx.channel());
-
 	}
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		cause.printStackTrace();
+		String sessionId = ctx.channel().id().asLongText();
 		// 发生异常之后关闭连接（关闭channel），随后从ChannelGroup中移除
 		ctx.channel().close();
+		logger.error("客户端发生错误，sessionId为：{}",sessionId);
+		Session session=SessionManager.getInstance().remove(sessionId);
+		if(session!=null){
+			//标志该车辆下线
+			String carId=session.getCarId();
+			Car car=new Car();
+			car.setCarId(carId);
+			car.setCarStatus(CarStatus.OFFLINE.getCode());
+			//更新车辆最后位置信息
+			CarPositionService carPositionService= (CarPositionService) SpringUtil.getBean("carPositionService");
+			CarPosition carPosition=carPositionService.getLastPosition(carId);
+			car.setCarLastPosition(carPosition.getLon()+","+carPosition.getLat());
+			CarService carService= (CarService) SpringUtil.getBean("carService");
+			int flag=carService.updateCar(car);
+		}
 		clients.remove(ctx.channel());
-
 	}
 
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object o) throws Exception {
+		Channel channel=ctx.channel();
 		Response response = new Response();
 		Request message = (Request)o;
 		//获取模块名
@@ -77,11 +109,26 @@ public class RequestHandler extends SimpleChannelInboundHandler<Object> {
 			switch (cmdCode){
 				case LOGIN:
 				{
+					//记录channel跟Session
+					com.beidou.common.netty.model.CarPosition carPosition= (com.beidou.common.netty.model.CarPosition)SerialUtil.decode(message.getData());
+					String carId=carPosition.getCarId();
+					SessionManager.getInstance().put(
+							channel.id().asLongText(),
+							carId,
+							channel);
+					//标记carId对应的车辆上线
+					Car car=new Car();
+					car.setCarId(carId);
+					car.setCarStatus(CarStatus.ONLINE.getCode());
+					CarService carService= (CarService) SpringUtil.getBean("carService");
+					int flag=carService.updateCar(car);
+
+					//返回信息
 					response.setModule((short) ModuleCode.SENDPOSITION.getCode());
-					response.setCmd((short) CmdCode.SENDPOSITION.getCode());
-					response.setStateCode(StateCode.FAIL.getCode());
+					response.setCmd((short) CmdCode.LOGIN.getCode());
+					response.setStateCode(StateCode.getCodeByCode(flag));
 					response.setData(CmdCode.LOGIN.getMsg().getBytes());
-					ctx.channel().writeAndFlush(response);
+					channel.writeAndFlush(response);
 				};break;
 				case SENDPOSITION:
 				{
@@ -89,7 +136,7 @@ public class RequestHandler extends SimpleChannelInboundHandler<Object> {
 					CarPosition carPosition= (CarPosition) SerialUtil.decode(message.getData());
 
 					System.out.println(carPosition.toString());
-					//保存位置信息
+					//保存车辆位置信息
 					CarPositionService carPositionService= (CarPositionService) SpringUtil.getBean("carPositionService");
 					com.beidou.server.entity.CarPosition realCarPosition=new com.beidou.server.entity.CarPosition();
 					realCarPosition.setCarId(carPosition.getCarId());
@@ -105,27 +152,52 @@ public class RequestHandler extends SimpleChannelInboundHandler<Object> {
 					response.setCmd((short) CmdCode.SENDPOSITION.getCode());
 					response.setStateCode(StateCode.getCodeByCode(flag));
 					response.setData(StateCode.getMsgByCode(flag).getBytes());
-					ctx.channel().writeAndFlush(response);
+					channel.writeAndFlush(response);
 				};break;
 				case KEEPALIVE:
 				{
+					//返回心跳包
 					response.setModule((short) ModuleCode.SENDPOSITION.getCode());
-					response.setCmd((short) CmdCode.SENDPOSITION.getCode());
-					response.setStateCode(StateCode.FAIL.getCode());
+					response.setCmd((short) CmdCode.KEEPALIVE.getCode());
+					response.setStateCode(StateCode.SUCCESS.getCode());
 					response.setData(CmdCode.KEEPALIVE.getMsg().getBytes());
 					ctx.channel().writeAndFlush(response);
 				};break;
 				case LOGOUT:
 				{
+					//移除session
+					Session session=SessionManager.getInstance().remove(channel.id().asLongText());
+					if(session!=null){
+						//标志该车辆下线
+						String carId=session.getCarId();
+						Car car=new Car();
+						car.setCarId(carId);
+						car.setCarStatus(CarStatus.OFFLINE.getCode());
+						//更新车辆最后位置信息
+						CarPositionService carPositionService= (CarPositionService) SpringUtil.getBean("carPositionService");
+						CarPosition carPosition=carPositionService.getLastPosition(carId);
+						car.setCarLastPosition(carPosition.getLon()+","+carPosition.getLat());
+						CarService carService= (CarService) SpringUtil.getBean("carService");
+						int flag=carService.updateCar(car);
+
+						//返回信息
+						response.setModule((short) ModuleCode.SENDPOSITION.getCode());
+						response.setCmd((short) CmdCode.LOGOUT.getCode());
+						response.setStateCode(StateCode.getCodeByCode(flag));
+						response.setData(CmdCode.LOGOUT.getMsg().getBytes());
+						channel.writeAndFlush(response);
+						clients.remove(ctx.channel());
+					}
+					//返回信息
 					response.setModule((short) ModuleCode.SENDPOSITION.getCode());
-					response.setCmd((short) CmdCode.SENDPOSITION.getCode());
+					response.setCmd((short) CmdCode.LOGOUT.getCode());
 					response.setStateCode(StateCode.FAIL.getCode());
-					response.setData(CmdCode.LOGOUT.getMsg().getBytes());
-					ctx.channel().writeAndFlush(response);
-					clients.remove(ctx.channel());
+					response.setData("未上线".getBytes());
+					channel.writeAndFlush(response);
 				};break;
 			}
 		}else{
+			//提示错误
 			response.setModule((short) ModuleCode.SENDPOSITION.getCode());
 			response.setCmd((short) CmdCode.SENDPOSITION.getCode());
 			response.setStateCode(StateCode.FAIL.getCode());

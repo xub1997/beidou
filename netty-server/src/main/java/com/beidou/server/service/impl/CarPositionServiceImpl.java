@@ -14,6 +14,7 @@ import java.util.Map;
 
 @Service("carPositionService")
 public class CarPositionServiceImpl implements CarPositionService {
+
     @Autowired
     private CarPositionMapper carPositionMapper;
 
@@ -28,12 +29,8 @@ public class CarPositionServiceImpl implements CarPositionService {
     }
 
 
-    /*
-     * 获取车辆坐标列表（Map里面可以放各种条件）
-     * */
     @Override
-    public List<CarPosition> listCarPosition(Map<String, Object> queryMap) {
-        List<CarPosition> carPositions = carPositionMapper.listCarPosition(queryMap);
-        return carPositions;
+    public CarPosition getLastPosition(String carId) {
+        return carPositionMapper.getLastPosition(carId);
     }
 }

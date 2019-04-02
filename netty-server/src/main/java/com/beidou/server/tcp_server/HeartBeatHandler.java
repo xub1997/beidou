@@ -1,5 +1,9 @@
 package com.beidou.server.tcp_server;
 
+import com.beidou.common.netty.enums.CmdCode;
+import com.beidou.common.netty.enums.ModuleCode;
+import com.beidou.common.netty.enums.StateCode;
+import com.beidou.common.netty.model.Response;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -34,7 +38,15 @@ public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
 
 					if (loss_connect_time > 5) {
 						Channel channel=ctx.channel();
+						Response response = new Response();
+						//发送提示信息
+						response.setModule((short) ModuleCode.SENDPOSITION.getCode());
+						response.setCmd((short) CmdCode.SENDPOSITION.getCode());
+						response.setStateCode(StateCode.FAIL.getCode());
+						response.setData(CmdCode.LOGOUT.getMsg().getBytes());
+						ctx.channel().writeAndFlush(response);
 						// 关闭无用的channel，以防资源浪费
+						SessionManager.getInstance().remove(channel.id().toString().replaceAll("-",""));
 						channel.close();
 
 					}

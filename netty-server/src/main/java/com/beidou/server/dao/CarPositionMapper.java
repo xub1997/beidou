@@ -12,4 +12,5 @@ import java.util.Map;
 @Mapper
 public interface CarPositionMapper extends IBaseMapper<CarPosition> {
     List<CarPosition> listCarPosition(Map<String, Object> queryMap);
+    CarPosition getLastPosition(String carId);
 }

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import tk.mybatis.spring.annotation.MapperScan;
 
-@ComponentScan(basePackages = {"com.beidou.common","com.beidou.server"})
 @MapperScan("com.beidou.server.dao")
 @SpringBootApplication
 public class NettyServerApplication {

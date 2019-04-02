@@ -1,4 +1,4 @@
-package com.beidou.car.web.entity;
+package com.beidou.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

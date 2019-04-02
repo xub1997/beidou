@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.beidou.car.web.dao.CarPositionMapper">
-  <resultMap id="BaseResultMap" type="com.beidou.car.web.entity.CarPosition">
+<mapper namespace="com.beidou.server.dao.CarPositionMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.server.entity.CarPosition">
     <!--
       WARNING - @mbg.generated
     -->
@@ -13,14 +13,11 @@
     <result column="utc_time" jdbcType="TIMESTAMP" property="utcTime" />
     <result column="sim_no" jdbcType="VARCHAR" property="simNo" />
   </resultMap>
-  <select id="listCarPosition" resultMap="BaseResultMap">
-    select *
+
+  <select id="getLastPosition" resultMap="BaseResultMap">
+    select car_pos_id,car_id,lon,lat,receive_time,utc_time,sim_no
     from tb_car_position where car_id=#{carId}
-    <if test="beginTime != null and beginTime !=''" >
-      and receive_time &gt;= str_to_date(#{beginTime},'%Y%m%d')
-    </if>
-    <if test="endTime != null and endTime !=''" >
-      and receive_time &lt;= str_to_date(#{endTime},'%Y%m%d')
-    </if>
+    order by receive_time desc
+    limit 1
   </select>
 </mapper>

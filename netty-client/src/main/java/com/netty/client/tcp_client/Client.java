@@ -57,7 +57,7 @@ public class Client {
 
 			Request request = new Request();
 			request.setModule((short) ModuleCode.SENDPOSITION.getCode());
-			request.setCmd((short) CmdCode.SENDPOSITION.getCode());
+			request.setCmd((short) CmdCode.LOGIN.getCode());
 			request.setData(SerialUtil.encodes(carPosition));
 			//发送请求
 			future.channel().writeAndFlush(request);
