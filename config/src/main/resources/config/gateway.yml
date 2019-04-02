@@ -57,15 +57,15 @@ zuul:
     max-total-connections: 200
 
   routes:
-
-
     api-1:
       path: /api/v1/logger/**
       serviceId: logger
     api-2:
       path: /api/v1/monitor/**
       serviceId: monitor
-
+    api-3:
+      path: /api/v1/car/**
+      serviceId: car
 
 management:
   endpoints:

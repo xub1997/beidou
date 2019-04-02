@@ -1,7 +1,23 @@
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.beidou.car.entity
+mapper:
+  mappers: com.beidou.car.web.common.IBaseMapper
+  not-empty: false
+  identity: MYSQL
+# ===================================================================
+# netty
+# ===================================================================
+netty:
+  config:
+    port: 8088
+
+#===========================================================================
 spring:
   #应用名
   application:
-    name: logger
+    name: car
   security:
     user:
       name: 'admin'
@@ -9,13 +25,8 @@ spring:
 
 server:
   #端口号
-  port: 4001
+  port: 6666
 
-#mybatis:
-  #mybatis的mapper.xml文件的路径
-  #type-aliases-package: com.beidou.lqx.car_manager.model
-  #mybatis的mapper.xml文件的路径
-  #mapper-locations: .\src\main\java\com\beidou\lqx\car_manager\mapper\*.xml
 
 eureka:
   client:
@@ -48,8 +59,9 @@ management:
 
 logging:
   config: classpath:logback-spring.xml
+# 打印sql
   level:
-    com.beidou.logger.dao : debug
+    com.beidou.car.web.dao : debug
 
 info:
   app:
@@ -57,8 +69,3 @@ info:
     description: "@project.description@"
     version: "@project.version@"
     author: "许b"
-
-
-mybatis:
-  typeAliasesPackage: com.beidou.logger.entity
-  mapperLocations: classpath:mapper/*.xml

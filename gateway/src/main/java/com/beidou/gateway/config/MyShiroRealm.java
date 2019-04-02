@@ -92,9 +92,9 @@ public class MyShiroRealm extends AuthorizingRealm {
             authorizationInfo.setStringPermissions(permissionSet);
 
         }
-        logger.info("---- 获取到以下权限 ----");
+        /*logger.info("---- 获取到以下权限 ----");
         logger.info(authorizationInfo.getStringPermissions().toString());
-        logger.info("---------------- Shiro 权限获取成功 ----------------------");
+        logger.info("---------------- Shiro 权限获取成功 ----------------------");*/
         return authorizationInfo;
     }
 

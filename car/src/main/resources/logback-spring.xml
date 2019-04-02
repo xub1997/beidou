@@ -14,7 +14,7 @@
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度，%msg：日志消息，%n是换行符 -->
 
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset>
+
         </encoder>
 
     </appender>
@@ -33,7 +33,7 @@
 
             <!--日志文件输出的文件名 -->
 
-            <FileNamePattern>logs/gateway/info.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>logs/car/info.%d{yyyy-MM-dd}.log</FileNamePattern>
 
             <!--日志文件保留天数 -->
 
@@ -46,7 +46,7 @@
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
 
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset>
+
         </encoder>
 
         <!--日志文件最大的大小 -->
@@ -77,7 +77,7 @@
 
             <!--日志文件输出的文件名 -->
 
-            <FileNamePattern>logs/gateway/error.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>logs/car/error.%d{yyyy-MM-dd}.log</FileNamePattern>
 
             <!--日志文件保留天数 -->
 
@@ -90,7 +90,7 @@
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
 
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
-            <charset>UTF-8</charset>
+
         </encoder>
 
         <!--日志文件最大的大小 -->
