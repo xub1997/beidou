@@ -10,12 +10,12 @@
     <result column="lon" jdbcType="VARCHAR" property="lon" />
     <result column="lat" jdbcType="VARCHAR" property="lat" />
     <result column="receive_time" jdbcType="TIMESTAMP" property="receiveTime" />
-    <result column="utc_time" jdbcType="TIMESTAMP" property="utcTime" />
+    <result column="utc_times" jdbcType="TIMESTAMP" property="utcTime" />
     <result column="sim_no" jdbcType="VARCHAR" property="simNo" />
   </resultMap>
 
   <select id="getLastPosition" resultMap="BaseResultMap">
-    select car_pos_id,car_id,lon,lat,receive_time,utc_time,sim_no
+    select car_pos_id,car_id,lon,lat,receive_time,utc_times,sim_no
     from tb_car_position where car_id=#{carId}
     order by receive_time desc
     limit 1

@@ -10,7 +10,7 @@
     <result column="lon" jdbcType="VARCHAR" property="lon" />
     <result column="lat" jdbcType="VARCHAR" property="lat" />
     <result column="receive_time" jdbcType="TIMESTAMP" property="receiveTime" />
-    <result column="utc_time" jdbcType="TIMESTAMP" property="utcTime" />
+    <result column="utc_times" jdbcType="TIMESTAMP" property="utcTime" />
     <result column="sim_no" jdbcType="VARCHAR" property="simNo" />
   </resultMap>
   <select id="listCarPosition" resultMap="BaseResultMap">

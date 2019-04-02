@@ -41,7 +41,7 @@ public class CarPosition {
      * UTC时间
      */
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    @Column(name = "utc_time")
+    @Column(name = "utc_times")
     private Date utcTime;
 
     /**
