@@ -19,6 +19,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <modules>
+        <!--车辆管理-->
+        <module>car</module>
         <!--通用工具类-->
         <module>common</module>
         <!--配置中心-->
