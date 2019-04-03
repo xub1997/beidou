@@ -133,7 +133,7 @@ public class RequestHandler extends SimpleChannelInboundHandler<Object> {
 				case SENDPOSITION:
 				{
 					//获取位置信息
-					CarPosition carPosition= (CarPosition) SerialUtil.decode(message.getData());
+					com.beidou.common.netty.model.CarPosition carPosition= (com.beidou.common.netty.model.CarPosition) SerialUtil.decode(message.getData());
 
 					System.out.println(carPosition.toString());
 					//保存车辆位置信息
