@@ -132,27 +132,30 @@ public class RequestHandler extends SimpleChannelInboundHandler<Object> {
 				};break;
 				case SENDPOSITION:
 				{
-					//获取位置信息
-					com.beidou.common.netty.model.CarPosition carPosition= (com.beidou.common.netty.model.CarPosition) SerialUtil.decode(message.getData());
+					//没有位置信息
+					if(message.getData()!=null){
+						//获取位置信息
+						com.beidou.common.netty.model.CarPosition carPosition= (com.beidou.common.netty.model.CarPosition) SerialUtil.decode(message.getData());
 
-					System.out.println(carPosition.toString());
-					//保存车辆位置信息
-					CarPositionService carPositionService= (CarPositionService) SpringUtil.getBean("carPositionService");
-					com.beidou.server.entity.CarPosition realCarPosition=new com.beidou.server.entity.CarPosition();
-					realCarPosition.setCarId(carPosition.getCarId());
-					realCarPosition.setLon(carPosition.getLon());
-					realCarPosition.setLat(carPosition.getLat());
-					realCarPosition.setReceiveTime(new Date());
-					realCarPosition.setSimNo(carPosition.getSimNo());
-					realCarPosition.setUtcTime(carPosition.getUtcTime());
-					int flag=carPositionService.insertCarPosition(realCarPosition);
+						System.out.println(carPosition.toString());
+						//保存车辆位置信息
+						CarPositionService carPositionService= (CarPositionService) SpringUtil.getBean("carPositionService");
+						com.beidou.server.entity.CarPosition realCarPosition=new com.beidou.server.entity.CarPosition();
+						realCarPosition.setCarId(carPosition.getCarId());
+						realCarPosition.setLon(carPosition.getLon());
+						realCarPosition.setLat(carPosition.getLat());
+						realCarPosition.setReceiveTime(new Date());
+						realCarPosition.setSimNo(carPosition.getSimNo());
+						realCarPosition.setUtcTime(carPosition.getUtcTime());
+						int flag=carPositionService.insertCarPosition(realCarPosition);
 
-					//返回信息
-					response.setModule((short) ModuleCode.SENDPOSITION.getCode());
-					response.setCmd((short) CmdCode.SENDPOSITION.getCode());
-					response.setStateCode(StateCode.getCodeByCode(flag));
-					response.setData(StateCode.getMsgByCode(flag).getBytes());
-					channel.writeAndFlush(response);
+						//返回信息
+						response.setModule((short) ModuleCode.SENDPOSITION.getCode());
+						response.setCmd((short) CmdCode.SENDPOSITION.getCode());
+						response.setStateCode(StateCode.getCodeByCode(flag));
+						response.setData(StateCode.getMsgByCode(flag).getBytes());
+						channel.writeAndFlush(response);
+					}
 				};break;
 				case KEEPALIVE:
 				{
