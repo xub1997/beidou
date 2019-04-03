@@ -56,7 +56,7 @@ public class ServerDecoder extends ByteToMessageDecoder {
 
                 //长度又变得不满足
                 if(in.readableBytes() < BASE_LENTH){
-                    out.add(null);
+                    //out.add(null);
                 }
             }
 
@@ -71,7 +71,7 @@ public class ServerDecoder extends ByteToMessageDecoder {
             if(in.readableBytes() < length){
                 //还原读指针
                 in.readerIndex(beginReader);
-                out.add(null);
+                //out.add(null);
             }
 
             //读取data数据
