@@ -50,17 +50,20 @@ public class Client {
 		try {
 			ChannelFuture future = client.connect(host,port).sync();
 			logger.info("netty tcp_client session 启动完毕...,开启端口：{}",port);
-			CarPosition carPosition=new CarPosition();
-			carPosition.setCarId("123");
-			carPosition.setLat("116.1245325");
-			carPosition.setLon("23.124366");
+			for(int i=0;i<10;i++){
+				CarPosition carPosition=new CarPosition();
+				carPosition.setCarId("123");
+				carPosition.setLat("116.1245325");
+				carPosition.setLon("23.124366");
 
-			Request request = new Request();
-			request.setModule((short) ModuleCode.SENDPOSITION.getCode());
-			request.setCmd((short) CmdCode.LOGIN.getCode());
-			request.setData(SerialUtil.encodes(carPosition));
-			//发送请求
-			future.channel().writeAndFlush(request);
+				Request request = new Request();
+				request.setModule((short) ModuleCode.SENDPOSITION.getCode());
+				request.setCmd((short) CmdCode.SENDPOSITION.getCode());
+				request.setData(SerialUtil.encodes(carPosition));
+				//发送请求
+				future.channel().writeAndFlush(request);
+			}
+
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

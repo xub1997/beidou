@@ -153,7 +153,7 @@ public class RequestHandler extends SimpleChannelInboundHandler<Object> {
 						response.setModule((short) ModuleCode.SENDPOSITION.getCode());
 						response.setCmd((short) CmdCode.SENDPOSITION.getCode());
 						response.setStateCode(StateCode.getCodeByCode(flag));
-						response.setData(StateCode.getMsgByCode(flag).getBytes());
+						response.setData((CmdCode.SENDPOSITION.getMsg()+StateCode.getMsgByCode(flag)).getBytes());
 						channel.writeAndFlush(response);
 					}
 				};break;

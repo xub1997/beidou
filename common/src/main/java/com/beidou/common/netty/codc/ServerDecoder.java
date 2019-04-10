@@ -9,23 +9,23 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 import java.util.List;
 
 /**
- * ·şÎñÆ÷½âÂëÆ÷
+ * æœåŠ¡å™¨è§£ç å™¨
  * <pre>
- * Êı¾İ°ü¸ñÊ½
- * +¡ª¡ª----¡ª¡ª+¡ª¡ª-----¡ª¡ª+¡ª¡ª----¡ª¡ª+¡ª¡ª----¡ª¡ª+¡ª¡ª-----¡ª¡ª+
- * | °üÍ·          | Ä£¿éºÅ        | ÃüÁîºÅ      |  ³¤¶È        |   Êı¾İ       |
- * +¡ª¡ª----¡ª¡ª+¡ª¡ª-----¡ª¡ª+¡ª¡ª----¡ª¡ª+¡ª¡ª----¡ª¡ª+¡ª¡ª-----¡ª¡ª+
+ * æ•°æ®åŒ…æ ¼å¼
+ * +â€”â€”----â€”â€”+â€”â€”-----â€”â€”+â€”â€”----â€”â€”+â€”â€”----â€”â€”+â€”â€”-----â€”â€”+
+ * | åŒ…å¤´          | æ¨¡å—å·        | å‘½ä»¤å·      |  é•¿åº¦        |   æ•°æ®       |
+ * +â€”â€”----â€”â€”+â€”â€”-----â€”â€”+â€”â€”----â€”â€”+â€”â€”----â€”â€”+â€”â€”-----â€”â€”+
  * </pre>
- * °üÍ·4×Ö½Ú
- * Ä£¿éºÅ2×Ö½Úshort
- * ÃüÁîºÅ2×Ö½Úshort
- * ³¤¶È4×Ö½Ú(ÃèÊöÊı¾İ²¿·Ö×Ö½Ú³¤¶È)
+ * åŒ…å¤´4å­—èŠ‚
+ * æ¨¡å—å·2å­—èŠ‚short
+ * å‘½ä»¤å·2å­—èŠ‚short
+ * é•¿åº¦4å­—èŠ‚(æè¿°æ•°æ®éƒ¨åˆ†å­—èŠ‚é•¿åº¦)
  *
  *
  */
 public class ServerDecoder extends ByteToMessageDecoder {
     /**
-     * Êı¾İ°ü»ù±¾³¤¶È
+     * æ•°æ®åŒ…åŸºæœ¬é•¿åº¦
      */
     public static int BASE_LENTH = 4 + 2 + 2 + 4;
 
@@ -33,14 +33,14 @@ public class ServerDecoder extends ByteToMessageDecoder {
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf in, List<Object> out) throws Exception {
         int size = in.readableBytes();
         Object info=null;
-        //¿É¶Á³¤¶È±ØĞë´óÓÚ»ù±¾³¤¶È
+        //å¯è¯»é•¿åº¦å¿…é¡»å¤§äºåŸºæœ¬é•¿åº¦
         if (size > ServerDecoder.BASE_LENTH) {
-            //·ÀÖ¹socket×Ö½ÚÁ÷¹¥»÷
+            //é˜²æ­¢socketå­—èŠ‚æµæ”»å‡»
             if(in.readableBytes() > 2048){
                 in.skipBytes(in.readableBytes());
             }
 
-            //¼ÇÂ¼°üÍ·¿ªÊ¼µÄindex
+            //è®°å½•åŒ…å¤´å¼€å§‹çš„index
             int beginReader;
 
             while(true){
@@ -50,31 +50,33 @@ public class ServerDecoder extends ByteToMessageDecoder {
                     break;
                 }
 
-                //Î´¶Áµ½°üÍ·£¬ÂÔ¹ıÒ»¸ö×Ö½Ú
+                //æœªè¯»åˆ°åŒ…å¤´ï¼Œç•¥è¿‡ä¸€ä¸ªå­—èŠ‚
                 in.resetReaderIndex();
                 in.readByte();
 
-                //³¤¶ÈÓÖ±äµÃ²»Âú×ã
+                //é•¿åº¦åˆå˜å¾—ä¸æ»¡è¶³
                 if(in.readableBytes() < BASE_LENTH){
-                    out.add(null);
+                    //out.add(null);
+                    return;
                 }
             }
 
-            //Ä£¿éºÅ
+            //æ¨¡å—å·
             short module = in.readShort();
-            //ÃüÁîºÅ
+            //å‘½ä»¤å·
             short cmd = in.readShort();
-            //³¤¶È
+            //é•¿åº¦
             int length = in.readInt();
 
-            //ÅĞ¶ÏÇëÇóÊı¾İ°üÊı¾İÊÇ·ñµ½Æë
+            //åˆ¤æ–­è¯·æ±‚æ•°æ®åŒ…æ•°æ®æ˜¯å¦åˆ°é½
             if(in.readableBytes() < length){
-                //»¹Ô­¶ÁÖ¸Õë
+                //è¿˜åŸè¯»æŒ‡é’ˆ
                 in.readerIndex(beginReader);
-                out.add(null);
+                //out.add(null);
+                return;
             }
 
-            //¶ÁÈ¡dataÊı¾İ
+            //è¯»å–dataæ•°æ®
             byte[] data = new byte[length];
             in.readBytes(data);
 
@@ -82,7 +84,7 @@ public class ServerDecoder extends ByteToMessageDecoder {
             request.setModule(module);
             request.setCmd(cmd);
             request.setData(data);
-            //¼ÌĞøÍùÏÂ´«µİ
+            //ç»§ç»­å¾€ä¸‹ä¼ é€’
             out.add(request);
             /*byte[] bytes = SerialUtil.getByteFromBuf(in);
             Object info = SerialUtil.decode(bytes);
