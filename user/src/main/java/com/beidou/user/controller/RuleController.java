@@ -34,10 +34,10 @@ public class RuleController {
 
 
    
-    @ApiOperation(value="获取id对应的权限信息", notes="获取id对应的权限信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取id对应的权限信息", notes="获取id对应的权限信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "权限ID", required = true, dataType = "int", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/rule/{id}")
     public ResponseMsg getById(@PathVariable("id")Integer id){
         return ruleService.getById(id);
@@ -46,10 +46,10 @@ public class RuleController {
 
 
   
-    @ApiOperation(value="更新id对应的权限信息", notes="更新id对应的权限信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="更新id对应的权限信息", notes="更新id对应的权限信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "权限ID", required = true, dataType = "int", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @PutMapping(value="/rule/{id}")
     public ResponseMsg updateById(Rule rule){
         return ruleService.updateById(rule);
@@ -58,10 +58,10 @@ public class RuleController {
 
 
     
-    @ApiOperation(value="删除id对应的权限信息", notes="删除id对应的权限信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="删除id对应的权限信息", notes="删除id对应的权限信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "权限ID", required = true, dataType = "String", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @DeleteMapping(value="/rule/{ids}")
     public ResponseMsg deleteById(@PathVariable("ids")String ids){
         ResponseMsg responseMsg;
@@ -88,27 +88,27 @@ public class RuleController {
 
 
     
-    @ApiOperation(value="获取权限信息列表", notes="获取权限信息列表")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取权限信息列表", notes="获取权限信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/rules")
     public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return ruleService.getList(pageNum);
     }
 
 
-    @ApiOperation(value="获取所有权限", notes="获取所有权限")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取所有权限", notes="获取所有权限")
     @GetMapping(value="/rule/getAll")
     public ResponseMsg getAll(){
         return ruleService.getAll();
     }
 
 
-    @ApiOperation(value="获取角色对应权限", notes="获取角色对应权限")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取角色对应权限", notes="获取角色对应权限")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "int", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/roleRule")
     public ResponseMsg getRoleRule(@RequestParam("roleId")Integer roleId ){
         return ruleService.getRoleRule(roleId);
@@ -117,11 +117,11 @@ public class RuleController {
 
 
   
-    @ApiOperation(value="查找权限", notes="查找权限")// 使用该注解描述接口方法信息
+    @ApiOperation(value="查找权限", notes="查找权限")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "name", value = "权限名", required = true, dataType = "String", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/rule/searchByName")
     public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "name")String name ){
         return ruleService.searchByName(pageNum,name);

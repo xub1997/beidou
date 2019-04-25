@@ -36,7 +36,7 @@ public class DeptController {
 
     @SysLogger("获取id对应的部门信息")
     @RequiresPermissions("dept:read")
-    @ApiOperation(value="获取id对应的部门信息", notes="获取id对应的部门信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取id对应的部门信息", notes="获取id对应的部门信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "部门ID", required = true, dataType = "int", paramType="path")
     })
@@ -47,7 +47,7 @@ public class DeptController {
 
     @SysLogger("更新id对应的部门信息")
     @RequiresPermissions("dept:update")
-    @ApiOperation(value="更新id对应的部门信息", notes="更新id对应的部门信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="更新id对应的部门信息", notes="更新id对应的部门信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "部门ID", required = true, dataType = "int", paramType="path")
     })
@@ -58,7 +58,7 @@ public class DeptController {
 
     @SysLogger("删除id对应的部门信息")
     @RequiresPermissions("dept:delete")
-    @ApiOperation(value="删除id对应的部门信息", notes="删除id对应的部门信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="删除id对应的部门信息", notes="删除id对应的部门信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "部门ID", required = true, dataType = "String", paramType="path")
     })
@@ -87,7 +87,7 @@ public class DeptController {
     }
     @SysLogger("获取公司部门")
     @RequiresPermissions("comDept:read")
-    @ApiOperation(value="获取公司部门", notes="获取公司部门")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取公司部门", notes="获取公司部门")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query")
     })
@@ -114,7 +114,7 @@ public class DeptController {
 
     @SysLogger("获取部门列表（对应公司）")
     @RequiresPermissions("comDepts:read")
-    @ApiOperation(value="获取部门列表（对应公司）", notes="获取部门列表（对应公司）")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取部门列表（对应公司）", notes="获取部门列表（对应公司）")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query")
@@ -127,7 +127,7 @@ public class DeptController {
 
     @SysLogger("查找部门")
     @RequiresPermissions("dept:searchByName")
-    @ApiOperation(value="查找部门", notes="查找部门")// 使用该注解描述接口方法信息
+    @ApiOperation(value="查找部门", notes="查找部门")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "name", value = "部门名", required = true, dataType = "String", paramType="query")
@@ -140,7 +140,7 @@ public class DeptController {
 
     @SysLogger("查找公司部门")
     @RequiresPermissions("dept:searchByNameAndComId")
-    @ApiOperation(value="查找公司部门", notes="查找公司部门")// 使用该注解描述接口方法信息
+    @ApiOperation(value="查找公司部门", notes="查找公司部门")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "name", value = "部门名", required = true, dataType = "String", paramType="query"),

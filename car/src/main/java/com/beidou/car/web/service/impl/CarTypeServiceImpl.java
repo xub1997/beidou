@@ -38,15 +38,15 @@ public class CarTypeServiceImpl implements CarTypeService {
      * 删除车辆类型
      * */
     @Override
-    public Integer deleteCarType(Integer id) {
-        return carTypeMapper.deleteByPrimaryKey(id);
+    public Integer deleteCarType(String typeId) {
+        return carTypeMapper.deleteByPrimaryKey(typeId);
     }
 
     /*
      * 获取车辆类型
      * */
     @Override
-    public CarType getCarType(Integer id) {
+    public CarType getCarType(String id) {
         return carTypeMapper.selectByPrimaryKey(id);
     }
 
@@ -65,5 +65,13 @@ public class CarTypeServiceImpl implements CarTypeService {
         List<CarType> carTypes = carTypeMapper.listCarType(queryMap);
         PageInfo pageInfo = new PageInfo(carTypes, 5);
         return pageInfo;
+    }
+
+    /*
+     * 获取全部车辆类型
+     * */
+    @Override
+    public List<CarType> getAll() {
+        return carTypeMapper.selectAll();
     }
 }

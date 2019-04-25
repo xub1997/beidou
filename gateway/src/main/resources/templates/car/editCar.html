@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="../layui/css/layui.css" media="all">
+		<style>.formContainer {
+	padding: 10px 60px 0 60px;
+}
+
+.layui-form {
+	margin: 0 auto;
+}</style>
+	</head>
+	<body>
+		<div class="formContainer">
+			<div class="layui-form layui-form-pane" lay-filter="form">
+
+				<div class="layui-form-item">
+					<label class="layui-form-label">车辆别名</label>
+					<div class="layui-input-inline">
+						<input type="text" name="carName" id="carName"  required lay-verify="required" placeholder="车辆别名"
+						 class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">车辆类型</label>
+					
+					<div class="layui-input-block">
+						<select name="carTypeId" id="carTypes" lay-verify="required" lay-filter="">
+							<option value=""></option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">车牌号</label>
+					<div class="layui-input-inline">
+						<input type="text" name="carNum" id="carNum" lay-verify="required" placeholder="车牌号" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">司机</label>
+					<div class="layui-input-block">
+						<select id="drivers" name="driverid" lay-verify="required" lay-filter="">
+							<option value="">选择司机</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">选择公司</label>
+					<div class="layui-input-block">
+						<select id="coms" name="comid" lay-verify="required" lay-filter="company">
+							<option value="">选择公司</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">车辆状态</label>
+					<div class="layui-input-inline">
+						<input type="radio" name="carStatus" id="1" value="1" title="上线">
+						<input type="radio" name="carStatus" id="2" value="2" title="离线">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">最后位置</label>
+					<div class="layui-input-inline">
+						<input type="text" name="carLastPosition" id="carLastPosition" lay-verify="required" placeholder="最后位置" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">在线时间</label>
+					<div class="layui-input-inline">
+						<input type="text" name="lastStopTime" id="lastStopTime" required lay-verify="required" placeholder="最后在线时间" class="layui-input" disabled="disabled">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">显示名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="displayName" id="displayName" lay-verify="required" placeholder="显示名称" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">创建时间</label>
+					<div class="layui-input-inline">
+						<input type="text" name="createTime" id="createTime" required lay-verify="required" placeholder="创建时间" class="layui-input" disabled="disabled">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe605;</i> 立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe669;</i> 重置</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		<script src="../js/jquery-3.3.1.min.js"></script>
+		<script src="../js/app.js"></script>
+		<script src="../layui/layui.js"></script>
+		<script>
+		var carId = sessionStorage.getItem('carId');
+sessionStorage.removeItem('carId');
+var comId;
+$.ajax({
+	type: "get",
+	url: app.serverUrl + '/api/v1/carManager/car/' + carId,
+	async: false,
+	success: function(res) {
+		console.log(res);
+		$('#carName').val(res.data.carName);
+		$('#carNum').val(res.data.carNum);
+		$('#carLastPosition').val(res.data.carLastPosition);
+		$('#lastStopTime').val(res.data.lastStopTime);
+		$('#displayName').val(res.data.displayName);
+		$('#createTime').val(res.data.createTime);
+		$('#coms').val(res.data.comId);
+		$('#drivers').val(res.data.userId);
+		carTypeId = res.data.carTypeId;
+		comId = res.data.comId;
+		userId=res.data.userId;
+		if (res.data.carStatus == 1) {
+			$('#1').attr("checked", '');
+			layui.use('form', function() {
+				var form = layui.form;
+				form.render('radio');
+			})
+		} else {
+			$('#2').attr("checked", '');
+			layui.use('form', function() {
+				var form = layui.form;
+				form.render('radio');
+			})
+		}
+		$.ajax({
+			type: 'GET',
+			url: app.serverUrl + "/api/v1/carManager/carTypesAll",
+			async: false,
+			success: function(res) {
+				var data = res.data;
+				var comId;
+				//console.log(data);
+				for (var i = 0; i < data.length; i++) {
+					//console.log(data[i].id,data[i].name);
+					if (carTypeId == data[i].carTypeId) {
+						$("#carTypes").append("<option value='" + data[i].carTypeId + "' selected='selected'>" + data[i].typeName + "</option>");
+					} else {
+						$("#carTypes").append("<option value='" + data[i].carTypeId + "'>" + data[i].typeName + "</option>");
+					}
+
+				}
+			}
+		});
+		$.ajax({
+			type: "GET",
+			url: app.serverUrl + "/api/v1/carManager/com",
+			async: false,
+			success: function(res) {
+				var data = res.data;
+				console.log(data);
+				for (var i = 0; i < data.length; i++) {
+					//console.log(data[i].id,data[i].name);
+					if (comId == data[i].id) {
+						$("#coms").append("<option value='" + data[i].id + "' selected='selected'>" + data[i].name + "</option>");
+					} else {
+						$("#coms").append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+					}
+
+				}
+			}
+		});
+		$.ajax({
+			type: "GET",
+			url: app.serverUrl + "/api/v1/carManager/comUser?comId="+comId,
+			async: false,
+			success: function(res) {
+				var data = res.data;
+				console.log(data);
+				for (var i = 0; i < data.length; i++) {
+					//console.log(data[i].id,data[i].name);
+					if (userId == data[i].id) {
+						$("#drivers").append("<option value='" + data[i].id + "' selected='selected'>" + data[i].name + "</option>");
+					} else {
+						$("#drivers").append("<option value='" + data[i].id + "'>" + data[i].name + "</option>");
+					}
+
+				}
+			}
+		});
+	}
+});
+
+layui.use(['form', 'layer'], function() {
+	var form = layui.form;
+	var layer = layui.layer;
+
+	form.on('select(company)', function(res) {
+		//console.log(res);
+		setTimeout(function() {
+			//console.log($("#deps option"));
+			$("#drivers option").remove();
+		}, 0);
+
+		$.get(app.serverUrl + '/api/v1/carManager/comUser?comId=' + res.value, function(res) {
+			console.log(res)
+			for (var i = 0; i < res.data.length; i++) {
+				//console.log(data[i].id,data[i].name);
+				$("#drivers").append("<option value='" + res.data[i].id + "'>" + res.data[i].name + "</option>");
+				form.render('select');
+			}
+		})
+	});
+
+	form.on('submit(formDemo)', function(data) {
+		console.log(JSON.stringify(data.field));
+		$.ajax({
+			url: app.serverUrl + "/api/v1/carManager/car/" + carId,
+			type: "POST",
+			data: {
+				_method: 'put',
+				carId: carId,
+				carName: data.field.carName,
+				carTypeId: data.field.carTypeId,
+				carNum: data.field.carNum,
+				userId: data.field.driverid,
+				comId: data.field.comid,
+				carStatus: data.field.carStatus,
+				carLastPosition: data.field.carLastPosition,
+				displayName: data.field.displayName
+			},
+			success: function(data) {
+				console.log(data);
+				if (data.status == "200") {
+					layer.msg(data.msg, {
+						icon: 6,
+						time: 1500
+					});
+				} else {
+					layer.msg(data.msg, {
+						icon: 5,
+						time: 1500
+					});
+				}
+			},
+			error: function(err) {
+				console.log(err);
+			}
+		});
+		return false;
+	});
+
+});</script>
+	</body>
+</html>

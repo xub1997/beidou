@@ -59,7 +59,7 @@ public class UserRoleController {
 
     @SysLogger("更新id对应的用户-角色管理信息")
     @RequiresPermissions("userRole:update")
-    @ApiOperation(value="更新id对应的用户-角色管理信息", notes="更新id对应的用户-角色管理信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="更新id对应的用户-角色管理信息", notes="更新id对应的用户-角色管理信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "roleIds", value = "角色ID（用逗号隔开）", required = true, dataType = "String", paramType="query")

@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -25,7 +26,7 @@ public class CarTypeApi {
 
 
     @GetMapping(value = "/carType/{id}")
-    public CarType getById(@PathVariable("id") Integer id) {
+    public CarType getById(@PathVariable("id") String id) {
         CarType carType = carTypeService.getCarType(id);
         return carType;
     }
@@ -40,11 +41,10 @@ public class CarTypeApi {
 
 
     @DeleteMapping(value = "/carType/{id}")
-    public Integer deleteByIds(@PathVariable("id") String id) {
+    public Integer deleteByIds(@PathVariable("id") String typeId) {
         Integer flag = 0;
-        if (!StringUtil.isEmpty(id)) {
+        if (!StringUtil.isEmpty(typeId)) {
 
-            Integer typeId = Integer.parseInt(id);
             flag = carTypeService.deleteCarType(typeId);
         }
         return flag;
@@ -57,5 +57,12 @@ public class CarTypeApi {
     public PageInfo getList(@RequestParam Map<String, Object> queryMap) {
         PageInfo pageInfo = carTypeService.listCarType(queryMap);
         return pageInfo;
+    }
+
+
+    @GetMapping(value = "/carTypesAll")
+    public List<CarType> getAll() {
+        List<CarType> carTypes = carTypeService.getAll();
+        return carTypes;
     }
 }

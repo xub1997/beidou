@@ -36,7 +36,7 @@ public class RuleController {
 
     @SysLogger("获取id对应的权限信息")
     @RequiresPermissions("rule:read")
-    @ApiOperation(value="获取id对应的权限信息", notes="获取id对应的权限信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取id对应的权限信息", notes="获取id对应的权限信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "权限ID", required = true, dataType = "int", paramType="path")
     })
@@ -48,7 +48,7 @@ public class RuleController {
 
     @SysLogger("更新id对应的权限信息")
     @RequiresPermissions("rule:update")
-    @ApiOperation(value="更新id对应的权限信息", notes="更新id对应的权限信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="更新id对应的权限信息", notes="更新id对应的权限信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "权限ID", required = true, dataType = "int", paramType="path")
     })
@@ -60,7 +60,7 @@ public class RuleController {
 
     @SysLogger("删除id对应的权限信息")
     @RequiresPermissions("rule:delete")
-    @ApiOperation(value="删除id对应的权限信息", notes="删除id对应的权限信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="删除id对应的权限信息", notes="删除id对应的权限信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "权限ID", required = true, dataType = "String", paramType="path")
     })
@@ -91,7 +91,7 @@ public class RuleController {
 
     @SysLogger("获取权限信息列表")
     @RequiresPermissions("rules:read")
-    @ApiOperation(value="获取权限信息列表", notes="获取权限信息列表")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取权限信息列表", notes="获取权限信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
     })
@@ -102,7 +102,7 @@ public class RuleController {
 
     @SysLogger("获取角色对应权限")
     @RequiresPermissions("roleRule:read")
-    @ApiOperation(value="获取角色对应权限", notes="获取角色对应权限")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取角色对应权限", notes="获取角色对应权限")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "int", paramType="query")
     })
@@ -114,7 +114,7 @@ public class RuleController {
 
     @SysLogger("查找权限")
     @RequiresPermissions("rule:searchByName")
-    @ApiOperation(value="查找权限", notes="查找权限")// 使用该注解描述接口方法信息
+    @ApiOperation(value="查找权限", notes="查找权限")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "name", value = "权限名", required = true, dataType = "String", paramType="query")
@@ -126,7 +126,7 @@ public class RuleController {
 
     @SysLogger("获取所有权限")
     @RequiresPermissions("rule:getAll")
-    @ApiOperation(value="获取所有权限", notes="获取所有权限")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取所有权限", notes="获取所有权限")
     @GetMapping(value="/rule/getAll")
     public ResponseMsg getAll(){
         return ruleService.getAll();

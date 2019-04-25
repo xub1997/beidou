@@ -10,10 +10,13 @@
     <result column="type_desc" jdbcType="VARCHAR" property="typeDesc" />
   </resultMap>
   <select id="listCarType" resultMap="BaseResultMap">
-    select *
-    from tb_car_type
-    <if test="typeDesc != null and typeDesc !=''" >
-      and LOCATE(#{typeDesc}, type_desc)>0
-    </if>
+    select ct.car_type_id,ct.type_name,ct.type_desc
+    from tb_car_type ct
+         <where>
+           <if test="typeDesc != null and typeDesc !=''" >
+              LOCATE(#{typeDesc}, ct.type_desc)>0 or LOCATE(#{typeDesc}, ct.type_name)>0
+           </if>
+         </where>
+
   </select>
 </mapper>

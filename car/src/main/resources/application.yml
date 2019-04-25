@@ -1,0 +1,24 @@
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.beidou.car.entity
+mapper:
+  mappers: com.beidou.car.web.common.IBaseMapper
+  not-empty: false
+  identity: MYSQL
+# ===================================================================
+# netty
+# ===================================================================
+netty:
+  config:
+    port: 8088
+
+server:
+  #端口号
+  port: 8080
+
+logging:
+  config: classpath:logback-spring.xml
+  # 打印sql
+  level:
+    com.beidou.car.web.dao : debug

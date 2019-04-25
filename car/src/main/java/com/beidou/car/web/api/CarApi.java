@@ -22,11 +22,9 @@ public class CarApi {
 
 
 
-
-
     @GetMapping(value="/car/{id}")
-    public Car getById(@PathVariable("id")Integer id){
-        return carService.getCar(id);
+    public Car getById(@PathVariable("id")String carId){
+        return carService.getCar(carId);
     }
 
 
@@ -39,12 +37,12 @@ public class CarApi {
 
 
     @DeleteMapping(value="/car/{id}")
-    public Integer deleteByIds(@PathVariable("id")String id){
+    public Integer deleteByIds(@PathVariable("id")String carId){
         Integer flag = 0;
-        if (!StringUtil.isEmpty(id)) {
+        if (!StringUtil.isEmpty(carId)) {
 
-            Integer carid = Integer.parseInt(id);
-            flag = carService.deleteCar(carid);
+            //Integer carid = Integer.parseInt(id);
+            flag = carService.deleteCar(carId);
 
         }
         return flag;

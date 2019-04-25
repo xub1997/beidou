@@ -47,14 +47,13 @@ public class LoginController {
 
 
     @SysLogger("用户登录")
-    @ApiOperation(value="用户登录", notes="用户登录")// 使用该注解描述接口方法信息
+    @ApiOperation(value="用户登录", notes="用户登录")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query"),
             @ApiImplicitParam(name = "pwd", value = "密码", required = true, dataType = "String", paramType="query"),
             @ApiImplicitParam(name = "code", value = "验证码", required = false, dataType = "String", paramType="query"),
             @ApiImplicitParam(name = "rememberMe", value = "记住我", required = false, dataType = "boolean", paramType="query")
     })
-
     @PostMapping("/login")
     public ResponseMsg login(@RequestParam("username")String username,@RequestParam("pwd")String pwd ,
                              @RequestParam("code")String code,@RequestParam(value = "rememberMe",defaultValue = "false")boolean rememberMe){

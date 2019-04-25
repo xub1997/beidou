@@ -35,7 +35,7 @@ public class RoleController {
 
     @SysLogger("获取id对应的角色信息")
     @RequiresPermissions("role:read")
-    @ApiOperation(value="获取id对应的角色信息", notes="获取id对应的角色信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取id对应的角色信息", notes="获取id对应的角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "角色ID", required = true, dataType = "int", paramType="path")
     })
@@ -47,7 +47,7 @@ public class RoleController {
 
     @SysLogger("更新id对应的角色信息")
     @RequiresPermissions("role:update")
-    @ApiOperation(value="更新id对应的角色信息", notes="更新id对应的角色信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="更新id对应的角色信息", notes="更新id对应的角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "角色ID", required = true, dataType = "int", paramType="path")
     })
@@ -59,7 +59,7 @@ public class RoleController {
 
     @SysLogger("删除id对应的角色信息")
     @RequiresPermissions("role:delete")
-    @ApiOperation(value="删除id对应的角色信息", notes="删除id对应的角色信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="删除id对应的角色信息", notes="删除id对应的角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "角色ID", required = true, dataType = "String", paramType="path")
     })
@@ -89,7 +89,7 @@ public class RoleController {
 
     @SysLogger("获取角色信息列表")
     @RequiresPermissions("roles:read")
-    @ApiOperation(value="获取角色信息列表", notes="获取角色信息列表")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取角色信息列表", notes="获取角色信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
     })
@@ -100,7 +100,7 @@ public class RoleController {
 
     @SysLogger("查找角色")
     @RequiresPermissions("role:searchByName")
-    @ApiOperation(value="查找角色", notes="查找角色")// 使用该注解描述接口方法信息
+    @ApiOperation(value="查找角色", notes="查找角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "name", value = "角色名", required = true, dataType = "String", paramType="query")
@@ -112,10 +112,10 @@ public class RoleController {
 
     @SysLogger("获取用户对应角色")
     @RequiresPermissions("role:userRole")
-    @ApiOperation(value="获取用户对应角色", notes="获取用户对应角色")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取用户对应角色", notes="获取用户对应角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/userRole")
     public ResponseMsg getUserRole(@RequestParam("userId")Integer userId ){
         return roleService.getUserRole(userId);
@@ -123,7 +123,7 @@ public class RoleController {
 
     @SysLogger("获取所有角色")
     @RequiresPermissions("role:getAll")
-    @ApiOperation(value="获取所有角色", notes="获取所有角色")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取所有角色", notes="获取所有角色")
     @GetMapping(value="/role/getAll")
     public ResponseMsg getAll(){
         return roleService.getAll();

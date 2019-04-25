@@ -1,7 +1,7 @@
 #mybatis
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.beidou.car.entity
+  type-aliases-package: com.beidou.car.web.entity
 mapper:
   mappers: com.beidou.car.web.common.IBaseMapper
   not-empty: false

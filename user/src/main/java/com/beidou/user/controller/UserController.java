@@ -32,10 +32,10 @@ public class UserController {
 
 
     
-    @ApiOperation(value="获取id对应的用户信息", notes="获取id对应的用户信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取id对应的用户信息", notes="获取id对应的用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "int", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/user/{id}")
     public ResponseMsg getById(@PathVariable("id")Integer id){
         return userService.getById(id);
@@ -44,10 +44,10 @@ public class UserController {
 
 
     
-    @ApiOperation(value="更新id对应的用户信息", notes="更新id对应的用户信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="更新id对应的用户信息", notes="更新id对应的用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "user", value = "User", required = true, dataType = "User", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @PutMapping(value="/user/{id}")
     public ResponseMsg updateById(User user){
         return userService.updateById(user);
@@ -56,10 +56,10 @@ public class UserController {
 
 
     
-    @ApiOperation(value="删除id对应的用户信息", notes="删除id对应的用户信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="删除id对应的用户信息", notes="删除id对应的用户信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "用户ID", required = true, dataType = "String", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @DeleteMapping(value="/user/{ids}")
     public ResponseMsg deleteById(@PathVariable("ids")String ids){
         ResponseMsg responseMsg;
@@ -85,10 +85,10 @@ public class UserController {
 
 
     
-    @ApiOperation(value="获取用户信息列表", notes="获取用户信息列表")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取用户信息列表", notes="获取用户信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/users")
     public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return userService.getList(pageNum);
@@ -96,11 +96,11 @@ public class UserController {
 
 
     
-    @ApiOperation(value="获取用户信息列表(对应公司)", notes="获取用户信息列表（对应公司）")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取用户信息列表(对应公司)", notes="获取用户信息列表（对应公司）")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query"),
             @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/userCom")
     public ResponseMsg getComUserList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
                                       @RequestParam(value = "comId", defaultValue = "1")Integer comId){
@@ -109,11 +109,11 @@ public class UserController {
 
 
     
-    @ApiOperation(value="查找用户", notes="查找用户")// 使用该注解描述接口方法信息
+    @ApiOperation(value="查找用户", notes="查找用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/user/searchByUserName")
     public ResponseMsg searchByUserName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "username")String username ){
         return userService.searchByUserName(pageNum,username);
@@ -121,12 +121,12 @@ public class UserController {
 
 
     
-    @ApiOperation(value="查找公司用户", notes="查找公司用户")// 使用该注解描述接口方法信息
+    @ApiOperation(value="查找公司用户", notes="查找公司用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query"),
             @ApiImplicitParam(name = "comId", value = "公司id", required = false, dataType = "int", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/user/searchByUserNameAndComId")
     public ResponseMsg searchByUserNameAndComId(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "username")String username,@RequestParam("comId")Integer comId ){
         return userService.searchByUserNameAndComId(pageNum,username,comId);
@@ -134,10 +134,10 @@ public class UserController {
 
 
     
-    @ApiOperation(value="判断用户名重复", notes="判断用户名重复")// 使用该注解描述接口方法信息
+    @ApiOperation(value="判断用户名重复", notes="判断用户名重复")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/user/judgeUserName")
     public ResponseMsg judgeUserName(@RequestParam(value = "username")String username ){
         if(userService.judgeUsername(username)==null&&true){
@@ -148,12 +148,12 @@ public class UserController {
     }
 
     
-    @ApiOperation(value="修改密码", notes="修改密码")// 使用该注解描述接口方法信息
+    @ApiOperation(value="修改密码", notes="修改密码")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "oldPwd", value = "旧密码", required = true, dataType = "String", paramType="query"),
             @ApiImplicitParam(name = "newPwd", value = "新密码", required = true, dataType = "String", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/user/modifyPwd")
     public ResponseMsg modifyPwd(@RequestParam(value = "userId")Integer userId ,@RequestParam(value = "oldPwd")String oldPwd,@RequestParam(value = "newPwd")String newPwd){
         return userService.modifyPwd(userId,oldPwd,newPwd);

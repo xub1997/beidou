@@ -31,10 +31,10 @@ public class RoleController {
 
 
     
-    @ApiOperation(value="获取id对应的角色信息", notes="获取id对应的角色信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取id对应的角色信息", notes="获取id对应的角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "角色ID", required = true, dataType = "int", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/role/{id}")
     public ResponseMsg getById(@PathVariable("id")Integer id){
         return roleService.getById(id);
@@ -42,10 +42,10 @@ public class RoleController {
 
 
     
-    @ApiOperation(value="更新id对应的角色信息", notes="更新id对应的角色信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="更新id对应的角色信息", notes="更新id对应的角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "角色ID", required = true, dataType = "int", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @PutMapping(value="/role/{id}")
     public ResponseMsg updateById(Role role){
         return roleService.updateById(role);
@@ -53,10 +53,10 @@ public class RoleController {
 
 
     
-    @ApiOperation(value="删除id对应的角色信息", notes="删除id对应的角色信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="删除id对应的角色信息", notes="删除id对应的角色信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "角色ID", required = true, dataType = "String", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @DeleteMapping(value="/role/{ids}")
     public ResponseMsg deleteById(@PathVariable("ids")String ids){
         ResponseMsg responseMsg;
@@ -82,37 +82,37 @@ public class RoleController {
 
 
     
-    @ApiOperation(value="获取角色信息列表", notes="获取角色信息列表")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取角色信息列表", notes="获取角色信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/roles")
     public ResponseMsg getAll(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return roleService.getList(pageNum);
     }
 
     
-    @ApiOperation(value="查找角色", notes="查找角色")// 使用该注解描述接口方法信息
+    @ApiOperation(value="查找角色", notes="查找角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "name", value = "角色名", required = true, dataType = "String", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/role/searchByName")
     public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "name")String name ){
         return roleService.searchByName(pageNum,name);
     }
 
-    @ApiOperation(value="获取用户对应角色", notes="获取用户对应角色")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取用户对应角色", notes="获取用户对应角色")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "int", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/userRole")
     public ResponseMsg getUserRole(@RequestParam("userId")Integer userId ){
         return roleService.getUserRole(userId);
     }
 
 
-    @ApiOperation(value="获取所有角色", notes="获取所有角色")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取所有角色", notes="获取所有角色")
     @GetMapping(value="/role/getAll")
     public ResponseMsg getAll(){
         return roleService.getAll();

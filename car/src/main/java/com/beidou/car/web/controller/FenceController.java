@@ -32,10 +32,10 @@ public class FenceController {
     }
 
 
-    @ApiOperation(value = "获取id对应的围栏信息", notes = "获取id对应的围栏信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value = "获取id对应的围栏信息", notes = "获取id对应的围栏信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "车辆ID", required = true, dataType = "int", paramType = "path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value = "/fence/{id}")
     public ResponseMsg getById(@PathVariable("id") Integer id) {
         Fence fence = fenceService.getFence(id);
@@ -46,10 +46,10 @@ public class FenceController {
     }
 
 
-    @ApiOperation(value = "更新id对应的围栏信息", notes = "更新id对应的围栏信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value = "更新id对应的围栏信息", notes = "更新id对应的围栏信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "围栏ID", required = true, dataType = "int", paramType = "path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @PutMapping(value = "/fence/{id}")
     public ResponseMsg updateById(Fence fence) {
         Integer flag = fenceService.updateFence(fence);
@@ -60,10 +60,10 @@ public class FenceController {
     }
 
 
-    @ApiOperation(value = "删除id对应的围栏信息", notes = "删除id对应的围栏信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value = "删除id对应的围栏信息", notes = "删除id对应的围栏信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "围栏ID", required = true, dataType = "String", paramType = "path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @DeleteMapping(value = "/fence/{id}")
     public ResponseMsg deleteByIds(@PathVariable("id") String id) {
         ResponseMsg responseMsg = null;
@@ -84,12 +84,12 @@ public class FenceController {
     }
 
 
-    @ApiOperation(value = "获取围栏信息列表", notes = "获取围栏信息列表")// 使用该注解描述接口方法信息
+    @ApiOperation(value = "获取围栏信息列表", notes = "获取围栏信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "记录条数", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "typeDesc", value = "类型描述", required = false, dataType = "int", paramType = "query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value = "/fences")
     public ResponseMsg getList(@RequestParam Map<String, Object> queryMap) {
         PageInfo pageInfo = fenceService.listFence(queryMap);

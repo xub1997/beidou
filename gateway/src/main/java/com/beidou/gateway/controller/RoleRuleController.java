@@ -58,7 +58,7 @@ public class RoleRuleController {
 
     @SysLogger("更新id对应的角色-权限管理信息")
     @RequiresPermissions("roleRule:update")
-    @ApiOperation(value="更新id对应的角色-权限管理信息", notes="更新id对应的角色-权限管理信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="更新id对应的角色-权限管理信息", notes="更新id对应的角色-权限管理信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "roleId", value = "角色ID", required = true, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "ruleIds", value = "权限id（用逗号隔开）", required = true, dataType = "String", paramType="query")

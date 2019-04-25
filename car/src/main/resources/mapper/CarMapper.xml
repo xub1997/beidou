@@ -40,8 +40,10 @@
       tb_car c
         LEFT JOIN tb_user u ON c.user_id = u.id
         LEFT JOIN tb_car_type ct ON c.car_type_id = ct.car_type_id
+    where 1=1
     <if test="carNum != null and carNum !=''" >
-      and LOCATE(#{carNum}, c.car_num)>0
+      and LOCATE(#{carNum}, c.car_num)>0 or LOCATE(#{carNum}, c.car_name)>0
     </if>
+    order by c.car_id
   </select>
 </mapper>

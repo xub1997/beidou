@@ -17,7 +17,6 @@ public interface SysLogService {
     public SysLog getById(@PathVariable("id")Integer id);
 
 
-
     @GetMapping(value="/syslogs")
     public PageInfo getAllList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum );
 

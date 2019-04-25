@@ -17,7 +17,7 @@ public interface CarService {
     /*
     * 删除车辆信息
     * */
-    Integer deleteCar(Integer id);
+    Integer deleteCar(String id);
 
     /*
      * 批量删除车辆信息
@@ -27,7 +27,7 @@ public interface CarService {
     /*
     * 获取车辆信息
     * */
-    Car getCar(Integer id);
+    Car getCar(String carId);
     /*
     * 获取车辆列表（Map里面可以放各种条件）
     * */

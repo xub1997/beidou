@@ -34,10 +34,10 @@ public class CompanyController {
 
 
     
-    @ApiOperation(value="获取id对应的公司信息", notes="获取id对应的公司信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取id对应的公司信息", notes="获取id对应的公司信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "公司ID", required = true, dataType = "int", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/company/{id}")
     public ResponseMsg getById(@PathVariable("id")Integer id){
         return companyService.getById(id);
@@ -45,10 +45,10 @@ public class CompanyController {
 
 
     
-    @ApiOperation(value="更新id对应的公司信息", notes="更新id对应的公司信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="更新id对应的公司信息", notes="更新id对应的公司信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "公司ID", required = true, dataType = "int", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @PutMapping(value="/company/{id}")
     public ResponseMsg updateById(Company company){
         return companyService.updateById(company);
@@ -57,10 +57,10 @@ public class CompanyController {
 
 
     
-    @ApiOperation(value="删除id对应的公司信息", notes="删除id对应的公司信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="删除id对应的公司信息", notes="删除id对应的公司信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "ids", value = "公司ID（允许批量，用逗号隔开）", required = true, dataType = "String", paramType="path")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @DeleteMapping(value="/company/{ids}")
     public ResponseMsg deleteByIds(@PathVariable("ids")String ids){
         ResponseMsg responseMsg;
@@ -87,7 +87,7 @@ public class CompanyController {
 
 
     
-    @ApiOperation(value="获取公司信息", notes="获取公司信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取公司信息", notes="获取公司信息")
     @GetMapping(value="/company")
     public ResponseMsg getAll(){
         return companyService.getAll();
@@ -96,10 +96,10 @@ public class CompanyController {
 
 
     
-    @ApiOperation(value="获取公司信息列表", notes="获取公司信息列表")// 使用该注解描述接口方法信息
+    @ApiOperation(value="获取公司信息列表", notes="获取公司信息列表")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/companys")
     public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
         return companyService.getList(pageNum);
@@ -107,11 +107,11 @@ public class CompanyController {
 
 
     
-    @ApiOperation(value="查找公司", notes="查找公司")// 使用该注解描述接口方法信息
+    @ApiOperation(value="查找公司", notes="查找公司")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
             @ApiImplicitParam(name = "name", value = "公司名", required = true, dataType = "String", paramType="query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value="/company/searchByName")
     public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "name")String name ){
         return companyService.searchByName(pageNum,name);

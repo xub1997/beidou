@@ -25,19 +25,19 @@ public class CarPositionController {
     public ResponseMsg insert(CarPosition carPosition) {
         Integer flag = carPositionService.insertCarPosition(carPosition);
         if (flag > 0) {
-            ResponseMsg.Success("保存成功");
+            return ResponseMsg.Success("保存成功");
         }
         return ResponseMsg.Error("保存失败");
     }
 
 
 
-    @ApiOperation(value = "获取车辆位置信息", notes = "获取车辆位置信息")// 使用该注解描述接口方法信息
+    @ApiOperation(value = "获取车辆位置信息", notes = "获取车辆位置信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "carId", value = "车辆编号", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "beginTime", value = "开始时间", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "endTime", value = "结束时间", required = false, dataType = "int", paramType = "query")
-    })// 使用该注解描述方法参数信息，此处需要注意的是paramType参数，需要配置成path，否则在UI中访问接口方法时，会报错
+    })
     @GetMapping(value = "/carPositions")
     public ResponseMsg getList(@RequestParam Map<String, Object> queryMap) {
         List<CarPosition> carPositions= carPositionService.listCarPosition(queryMap);

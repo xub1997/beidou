@@ -44,7 +44,7 @@ public class CarServiceImpl implements CarService {
      * 删除车辆信息
      * */
     @Override
-    public Integer deleteCar(Integer id) {
+    public Integer deleteCar(String id) {
         return carMapper.deleteByPrimaryKey(id);
     }
 
@@ -57,7 +57,7 @@ public class CarServiceImpl implements CarService {
      * 获取车辆信息
      * */
     @Override
-    public Car getCar(Integer id) {
+    public Car getCar(String id) {
         return carMapper.selectByPrimaryKey(id);
     }
 
