@@ -2,7 +2,7 @@ window.app={
     /**
      * netty服务后端发布的url地址
      */
-    //nettyServerUrl: 'ws://120.76.196.44:8088/ws',
+    nettyServerUrl: 'ws://localhost:8088/ws',
 
 
     /**
@@ -29,4 +29,40 @@ window.app={
         }
         return false;
     },
+
+    /**
+     * 和后端的枚举对应
+     */
+    CONNECT:1,//第一次(或重连)初始化连接
+    KEEPALIVE:2,//客户端保持心跳
+    DISCONNECT:3,//断开连接
+    GETCARLIST:4,//获取车辆列表
+    GETCARSTATE:5,//获取车辆状态
+    GETLASTPOSITION:6,//获取车辆的最新位置
+
+
+    /**
+     * 和后端的 Content 发送内容模型对象保持一致
+     * @param {Object} carId
+     * @param {Object} comId
+     * @param {Object} msg
+     */
+    Content: function(carId, comId, msg){
+        this.carId = carId;
+        this.comId = comId;
+        this.msg = msg;
+    },
+
+    /**
+     * 构建消息 DataContent 模型对象
+     * @param {Object} action
+     * @param {Object} content
+     * @param {Object} extend
+     */
+    DataContent: function(action, content, extend){
+        this.action = action;
+        this.content = content;
+        this.extend = extend;
+    },
+
 }
