@@ -35,7 +35,7 @@ public class CarController {
 
     @ApiOperation(value = "获取id对应的车辆信息", notes = "获取id对应的车辆信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "车辆ID", required = true, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "id", value = "车辆ID", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = "/car/{id}")
     public ResponseMsg getById(@PathVariable("id") String carId) {
@@ -49,7 +49,7 @@ public class CarController {
 
     @ApiOperation(value = "更新id对应的车辆信息", notes = "更新id对应的车辆信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "车辆ID", required = true, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "id", value = "车辆ID", required = true, dataType = "String", paramType = "path")
     })
     @PutMapping(value = "/car/{id}")
     public ResponseMsg updateById(Car car) {
@@ -88,7 +88,8 @@ public class CarController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType = "query"),
             @ApiImplicitParam(name = "limit", value = "记录条数", required = true, dataType = "int", paramType = "query"),
-            @ApiImplicitParam(name = "carNum", value = "车牌号", required = false, dataType = "int", paramType = "query")
+            @ApiImplicitParam(name = "carNum", value = "车牌号", required = false, dataType = "String", paramType = "query"),
+            @ApiImplicitParam(name = "carId", value = "车辆编号", required = false, dataType = "String", paramType = "query")
     })
     @GetMapping(value = "/cars")
     public ResponseMsg getList(@RequestParam Map<String, Object> queryMap) {

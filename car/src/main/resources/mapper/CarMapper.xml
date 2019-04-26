@@ -34,16 +34,22 @@
       c.display_name displayName,
       c.display_icon displayIcon,
       c.create_time createTime,
-      u. NAME driver,
-      ct.type_desc typeDesc
+      u.name driver,
+      ct.type_desc typeDesc,
+      com.name comName
     FROM
       tb_car c
         LEFT JOIN tb_user u ON c.user_id = u.id
         LEFT JOIN tb_car_type ct ON c.car_type_id = ct.car_type_id
+        LEFT JOIN tb_company com ON c.com_id=com.id
     where 1=1
     <if test="carNum != null and carNum !=''" >
       and LOCATE(#{carNum}, c.car_num)>0 or LOCATE(#{carNum}, c.car_name)>0
     </if>
+    <if test="comId != null and comId !=''" >
+      and c.com_id=#{comId}
+    </if>
     order by c.car_id
   </select>
+
 </mapper>

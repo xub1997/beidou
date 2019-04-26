@@ -31,14 +31,13 @@ public class HeartBeatHandler extends ChannelInboundHandlerAdapter {
 					logger.error("进入写空闲...");
 					break;
 				case ALL_IDLE:
-					//loss_connect_time++;
-					//logger.error("5 秒没有接收到客户端的信息了");
+					loss_connect_time++;
+					logger.error("5 秒没有接收到客户端：{}的信息了！",ctx.channel().id().asLongText());
 					if (loss_connect_time > 5) {
 						Channel channel=ctx.channel();
-						logger.error("channel关闭,关闭channel为：{}",channel.id());
 						// 关闭无用的channel，以防资源浪费
+						channel.writeAndFlush("长时间未连接，连接断开");
 						channel.close();
-						logger.error("channel关闭后，users的数量为：{}", ActionHandler.clients.size() );
 					}
 					break;
 				default:

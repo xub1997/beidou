@@ -46,6 +46,17 @@ public class RelationShipMap {
 	}
 
 	/*
+	 * 移除用户跟channel的绑定关系
+	 * */
+	public static void remove(String clientId){
+		for (Map.Entry entry : relation_manager.entrySet()){
+			if (entry.getKey()==clientId){
+				relation_manager.remove(entry.getKey());
+			}
+		}
+	}
+
+	/*
 	 * 打印用户跟channel的绑定关系
 	 * */
 	public static void output() {

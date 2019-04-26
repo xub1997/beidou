@@ -35,4 +35,12 @@ public class CarPositionServiceImpl implements CarPositionService {
         List<CarPosition> carPositions = carPositionMapper.listCarPosition(queryMap);
         return carPositions;
     }
+
+    /*
+    * 获取最新位置
+    * */
+    @Override
+    public CarPosition getLastCarPosition(String carId) {
+        return carPositionMapper.getLastCarPosition(carId);
+    }
 }

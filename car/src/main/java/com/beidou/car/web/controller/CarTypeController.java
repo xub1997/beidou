@@ -35,7 +35,7 @@ public class CarTypeController {
 
     @ApiOperation(value = "获取id对应的车辆类型信息", notes = "获取id对应的车辆类型信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "车辆ID", required = true, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "id", value = "车辆ID", required = true, dataType = "String", paramType = "path")
     })
     @GetMapping(value = "/carType/{id}")
     public ResponseMsg getById(@PathVariable("id") String id) {
@@ -49,7 +49,7 @@ public class CarTypeController {
 
     @ApiOperation(value = "更新id对应的车辆类型信息", notes = "更新id对应的车辆类型信息")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "车辆类型ID", required = true, dataType = "int", paramType = "path")
+            @ApiImplicitParam(name = "id", value = "车辆类型ID", required = true, dataType = "String", paramType = "path")
     })
     @PutMapping(value = "/carType/{id}")
     public ResponseMsg updateById(CarType carType) {
