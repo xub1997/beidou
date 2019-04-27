@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beidou.carsocket.web.dao.CarPositionMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.carsocket.web.entity.CarPosition">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="car_pos_id" jdbcType="INTEGER" property="carPosId" />
+    <result column="car_id" jdbcType="VARCHAR" property="carId" />
+    <result column="lon" jdbcType="VARCHAR" property="lon" />
+    <result column="lat" jdbcType="VARCHAR" property="lat" />
+    <result column="receive_time" jdbcType="TIMESTAMP" property="receiveTime" />
+    <result column="utc_times" jdbcType="TIMESTAMP" property="utcTime" />
+    <result column="sim_no" jdbcType="VARCHAR" property="simNo" />
+  </resultMap>
+  <select id="listCarPosition" resultMap="BaseResultMap">
+    select
+    cp.car_pos_id,
+    cp.car_id,
+    cp.lon,
+    cp.lat,
+    cp.receive_time,
+    cp.utc_times,
+    cp.sim_no
+    from tb_car_position cp
+         <where>
+           <if test="beginTime != null and beginTime !=''" >
+             and cp.receive_time &gt;= #{beginTime}
+           </if>
+           <if test="endTime != null and endTime !=''" >
+             and cp.receive_time &lt;= #{endTime}
+           </if>
+           <if test="carId != null and carId !=''" >
+             and cp.car_id = #{carId}
+           </if>
+         </where>
+  </select>
+  <select id="getLastCarPosition" resultMap="BaseResultMap">
+    select
+    cp.car_pos_id,
+    cp.car_id,
+    cp.lon,
+    cp.lat,
+    cp.receive_time,
+    cp.utc_times,
+    cp.sim_no
+    from tb_car_position cp
+    <where>
+      <if test="carId != null and carId !=''" >
+        and cp.car_id = #{carId}
+      </if>
+    </where>
+    ORDER BY cp.receive_time DESC LIMIT 1
+  </select>
+</mapper>

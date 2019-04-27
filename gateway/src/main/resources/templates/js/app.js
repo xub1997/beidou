@@ -63,6 +63,6 @@ window.app={
         this.action = action;
         this.content = content;
         this.extend = extend;
-    },
+    }
 
 }

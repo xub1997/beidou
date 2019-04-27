@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beidou.carsocket.web.dao.CarMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.carsocket.web.entity.Car">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="car_id" jdbcType="VARCHAR" property="carId" />
+    <result column="car_name" jdbcType="VARCHAR" property="carName" />
+    <result column="car_type_id" jdbcType="VARCHAR" property="carTypeId" />
+    <result column="car_num" jdbcType="VARCHAR" property="carNum" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="com_id" jdbcType="INTEGER" property="comId" />
+    <result column="sim_no" jdbcType="VARCHAR" property="simNo" />
+    <result column="car_status" jdbcType="INTEGER" property="carStatus" />
+    <result column="car_last_position" jdbcType="VARCHAR" property="carLastPosition" />
+    <result column="last_stop_time" jdbcType="TIMESTAMP" property="lastStopTime" />
+    <result column="display_name" jdbcType="VARCHAR" property="displayName" />
+    <result column="display_icon" jdbcType="VARCHAR" property="displayIcon" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <select id="listCar" resultType="com.beidou.carsocket.web.entity.vo.CarVO">
+    SELECT
+      c.car_id carId,
+      c.car_name carName,
+      c.car_type_id carTypeId,
+      c.car_num carNum,
+      c.user_id userId,
+      c.sim_no simNo,
+      c.car_status carStatus,
+      c.car_last_position carLastPosition,
+      c.last_stop_time LastStopTime,
+      c.display_name displayName,
+      c.display_icon displayIcon,
+      c.create_time createTime,
+      u.name driver,
+      ct.type_desc typeDesc,
+      com.name comName
+    FROM
+      tb_car c
+        LEFT JOIN tb_user u ON c.user_id = u.id
+        LEFT JOIN tb_car_type ct ON c.car_type_id = ct.car_type_id
+        LEFT JOIN tb_company com ON c.com_id=com.id
+    where 1=1
+    <if test="carNum != null and carNum !=''" >
+      and LOCATE(#{carNum}, c.car_num)>0 or LOCATE(#{carNum}, c.car_name)>0
+    </if>
+    <if test="comId != null and comId !=''" >
+      and c.com_id=#{comId}
+    </if>
+    order by c.car_id
+  </select>
+
+</mapper>

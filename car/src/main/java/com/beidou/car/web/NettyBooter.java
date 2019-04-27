@@ -3,8 +3,10 @@ package com.beidou.car.web;
 
 import com.beidou.car.web.config.NettyConfig;
 import com.beidou.car.netty.websocket.WSServer;
+import com.beidou.common.util.SpringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +26,11 @@ public class NettyBooter implements ApplicationListener<ContextRefreshedEvent> {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Bean
+	public SpringUtil getSpingUtil() {
+		return new SpringUtil();
 	}
 	
 }

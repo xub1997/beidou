@@ -2,11 +2,13 @@ package com.beidou.gateway.service;
 
 
 import com.beidou.gateway.entity.Car;
+import com.beidou.gateway.entity.vo.CarVO;
 import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -34,5 +36,8 @@ public interface CarService {
 
     @GetMapping(value="/cars")
     public PageInfo getList(@RequestParam Map<String, Object> queryMap);
+
+    @GetMapping(value = "/getCarList")
+    public List<CarVO> listCar(@RequestParam Map<String, Object> queryMap);
 
 }

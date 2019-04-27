@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title></title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ijFmea7PT5GlBEsq7CbHNSTQALgPV7cZ"></script>
+    <style type="text/css">
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+
+        #container {
+            height: 100%
+        }
+        .layui-tab {
+            margin: 0;
+        }
+        .control {
+            position: fixed;
+            background-color: #ffffff;
+            top: 50px;
+            right: 50px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+        }
+
+        .control .control_header {
+            background-color: #009688;
+            color: #ffffff;
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+            font-size: 18px;
+        }
+        .layui-tab-title li{
+            min-width:0;
+        }
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div class="control" id="app" v-cloak>
+    <div class="control_header">
+        <span>终端列表</span>
+    </div>
+    <div class="control_body">
+        <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-tab-title">
+                <li class="layui-this">全部({{treeData.length}})</li>
+                <li>在线({{treeData.filter(item=>item.carStatus==true).length}})</li>
+                <li>离线({{treeData.filter(item=>item.carStatus!=true).length}})</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <el-tree :data="treeData" @node-click="handleNodeClick" :props="props"></el-tree>
+                </div>
+                <div class="layui-tab-item">
+                    <el-tree :data="treeData.filter(item=>item.carStatus==true)" @node-click="handleNodeClick" :props="props"></el-tree>
+                </div>
+                <div class="layui-tab-item">
+                    <el-tree :data="treeData.filter(item=>item.carStatus!=true)" @node-click="handleNodeClick" :props="props"></el-tree>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="jquery-3.4.0.min.js"></script>
+<script src="layui/layui.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    layui.use('element', function () {
+        const element = layui.element;
+    });
+</script>
+<script type="module">
+    import {websocketServer} from "./ws.js";
+    var app = new Vue({
+        el: '#app',
+        data: {
+            treeData:[],
+            props:{
+                label:'carName'
+            },
+            map:null,
+            carTimer:null,
+            messageBox:null
+        },
+        created(){
+            this.createMap()
+            this.getCarsList()
+        },
+
+        methods: {
+            handleNodeClick(data) {
+                this.map.clearOverlays()
+                if (data.carStatus != 1){
+                    this.$message('该车辆不在线，显示最后位置')
+                    let lng = data.carLastPosition.split(',')[0]
+                    let lat = data.carLastPosition.split(',')[1]
+                    this.newMaker(lng,lat)
+                    return
+                }else{
+                    this.$message({
+                        type: 'success',
+                        message: "已建立连接,实时监控中...",
+                        duration: 0,
+                        showClose: true
+                    });
+                    websocketServer.url=window.app.nettyServerUrl
+                    let content = new window.app.Content(data.carId,null,null)
+                    let dataContent = new window.app.DataContent(window.app.GETLASTPOSITION,content,null)
+                    websocketServer.type=dataContent;
+                    websocketServer.cb = (res) =>{
+                        this.map.clearOverlays()
+                        res = JSON.parse(res)
+                        let msg = JSON.parse(res.content.msg)
+                        let {lat,lon}=msg
+                        this.newMaker(lon,lat)
+                        console.log(msg);
+                    };
+                    websocketServer.createWebSocket()
+                }
+            },
+            newMaker(lng, lat){
+                let point = new BMap.Point(lng, lat)
+                let myIcon = new BMap.Icon("img/car.png", new BMap.Size(48, 48), {
+                    offset: new BMap.Size(10, 10)
+                });
+                let marker = new BMap.Marker(point, {icon: myIcon})
+                let myGeo = new BMap.Geocoder()
+                let address = `未查找到位置数据`
+                let surroundingPois = [{address: '未查找到位置数据', title: '未查找到位置数据'}]
+                this.map.addOverlay(marker);
+                this.map.centerAndZoom(point, 20);
+                myGeo.getLocation(point, function (result) {
+                    if (result) address = result.address;
+                    if (result.surroundingPois != '') surroundingPois = result.surroundingPois;
+                });
+                setTimeout(() => {
+                    let content = "<p>经度：" + lng + "</p>" +
+                        "<p>纬度：" + lat + "</p>" +
+                        "<p>所在大概位置：" + address + "</p>" +
+                        "<p>所在位置：" + surroundingPois[0].address + "</p>" +
+                        "<p>附近：" + surroundingPois[0].title + "</p>";
+                    let infoWindow = new BMap.InfoWindow(content, {title: "当前车辆信息"});
+                    this.map.openInfoWindow(infoWindow, point);
+                    updateCarPosition(this.pointId,address)//更新车辆位置数据接口
+                }, 1000);
+                marker.addEventListener("click", () => {
+                    let content = "<p>经度：" + lng + "</p>" +
+                        "<p>纬度：" + lat + "</p>" +
+                        "<p>所在大概位置：" + address + "</p>" +
+                        "<p>所在位置：" + surroundingPois[0].address + "</p>" +
+                        "<p>附近：" + surroundingPois[0].title + "</p>";
+                    let infoWindow = new BMap.InfoWindow(content, {title: "当前车辆信息"});
+                    this.map.openInfoWindow(infoWindow, point); //开启信息窗口
+                });
+            },
+            createMap(){
+                const map = new BMap.Map("container");          // 创建地图实例
+                this.map=map
+                const point = new BMap.Point(113.484908, 23.107453);  // 创建点坐标
+                map.centerAndZoom(point, 18);                 // 初始化地图，设置中心点坐标和地图级别
+                map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+                map.addControl(new BMap.NavigationControl());
+                map.addControl(new BMap.ScaleControl());
+                map.addControl(new BMap.OverviewMapControl());
+                map.addControl(new BMap.MapTypeControl());
+                map.setCurrentCity("广州"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+            },
+            getCarsList(){
+                this.carTimer=setInterval(()=>{
+                    $.ajax({
+                        url:window.app.serverUrl+`/api/v1/carManager/getCarList?comId=1`,
+                        type:'GET',
+                        success:(res)=>{
+                            //console.log(res);
+                            this.treeData=res.data
+                        },
+                        error:(err)=>{
+                            console.log(err);
+                        }
+                    })
+                },2000)
+
+            }
+        }
+    })
+</script>
+</body>
+</html>

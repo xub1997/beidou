@@ -31,7 +31,7 @@
              and cp.receive_time &lt;= #{endTime}
            </if>
            <if test="carId != null and carId !=''" >
-             and cp.car_id &lt;= #{carId}
+             and cp.car_id = #{carId}
            </if>
          </where>
   </select>
@@ -47,7 +47,7 @@
     from tb_car_position cp
     <where>
       <if test="carId != null and carId !=''" >
-        and cp.car_id &lt;= #{carId}
+        and cp.car_id = #{carId}
       </if>
     </where>
     ORDER BY cp.receive_time DESC LIMIT 1

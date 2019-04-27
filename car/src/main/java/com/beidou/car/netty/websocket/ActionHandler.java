@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.beidou.car.web.dao.CarMapper;
 import com.beidou.car.web.entity.Car;
 import com.beidou.car.web.entity.CarPosition;
+import com.beidou.car.web.entity.vo.CarVO;
 import com.beidou.car.web.service.CarPositionService;
 import com.beidou.car.web.service.CarService;
 import com.beidou.common.util.SpringUtil;
@@ -39,7 +42,7 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 	
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame msg) 
-			throws Exception {
+			throws Exception, JSONException {
 		// 获取客户端传输过来的消息
 		String msgcontent = msg.text();
 		logger.error("时间： {}  ,客户端传来信息：{}",LocalDateTime.now(),msgcontent);
@@ -63,6 +66,13 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 				//绑定车辆与消息管道
 				RelationShipMap.add(content.getCarId(),currentChannel);
 				returnMsg="客户端连接";
+				//组装返回消息
+				returnContent.setMsg(returnMsg);
+				returnDataContent.setContent(returnContent);
+				//返回前端信息
+				currentChannel.writeAndFlush(
+						new TextWebSocketFrame(
+								JSONObject.toJSONString(returnDataContent)));
 			};break;
 			case DISCONNECT://断开连接
 			{
@@ -71,22 +81,43 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 				//绑定车辆与消息管道
 				RelationShipMap.remove(content.getCarId());
 				returnMsg="客户端断开";
+				//组装返回消息
+				returnContent.setMsg(returnMsg);
+				returnDataContent.setContent(returnContent);
+				//返回前端信息
+				currentChannel.writeAndFlush(
+						new TextWebSocketFrame(
+								JSONObject.toJSONString(returnDataContent)));
 			};break;
 			case KEEPALIVE://客户端保持心跳
 			{
 				logger.info("客户端保持心跳");
 				returnMsg="客户端保持心跳";
+				//组装返回消息
+				returnContent.setMsg(returnMsg);
+				returnDataContent.setContent(returnContent);
+				//返回前端信息
+				currentChannel.writeAndFlush(
+						new TextWebSocketFrame(
+								JSONObject.toJSONString(returnDataContent)));
 			};break;
 			case GETCARLIST://获取车辆列表
 			{
 				logger.info("获取车辆列表");
-				CarPositionService carPositionService = (CarPositionService) SpringUtil.getBean("carPositionService");
+				CarMapper carMapper = (CarMapper) SpringUtil.getBean("carMapper");
 				Content content=dataContent.getContent();
 				Map<String,Object> params=new HashMap<>();
 				params.put("comId",content.getComId());
 				//获取对应公司的车辆
-				List<CarPosition> carPositionList= carPositionService.listCarPosition(params);
-				returnMsg=JSONObject.toJSONString(carPositionList);
+				List<CarVO> carVOList= carMapper.listCar(params);
+				returnMsg=JSONObject.toJSONString(carVOList);
+				//组装返回消息
+				returnContent.setMsg(returnMsg);
+				returnDataContent.setContent(returnContent);
+				//返回前端信息
+				currentChannel.writeAndFlush(
+						new TextWebSocketFrame(
+								JSONObject.toJSONString(returnDataContent)));
 
 			};break;
 			case GETCARSTATE://获取车辆状态
@@ -98,6 +129,13 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 				//获取对应的车辆信息
 				Car car = carService.getCar(content.getCarId());
 				returnMsg=JSONObject.toJSONString(car);
+				//组装返回消息
+				returnContent.setMsg(returnMsg);
+				returnDataContent.setContent(returnContent);
+				//返回前端信息
+				currentChannel.writeAndFlush(
+						new TextWebSocketFrame(
+								JSONObject.toJSONString(returnDataContent)));
 
 			};break;
 			case GETLASTPOSITION://获取车辆的最新位置
@@ -109,6 +147,13 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 				//获取对应车辆的最新位置
 				CarPosition carPosition= carPositionService.getLastCarPosition(content.getCarId());
 				returnMsg=JSONObject.toJSONString(carPosition);
+				//组装返回消息
+				returnContent.setMsg(returnMsg);
+				returnDataContent.setContent(returnContent);
+				//返回前端信息
+				currentChannel.writeAndFlush(
+						new TextWebSocketFrame(
+								JSONObject.toJSONString(returnDataContent)));
 			};break;
 			default:
 			{
@@ -116,13 +161,7 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 				returnMsg="命令错误";
 			};break;
 		}
-		//组装返回消息
-		returnContent.setMsg(returnMsg);
-		returnDataContent.setContent(returnContent);
-		//返回前端信息
-		currentChannel.writeAndFlush(
-				new TextWebSocketFrame(
-						JSONObject.toJSONString(returnDataContent)));
+
 	}
 
 	/**

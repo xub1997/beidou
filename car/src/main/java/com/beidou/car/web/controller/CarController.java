@@ -1,6 +1,8 @@
 package com.beidou.car.web.controller;
 
+import com.beidou.car.web.dao.CarMapper;
 import com.beidou.car.web.entity.Car;
+import com.beidou.car.web.entity.vo.CarVO;
 import com.beidou.car.web.service.CarService;
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.common.util.StringUtil;
@@ -12,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Api(value = "CarController|车辆操作")
@@ -21,6 +24,9 @@ public class CarController {
 
     @Autowired
     private CarService carService;
+
+    @Autowired
+    private CarMapper carMapper;
 
     @ApiOperation(value = "保存车辆信息", notes = "保存车辆信息")
     @PostMapping(value = "/car")
@@ -96,4 +102,15 @@ public class CarController {
         PageInfo pageInfo = carService.listCar(queryMap);
         return ResponseMsg.Success("获取成功", pageInfo);
     }
+
+    @ApiOperation(value = "获取车辆列表", notes = "获取车辆列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "comId", value = "公司编号", required = false, dataType = "String", paramType = "query")
+    })
+    @GetMapping(value = "/getCarList")
+    public ResponseMsg getCarList(@RequestParam Map<String, Object> queryMap) {
+        List<CarVO> carVOList= carMapper.listCar(queryMap);
+        return ResponseMsg.Success("获取成功", carVOList);
+    }
+
 }

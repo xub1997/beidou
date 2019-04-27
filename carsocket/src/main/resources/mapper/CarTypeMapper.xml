@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beidou.carsocket.web.dao.CarTypeMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.carsocket.web.entity.CarType">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="car_type_id" jdbcType="VARCHAR" property="carTypeId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="type_desc" jdbcType="VARCHAR" property="typeDesc" />
+  </resultMap>
+  <select id="listCarType" resultMap="BaseResultMap">
+    select ct.car_type_id,ct.type_name,ct.type_desc
+    from tb_car_type ct
+         <where>
+           <if test="typeDesc != null and typeDesc !=''" >
+              LOCATE(#{typeDesc}, ct.type_desc)>0 or LOCATE(#{typeDesc}, ct.type_name)>0
+           </if>
+         </where>
+
+  </select>
+</mapper>

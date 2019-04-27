@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("carPositionService")
 public class CarPositionServiceImpl implements CarPositionService {
     @Autowired
     private CarPositionMapper carPositionMapper;

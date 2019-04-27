@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beidou.carsocket.web.dao.FenceCarMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.carsocket.web.entity.FenceCar">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fence_id" jdbcType="INTEGER" property="fenceId" />
+    <result column="car_id" jdbcType="VARCHAR" property="carId" />
+    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+    <result column="is_del" jdbcType="INTEGER" property="isDel" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <select id="listFenceCar" resultType="com.beidou.carsocket.web.entity.vo.FenceCarVO">
+    SELECT
+    fc.id,
+    fc.fence_id fenceId,
+    fc.car_id carId,
+    fc.creator_id creatorId,
+    fc.is_del isDel,
+    fc.create_time createTime,
+    c.car_name carName,
+    c.car_type_id carTypeId,
+    c.car_num carNum,
+    c.user_id userId,
+    c.sim_no simNo,
+    c.car_status carStatus,
+    c.car_last_position carLastPosition,
+    c.last_stop_time LastStopTime,
+    c.display_name displayName,
+    c.display_icon displayIcon,
+    u. NAME driver,
+    ct.type_desc typeDesc
+    FROM
+    tb_fence_car fc
+    LEFT JOIN tb_car c ON fc.car_id = c.car_id
+    LEFT JOIN tb_user u ON c.user_id = u.id
+    LEFT JOIN tb_car_type ct ON c.car_type_id = ct.car_type_id
+    where fc.fence_id=#{fenceId}
+  </select>
+</mapper>

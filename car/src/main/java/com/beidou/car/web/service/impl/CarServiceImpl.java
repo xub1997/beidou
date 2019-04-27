@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@Service
+@Service("carService")
 public class CarServiceImpl implements CarService {
 
 

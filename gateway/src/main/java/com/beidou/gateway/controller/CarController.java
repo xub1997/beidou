@@ -5,6 +5,7 @@ import com.beidou.common.annotation.SysLogger;
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.common.util.StringUtil;
 import com.beidou.gateway.entity.Car;
+import com.beidou.gateway.entity.vo.CarVO;
 import com.beidou.gateway.service.CarService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -15,6 +16,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Api(value = "CarController|车辆操作")
@@ -105,5 +107,18 @@ public class CarController {
     public ResponseMsg getList(@RequestParam Map<String, Object> queryMap) {
         PageInfo pageInfo = carService.getList(queryMap);
         return ResponseMsg.Success("获取成功", pageInfo);
+    }
+
+
+    @SysLogger("获取车辆信息列表")
+    @RequiresPermissions("car:getCarList")
+    @ApiOperation(value = "获取车辆列表", notes = "获取车辆列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "comId", value = "公司编号", required = false, dataType = "String", paramType = "query")
+    })
+    @GetMapping(value = "/getCarList")
+    public ResponseMsg getCarList(@RequestParam Map<String, Object> queryMap) {
+        List<CarVO> carVOList= carService.listCar(queryMap);
+        return ResponseMsg.Success("获取成功", carVOList);
     }
 }

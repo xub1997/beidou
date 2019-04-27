@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beidou.carsocket.web.dao.FenceMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.carsocket.web.entity.Fence">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="fence_id" jdbcType="INTEGER" property="fenceId" />
+    <result column="fence_name" jdbcType="VARCHAR" property="fenceName" />
+    <result column="fence_position" jdbcType="VARCHAR" property="fencePosition" />
+    <result column="fence_type" jdbcType="INTEGER" property="fenceType" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="createor_id" jdbcType="INTEGER" property="createorId" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modifier_id" jdbcType="INTEGER" property="modifierId" />
+    <result column="valid_time" jdbcType="TIMESTAMP" property="validTime" />
+    <result column="invalid_time" jdbcType="TIMESTAMP" property="invalidTime" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
+  <select id="listCar" resultType="com.beidou.carsocket.web.entity.vo.FenceVO">
+    SELECT
+    f.fence_id fenceId,
+    f.fence_name fenceName,
+    f.fence_position fencePosition,
+    f.fence_type fenceType,
+    f.create_time createTime,
+    f.createor_id createorId,
+    f.modify_time modifyTime,
+    f.modifier_id modifierId,
+    f.valid_time validTime,
+    f.invalid_time invalidTime,
+    f.begin_time beginTime,
+    f.end_time endTime,
+    u.name creatorName,
+    u1.name modifierName
+    FROM
+    tb_car c
+    LEFT JOIN tb_user u ON f.createor_id = u.id
+    LEFT JOIN tb_user u1 ON f.modifier_id = u1.id
+    <if test="fenceName != null and fenceName !=''" >
+      and LOCATE(#{fenceName}, f.fence_name)>0
+    </if>
+  </select>
+</mapper>

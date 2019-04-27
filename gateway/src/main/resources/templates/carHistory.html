@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,user-scalable=no">
+    <title>Title</title>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=ijFmea7PT5GlBEsq7CbHNSTQALgPV7cZ"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%;
+            margin: 0px;
+            padding: 0px
+        }
+
+        #container {
+            height: 100%
+        }
+
+        .control {
+            position: fixed;
+            top: 20px;
+            left: 300px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div class="control" id="app">
+    <el-select v-model="form.carId" placeholder="选择车辆">
+        <el-option
+                v-for="item in cars"
+                :key="item.carId"
+                :label="item.carName"
+                :value="item.carId"
+        ></el-option>
+    </el-select>
+    <el-date-picker
+            v-model="form.time"
+            type="datetimerange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            value-format="yyyy-MM-dd HH:mm:ss"
+    ></el-date-picker>
+    <el-button type="primary" plain @click="onSubmit">开始回放</el-button>
+</div>
+<script src="js/app.js"></script>
+<script src="vue.min.js"></script>
+<script src="jquery-3.4.0.min.js"></script>
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script type="module">
+    import {trackback} from "./trackback.js";
+    var app = new Vue({
+        el: '#app',
+        data: {
+            form: {
+                time: "",
+                carId: ""
+            },
+            cars: [],
+            map:null
+        },
+        created() {
+            this.createMap()
+            this.getCarsList()
+        },
+        methods: {
+            onSubmit() {
+                console.log(this.form);
+                if (this.form.time == "" || this.form.carId == "") {
+                    this.$message.error("请选择车辆和时间段！");
+                    return false;
+                }
+                $.ajax({
+                    url:window.app.serverUrl+'/api/v1/carManager/carPositions',
+                    data:{
+                        carId:this.form.carId,
+                        beginTime:this.form.time[0],
+                        endTime:this.form.time[1],
+                    },
+                    type:'GET',
+                    success:(res)=>{
+                        console.log(res);
+                        trackback(res.data,this.map,this.form.time[0],this.form.time[1])
+                        this.$message({
+                            type:'success',
+                            message:'数据查询成功，正在回放改时间段内历史轨迹=>开始时间：'+this.form.time[0]+'结束时间：'+this.form.time[1],
+                            showClose: true
+                        })
+                    },
+                    error:(err)=>{
+                        console.log(err);
+                    }
+                })
+            },
+            createMap() {
+                const map = new BMap.Map("container");          // 创建地图实例
+                this.map = map
+                const point = new BMap.Point(113.484908, 23.107453);  // 创建点坐标
+                map.centerAndZoom(point, 18);                 // 初始化地图，设置中心点坐标和地图级别
+                map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+                map.addControl(new BMap.NavigationControl());
+                map.addControl(new BMap.ScaleControl());
+                map.addControl(new BMap.OverviewMapControl());
+                map.addControl(new BMap.MapTypeControl());
+                map.setCurrentCity("广州"); // 仅当设置城市信息时，MapTypeControl的切换功能才能可用
+            },
+            getCarsList() {
+                $.ajax({
+                    type: 'GET',
+                    url:window.app.serverUrl+`/api/v1/carManager/getCarList?comId=1`,
+                    async: false,
+                    cache: false,
+                    success: (res) => {
+                        console.log(res);
+                        this.cars = res.data
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                })
+            }
+        }
+    })
+</script>
+</body>
+</html>
