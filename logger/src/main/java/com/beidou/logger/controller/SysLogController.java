@@ -32,34 +32,41 @@ public class SysLogController {
 
     @ApiOperation(value="获取操作日志信息列表", notes="获取操作日志信息列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query")
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, dataType = "Integer", paramType="query")
     })
     @GetMapping(value="/syslogs")
-    public PageInfo getAllList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
-        return sysLogService.getAllList(pageNum);
+    public PageInfo getAllList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+                               @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize ){
+        return sysLogService.getAllList(pageNum,pageSize);
     }
 
 
     @ApiOperation(value="获取操作日志信息列表(对应用户)", notes="获取操作日志信息列表（对应用户）")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "Integer", paramType="query"),
-            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query")
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, dataType = "Integer", paramType="query")
     })
     @GetMapping(value="/userSysLogs")
     public PageInfo getMyList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
-                                      @RequestParam(value = "username")String username){
-        return sysLogService.getMyList(pageNum,username);
+                                      @RequestParam(value = "username")String username,
+                              @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize){
+        return sysLogService.getMyList(pageNum,pageSize,username);
     }
 
 
     @ApiOperation(value="查找操作日志", notes="查找操作日志")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
-            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query")
+            @ApiImplicitParam(name = "username", value = "用户名", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, dataType = "Integer", paramType="query")
     })
     @GetMapping(value="/syslog/searchByUsername")
-    public PageInfo searchByUserName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "username")String username ){
-        return sysLogService.searchByUsername(pageNum,username);
+    public PageInfo searchByUserName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+                                     @RequestParam(value = "username")String username,
+                                     @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize ){
+        return sysLogService.searchByUsername(pageNum,pageSize,username);
     }
 
 }

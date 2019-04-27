@@ -52,6 +52,7 @@
 
 				table.render({
 					elem: '#companyTable',
+                    toolbar: '#companyTable',
 					url: app.serverUrl+'/api/v1/user/companys',
 					cols: [
 						[{
@@ -83,7 +84,7 @@
 						]
 					],
 					page: true,
-					limit: 20,
+                    limits: [10,20,30,50,100,1000,10000,1000000000],
 					parseData: function(res) {
 						//console.log(res);
 						return {
@@ -152,6 +153,7 @@
 					var table = layui.table;
 					table.render({
 						elem: '#companyTable',
+                        toolbar: '#companyTable',
 						url: _url,
 						cols: [
 						[{
@@ -183,7 +185,7 @@
 						]
 					],
 						page: true,
-						limit: 20,
+                        limits: [10,20,30,50,100,1000,10000,1000000000],
 						parseData: function(res) {
 							//console.log(res);
 							return {

@@ -107,9 +107,15 @@ public class DeptController {
     @SysLogger("获取部门信息列表")
     @RequiresPermissions("depts:read")
     @ApiOperation(value="获取部门信息列表", notes="获取部门信息列表")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "comId", value = "公司id", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, dataType = "Integer", paramType="query")
+    })
     @GetMapping(value="/depts")
-    public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
-        return deptService.getList(pageNum);
+    public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
+                               @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize){
+        return deptService.getList(pageNum,pageSize);
     }
 
     @SysLogger("获取部门列表（对应公司）")
@@ -130,12 +136,14 @@ public class DeptController {
     @ApiOperation(value="查找部门", notes="查找部门")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
-            @ApiImplicitParam(name = "name", value = "部门名", required = true, dataType = "String", paramType="query")
+            @ApiImplicitParam(name = "name", value = "部门名", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, dataType = "Integer", paramType="query")
     })
     @GetMapping(value="/dept/searchByName")
     public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
-                                    @RequestParam(value = "name")String name ){
-        return deptService.searchByName(pageNum,name);
+                                    @RequestParam(value = "name")String name ,
+                                    @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize){
+        return deptService.searchByName(pageNum,pageSize,name);
     }
 
     @SysLogger("查找公司部门")

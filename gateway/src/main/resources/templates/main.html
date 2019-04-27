@@ -34,6 +34,7 @@
 
 				table.render({
 					elem: '#mainTable',
+                    toolbar: '#mainTable',
 					url: app.serverUrl+'/api/v2/logger/userSysLogs?username='+username,
 					cols: [[
                         {field: 'id',title: 'id',width: '5%'},
@@ -47,7 +48,7 @@
                         {field: 'createdate',title: '创建时间',width: '15%'}
 					]],
 					page: true,
-					limit:20,
+                    limits: [10,20,30,50,100,1000,10000,1000000000],
 					parseData:function(res){
 						//console.log(res);
 						return {

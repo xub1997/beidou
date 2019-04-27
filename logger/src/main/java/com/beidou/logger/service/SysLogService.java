@@ -34,7 +34,7 @@ public class SysLogService {
     /*
     * 获取所有最新操作日志（倒叙）
     * */
-    public PageInfo getAllList(int pageNum){
+    public PageInfo getAllList(int pageNum,int pageSize){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
 
@@ -42,7 +42,7 @@ public class SysLogService {
         SysLogExample.Criteria criteria = sysLogExample.createCriteria();
         criteria.andIdIsNotNull();
         sysLogExample.setOrderByClause("id desc");
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         List<SysLog> sysLogs = sysLogMapper.selectByExample(sysLogExample);
         PageInfo pageInfo = new PageInfo(sysLogs, 5);
         return pageInfo;
@@ -51,13 +51,13 @@ public class SysLogService {
     /*
     * 获取对应用户的最新操作日志（倒叙）
     * */
-    public PageInfo getMyList(int pageNum,String username){
+    public PageInfo getMyList(int pageNum,int pageSize,String username){
 
         SysLogExample sysLogExample=new SysLogExample();
         SysLogExample.Criteria criteria = sysLogExample.createCriteria();
         criteria.andUsernameEqualTo(username);
         sysLogExample.setOrderByClause("id desc");
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         List<SysLog> sysLogs = sysLogMapper.selectByExample(sysLogExample);
         PageInfo pageInfo = new PageInfo(sysLogs, 5);
         return pageInfo;
@@ -66,10 +66,10 @@ public class SysLogService {
     /*
     * 查找用户的操作日志
     * */
-    public PageInfo searchByUsername(int pageNum,String username){
+    public PageInfo searchByUsername(int pageNum,int pageSize,String username){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         List<SysLog> sysLogs = sysLogMapper.searchByUsername(username);
         PageInfo pageInfo = new PageInfo(sysLogs, 5);
         return pageInfo;

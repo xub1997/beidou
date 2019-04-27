@@ -93,11 +93,13 @@ public class RuleController {
     @RequiresPermissions("rules:read")
     @ApiOperation(value="获取权限信息列表", notes="获取权限信息列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, dataType = "Integer", paramType="query")
     })
     @GetMapping(value="/rules")
-    public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
-        return ruleService.getList(pageNum);
+    public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+                               @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize ){
+        return ruleService.getList(pageNum,pageSize);
     }
 
     @SysLogger("获取角色对应权限")
@@ -117,11 +119,14 @@ public class RuleController {
     @ApiOperation(value="查找权限", notes="查找权限")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
-            @ApiImplicitParam(name = "name", value = "权限名", required = true, dataType = "String", paramType="query")
+            @ApiImplicitParam(name = "name", value = "权限名", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, dataType = "Integer", paramType="query")
     })
     @GetMapping(value="/rule/searchByName")
-    public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "name")String name ){
-        return ruleService.searchByName(pageNum,name);
+    public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+                                    @RequestParam(value = "name")String name,
+                                    @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize ){
+        return ruleService.searchByName(pageNum,pageSize,name);
     }
 
     @SysLogger("获取所有权限")

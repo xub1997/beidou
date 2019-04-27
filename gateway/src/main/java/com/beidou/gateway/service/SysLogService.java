@@ -18,15 +18,19 @@ public interface SysLogService {
 
 
     @GetMapping(value="/syslogs")
-    public PageInfo getAllList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum );
+    public PageInfo getAllList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
+                               @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize);
 
 
     @GetMapping(value="/userSysLogs")
     public PageInfo getMyList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
-                              @RequestParam(value = "username")String username);
+                              @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize,
+                              @RequestParam(value = "username")String username
+                              );
 
 
     @GetMapping(value="/syslog/searchByUsername")
     public PageInfo searchByUsername(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+                                     @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize,
                                      @RequestParam(value = "username")String username);
 }

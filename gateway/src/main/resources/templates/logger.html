@@ -51,6 +51,7 @@
 
         table.render({
             elem: '#userTable',
+            toolbar: '#userTable',
             url: app.serverUrl+'/api/v2/logger/syslogs',
             cols: [
                 [
@@ -67,7 +68,7 @@
                 ]
             ],
             page: true,
-            limit: 20,
+            limits: [10,20,30,50,100,1000,10000,1000000000],
             parseData: function(res) {
                 //console.log(res);
                 return {
@@ -111,6 +112,7 @@
             var table = layui.table;
             table.render({
                 elem: '#userTable',
+                toolbar: '#userTable',
                 url: _url,
                 cols: [
                     [{field: 'id',title: 'id',width: '5%'},
@@ -126,7 +128,7 @@
                     ]
                 ],
                 page: true,
-                limit: 20,
+                limits: [10,20,30,50,100,1000,10000,1000000000],
                 parseData: function(res) {
                     //console.log(JSON.stringify(res));
                     return {

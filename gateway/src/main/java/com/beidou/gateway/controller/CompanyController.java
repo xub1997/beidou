@@ -100,11 +100,13 @@ public class CompanyController {
     @RequiresPermissions("companys:read")
     @ApiOperation(value="获取公司信息列表", notes="获取公司信息列表")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query")
+            @ApiImplicitParam(name = "pageNum", value = "当前页码", required = true, dataType = "int", paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, dataType = "Integer", paramType="query")
     })
     @GetMapping(value="/companys")
-    public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
-        return companyService.getList(pageNum);
+    public ResponseMsg getList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+                               @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize ){
+        return companyService.getList(pageNum,pageSize);
     }
 
     @SysLogger("查找公司")
@@ -112,12 +114,14 @@ public class CompanyController {
     @ApiOperation(value="查找公司", notes="查找公司")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", value = "当前页码（第一次可以不用传）", required = false, dataType = "int", paramType="query"),
-            @ApiImplicitParam(name = "name", value = "公司名", required = true, dataType = "String", paramType="query")
+            @ApiImplicitParam(name = "name", value = "公司名", required = true, dataType = "String", paramType="query"),
+            @ApiImplicitParam(name = "pageSize", value = "显示条数", required = true, dataType = "Integer", paramType="query")
     })
     @GetMapping(value="/company/searchByName")
     public ResponseMsg searchByName(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
-                                    @RequestParam(value = "name")String name ){
-        return companyService.searchByName(pageNum,name);
+                                    @RequestParam(value = "name")String name,
+                                    @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize  ){
+        return companyService.searchByName(pageNum,pageSize,name);
     }
 
 

@@ -65,10 +65,10 @@ public class RoleService {
         return ResponseMsg.Error("批量删除角色信息失败");
     }
 
-    public ResponseMsg getList(Integer pageNum){
+    public ResponseMsg getList(Integer pageNum,Integer pageSize){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         List<Role> roles = roleMapper.selectByExample(null);
         if(roles!=null&&true){
             // 使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就行了。
@@ -80,10 +80,10 @@ public class RoleService {
     }
 
 
-    public ResponseMsg searchByName(Integer pageNum,String name){
+    public ResponseMsg searchByName(Integer pageNum,Integer pageSize,String name){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         List<Role> roles = roleMapper.searchByName(name);
         if(roles!=null&&true){
             // startPage后面紧跟的这个查询就是一个分页查询

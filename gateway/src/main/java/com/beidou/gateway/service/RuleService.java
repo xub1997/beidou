@@ -64,10 +64,10 @@ public class RuleService {
         return ResponseMsg.Error("批量删除权限信息失败");
     }
 
-    public ResponseMsg getList(Integer pageNum){
+    public ResponseMsg getList(Integer pageNum,Integer pageSize){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         // startPage后面紧跟的这个查询就是一个分页查询
         List<Rule> rules = ruleMapper.selectByExample(null);
         if(rules!=null&&true){
@@ -89,10 +89,10 @@ public class RuleService {
     }
 
 
-    public ResponseMsg searchByName(Integer pageNum,String name){
+    public ResponseMsg searchByName(Integer pageNum,Integer pageSize,String name){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         // startPage后面紧跟的这个查询就是一个分页查询
         List<Rule> rules = ruleMapper.searchByName(name);
         if(rules!=null&&true){

@@ -51,8 +51,8 @@ zuul:
   #HTTP请求头不进行转发
   sensitive-headers: Cookie,Set-Cookie,Authorization
   host:
-    connect-timeout-millis: 10000
-    socket-timeout-millis: 60000
+    connect-timeout-millis: 100000
+    socket-timeout-millis: 600000
     max-per-route-connections: 20
     max-total-connections: 200
 

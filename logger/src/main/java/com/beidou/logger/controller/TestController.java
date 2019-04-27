@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/logger")
 public class TestController {
 
-    @Autowired
+   /* @Autowired
     private SysLogService sysLogService;
 
     @ApiOperation(value="获取id对应的操作日志信息", notes="获取id对应的操作日志信息")
@@ -76,5 +76,5 @@ public class TestController {
             return ResponseMsg.Error("数据为空");
         }
         return ResponseMsg.Success("查询成功",pageInfo);
-    }
+    }*/
 }

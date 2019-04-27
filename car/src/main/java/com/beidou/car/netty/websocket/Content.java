@@ -1,4 +1,4 @@
-﻿package com.beidou.car.netty.websocket;
+package com.beidou.car.netty.websocket;
 
 import java.io.Serializable;
 

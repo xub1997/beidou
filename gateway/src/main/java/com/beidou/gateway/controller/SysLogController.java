@@ -31,8 +31,9 @@ public class SysLogController {
     @SysLogger("获取所有日志")
     @RequiresPermissions("syslogs:read")
     @GetMapping(value="/syslogs")
-    public ResponseMsg getAllList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ){
-        PageInfo pageInfo=sysLogService.getAllList(pageNum);
+    public ResponseMsg getAllList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+                                  @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize){
+        PageInfo pageInfo=sysLogService.getAllList(pageNum,pageSize);
         if(pageInfo.getList().size()==0){
             return ResponseMsg.Error("数据为空");
         }
@@ -43,8 +44,9 @@ public class SysLogController {
     @RequiresPermissions("userSysLogs:read")
     @GetMapping(value="/userSysLogs")
     public ResponseMsg getMyList(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum ,
-                                   @RequestParam(value = "username")String username){
-        PageInfo pageInfo=sysLogService.getMyList(pageNum,username);
+                                   @RequestParam(value = "username")String username,
+                                 @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize){
+        PageInfo pageInfo=sysLogService.getMyList(pageNum,pageSize,username);
         if(pageInfo.getList().size()==0){
             return ResponseMsg.Error("数据为空");
         }
@@ -55,8 +57,10 @@ public class SysLogController {
     @SysLogger("查找用户操作日志")
     @RequiresPermissions("syslog:searchByUsername:read")
     @GetMapping(value="/syslog/searchByUsername")
-    public ResponseMsg searchByUsername(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,@RequestParam(value = "username")String username ){
-        PageInfo pageInfo=sysLogService.searchByUsername(pageNum,username);
+    public ResponseMsg searchByUsername(@RequestParam(value = "pageNum", defaultValue = "1")Integer pageNum,
+                                        @RequestParam(value = "username")String username,
+                                        @RequestParam(value = "pageSize", defaultValue = "10")Integer pageSize ){
+        PageInfo pageInfo=sysLogService.searchByUsername(pageNum,pageSize,username);
         if(pageInfo.getList().size()==0){
             return ResponseMsg.Error("数据为空");
         }

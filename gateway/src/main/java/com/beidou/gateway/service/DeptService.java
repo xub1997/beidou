@@ -7,6 +7,7 @@ import com.beidou.gateway.entity.Dept;
 import com.beidou.gateway.entity.DeptExample;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -81,10 +82,10 @@ public class DeptService {
         return ResponseMsg.Error("获取部门信息失败");
     }
 
-    public ResponseMsg getList(Integer pageNum){
+    public ResponseMsg getList(Integer pageNum, Integer pageSize){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         List<Dept> depts = deptMapper.selectByExample(null);
         if(depts!=null&&true){
             // startPage后面紧跟的这个查询就是一个分页查询
@@ -112,10 +113,10 @@ public class DeptService {
         return ResponseMsg.Error("获取公司部门列表失败");
     }
 
-    public ResponseMsg searchByName(Integer pageNum,String name){
+    public ResponseMsg searchByName(Integer pageNum,Integer pageSize,String name){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         List<Dept> depts = deptMapper.searchByName(name);
         if(depts!=null&&true){
             // startPage后面紧跟的这个查询就是一个分页查询

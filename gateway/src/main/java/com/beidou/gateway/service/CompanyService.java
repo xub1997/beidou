@@ -74,10 +74,10 @@ public class CompanyService {
         return ResponseMsg.Error("获取公司信息失败");
     }
 
-    public ResponseMsg getList(Integer pageNum){
+    public ResponseMsg getList(Integer pageNum,Integer pageSize){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum,20,true);
+        PageHelper.startPage(pageNum,pageSize);
         List<Company> companys = companyMapper.selectByExample(null);
         if(companys!=null&&true){
 
@@ -90,10 +90,10 @@ public class CompanyService {
         return ResponseMsg.Error("获取公司信息列表失败");
     }
 
-    public ResponseMsg searchByName(Integer pageNum,String name){
+    public ResponseMsg searchByName(Integer pageNum,Integer pageSize,String name){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum,20,true);
+        PageHelper.startPage(pageNum,pageSize);
         List<Company> companys = companyMapper.searchByName(name);
         if(companys!=null&&true){
 

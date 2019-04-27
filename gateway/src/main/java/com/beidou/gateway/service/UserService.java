@@ -75,10 +75,10 @@ public class UserService {
         return ResponseMsg.Error("批量删除用户信息失败");
     }
 
-    public ResponseMsg getList(Integer pageNum){
+    public ResponseMsg getList(Integer pageNum,Integer pageSize){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         List<User> users = userMapper.selectByExample(null);
         if(users!=null&&true){
             // startPage后面紧跟的这个查询就是一个分页查询
@@ -105,10 +105,10 @@ public class UserService {
         return ResponseMsg.Error("获取公司用户列表失败");
     }
 
-    public ResponseMsg searchByUserName(Integer pageNum,String username){
+    public ResponseMsg searchByUserName(Integer pageNum,Integer pageSize,String username){
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
-        PageHelper.startPage(pageNum, 20);
+        PageHelper.startPage(pageNum, pageSize);
         List<User> users = userMapper.searchByUserName(username);
         if(users!=null&&true){
             // startPage后面紧跟的这个查询就是一个分页查询

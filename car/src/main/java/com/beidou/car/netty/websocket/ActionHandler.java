@@ -54,7 +54,7 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 		DataContent dataContent = JSONObject.parseObject(msgcontent, DataContent.class);
 		int action = dataContent.getAction();
 		// 2. 判断消息类型，根据不同的类型来处理不同的业务
-		ActionEnum actionEnum=ActionEnum.fromType(action);
+		ActionEnum actionEnum= ActionEnum.fromType(action);
 		switch (actionEnum){
 			case CONNECT://第一次(或重连)初始化连接
 			{
