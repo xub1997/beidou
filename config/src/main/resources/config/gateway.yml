@@ -90,3 +90,6 @@ mybatis:
   typeAliasesPackage: com.beidou.gateway.entity
   mapperLocations: classpath:mapper/*.xml
 
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 2500

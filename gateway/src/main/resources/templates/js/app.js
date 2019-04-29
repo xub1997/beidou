@@ -2,7 +2,7 @@ window.app={
     /**
      * netty服务后端发布的url地址
      */
-    nettyServerUrl: 'ws://localhost:8088/ws',
+    nettyServerUrl: 'ws://120.76.196.44:8088/ws',
 
 
     /**
