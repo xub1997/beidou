@@ -106,6 +106,7 @@
                         sessionStorage.setItem("menus", JSON.stringify(menus));
                         sessionStorage.setItem('username', username);
                         sessionStorage.setItem('userId', userId);
+                        app.setUserGlobalInfo(res.data);
                         window.location.href = "index.html";//跳转
                     });
                 }

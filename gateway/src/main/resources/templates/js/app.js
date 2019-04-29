@@ -63,6 +63,29 @@ window.app={
         this.action = action;
         this.content = content;
         this.extend = extend;
-    }
+    },
+
+    /**
+     * 保存用户的全局对象
+     * @param {Object} user
+     */
+    setUserGlobalInfo: function(user) {
+        var userInfoStr = JSON.stringify(user);
+        sessionStorage.setItem("userInfo", userInfoStr);
+    },
+
+    /**
+     * 获取用户的全局对象
+     */
+    getUserGlobalInfo: function() {
+        var userInfoStr = sessionStorage.getItem("userInfo");
+        return JSON.parse(userInfoStr);
+    },
+    /**
+     * 登出后，移除用户全局对象
+     */
+    userLogout: function() {
+        plus.storage.removeItem("userInfo");
+    },
 
 }
