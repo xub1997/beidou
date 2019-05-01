@@ -58,8 +58,8 @@
 <script src="../../js/app.js"></script>
 <script src="../../layui/layui.js"></script>
 <script>
-    var username = sessionStorage.getItem("username");
-    var userId = sessionStorage.getItem('userId');
+    var username = app.getUserGlobalInfo().username;
+    var userId = app.getUserGlobalInfo().id;
     console.log(userId);
     $('#username').val(username);
     var passwordF = document.getElementById("passwordF");

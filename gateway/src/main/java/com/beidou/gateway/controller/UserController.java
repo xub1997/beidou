@@ -168,7 +168,7 @@ public class UserController {
             @ApiImplicitParam(name = "oldPwd", value = "旧密码", required = true, dataType = "String", paramType="query"),
             @ApiImplicitParam(name = "newPwd", value = "新密码", required = true, dataType = "String", paramType="query")
     })
-    @GetMapping(value="/user/modifyPwd")
+    @PutMapping(value="/user/modifyPwd")
     public ResponseMsg modifyPwd(@RequestParam(value = "userId")Integer userId ,
                                  @RequestParam(value = "oldPwd")String oldPwd,
                                  @RequestParam(value = "newPwd")String newPwd){
