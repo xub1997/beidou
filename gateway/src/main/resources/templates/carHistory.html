@@ -86,7 +86,14 @@
                     },
                     type:'GET',
                     success:(res)=>{
-                        console.log(res);
+                        if (res.data.length ===0){
+                            this.$message({
+                                type:'error',
+                                message:'此时间段内没数据',
+                                showClose:true
+                            })
+                            return
+                        }
                         trackback(res.data,this.map,this.form.time[0],this.form.time[1])
                         this.$message({
                             type:'success',
@@ -114,11 +121,10 @@
             getCarsList() {
                 $.ajax({
                     type: 'GET',
-                    url:window.app.serverUrl+`/api/v1/carManager/getCarList?comId=`+window.app.getUserGlobalInfo().comid,
+                    url:window.app.serverUrl+`/api/v1/carManager/getCarList?comId=1`,
                     async: false,
                     cache: false,
                     success: (res) => {
-                        console.log(res);
                         this.cars = res.data
                     },
                     error: (err) => {

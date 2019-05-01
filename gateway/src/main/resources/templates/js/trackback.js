@@ -22,15 +22,6 @@ export let trackback = (points, map, Begin, End) => {
   var pointsLen = points.length;
   var searchRes = points; //用来装符合条件的坐标信息。
 
-  //满足条件的放上去。
-  /*for (var i = 0; i < pointsLen; i++) {
-    if (dateDiff(points[i].time, dateBegin) > 0 && dateDiff(points[i].time, dateEnd) < 0) {
-      searchRes.push(points[i]);
-    }
-  }*/
-  //console.log(searchRes);
-  //trackTime(dateBegin);
-
   for (var j = 0; j < searchRes.length; j++) {
     //var wait = dateDiff(searchRes[j].time, dateBegin) * 100; //等待时间。
     var timeDelay=1000;
@@ -72,7 +63,7 @@ export let trackback = (points, map, Begin, End) => {
     if (pointsLen == 0) {
       return;
     }
-    var myIcon = new BMap.Icon("img/car.png", new BMap.Size(48, 48), {
+    var myIcon = new BMap.Icon("./img/car.png", new BMap.Size(48, 48), {
       offset: new BMap.Size(10, 10)
     });
 
@@ -94,7 +85,9 @@ export let trackback = (points, map, Begin, End) => {
 
   //点击轨迹点后显示信息窗口
   function showInfo(thisMaker, point) {
-    var sContent = "<p>lon：" + point.lon + "</p>"+
+    var sContent = "<p>司机：" + point.driver + "</p>"+
+        "<p>公司：" + point.comName + "</p>"+
+        "<p>lon：" + point.lon + "</p>"+
         "<p>lat：" + point.lat + "</p>"+
         "<p>时间：" + point.utcTime  + "</p>";
     var infoWindow = new BMap.InfoWindow(sContent); // 创建信息窗口对象
