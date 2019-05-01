@@ -93,3 +93,10 @@ mybatis:
 ribbon:
   ReadTimeout: 60000
   ConnectTimeout: 2500
+
+upload:
+  path:
+    realPath: D://upload//
+    uploadPath: /upload/
+    uploadMatch: /upload/**.*
+    filePath:  file:///D://upload//

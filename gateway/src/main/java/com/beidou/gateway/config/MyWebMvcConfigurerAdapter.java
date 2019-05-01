@@ -1,6 +1,7 @@
 package com.beidou.gateway.config;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,8 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
+    @Autowired
+    private UploadConfig uploadConfig;
 
     /**
      * 配置静态资源
@@ -27,7 +30,8 @@ public class MyWebMvcConfigurerAdapter extends WebMvcConfigurerAdapter {
                 .addResourceLocations("classpath:/templates/error/");
         registry.addResourceHandler("/swagger-ui.html")
                 .addResourceLocations("classpath:/META-INF/resources/");
-
+        registry.addResourceHandler(uploadConfig.getUploadMatch())
+                .addResourceLocations(uploadConfig.getFilePath());
         super.addResourceHandlers(registry);
     }
 

@@ -30,6 +30,7 @@ public class UserService {
             String salt=UUID.randomUUID().toString().replaceAll("-","");
             user.setSalt(salt);
             user.setPwd(StringUtil.encryptByMD5(user.getPwd()+salt));
+            user.setAvatarurl("img/icon.png");//默认头像
             if(userMapper.insert(user)>0&&true){
                 return ResponseMsg.Success("保存用户信息成功");
             }
