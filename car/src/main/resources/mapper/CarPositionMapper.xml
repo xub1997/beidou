@@ -13,38 +13,48 @@
     <result column="utc_times" jdbcType="TIMESTAMP" property="utcTime" />
     <result column="sim_no" jdbcType="VARCHAR" property="simNo" />
   </resultMap>
-  <select id="listCarPosition" resultMap="BaseResultMap">
+  <select id="listCarPosition" resultType="com.beidou.car.web.entity.vo.CarPositionVO">
     select
-    cp.car_pos_id,
-    cp.car_id,
+    cp.car_pos_id carPosId,
+    cp.car_id carId,
     cp.lon,
     cp.lat,
-    cp.receive_time,
-    cp.utc_times,
-    cp.sim_no
+    cp.receive_time receiveTime,
+    cp.utc_times utcTime,
+    cp.sim_no simNo,
+    u.name driver,
+    com.name comName
     from tb_car_position cp
-         <where>
-           <if test="beginTime != null and beginTime !=''" >
-             and cp.receive_time &gt;= #{beginTime}
-           </if>
-           <if test="endTime != null and endTime !=''" >
-             and cp.receive_time &lt;= #{endTime}
-           </if>
-           <if test="carId != null and carId !=''" >
-             and cp.car_id = #{carId}
-           </if>
-         </where>
+    left join tb_car c ON cp.car_id=c.car_id
+    LEFT JOIN tb_user u ON c.user_id = u.id
+    LEFT JOIN tb_company com ON c.com_id=com.id
+    <where>
+      <if test="beginTime != null and beginTime !=''" >
+        and cp.receive_time &gt;= #{beginTime}
+      </if>
+      <if test="endTime != null and endTime !=''" >
+        and cp.receive_time &lt;= #{endTime}
+      </if>
+      <if test="carId != null and carId !=''" >
+        and cp.car_id = #{carId}
+      </if>
+    </where>
   </select>
-  <select id="getLastCarPosition" resultMap="BaseResultMap">
+  <select id="getLastCarPosition" resultType="com.beidou.car.web.entity.vo.CarPositionVO">
     select
-    cp.car_pos_id,
-    cp.car_id,
+    cp.car_pos_id carPosId,
+    cp.car_id carId,
     cp.lon,
     cp.lat,
-    cp.receive_time,
-    cp.utc_times,
-    cp.sim_no
+    cp.receive_time receiveTime,
+    cp.utc_times utcTime,
+    cp.sim_no simNo,
+    u.name driver,
+    com.name comName
     from tb_car_position cp
+    left join tb_car c ON cp.car_id=c.car_id
+    LEFT JOIN tb_user u ON c.user_id = u.id
+    LEFT JOIN tb_company com ON c.com_id=com.id
     <where>
       <if test="carId != null and carId !=''" >
         and cp.car_id = #{carId}

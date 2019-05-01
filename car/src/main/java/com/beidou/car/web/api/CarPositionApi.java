@@ -1,6 +1,7 @@
 package com.beidou.car.web.api;
 
 import com.beidou.car.web.entity.CarPosition;
+import com.beidou.car.web.entity.vo.CarPositionVO;
 import com.beidou.car.web.service.CarPositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +27,8 @@ public class CarPositionApi {
 
 
     @GetMapping(value = "/carPositions")
-    public List<CarPosition> getList(@RequestParam Map<String, Object> queryMap) {
-        List<CarPosition> carPositions= carPositionService.listCarPosition(queryMap);
+    public List<CarPositionVO> getList(@RequestParam Map<String, Object> queryMap) {
+        List<CarPositionVO> carPositions= carPositionService.listCarPosition(queryMap);
         return carPositions;
     }
 }

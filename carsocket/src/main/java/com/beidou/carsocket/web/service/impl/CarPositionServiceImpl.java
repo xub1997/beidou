@@ -32,8 +32,8 @@ public class CarPositionServiceImpl implements CarPositionService {
      * 获取车辆坐标列表（Map里面可以放各种条件）
      * */
     @Override
-    public List<CarPosition> listCarPosition(Map<String, Object> queryMap) {
-        List<CarPosition> carPositions = carPositionMapper.listCarPosition(queryMap);
+    public List<CarPositionVO> listCarPosition(Map<String, Object> queryMap) {
+        List<CarPositionVO> carPositions = carPositionMapper.listCarPosition(queryMap);
         return carPositions;
     }
 

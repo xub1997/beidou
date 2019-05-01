@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.beidou.car.web.dao.CarMapper;
 import com.beidou.car.web.entity.Car;
 import com.beidou.car.web.entity.CarPosition;
+import com.beidou.car.web.entity.vo.CarPositionVO;
 import com.beidou.car.web.entity.vo.CarVO;
 import com.beidou.car.web.service.CarPositionService;
 import com.beidou.car.web.service.CarService;
@@ -140,12 +141,11 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 			};break;
 			case GETLASTPOSITION://获取车辆的最新位置
 			{
-				logger.info("获取车辆的最新位置");
 				CarPositionService carPositionService = (CarPositionService) SpringUtil.getBean("carPositionService");
 				Content content=dataContent.getContent();
 
 				//获取对应车辆的最新位置
-				CarPosition carPosition= carPositionService.getLastCarPosition(content.getCarId());
+				CarPositionVO carPosition= carPositionService.getLastCarPosition(content.getCarId());
 				returnMsg=JSONObject.toJSONString(carPosition);
 				//组装返回消息
 				returnContent.setMsg(returnMsg);

@@ -1,6 +1,7 @@
 package com.beidou.car.web.controller;
 
 import com.beidou.car.web.entity.CarPosition;
+import com.beidou.car.web.entity.vo.CarPositionVO;
 import com.beidou.car.web.service.CarPositionService;
 import com.beidou.common.entity.ResponseMsg;
 import io.swagger.annotations.Api;
@@ -40,7 +41,7 @@ public class CarPositionController {
     })
     @GetMapping(value = "/carPositions")
     public ResponseMsg getList(@RequestParam Map<String, Object> queryMap) {
-        List<CarPosition> carPositions= carPositionService.listCarPosition(queryMap);
+        List<CarPositionVO> carPositions= carPositionService.listCarPosition(queryMap);
         return ResponseMsg.Success("获取成功", carPositions);
     }
 }

@@ -2,6 +2,7 @@ package com.beidou.car.web.service.impl;
 
 import com.beidou.car.web.dao.CarPositionMapper;
 import com.beidou.car.web.entity.CarPosition;
+import com.beidou.car.web.entity.vo.CarPositionVO;
 import com.beidou.car.web.service.CarPositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,8 +32,8 @@ public class CarPositionServiceImpl implements CarPositionService {
      * 获取车辆坐标列表（Map里面可以放各种条件）
      * */
     @Override
-    public List<CarPosition> listCarPosition(Map<String, Object> queryMap) {
-        List<CarPosition> carPositions = carPositionMapper.listCarPosition(queryMap);
+    public List<CarPositionVO> listCarPosition(Map<String, Object> queryMap) {
+        List<CarPositionVO> carPositions = carPositionMapper.listCarPosition(queryMap);
         return carPositions;
     }
 
@@ -40,7 +41,7 @@ public class CarPositionServiceImpl implements CarPositionService {
     * 获取最新位置
     * */
     @Override
-    public CarPosition getLastCarPosition(String carId) {
+    public CarPositionVO getLastCarPosition(String carId) {
         return carPositionMapper.getLastCarPosition(carId);
     }
 }

@@ -13,6 +13,6 @@ import java.util.Map;
 @Repository
 @Mapper
 public interface CarPositionMapper extends IBaseMapper<CarPosition> {
-    List<CarPosition> listCarPosition(Map<String,Object> queryMap);
+    List<CarPositionVO> listCarPosition(Map<String,Object> queryMap);
     CarPositionVO getLastCarPosition(@Param("carId") String carId);
 }

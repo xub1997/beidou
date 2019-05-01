@@ -4,6 +4,7 @@ package com.beidou.gateway.controller;
 import com.beidou.common.annotation.SysLogger;
 import com.beidou.common.entity.ResponseMsg;
 import com.beidou.gateway.entity.CarPosition;
+import com.beidou.gateway.entity.vo.CarPositionVO;
 import com.beidou.gateway.service.CarPositionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -48,7 +49,7 @@ public class CarPositionController {
     })
     @GetMapping(value = "/carPositions")
     public ResponseMsg getList(@RequestParam Map<String, Object> queryMap) {
-        List<CarPosition> carPositions= carPositionService.getList(queryMap);
+        List<CarPositionVO> carPositions= carPositionService.getList(queryMap);
         return ResponseMsg.Success("获取成功", carPositions);
     }
 }
