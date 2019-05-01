@@ -175,10 +175,10 @@
                     }
                     $.ajax({
 						type:'GET',
-						url:app.serverUrl+"/api/v1/user/companys",
+						url:app.serverUrl+"/api/v1/user/company",
 						async: false,
 						success:function (res) {
-                            var data = res.data.list;
+                            var data = res.data;
                             var comId ;
                             //console.log(data);
                             for (var i = 0; i < data.length; i++) {
