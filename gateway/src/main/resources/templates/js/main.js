@@ -24,7 +24,7 @@ layui.use(['element','layer'], function() {
         var tabLis = tabTitle.getElementsByTagName('li');
         var tabContents = document.getElementById('tab-content').getElementsByTagName('div');
         //console.log(tabLis);
-        //如果是系统监控，则打开新窗口
+
         if (elem[0].attributes.id) {
             return;
         }else{
@@ -34,6 +34,7 @@ layui.use(['element','layer'], function() {
                 tabContents[j].classList.remove('layui-show');
             }
 		}
+        //如果是系统监控，则打开新窗口
         if (elem[0].innerText == '应用监控') {
             window.open(elem[0].attributes[1].value,"_blank");
             return;
