@@ -93,6 +93,12 @@
     from tb_dept
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="getAll" resultType="com.beidou.gateway.entity.vo.DeptVO">
+    select
+    d.id, d.name, d.createDate, d.description, d.modifyDate, d.comId,c.name comName,c.description Description
+    from tb_dept d
+    left join tb_company c on d.comId=c.id
+  </select>
   <select id="searchByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

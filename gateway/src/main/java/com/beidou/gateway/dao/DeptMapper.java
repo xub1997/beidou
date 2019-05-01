@@ -3,6 +3,7 @@ package com.beidou.gateway.dao;
 
 import com.beidou.gateway.entity.Dept;
 import com.beidou.gateway.entity.DeptExample;
+import com.beidou.gateway.entity.vo.DeptVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -45,4 +46,6 @@ public interface DeptMapper {
 
     //根据部门名、公司编号查询
     List<Dept> searchByNameAndComId(@Param("name") String name, @Param("comId") Integer comId);
+
+    List<DeptVO> getAll();
 }

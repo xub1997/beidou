@@ -5,6 +5,7 @@ import com.beidou.common.util.StringUtil;
 import com.beidou.gateway.dao.DeptMapper;
 import com.beidou.gateway.entity.Dept;
 import com.beidou.gateway.entity.DeptExample;
+import com.beidou.gateway.entity.vo.DeptVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.models.auth.In;
@@ -86,7 +87,7 @@ public class DeptService {
         // 引入PageHelper分页插件
         // 在查询之前只需要调用，传入页码，以及每页的大小
         PageHelper.startPage(pageNum, pageSize);
-        List<Dept> depts = deptMapper.selectByExample(null);
+        List<DeptVO> depts = deptMapper.getAll();
         if(depts!=null&&true){
             // startPage后面紧跟的这个查询就是一个分页查询
             // 使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就行了。
