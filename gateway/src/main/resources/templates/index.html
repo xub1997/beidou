@@ -104,9 +104,33 @@
             }
 			//sessionStorage.clear();
 			function logout() {
-				app.userLogout();
-            	window.location.href=app.serverUrl+"/logout";
-				//window.location.href="login.html";
+
+				$.ajax({
+					type: 'GET',
+					url: app.serverUrl + "/logout",
+					data: {
+
+					},
+					success: function (res) {
+						console.log(res);
+						if (res.status !=200) {
+							layer.msg(res.msg, {
+								icon: 5,
+								time: 1500
+							});
+							return false;
+						}
+						layer.msg(res.msg, {
+							icon: 6,
+							time: 1500
+						}, function () {
+							app.userLogout();
+							window.location.href = "login.html";//跳转登录
+						});
+					}
+				});
+				return false;
+
             }
 		</script>
 

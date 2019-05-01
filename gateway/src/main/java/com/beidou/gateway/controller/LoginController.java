@@ -5,6 +5,7 @@ import com.beidou.common.entity.ResponseMsg;
 import com.beidou.common.entity.Tree;
 import com.beidou.common.util.StringUtil;
 import com.beidou.common.util.TreeUtils;
+import com.beidou.common.util.UserUtils;
 import com.beidou.common.util.vcode.Captcha;
 import com.beidou.common.util.vcode.GifCaptcha;
 import com.beidou.gateway.entity.Role;
@@ -152,17 +153,14 @@ public class LoginController {
 
     @ApiOperation(value="用户退出", notes="用户退出")
     @GetMapping("/logout")
-    public void logout(HttpServletRequest request, HttpServletResponse response){
-        Subject subject=SecurityUtils.getSubject();
+    public ResponseMsg logout(){
+        Subject subject= UserUtils.getSubject();
         if(subject!=null){
             subject.logout();
             logger.info("用户退出");
+            return ResponseMsg.Success("退出成功");
         }
-        try {
-            response.sendRedirect("login.html");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return ResponseMsg.Error("退出失败");
     }
 
 
