@@ -42,7 +42,7 @@ public interface DeptMapper {
 
 
     //根据部门名查询
-    List<Dept> searchByName(String name);
+    List<DeptVO> searchByName(String name);
 
     //根据部门名、公司编号查询
     List<Dept> searchByNameAndComId(@Param("name") String name, @Param("comId") Integer comId);
