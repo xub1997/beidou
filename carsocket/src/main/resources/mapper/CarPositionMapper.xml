@@ -35,16 +35,21 @@
            </if>
          </where>
   </select>
-  <select id="getLastCarPosition" resultMap="BaseResultMap">
+  <select id="getLastCarPosition" resultType="com.beidou.carsocket.web.entity.vo.CarPositionVO">
     select
-    cp.car_pos_id,
-    cp.car_id,
+    cp.car_pos_id carPosId,
+    cp.car_id carId,
     cp.lon,
     cp.lat,
-    cp.receive_time,
-    cp.utc_times,
-    cp.sim_no
+    cp.receive_time receiveTime,
+    cp.utc_times utcTimes,
+    cp.sim_no simNo,
+    u.name driver,
+    com.name comName
     from tb_car_position cp
+    left join tb_car c ON cp.car_id=c.car_id
+    LEFT JOIN tb_user u ON c.user_id = u.id
+    LEFT JOIN tb_company com ON c.com_id=com.id
     <where>
       <if test="carId != null and carId !=''" >
         and cp.car_id = #{carId}

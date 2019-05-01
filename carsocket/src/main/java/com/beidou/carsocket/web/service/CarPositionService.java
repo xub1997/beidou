@@ -1,6 +1,7 @@
 package com.beidou.carsocket.web.service;
 
 import com.beidou.carsocket.web.entity.CarPosition;
+import com.beidou.carsocket.web.entity.vo.CarPositionVO;
 
 import java.util.List;
 import java.util.Map;
@@ -19,5 +20,5 @@ public interface CarPositionService {
     /*
     * 获取最新位置
     * */
-    CarPosition getLastCarPosition(String carId);
+    CarPositionVO getLastCarPosition(String carId);
 }
