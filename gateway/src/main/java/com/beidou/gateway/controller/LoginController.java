@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -125,7 +126,7 @@ public class LoginController {
 
     }
 
-
+    @ApiOperation(value="获取验证码", notes="获取验证码")
     @GetMapping(value = "/gifCode")
     public void getGifCode(HttpServletResponse response, HttpServletRequest request) {
         try {
@@ -146,6 +147,21 @@ public class LoginController {
             logger.info("生成验证码："+captcha.text().toLowerCase());
         } catch (Exception e) {
             logger.error("图形验证码生成失败", e);
+        }
+    }
+
+    @ApiOperation(value="用户退出", notes="用户退出")
+    @GetMapping("/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response){
+        Subject subject=SecurityUtils.getSubject();
+        if(subject!=null){
+            subject.logout();
+            logger.info("用户退出");
+        }
+        try {
+            response.sendRedirect("login.html");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

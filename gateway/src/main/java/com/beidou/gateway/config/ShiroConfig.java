@@ -60,7 +60,7 @@ public class ShiroConfig {
 
 
         // 配置退出过滤器，其中具体的退出代码Shiro实现
-        filterChainDefinitionMap.put("/logout", "logout");
+        filterChainDefinitionMap.put("/logout", "anon");
         filterChainDefinitionMap.put("/swagger-ui.html", "anon");
         filterChainDefinitionMap.put("/v2/api-docs", "anon");
         filterChainDefinitionMap.put("/api/v1/logger/swagger-ui.html", "anon");

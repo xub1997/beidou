@@ -105,7 +105,8 @@
 			//sessionStorage.clear();
 			function logout() {
 				app.userLogout();
-				window.location.href="login.html";
+            	window.location.href=app.serverUrl+"/logout";
+				//window.location.href="login.html";
             }
 		</script>
 
