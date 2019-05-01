@@ -27,7 +27,7 @@ import java.io.IOException;
 @RequestMapping("/api/v1/user")
 public class FileController {
     private Logger logger= LoggerFactory.getLogger(this.getClass());
-    
+
 
     @Autowired
     private UploadConfig uploadConfig;

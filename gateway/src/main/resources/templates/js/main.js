@@ -40,13 +40,15 @@ layui.use(['element','layer'], function() {
                 return;
             }
             for (var i = 0; i < tabLis.length; i++) {
-                //console.log(tabLis[i]);
+                console.log(tabLis[i]);
                 tabLis[i].classList.remove('layui-this');
                 tabContents[i].classList.remove('layui-show');
                 if (tabLis[i].attributes[0].nodeValue == layhref ){
                     tabLis[i].classList.add('layui-this');
                     tabContents[i].classList.add('layui-show');
                 }
+                //如果是系统监控，则打开新窗口
+
             }
             //layer.msg('此页面已打开', {icon:7,time: 1000} );
             return;
