@@ -55,16 +55,43 @@
 					elem: '#userTable',
                     toolbar: '#userTable',
 					url: app.serverUrl+'/api/v1/user/users',
+                    size:'lg',
 					cols: [
 						[
                             {field: 'id',title: 'id',width: '5%'},
 							{field: 'username',title: '用户名',width: '10%'},
 							{field: 'phone',title: '联系方式',width: '10%'},
-							/*{field: 'avatarurl',title: '头像',width: '10%'},*/
+							{field: 'avatarurl',title: '头像',align: 'center',width: '10%',
+                                templet:function (d) {
+                                    return '<div><img src="'+d.avatarurl+'" style="width: 35px;height: 35px;border-radius: 50%"></div>';
+                                }
+							},
 							{field: 'address',title: '地址',width: '25%'},
 							{field: 'job',title: '职位',width: '10%'},
                             {field: 'email',title: '电子邮件',width: '15%'},
-                            {field: 'status',title: '状态',width: '5%'},
+                            {field: 'sex',title: '性别',width: '5%',
+                                templet: function(d) {
+                                    if (d.sex == '1') {
+                                        return '女';
+                                    } else if (d.sex == '0') {
+                                        return '男';
+                                    } else {
+                                        return '';
+                                    }
+                                }
+							},
+                            {field: 'status',title: '状态',width: '5%',
+								templet: function(d) {
+                                    if (d.status == '1') {
+                                        return '可用';
+                                    } else if (d.status == '0') {
+                                        return '锁定';
+                                    } else {
+                                        return '';
+                                    }
+                                }
+
+							},
 							{title: '操作',align: 'center',toolbar: '#barDemo',width: '20%'}
 						]
 					],
@@ -149,14 +176,46 @@
 						elem: '#userTable',
                         toolbar: '#userTable',
 						url: _url,
-						cols: [
-							[{field: 'username',title: '用户名',width: '20%'},
-								{field: 'id',title: 'id',width: '20%'},
-								{field: 'status',title: '状态',width: '20%'},
-								{field: 'createdate',title: '注册时间',width: '20%'},
-								{title: '操作',align: 'center',toolbar: '#barDemo',width: '20%'}
-							]
-						],
+                        size:'lg',
+                        cols: [
+                            [
+                                {field: 'id',title: 'id',width: '5%'},
+                                {field: 'username',title: '用户名',width: '10%'},
+                                {field: 'phone',title: '联系方式',width: '10%'},
+                                {field: 'avatarurl',title: '头像',align: 'center',width: '10%',
+                                    templet:function (d) {
+                                        return '<div><img src="'+d.avatarurl+'" style="width: 35px;height: 35px;border-radius: 50%"></div>';
+                                    }
+                                },
+                                {field: 'address',title: '地址',width: '25%'},
+                                {field: 'job',title: '职位',width: '10%'},
+                                {field: 'email',title: '电子邮件',width: '15%'},
+                                {field: 'sex',title: '性别',width: '5%',
+                                    templet: function(d) {
+                                        if (d.sex == '1') {
+                                            return '女';
+                                        } else if (d.sex == '0') {
+                                            return '男';
+                                        } else {
+                                            return '';
+                                        }
+                                    }
+                                },
+                                {field: 'status',title: '状态',width: '5%',
+                                    templet: function(d) {
+                                        if (d.status == '1') {
+                                            return '可用';
+                                        } else if (d.status == '0') {
+                                            return '锁定';
+                                        } else {
+                                            return '';
+                                        }
+                                    }
+
+                                },
+                                {title: '操作',align: 'center',toolbar: '#barDemo',width: '20%'}
+                            ]
+                        ],
 						page: true,
                         limits: [10,20,30,50,100,1000,10000,1000000000],
 						parseData: function(res) {

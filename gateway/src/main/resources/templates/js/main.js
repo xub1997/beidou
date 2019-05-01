@@ -95,4 +95,15 @@ function changePwd(){
             content: 'user/edit/editPwd.html' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
         });
     })
+}function userInfo(){
+    layui.use('layer', function() {
+        var layer = layui.layer;
+        layer.open({
+            type: 2,
+            shade: 0.2,
+            title: ['基本资料'],
+            area: ['50%', '90%'],
+            content: 'userInfo.html' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+        });
+    })
 }

@@ -135,13 +135,18 @@
 						elem: '#rightTable',
                         toolbar: '#rightTable',
 						url: _url,
-						cols: [
-						[{field: 'rulename',title: '权限名',width: '25%'},
-						{field: 'description',title: '权限描述',width: '25%'},
-						{field: 'url',title: '对应URL',width: '25%'},
-						{field: 'createdate',title: '注册时间',width: '25%'}
-						]
-					],
+                        cols: [
+                            [	{field: 'id',title: '#',width: '5%'},
+                                {field: 'rulename',title: '权限名',width: '12.5%'},
+                                {field: 'description',title: '权限描述',width: '12.5%'},
+                                {field: 'type',title: '类型',width: '12.5%'},
+                                {field: 'permissions',title: '权限标志',width: '12.5%'},
+                                {field: 'url',title: '访问路径',width: '17.5%'},
+                                {field: 'ordernum',title: '排序',width: '7.5%'},
+                                {field: 'pid',title: '父级id',width: '7.5%'},
+                                {title: '操作',align: 'center',toolbar: '#barDemo',width: '12.5%'}
+                            ]
+                        ],
 						page: true,
                         limits: [10,20,30,50,100,1000,10000,1000000000],
 						parseData: function(res) {

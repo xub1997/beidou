@@ -28,9 +28,15 @@
 					</div>
 					<div class="layui-form-mid layui-word-aux" id="userTip"></div>
 				</div>
-
-
-
+				<div class="layui-form-item">
+					<label class="layui-form-label">用户头像</label>
+					<div class="layui-input-inline">
+						<img id="userImg" src="" alt="" style="width: 100px;height: 100px;border: 1px solid #ccc;margin:0 0 10px 10px">
+						<button type="button" class="layui-btn" id="test1" style="margin-left: 10px">
+							<i class="layui-icon">&#xe67c;</i>上传头像
+						</button>
+					</div>
+				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">员工名字</label>
 					<div class="layui-input-inline">
@@ -90,7 +96,13 @@
 						</select>
 					</div>
 				</div>
-
+				<div class="layui-form-item" pane>
+					<label class="layui-form-label">账号状态</label>
+					<div class="layui-input-inline">
+						<input type="radio" name="status"  value="0" title="锁定" id="status0">
+						<input type="radio" name="status"  value="1" title="可用" id="status1">
+					</div>
+				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
 						<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe605;</i> 立即提交</button>
@@ -113,6 +125,7 @@
             var curId = sessionStorage.getItem('id');
             var comid ;
             var deptid;
+            var avatarurl;
             $.ajax({
 				type: "get",
 				url:app.serverUrl+'/api/v1/user/user/'+curId,
@@ -130,6 +143,8 @@
                     $('#job').val(res.data[0].job);
                     $('#coms').val(res.data[0].comid);
                     $('#deps').val(res.data[0].deptid);
+                    $('#userImg').attr('src',app.serverUrl+res.data[0].avatarurl);
+
                     comid=res.data[0].comid;
                     deptid=res.data[0].deptid;
                     if(res.data[0].sex == 0){
@@ -140,6 +155,19 @@
                         })
                     }else{
                         $('#1').attr("checked",'');
+                        layui.use('form',function(){
+                            var form = layui.form;
+                            form.render('radio');
+                        })
+                    }
+                    if(res.data[0].status == 0){
+                        $('#status0').attr("checked",'');
+                        layui.use('form',function(){
+                            var form = layui.form;
+                            form.render('radio');
+                        })
+                    }else{
+                        $('#status1').attr("checked",'');
                         layui.use('form',function(){
                             var form = layui.form;
                             form.render('radio');
@@ -186,10 +214,10 @@
                 }
 			});
 
-
-			layui.use(['form', 'layer'], function() {
+			layui.use(['form', 'layer','upload'], function() {
 				var form = layui.form;
 				var layer = layui.layer;
+                var upload = layui.upload;
 
 				form.on('select(company)', function(res) {
 					//console.log(res);
@@ -217,8 +245,8 @@
 							_method:'put',
 							username: data.field.username,
 							//pwd: data.field.pwd,
-							avatarurl: "1",
-							status: "0",
+							avatarurl: avatarurl,
+							status: data.field.status,
 							name: data.field.name,
 							phone: data.field.phone,
 							age: data.field.age,
@@ -250,6 +278,27 @@
 					return false;
 				});
 
+				//头像上次
+				upload.render({
+                    elem: '#test1',
+					url: app.serverUrl+'/api/v1/user/userAvatar/upload',
+                    method:'post',
+                    accept:'images',
+                    acceptMime:'image/jpg, image/png, image/jpeg, image/gif',
+                    exts:'jpg|jpeg|png|gif',
+                    size:1024,
+                    done: function(res){
+                        //上传完毕回调
+                        console.log(res);
+                        $('#userImg').attr('src',app.serverUrl+res.data);
+                        avatarurl =res.data;
+						form.render();
+                    },
+					error: function(err){
+                        //请求异常回调
+                        console.log(err);
+                    }
+                });
 			});
 		</script>
 	</body>

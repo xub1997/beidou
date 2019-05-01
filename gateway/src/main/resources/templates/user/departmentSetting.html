@@ -64,12 +64,12 @@
 								width: '20%'
 							},
 							{
-								field: 'comid',
+								field: 'comName',
 								title: '部门所属公司',
-								width: '20%'
+								width: '20%',
 							},
 							{
-								field: 'createdate',
+								field: 'createDate',
 								title: '创建时间',
 								width: '20%'
 							},
@@ -152,35 +152,35 @@
 						elem: '#departmentTable',
                         toolbar: '#departmentTable',
 						url: _url,
-						cols: [
-						[{
-								field: 'name',
-								title: '部门名称',
-								width: '20%'
-							},
-							{
-								field: 'description',
-								title: '部门描述',
-								width: '20%'
-							},
-							{
-								field: 'comid',
-								title: '部门所属公司',
-								width: '20%'
-							},
-							{
-								field: 'createdate',
-								title: '创建时间',
-								width: '20%'
-							},
-							{
-								title: '操作',
-								align: 'center',
-								toolbar: '#barDemo',
-								width: '20%'
-							}
-						]
-					],
+                        cols: [
+                            [{
+                                field: 'name',
+                                title: '部门名称',
+                                width: '20%'
+                            },
+                                {
+                                    field: 'description',
+                                    title: '部门描述',
+                                    width: '20%'
+                                },
+                                {
+                                    field: 'comName',
+                                    title: '部门所属公司',
+                                    width: '20%',
+                                },
+                                {
+                                    field: 'createDate',
+                                    title: '创建时间',
+                                    width: '20%'
+                                },
+                                {
+                                    title: '操作',
+                                    align: 'center',
+                                    toolbar: '#barDemo',
+                                    width: '20%'
+                                }
+                            ]
+                        ],
 						page: true,
                         limits: [10,20,30,50,100,1000,10000,1000000000],
 						parseData: function(res) {
