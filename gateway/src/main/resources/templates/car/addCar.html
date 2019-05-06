@@ -156,7 +156,7 @@
 				form.on('submit(formDemo)', function(data) {
 					console.log(JSON.stringify(data.field));
 					$.ajax({
-						url: app.serverUrl + "/api/v1/carManager/car/",
+						url: app.serverUrl + "/api/v1/carManager/car",
 						type: "POST",
 						data: {
 							carName: data.field.carName,
