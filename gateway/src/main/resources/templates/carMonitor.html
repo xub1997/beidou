@@ -102,6 +102,7 @@
         created(){
             this.createMap()
             this.getCarsList()
+            this.goodbye()
         },
         methods: {
             handleNodeClick(data) {
@@ -109,7 +110,7 @@
                 if (data.carStatus != 1){
                     if (window.WebSocket){
                         websocketServer.handClose();
-                    } 
+                    }
                     this.$message('该车辆不在线，显示最后位置')
                     let comName=data.comName
                     let driver=data.driver
@@ -202,9 +203,16 @@
                     })
                 },2000)
 
+            },
+            goodbye(){
+                window.onbeforeunload=(e)=>{
+                    console.log('离开');
+                    websocketServer.handClose();
+                }
             }
         }
     })
 </script>
+
 </body>
 </html>

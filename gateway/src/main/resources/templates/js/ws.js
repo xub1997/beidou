@@ -46,7 +46,7 @@ export let websocketServer = {
     };
   },
   heartCheck: {
-    timeout: 1000,
+    timeout: 5000,
     timer: null,
     serverTimer: null,
     reset() {
