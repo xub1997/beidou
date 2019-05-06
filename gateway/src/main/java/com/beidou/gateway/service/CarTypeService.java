@@ -16,7 +16,7 @@ public interface CarTypeService {
 
 
     @PostMapping(value = "/carType")
-    public Integer insert(CarType carType);
+    public Integer insert(@RequestBody CarType carType);
 
 
 
@@ -24,8 +24,8 @@ public interface CarTypeService {
     public CarType getById(@PathVariable("id") String id);
 
 
-    @PutMapping(value = "/carType/{id}")
-    public Integer updateById(CarType carType);
+    @PutMapping(value = "/carType")
+    public Integer updateById(@RequestBody CarType carType);
 
 
 

@@ -22,7 +22,7 @@ public class CarApi {
 
 
     @PostMapping(value = "/car")
-    public Integer insert(Car car){
+    public Integer insert(@RequestBody Car car){
         return carService.insertCar(car);
     }
 
@@ -35,8 +35,8 @@ public class CarApi {
 
 
 
-    @PutMapping(value="/car/{id}")
-    public Integer updateById(Car car){
+    @PutMapping(value="/car")
+    public Integer updateById(@RequestBody Car car){
         return carService.updateCar(car);
     }
 

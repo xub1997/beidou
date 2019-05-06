@@ -18,7 +18,7 @@ public class CarTypeApi {
 
 
     @PostMapping(value = "/carType")
-    public Integer insert(CarType carType) {
+    public Integer insert(@RequestBody CarType carType) {
         Integer flag = carTypeService.insertCarType(carType);
         return flag;
     }
@@ -32,8 +32,8 @@ public class CarTypeApi {
     }
 
 
-    @PutMapping(value = "/carType/{id}")
-    public Integer updateById(CarType carType) {
+    @PutMapping(value = "/carType")
+    public Integer updateById(@RequestBody CarType carType) {
         Integer flag = carTypeService.updateCarType(carType);
         return flag;
     }

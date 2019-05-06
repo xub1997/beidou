@@ -16,7 +16,7 @@ import java.util.Map;
 public interface CarService {
 
     @PostMapping(value = "/car")
-    public Integer insert(Car car);
+    public Integer insert(@RequestBody Car car);
 
 
 
@@ -25,8 +25,8 @@ public interface CarService {
 
 
 
-    @PutMapping(value="/car/{id}")
-    public Integer updateById(Car car);
+    @PutMapping(value="/car")
+    public Integer updateById(@RequestBody Car car);
 
 
 
