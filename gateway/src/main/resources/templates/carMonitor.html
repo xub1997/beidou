@@ -108,7 +108,7 @@
             handleNodeClick(data) {
                 this.map.clearOverlays()
                 if (data.carStatus != 1){
-                    if (window.WebSocket){
+                    if (websocketServer.ws){
                         websocketServer.handClose();
                     }
                     this.$message('该车辆不在线，显示最后位置')
@@ -207,7 +207,9 @@
             goodbye(){
                 window.onbeforeunload=(e)=>{
                     console.log('离开');
-                    websocketServer.handClose();
+                    if (websocketServer.ws){
+                        websocketServer.handClose();
+                    }
                 }
             }
         }
