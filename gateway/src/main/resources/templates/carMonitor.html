@@ -107,6 +107,9 @@
             handleNodeClick(data) {
                 this.map.clearOverlays()
                 if (data.carStatus != 1){
+                    if (window.WebSocket){
+                        websocketServer.handClose();
+                    } 
                     this.$message('该车辆不在线，显示最后位置')
                     let comName=data.comName
                     let driver=data.driver
