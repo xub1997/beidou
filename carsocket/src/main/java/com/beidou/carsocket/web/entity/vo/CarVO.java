@@ -29,7 +29,7 @@ public class CarVO {
     /**
      * 车牌号
      */
-    private Integer carNum;
+    private String carNum;
 
     /**
      * 用户编号（司机编号）
@@ -112,11 +112,11 @@ public class CarVO {
         this.typeDesc = typeDesc;
     }
 
-    public Integer getCarNum() {
+    public String getCarNum() {
         return carNum;
     }
 
-    public void setCarNum(Integer carNum) {
+    public void setCarNum(String carNum) {
         this.carNum = carNum;
     }
 
