@@ -1,8 +1,11 @@
 package com.beidou.car.web.controller;
 
+import com.beidou.car.web.dao.CarMapper;
+import com.beidou.car.web.entity.Car;
 import com.beidou.car.web.entity.CarPosition;
 import com.beidou.car.web.entity.vo.CarPositionVO;
 import com.beidou.car.web.service.CarPositionService;
+import com.beidou.car.web.service.CarService;
 import com.beidou.common.entity.ResponseMsg;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -11,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,14 +25,38 @@ public class CarPositionController {
     @Autowired
     private CarPositionService carPositionService;
 
+    @Autowired
+    private CarMapper carMapper;
+
+
     @ApiOperation(value = "保存车辆位置信息", notes = "保存车辆位置信息")
     @PostMapping(value = "/carPosition")
     public ResponseMsg insert(CarPosition carPosition) {
         Integer flag = carPositionService.insertCarPosition(carPosition);
-        if (flag > 0) {
+        Car car=new Car();
+        car.setCarId(carPosition.getCarId());
+        car.setCarStatus(1);
+        Integer flag2=carMapper.updateByPrimaryKeySelective(car);
+        if (flag > 0&&flag2>0) {
             return ResponseMsg.Success("保存成功");
         }
         return ResponseMsg.Error("保存失败");
+    }
+
+
+    @ApiOperation(value = "车辆下线", notes = "车辆下线")
+    @PostMapping(value = "/carLogout")
+    public ResponseMsg carLogout(CarPosition carPosition) {
+        Car car=new Car();
+        car.setCarId(carPosition.getCarId());
+        car.setCarStatus(2);
+        car.setCarLastPosition(carPosition.getLon()+','+carPosition.getLat());
+        car.setLastStopTime(new Date());
+        Integer flag=carMapper.updateByPrimaryKeySelective(car);
+        if (flag > 0) {
+            return ResponseMsg.Success("下线成功");
+        }
+        return ResponseMsg.Error("下线失败");
     }
 
 
