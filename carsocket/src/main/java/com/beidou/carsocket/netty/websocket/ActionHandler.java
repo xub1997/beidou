@@ -171,8 +171,9 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 				Integer flag=carMapper.updateByPrimaryKeySelective(car);
 				if (flag > 0) {
 					returnMsg="上线成功";
+				}else {
+					returnMsg="上线失败";
 				}
-				returnMsg="上线失败";
 				//组装返回消息
 				returnContent.setMsg(returnMsg);
 				returnDataContent.setContent(returnContent);
@@ -195,8 +196,9 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 				Integer flag=carMapper.updateByPrimaryKeySelective(car);
 				if (flag > 0) {
 					returnMsg="下线成功";
+				}else{
+					returnMsg="下线失败";
 				}
-				returnMsg="下线失败";
 				//组装返回消息
 				returnContent.setMsg(returnMsg);
 				returnDataContent.setContent(returnContent);
@@ -221,8 +223,9 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 				Integer flag=carPositionService.insertCarPosition(carPosition);
 				if (flag > 0) {
 					returnMsg="上传位置成功";
+				}else {
+					returnMsg="上传位置失败";
 				}
-				returnMsg="上传位置失败";
 				//组装返回消息
 				returnContent.setMsg(returnMsg);
 				returnDataContent.setContent(returnContent);
