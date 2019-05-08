@@ -33,11 +33,7 @@ public class CarPositionController {
     @PostMapping(value = "/carPosition")
     public ResponseMsg insert(CarPosition carPosition) {
         Integer flag = carPositionService.insertCarPosition(carPosition);
-        Car car=new Car();
-        car.setCarId(carPosition.getCarId());
-        car.setCarStatus(1);
-        Integer flag2=carMapper.updateByPrimaryKeySelective(car);
-        if (flag > 0&&flag2>0) {
+        if (flag > 0) {
             return ResponseMsg.Success("保存成功");
         }
         return ResponseMsg.Error("保存失败");
@@ -57,6 +53,22 @@ public class CarPositionController {
             return ResponseMsg.Success("下线成功");
         }
         return ResponseMsg.Error("下线失败");
+    }
+
+
+    @ApiOperation(value = "车辆上线", notes = "车辆上线")
+    @PostMapping(value = "/carLogin")
+    public ResponseMsg carLogin(CarPosition carPosition) {
+        Car car=new Car();
+        car.setCarId(carPosition.getCarId());
+        car.setCarStatus(1);
+        car.setCarLastPosition(carPosition.getLon()+','+carPosition.getLat());
+        car.setLastStopTime(new Date());
+        Integer flag=carMapper.updateByPrimaryKeySelective(car);
+        if (flag > 0) {
+            return ResponseMsg.Success("上线成功");
+        }
+        return ResponseMsg.Error("上线失败");
     }
 
 
