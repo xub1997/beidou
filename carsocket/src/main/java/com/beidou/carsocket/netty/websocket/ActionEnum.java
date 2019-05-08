@@ -6,7 +6,10 @@ public enum ActionEnum {
     DISCONNECT(3),                //断开连接
     GETCARLIST(4),               //获取车辆列表
     GETCARSTATE(5),            //获取车辆状态
-    GETLASTPOSITION(6);       //获取车辆的最新位置
+    GETLASTPOSITION(6),     //获取最新车辆位置
+    CARLOGIN(7),           //上线
+    CARLOGOUT(8),           //下线
+    SENDPOSITION(9);       //获取车辆的最新位置
     private int type;
 
     public int getType() {

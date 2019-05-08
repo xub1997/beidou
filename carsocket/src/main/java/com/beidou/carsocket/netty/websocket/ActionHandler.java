@@ -1,6 +1,7 @@
 package com.beidou.carsocket.netty.websocket;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,6 +149,80 @@ public class ActionHandler extends SimpleChannelInboundHandler<TextWebSocketFram
 				//获取对应车辆的最新位置
 				CarPositionVO carPosition= carPositionService.getLastCarPosition(content.getCarId());
 				returnMsg=JSONObject.toJSONString(carPosition);
+				//组装返回消息
+				returnContent.setMsg(returnMsg);
+				returnDataContent.setContent(returnContent);
+				//返回前端信息
+				currentChannel.writeAndFlush(
+						new TextWebSocketFrame(
+								JSONObject.toJSONString(returnDataContent)));
+			};break;
+			case CARLOGIN://上线
+			{
+				logger.info("上线");
+				CarMapper carMapper = (CarMapper) SpringUtil.getBean("carMapper");
+				Content content=dataContent.getContent();
+				//获取对应车辆的最新位置
+				Car car=new Car();
+				car.setCarId(content.getCarId());
+				car.setCarStatus(1);
+				car.setCarLastPosition(dataContent.getExtend());
+				car.setLastStopTime(new Date());
+				Integer flag=carMapper.updateByPrimaryKeySelective(car);
+				if (flag > 0) {
+					returnMsg="上线成功";
+				}
+				returnMsg="上线失败";
+				//组装返回消息
+				returnContent.setMsg(returnMsg);
+				returnDataContent.setContent(returnContent);
+				//返回前端信息
+				currentChannel.writeAndFlush(
+						new TextWebSocketFrame(
+								JSONObject.toJSONString(returnDataContent)));
+			};break;
+			case CARLOGOUT://下线
+			{
+				logger.info("下线");
+				CarMapper carMapper = (CarMapper) SpringUtil.getBean("carMapper");
+				Content content=dataContent.getContent();
+				//获取对应车辆的最新位置
+				Car car=new Car();
+				car.setCarId(content.getCarId());
+				car.setCarStatus(2);
+				car.setCarLastPosition(dataContent.getExtend());
+				car.setLastStopTime(new Date());
+				Integer flag=carMapper.updateByPrimaryKeySelective(car);
+				if (flag > 0) {
+					returnMsg="下线成功";
+				}
+				returnMsg="下线失败";
+				//组装返回消息
+				returnContent.setMsg(returnMsg);
+				returnDataContent.setContent(returnContent);
+				//返回前端信息
+				currentChannel.writeAndFlush(
+						new TextWebSocketFrame(
+								JSONObject.toJSONString(returnDataContent)));
+			};break;
+			case SENDPOSITION://发送车辆的最新位置
+			{
+				logger.info("发送车辆的最新位置");
+				CarPositionService carPositionService = (CarPositionService) SpringUtil.getBean("carPositionService");
+				Content content=dataContent.getContent();
+
+				//获取对应车辆的最新位置
+				CarPosition carPosition=new CarPosition();
+				carPosition.setCarId(content.getCarId());
+				String[] result=dataContent.getExtend().split(",");
+				carPosition.setLon(result[0]);
+				carPosition.setLat(result[1]);
+				carPosition.setReceiveTime(new Date());
+				Integer flag=carPositionService.insertCarPosition(carPosition);
+				if (flag > 0) {
+					returnMsg="上传位置成功";
+				}
+				returnMsg="上传位置失败";
 				//组装返回消息
 				returnContent.setMsg(returnMsg);
 				returnDataContent.setContent(returnContent);
