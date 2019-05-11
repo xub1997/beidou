@@ -65,6 +65,40 @@
 		<script src="js/app.js"></script>
 		<script src="js/main.js"></script>
 		<script>
+			setInterval(function () {
+			    //获取报警信息
+                $.ajax({
+                    type: 'GET',
+                    url:  "http://localhost:8080/api/v1/alertMsg/alertMsg",
+                    data: {
+
+                    },
+                    success: function (res) {
+						if(res.length>0){
+						    var ids="";
+						    for(int i=0;i<res.length;i++){
+                                layer.msg(res[i].msg);
+                                ids +=res[i].alertId+",";
+							}
+						    //更新报警信息状态
+                            $.ajax({
+                                type: 'POST',
+                                url: "http://localhost:8080/api/v1/alertMsg/alertMsg",
+                                data: {
+									_method:"put",
+									ids:ids
+                                },
+                                success: function (res) {
+
+                                }
+                            });
+                            return false;
+						}
+                    }
+                });
+                return false;
+            },5000);
+
             var menus =JSON.parse(sessionStorage.getItem("menus")) ;
             var username = sessionStorage.getItem("username");
             //console.log(menus);
