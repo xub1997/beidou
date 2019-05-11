@@ -76,7 +76,7 @@
                     success: function (res) {
 						if(res.length>0){
 						    var ids="";
-						    for(int i=0;i<res.length;i++){
+						    for(var i=0;i<res.length;i++){
                                 layer.msg(res[i].msg);
                                 ids +=res[i].alertId+",";
 							}
