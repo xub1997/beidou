@@ -69,7 +69,7 @@
 			    //获取报警信息
                 $.ajax({
                     type: 'GET',
-                    url:  "http://localhost:8080/api/v1/alertMsg/alertMsg",
+                    url: app.serverUrl+ "/api/v1/car/alertMsg",
                     data: {
 
                     },
@@ -83,7 +83,7 @@
 						    //更新报警信息状态
                             $.ajax({
                                 type: 'POST',
-                                url: "http://localhost:8080/api/v1/alertMsg/alertMsg",
+                                url: app.serverUrl+"/api/v1/car/alertMsg",
                                 data: {
 									_method:"put",
 									ids:ids

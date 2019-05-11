@@ -1,9 +1,8 @@
-package com.beidou.carsocket.web.controller;
+package com.beidou.car.web.controller;
 
-import com.beidou.carsocket.web.entity.AlertMsg;
-import com.beidou.carsocket.web.entity.Fence;
-import com.beidou.carsocket.web.service.AlertMsgService;
-import com.beidou.common.entity.ResponseMsg;
+
+import com.beidou.car.web.entity.AlertMsg;
+import com.beidou.car.web.service.AlertMsgService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -33,7 +32,7 @@ public class AlertMsgController {
             @ApiImplicitParam(name = "ids", value = "报警信息编号（“,”隔开）", required = true, dataType = "String")
     })
     @PutMapping(value = "/alertMsg")
-    public void getById(@RequestParam("ids") String ids) {
+    public void update(@RequestParam("ids") String ids) {
         alertMsgService.update(ids);
     }
 

@@ -1,9 +1,9 @@
-package com.beidou.carsocket.web.controller;
+package com.beidou.gateway.controller;
 
-import com.beidou.carsocket.web.entity.AlertMsg;
-import com.beidou.carsocket.web.entity.Fence;
-import com.beidou.carsocket.web.service.AlertMsgService;
-import com.beidou.common.entity.ResponseMsg;
+
+
+import com.beidou.gateway.entity.AlertMsg;
+import com.beidou.gateway.service.AlertMsgService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

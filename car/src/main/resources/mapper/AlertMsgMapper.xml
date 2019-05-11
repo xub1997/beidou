@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beidou.car.web.dao.AlertMsgMapper">
+  <resultMap id="BaseResultMap" type="com.beidou.car.web.entity.AlertMsg">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="alert_id" jdbcType="INTEGER" property="alertId" />
+    <result column="msg" jdbcType="VARCHAR" property="msg" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+
+
+</mapper>

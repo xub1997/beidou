@@ -1,10 +1,7 @@
-package com.beidou.carsocket.web.controller;
+package com.beidou.car.web.api;
 
-import com.beidou.carsocket.web.entity.AlertMsg;
-import com.beidou.carsocket.web.entity.Fence;
-import com.beidou.carsocket.web.service.AlertMsgService;
-import com.beidou.common.entity.ResponseMsg;
-import io.swagger.annotations.Api;
+import com.beidou.car.web.entity.AlertMsg;
+import com.beidou.car.web.service.AlertMsgService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -13,18 +10,16 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(value = "AlertMsgController|报警操作")
 @RestController
-@RequestMapping("/api/v1/car")
-public class AlertMsgController {
+public class AlertMsgApi {
 
     @Autowired
     private AlertMsgService alertMsgService;
 
     @ApiOperation(value = "保存报警信息", notes = "保存报警信息")
     @PostMapping(value = "/alertMsg")
-    public void insert(AlertMsg alertMsg) {
-       alertMsgService.insert(alertMsg);
+    public void insert(@RequestBody AlertMsg alertMsg) {
+        alertMsgService.insert(alertMsg);
     }
 
 
@@ -33,7 +28,7 @@ public class AlertMsgController {
             @ApiImplicitParam(name = "ids", value = "报警信息编号（“,”隔开）", required = true, dataType = "String")
     })
     @PutMapping(value = "/alertMsg")
-    public void getById(@RequestParam("ids") String ids) {
+    public void update(@RequestParam("ids") String ids) {
         alertMsgService.update(ids);
     }
 
