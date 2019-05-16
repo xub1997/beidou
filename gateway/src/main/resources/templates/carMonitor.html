@@ -191,7 +191,7 @@
             getCarsList(){
                 this.carTimer=setInterval(()=>{
                     $.ajax({
-                        url:window.app.serverUrl+`/api/v1/carManager/getCarList?comId=1`,
+                        url:window.app.serverUrl+`/api/v1/carManager/getCarList?comId=`+app.getUserGlobalInfo().comId,
                         type:'GET',
                         success:(res)=>{
                             //console.log(res);

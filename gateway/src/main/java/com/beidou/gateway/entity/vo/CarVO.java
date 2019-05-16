@@ -78,6 +78,8 @@ public class CarVO {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    private String comName;
+
     public String getCarId() {
         return carId;
     }
@@ -188,5 +190,13 @@ public class CarVO {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getComName() {
+        return comName;
+    }
+
+    public void setComName(String comName) {
+        this.comName = comName;
     }
 }

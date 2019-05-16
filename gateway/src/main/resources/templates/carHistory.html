@@ -122,7 +122,7 @@
             getCarsList() {
                 $.ajax({
                     type: 'GET',
-                    url:window.app.serverUrl+`/api/v1/carManager/getCarList?comId=1`,
+                    url:window.app.serverUrl+`/api/v1/carManager/getCarList?comId=`+app.getUserGlobalInfo().comId,
                     async: false,
                     cache: false,
                     success: (res) => {
